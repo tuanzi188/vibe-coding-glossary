@@ -2054,19 +2054,23 @@ Accept: application/json</div>
       </div>
 
       <div class="demo full" id="cicd">
-        <div class="demo-head"><span class="d-name">CI/CD 持续集成部署</span><span class="d-en">/ push 即上线</span></div>
+        <div class="demo-head"><span class="d-name">CI/CD 持续集成部署</span><span class="d-en">/ 7 步流水线，点 tab 逐步看</span></div>
         <div class="demo-stage center">
           <div class="ci-demo" style="width:100%;display:flex;flex-direction:column;gap:12px;">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:12px;color:var(--ink-3);flex:none;">模拟一次 push</span>
-              <button class="btn btn-primary btn-sm" type="button" id="ciRun">push 到 main</button>
-              <span class="ci-status" id="ciStatus" style="font-size:12.5px;color:var(--ink-3);">点按钮跑一遍流水线</span>
+            <div class="ci-tabs" id="ciTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;font-family:var(--mono);">// 命令行日志</div>
+                <div class="ci-log" id="ciLog" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:12px 14px;font-size:12.5px;min-height:240px;max-height:320px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.8;"></div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;">// 这一步在干什么</div>
+                <div id="ciExplain" style="border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-height:240px;max-height:320px;overflow-y:auto;"></div>
+              </div>
             </div>
-            <div class="ci-pipe" id="ciPipe" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
-            <div class="ci-log" id="ciLog" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:12px 14px;font-size:12.5px;min-height:200px;max-height:320px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.8;"></div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain"><b>CI（持续集成）</b>：push 后自动跑 lint → 测试 → 构建，任何一步红了就拦住，不进生产。<b>CD（持续部署）</b>：绿了自动 SSH 上服务器拉新代码、重启服务，最后 curl 验证 HTTPS 能访问。</span><br><span class="eg">"配 CI/CD：push 到 main 自动跑测试，过了 SSH 部署并重启，最后 curl 验证 HTTPS 200"</span></div>
+        <div class="demo-exp"><span class="plain"><b>CI（持续集成）</b>：push 后自动跑 lint → 测试 → 构建，任何一步红了就拦住，不进生产。<b>CD（持续部署）</b>：绿了自动 SSH 上服务器拉新代码、重启服务，最后 curl 验证 HTTPS 能访问。点上面的 tab 逐步看每一步的命令和解释。</span><br><span class="eg">"配 CI/CD：push 到 main 自动跑测试，过了 SSH 部署并重启，最后 curl 验证 HTTPS 200"</span></div>
       </div>
 
       <div class="demo full" id="techPanorama">
@@ -3568,11 +3572,10 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
 })();
 
 /* CI/CD 流水线 */
-var ciRun = document.getElementById('ciRun');
-if(ciRun){
-  var ciPipe = document.getElementById('ciPipe');
+var ciTabs = document.getElementById('ciTabs');
+if(ciTabs){
   var ciLog = document.getElementById('ciLog');
-  var ciStatus = document.getElementById('ciStatus');
+  var ciExplain = document.getElementById('ciExplain');
   var stages = ['触发','拉代码','Lint','测试','构建','SSH 部署','HTTPS 验证'];
   var logs = [
     ['$ git push origin main', '→ push 到 main，触发 GitHub Actions'],
@@ -3583,54 +3586,44 @@ if(ciRun){
     ['$ ssh deploy@47.96.12.34', '→ 连接生产服务器', '$ cd /var/www/app', '$ git pull origin main', '$ docker compose up -d --build', '✓ app container healthy'],
     ['$ curl -I https://api.trip.demo/health', '→ 验证线上服务', 'HTTP/1.1 200 OK', 'Content-Type: application/json', '{"status":"ok","version":"1.4.2"}']
   ];
-  ciRun.addEventListener('click', function(){
-    ciRun.disabled = true;
-    ciStatus.textContent = '流水线运行中…';
-    ciStatus.style.color = 'var(--brand)';
-    ciPipe.innerHTML = '';
-    ciLog.textContent = '';
-    var chips = [];
-    stages.forEach(function(s){
-      var c = document.createElement('span');
-      c.className = 'tchip';
-      c.style.pointerEvents = 'none';
-      c.style.opacity = '.45';
-      c.textContent = s;
-      ciPipe.appendChild(c);
-      chips.push(c);
-    });
-    var i = 0;
-    function runStage(){
-      if(i > 0){
-        chips[i-1].style.background = 'var(--green)';
-        chips[i-1].style.color = '#fff';
-        chips[i-1].style.borderColor = 'var(--green)';
-        chips[i-1].style.opacity = '1';
-      }
-      if(i >= stages.length){
-        ciStatus.textContent = '✓ 全部通过，已部署到生产';
-        ciStatus.style.color = 'var(--green)';
-        ciRun.disabled = false;
-        return;
-      }
-      chips[i].style.background = 'var(--brand)';
-      chips[i].style.color = '#fff';
-      chips[i].style.opacity = '1';
-      // 打印当前阶段的所有日志行
-      var lines = logs[i];
-      lines.forEach(function(line, li){
-        setTimeout(function(){
-          ciLog.textContent += line + '\n';
-          ciLog.scrollTop = ciLog.scrollHeight;
-          if(li === lines.length - 1){
-            i++;
-            runStage();
-          }
-        }, li * 350);
-      });
-    }
-    setTimeout(runStage, 300);
+  var explains = [
+    {title:'① 触发', body:'你本地 <b>git push</b> 到 main，GitHub 收到 webhook 自动触发流水线。<br><br><b>为什么需要：</b>不用手动去服务器敲命令，代码推上去自动开始检查。<br><br><b>失败了会怎样：</b>网络问题或 webhook 没配，流水线根本不启动。去 GitHub Actions 页面看有没有排队的任务。'},
+    {title:'② 拉代码', body:'CI 服务器（GitHub Actions）<b>checkout 最新代码</b>，在干净环境里跑。<br><br><b>为什么需要：</b>不能用你本地的代码——你本地可能有没提交的修改、node_modules 不一致。必须从仓库拉干净的。<br><br><b>失败了会怎样：</b>分支被删了、权限不够。去仓库 Settings → Secrets 检查 deploy key。'},
+    {title:'③ Lint', body:'跑 <b>eslint</b> 检查代码风格和低级错误（忘了 await、用了 var、console.log）。<br><br><b>为什么需要：</b>这步挂了说明代码不规范，直接拦住不往下走。不然坏代码混进去，以后更难查。<br><br><b>失败了会怎样：</b>有人写了 eslint-disable 或格式不对。本地跑一下 <code>npm run lint --fix</code> 自动修。'},
+    {title:'④ 测试', body:'跑 <b>vitest</b> 单元测试 + E2E 测试，确认改的代码没把旧功能搞挂。<br><br><b>为什么需要：</b>你改了个搜索功能，怎么知道没把用户下单流程搞挂？自动跑 42 个测试，30 秒出结果。<br><br><b>失败了会怎样：</b>测试挂了说明代码改坏了。看日志哪个测试 fail，修完再 push。'},
+    {title:'⑤ 构建', body:'跑 <b>vite build</b>，把 .tsx/.scss 打包成浏览器能跑的静态文件，压缩成 380KB。<br><br><b>为什么需要：</b>浏览器不认 TypeScript 和 SCSS，必须编译成原生 JS/CSS。<br><br><b>失败了会怎样：</b>TypeScript 类型错了、import 路径写错了。本地 <code>npm run build</code> 复现。'},
+    {title:'⑥ SSH 部署', body:'<b>ssh deploy@服务器</b> 登录生产，cd 到项目目录，<b>git pull</b> 拉新代码，<b>docker compose up -d --build</b> 重启容器。<br><br><b>为什么需要：</b>代码在你电脑上，怎么让用户访问？SSH 上服务器拉最新代码、重启服务，整个过程自动化。<br><br><b>失败了会怎样：</b>SSH 密钥错了、服务器挂了。去服务器手动 ssh 上去看服务状态。'},
+    {title:'⑦ HTTPS 验证', body:'<b>curl -I https://api.trip.demo/health</b>，确认服务真的起来了、HTTPS 证书正常。<br><br><b>为什么需要：</b>容器重启了不代表服务能访问。最后一步自动验证，返回 200 才算真正上线成功。<br><br><b>失败了会怎样：</b>502/503 说明服务挂了、证书过期。去服务器看 docker logs。'}
+  ];
+  // 生成 tab
+  var tabs = [];
+  stages.forEach(function(s, idx){
+    var t = document.createElement('button');
+    t.className = 'btn btn-sm';
+    t.style.cssText = 'border:1px solid var(--line);background:var(--card);color:var(--ink-2);font-size:12.5px;';
+    t.textContent = s;
+    t.addEventListener('click', function(){ showStep(idx); });
+    ciTabs.appendChild(t);
+    tabs.push(t);
   });
+  function showStep(idx){
+    tabs.forEach(function(t, i){
+      if(i === idx){
+        t.style.background = 'var(--brand)';
+        t.style.color = '#fff';
+        t.style.borderColor = 'var(--brand)';
+      } else {
+        t.style.background = 'var(--card)';
+        t.style.color = 'var(--ink-2)';
+        t.style.borderColor = 'var(--line)';
+      }
+    });
+    ciLog.textContent = logs[idx].join('\n');
+    ciLog.scrollTop = 0;
+    var ex = explains[idx];
+    ciExplain.innerHTML = '<div style="font-weight:700;color:var(--brand);margin-bottom:6px;font-size:13.5px;">' + ex.title + '</div><div style="color:var(--ink-2);font-size:12.5px;line-height:1.7;">' + ex.body + '</div>';
+  }
+  showStep(0);
 }
 
 /* HTTP 请求解剖 */
