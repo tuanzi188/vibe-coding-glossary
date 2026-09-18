@@ -518,6 +518,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .tg-path{width:100%;font-size:12.5px;color:var(--ink-3);margin:-4px 0 12px;padding:8px 12px;background:var(--brand-soft);border-radius:8px;line-height:1.6;}
 .tg-path b{color:var(--brand);font-weight:600;}
 .tc-adv{position:absolute;top:10px;right:10px;font-size:10.5px;font-family:var(--mono);color:#b45309;background:#fef3c7;padding:2px 7px;border-radius:6px;font-weight:600;letter-spacing:.02em;}
+.tc-try{display:inline-block;margin-top:8px;padding:5px 12px;font-size:12px;color:var(--brand);background:var(--brand-soft);border:1px solid var(--brand);border-radius:6px;cursor:pointer;font-family:inherit;font-weight:600;}
+.tc-try:hover{background:var(--brand);color:#fff;}
 .roadmap{width:100%;margin-bottom:16px;padding:18px;background:#fff;border:1px solid #e6eaf2;border-radius:12px;}
 .rm-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
 .rm-title{font-size:15px;font-weight:700;color:var(--ink);}
@@ -3393,7 +3395,7 @@ if(httpSc && scEx){
 /* 后端技术栈全景（六组卡片） */
 var techGroups = [
   { tag: '01', name: '接口与通信', desc: '前端怎么跟后端说话', path: '先学 <b>RESTful</b>，这是你每天都在写的；GraphQL/WebSocket/SSE/gRPC 先眼熟，知道什么时候用就行。', items: [
-    { ab:'RE', name:'RESTful', tag:'URL 写名词，方法表动作', use:'GET /cities 查城市、POST /plans 建行程，URL 只写资源名。', more:'<b>例子：</b>毕设全套接口：GET 查攻略、POST 生成行程。<b>和 GraphQL 的区别：</b>REST 接口固定、简单直接；GraphQL 前端自选字段但后端更复杂。', eg:'"接口按 RESTful 设计，路径写资源名"' },
+    { ab:'RE',  demo:'rest', name:'RESTful', tag:'URL 写名词，方法表动作', use:'GET /cities 查城市、POST /plans 建行程，URL 只写资源名。', more:'<b>例子：</b>毕设全套接口：GET 查攻略、POST 生成行程。<b>和 GraphQL 的区别：</b>REST 接口固定、简单直接；GraphQL 前端自选字段但后端更复杂。', eg:'"接口按 RESTful 设计，路径写资源名"' },
     { ab:'GQ', name:'GraphQL', tag:'按需查字段', use:'一次请求拿想要的数据，不多不少。', adv:true, more:'<b>例子：</b>前端页面字段差异大、嵌套深时特别好用。', eg:'"用 GraphQL，前端自选返回字段"' },
     { ab:'WS', name:'WebSocket', tag:'实时双向长连接', use:'服务器能主动推消息，浏览器也能发。', adv:true, more:'<b>例子：</b>聊天、协同编辑、实时通知、行程变更推送。', eg:'"用 WebSocket 做实时消息推送"' },
     { ab:'SE', name:'SSE', tag:'服务器单向推送', use:'服务器→浏览器单向推，AI 回复逐字蹦用它。', adv:true, more:'<b>例子：</b>AI 回复逐字蹦、通知气泡、实时比分。<b>和 WebSocket 的区别：</b>SSE 只能服务器推、浏览器不能发，够简单；要双向聊天就上 WebSocket。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
@@ -3401,7 +3403,7 @@ var techGroups = [
     { ab:'OA', name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>例子：</b>FastAPI 的 /docs 就是它；前端照着文档联调。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' }
   ]},
   { tag: '02', name: '框架与语言', desc: '选一个框架 = 定后端的地基', path: '选一个深入（毕设用 FastAPI 就把它学透），其他眼熟知道什么时候换。', items: [
-    { ab:'FA', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>例子：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
+    { ab:'FA',  demo:'pyd', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>例子：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
     { ab:'FL', name:'Flask', tag:'Python 轻量框架', use:'简单灵活，一个文件能起服务。', more:'<b>例子：</b>小工具、API 原型、个人项目首选，想加什么自己拼。', eg:'"用 Flask 写个轻量 API，别引入太多东西"' },
     { ab:'DJ', name:'Django', tag:'Python 全家桶', use:'Admin、ORM、鉴权开箱即用。', adv:true, more:'<b>例子：</b>内容型网站、管理后台，自带后台界面省一半工作量。', eg:'"用 Django 全家桶，后台管理界面白送"' },
     { ab:'SB', name:'Spring Boot', tag:'Java 企业标配', use:'Java 后端事实标准，金融/电商/大厂用它，找工作常考。', adv:true, more:'<b>例子：</b>企业级系统；和 FastAPI 比：FastAPI 开发快、Python 简洁，Spring Boot 生态重、强类型、适合大型团队。', eg:'"后端用 Spring Boot + Maven，按模块分包"' },
@@ -3410,14 +3412,14 @@ var techGroups = [
     { ab:'GN', name:'Gin', tag:'Go 高并发框架', use:'Go 写 API 的标配，部署就是一个二进制文件。', adv:true, more:'<b>例子：</b>网关、高并发接口；和 FastAPI 比：Go 编译型性能高但语法啰嗦，Python 开发快。', eg:'"用 Gin 写高并发接口，性能优先"' }
   ]},
   { tag: '03', name: '数据与存储', desc: '数据放哪、怎么查得快', path: '<b>SQLite/MySQL + ORM + 索引</b>必学，这是你每天都在写的；Redis 入门够用，ES/PostgreSQL/MongoDB 先眼熟。', items: [
-    { ab:'SQ', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>例子：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
-    { ab:'MY', name:'MySQL', tag:'最常用关系库', use:'互联网公司存业务数据的标配，几乎人人都会。', more:'<b>例子：</b>用户、订单、内容等业务数据首选。<b>和 SQLite 的区别：</b>SQLite 单文件适合开发/毕设，MySQL 是网络服务，多人/上线用它。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
+    { ab:'SQ',  demo:'sqlite', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>例子：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
+    { ab:'MY',  demo:'sqlite', name:'MySQL', tag:'最常用关系库', use:'互联网公司存业务数据的标配，几乎人人都会。', more:'<b>例子：</b>用户、订单、内容等业务数据首选。<b>和 SQLite 的区别：</b>SQLite 单文件适合开发/毕设，MySQL 是网络服务，多人/上线用它。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
     { ab:'PG', name:'PostgreSQL', tag:'功能最强开源库', use:'JSON、地理、全文搜索全支持。', adv:true, more:'<b>例子：</b>复杂查询、地理数据、JSON 混合存储的强需求场景。', eg:'"用 PostgreSQL，需要 JSON 字段和地理查询"' },
     { ab:'MG', name:'MongoDB', tag:'文档型 NoSQL', use:'字段随意、天然 JSON。', adv:true, more:'<b>例子：</b>日志、评论、配置等结构灵活的数据。', eg:'"非结构化数据存 MongoDB，文档结构灵活"' },
-    { ab:'RD', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>例子：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
+    { ab:'RD',  demo:'redis', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>例子：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
     { ab:'ES', name:'Elasticsearch', tag:'全文搜索引擎', use:'海量文本的模糊搜索秒出。', adv:true, more:'<b>例子：</b>站内搜索、日志检索；MySQL 的 LIKE 查不动大数据量时换它。', eg:'"搜索功能用 Elasticsearch，分词 + 高亮"' },
-    { ab:'IX', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>例子：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
-    { ab:'AC', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>例子：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
+    { ab:'IX',  demo:'index', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>例子：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
+    { ab:'AC',  demo:'txn', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>例子：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
     { ab:'OR', name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>例子：</b>SQLAlchemy / Prisma / TypeORM 都是 ORM：定义 User/Itinerary/Poi 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
     { ab:'MI', name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>例子：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
     { ab:'OS', name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>例子：</b>用户头像、攻略配图存 OSS（AWS 叫 S3），数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' },
@@ -3425,7 +3427,7 @@ var techGroups = [
     { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', adv:true, more:'<b>例子：</b>高并发下每个请求 new 连接会打爆数据库；连接池复用是标配。', eg:'"数据库配连接池，别每次请求新建连接"' }
   ]},
   { tag: '04', name: '认证授权', desc: '你是谁、能干什么', path: '<b>JWT + 密码哈希</b>必学，这是登录系统的基础；OAuth2/刷新令牌/对象级授权先眼熟。', items: [
-    { ab:'JW', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，请求带 Authorization 头。存储要权衡：localStorage 简单但怕 XSS，HttpOnly Cookie 更抗偷但要配 CSRF 防护；另外要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
+    { ab:'JW',  demo:'jwt', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，请求带 Authorization 头。存储要权衡：localStorage 简单但怕 XSS，HttpOnly Cookie 更抗偷但要配 CSRF 防护；另外要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
     { ab:'SC', name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>例子：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
     { ab:'O2', name:'OAuth2 / OIDC', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', adv:true, more:'<b>例子：</b>微信 / GitHub / 手机号一键登录都是它，用户不注册直接用。OIDC 在 OAuth2 之上补了「登录身份」标准（id_token），分清：OAuth2 管授权，OIDC 管认证。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
     { ab:'RB', name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>例子：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
@@ -3454,7 +3456,7 @@ var techGroups = [
     { ab:'AL', name:'告警 Alerting', tag:'指标异常通知', use:'系统出问题主动找你。', adv:true, more:'<b>例子：</b>错误率 >5%、p95 >1s、磁盘满了，自动发短信/钉钉/邮件；别等用户投诉才发现。', eg:'"关键指标配告警阈值，出问题立刻通知"' },
     { ab:'HC', name:'健康检查', tag:'存活 + 就绪探针', use:'让平台知道服务还活着。', adv:true, more:'<b>例子：</b>/healthz 查存活（进程没挂）、/readyz 查就绪（依赖都通）；负载均衡靠它摘除坏实例。', eg:'"加 /healthz 和 /readyz 健康检查接口"' },
     { ab:'TO', name:'超时 / 重试 / 幂等', tag:'分布式三件套', use:'网络会抖，请求会丢，别裸奔。', adv:true, more:'<b>例子：</b>所有外呼设超时；重试要配指数退避；扣款、下单这类操作要幂等（同一请求重发不重复扣钱）。', eg:'"外呼设超时，重试加退避，写操作做幂等"' },
-    { ab:'LR', name:'限流与降级', tag:'过载自我保护', use:'流量太大先保命。', adv:true, more:'<b>例子：</b>Nginx 或网关限 QPS，超了排队或拒绝；下游挂了降级返回缓存/兜底数据，别跟着雪崩。', eg:'"接口加限流，下游故障时降级返回缓存"' },
+    { ab:'LR',  demo:'ratelimit', name:'限流与降级', tag:'过载自我保护', use:'流量太大先保命。', adv:true, more:'<b>例子：</b>Nginx 或网关限 QPS，超了排队或拒绝；下游挂了降级返回缓存/兜底数据，别跟着雪崩。', eg:'"接口加限流，下游故障时降级返回缓存"' },
     { ab:'BT', name:'压测', tag:'上线前摸家底', use:'能扛多少 QPS 心里有数。', adv:true, more:'<b>例子：</b>用 k6 / wrk 模拟 1000 并发打接口，看 p95 和错误率；别等真流量来了才发现扛不住。', eg:'"上线前用 k6 压测核心接口，看 p95 和错误率"' },
     { ab:'TK', name:'测试', tag:'单元 / 集成 / E2E', use:'改坏了能立刻知道。', more:'<b>例子：</b>pytest 写单元测试测业务逻辑；TestClient 测接口；Playwright 跑核心流程 E2E；跑进 CI 每次 push 自动跑。', eg:'"核心接口写 pytest，跑进 CI 每次自动测"' },
     { ab:'BK', name:'备份与恢复', tag:'数据丢了才最痛', use:'定期备份 + 演练恢复。', adv:true, more:'<b>例子：</b>数据库每日备份 + 异地存放；定期演练「真恢复一次」，没恢复过的备份等于没有备份。', eg:'"数据库每天备份，恢复流程演练过"' },
@@ -3497,7 +3499,7 @@ function renderTechCards(groups, container){
         '<div class="tc-name">' + t.name + '</div>' +
         '<div class="tc-tag">' + t.tag + '</div>' +
         '<div class="tc-use">' + t.use + '</div>' +
-        '<div class="tc-more">' + t.more + '<span class="tc-eg">prompt: ' + t.eg + '</span></div>';
+        '<div class="tc-more">' + t.more + (t.demo ? '<button type="button" class="tc-try" data-demo="' + t.demo + '">试一下 →</button>' : '') + '<span class="tc-eg">prompt: ' + t.eg + '</span></div>';
       var toggle = function(){
         var open = card.classList.toggle('open');
         card.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -3514,6 +3516,19 @@ function renderTechCards(groups, container){
 if(techGroupsEl){
   renderTechCards(techGroups, techGroupsEl);
 }
+techGroupsEl.addEventListener('click', function(e){
+  var btn = e.target.closest('.tc-try');
+  if(!btn) return;
+  e.stopPropagation();
+  var did = btn.getAttribute('data-demo');
+  var target = document.getElementById(did);
+  if(target){
+    target.scrollIntoView({behavior:'smooth', block:'center'});
+    target.style.outline = '2px solid var(--brand)';
+    target.style.outlineOffset = '2px';
+    setTimeout(function(){ target.style.outline = ''; }, 1800);
+  }
+});
 document.querySelectorAll('.rm-chip').forEach(function(chip){
   chip.addEventListener('click', function(){
     var name = chip.getAttribute('data-card');
@@ -3562,6 +3577,7 @@ document.querySelectorAll('.rm-chip').forEach(function(chip){
     curCat = chip.getAttribute('data-cat');
     apply();
   });
+  apply();
 })();
 var feEngGrid = document.getElementById('feEngGrid');
 if(feEngGrid){
