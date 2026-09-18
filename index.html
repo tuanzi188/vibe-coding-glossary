@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前端组件实验室 · 看得见摸得着的 UI 组件</title>
+<title>前后端实验室 · 组件看得见 · 技术讲得清</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%233b5bdb'/%3E%3Cpath d='M6 8l4 4-4 4' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 16h5' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
@@ -119,6 +119,7 @@ button{font-family:var(--sans);cursor:pointer;}
 .nav-links a{white-space:nowrap;padding:6px 11px;border-radius:8px;font-size:13.5px;color:var(--ink-2);transition:background .15s,color .15s;}
 .nav-links a:hover{background:var(--brand-soft);color:var(--brand);}
 .nav-group{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);padding:0 6px;white-space:nowrap;}
+.nav-group-be{color:var(--brand);font-weight:700;}
 .nav-sep{width:1px;height:18px;background:var(--line);margin:0 4px;flex:none;align-self:center;}
 .nav-links a.nav-be{color:var(--brand);font-weight:600;display:inline-flex;align-items:center;gap:5px;}
 .nav-links a.nav-be:hover{background:var(--brand-soft);}
@@ -697,7 +698,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="nav-in">
     <a class="nav-logo" href="#top" aria-label="回到顶部">
       <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#3b5bdb"/><path d="M6 8l4 4-4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-      前端组件实验室
+      前后端实验室
     </a>
     <div class="nav-links">
       <span class="nav-group">前端 Frontend</span>
@@ -708,8 +709,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <a href="#display">展示</a>
       <a href="#behavior">行为</a>
       <span class="nav-sep" aria-hidden="true"></span>
-      <span class="nav-group">后端 Backend</span>
-      <a class="nav-be" href="#backend"><span class="nd" aria-hidden="true"></span>技术栈</a>
+      <span class="nav-group nav-group-be">后端 Backend</span>
+      <a href="#http">HTTP 解剖</a>
+      <a class="nav-be" href="#backend"><span class="nd" aria-hidden="true"></span>技术栈全景</a>
     </div>
     <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -723,13 +725,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 <!-- ===== Hero ===== -->
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="kicker"><span class="dot"></span>不是词汇表，是能用的真组件</div>
-    <h1>前端组件实验室<br><span class="accent">每个组件都真实可交互</span></h1>
-    <p class="lead">这一页把 40+ 个常用 UI 组件真的写了出来：弹窗能开、抽屉能滑、滑条能拖、表格能删、列表能拖拽排序、还能切换暗色主题。每个组件下方附「人话解释 + vibe coding 例句」。最后还有一整个「后端技术栈」区：HTTP、框架、数据库、API、认证安全、部署上线，能用毕设智旅云图举例的就拿它举，一次讲明白。</p>
+    <div class="kicker"><span class="dot"></span>不是词汇表：前端能上手，后端能听懂</div>
+    <h1>前后端实验室<br><span class="accent">组件看得见 · 技术讲得清</span></h1>
+    <p class="lead">这一页把前后端平起平坐地讲：前端把 46+ 个常用 UI 组件真的写出来——弹窗能开、抽屉能滑、表格能删、列表能拖拽；后端把 HTTP、框架、数据库、API、认证安全、部署上线一次讲明白。每个名词都配「人话解释 + vibe coding 例句」，能用毕设「智旅云图」举例的就拿它举。</p>
     <div class="stats">
-      <div class="stat"><b>46+</b><span>真实组件</span></div>
-      <div class="stat"><b>7</b><span>大区</span></div>
-      <div class="stat"><b>后端技术栈</b><span>毕设同款例子</span></div>
+      <div class="stat"><b>46+</b><span>前端组件 · 真实可交互</span></div>
+      <div class="stat"><b>7</b><span>前端大区</span></div>
+      <div class="stat"><b>41</b><span>后端技术卡 · 六类全景</span></div>
+      <div class="stat"><b>6</b><span>后端分类</span></div>
     </div>
   </div>
 </header>
@@ -1587,7 +1590,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="group-head">
       <div class="tag">07 · 后端技术栈 Backend</div>
       <h2>后端技术栈</h2>
-      <p>Web 后端的全貌：从一次 HTTP 请求怎么走，到框架、数据库、API、认证安全、异步扩展、部署上线，一整套名词。能用毕设「智旅云图」举例的就拿它举，没有的就用通用例子。</p>
+      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到框架、数据库、API、认证安全、异步扩展、部署上线。能用毕设「智旅云图」举例的就拿它举，没有的就用通用例子。</p>
     </div>
     <div class="demos">
 
@@ -1687,7 +1690,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。前端存 localStorage 就行。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer <token>"</span></div>
       </div>
 
-      <div class="demo full">
+      <div class="demo full" id="http">
         <div class="demo-head"><span class="d-name">HTTP 请求解剖</span><span class="d-en">/ 一次请求长什么样</span></div>
         <div class="demo-stage center">
           <div class="http-demo">
@@ -1732,7 +1735,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前端组件实验室</b> · 46+ 个真实可交互组件与行为 + 一整个后端技术栈区 · 每个都配 vibe coding 例句</p>
+    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 后端六类全景（41 张技术卡）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
