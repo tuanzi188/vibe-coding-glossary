@@ -505,6 +505,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 .tech-group{margin-bottom:24px;width:100%;}
 #techGroups{width:100%;display:block;}
+.tech-toolbar{width:100%;display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px;}
+.tech-search{flex:1 1 220px;min-height:42px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff;color:var(--ink);outline:none;}
+.tech-search:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(59,91,219,.15);}
+.tech-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.tchip{border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:99px;padding:6px 13px;font-size:12.5px;cursor:pointer;transition:all .15s;min-height:32px;}
+.tchip:hover{border-color:var(--brand);color:var(--brand);}
+.tchip.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600;}
+.tech-empty{width:100%;text-align:center;padding:40px 0;color:var(--ink-3);font-size:14px;}
+.tech-group.hidden{display:none;}
+.tech-card.hidden{display:none;}
 .tech-group:last-child{margin-bottom:0;}
 .tg-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
 .tg-head .tg-tag{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--brand);letter-spacing:.03em;}
@@ -770,7 +780,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="stats">
       <div class="stat"><b>46+</b><span>前端组件 · 真实可交互</span></div>
       <div class="stat"><b>6</b><span>前端大区 + 工程能力卡</span></div>
-      <div class="stat"><b>56</b><span>后端技术卡 · 七类全景</span></div>
+      <div class="stat"><b>59</b><span>后端技术卡 · 七类全景</span></div>
       <div class="stat"><b>7</b><span>后端分类</span></div>
     </div>
   </div>
@@ -1818,9 +1828,23 @@ Accept: application/json</div>
       <div class="demo full">
         <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
         <div class="demo-stage">
+          <div class="tech-toolbar" id="techToolbar">
+            <input class="tech-search" id="techSearch" type="search" placeholder="搜索技术卡：如 缓存 / 鉴权 / 部署" aria-label="搜索技术卡">
+            <div class="tech-chips" id="techChips">
+              <button class="tchip on" type="button" data-cat="all">全部</button>
+              <button class="tchip" type="button" data-cat="api">接口</button>
+              <button class="tchip" type="button" data-cat="frame">框架</button>
+              <button class="tchip" type="button" data-cat="data">数据</button>
+              <button class="tchip" type="button" data-cat="auth">认证</button>
+              <button class="tchip" type="button" data-cat="sec">安全</button>
+              <button class="tchip" type="button" data-cat="ops">部署运维</button>
+              <button class="tchip" type="button" data-cat="async">异步</button>
+            </div>
+          </div>
           <div id="techGroups"></div>
+          <div class="tech-empty" id="techEmpty" hidden>没有匹配的技术卡，换个关键词试试</div>
         </div>
-        <div class="demo-exp"><span class="plain">把 Web 后端的技术全貌按七类铺开：接口通信、框架、数据存储、并发任务、认证安全、架构部署、可靠性可观测。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选型、数据放哪、并发怎么扛、认证怎么做、怎么部署上线、怎么保证可靠"</span></div>
+        <div class="demo-exp"><span class="plain">把 Web 后端的技术按七类铺开：接口通信、框架选型、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选谁、数据放哪、登录怎么做、安全怎么防、怎么上线扛住、后台任务怎么跑"</span></div>
       </div>
 
     </div>
@@ -1830,7 +1854,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 前端工程能力卡 + 后端七类全景（56 张技术卡）· 每个都配 vibe coding 例句</p>
+    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 前端工程能力卡 + 后端七类全景（59 张技术卡）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
@@ -3131,47 +3155,50 @@ var techGroups = [
     { ab:'AC', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>例子：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
     { ab:'OR', name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>例子：</b>SQLAlchemy / Prisma / TypeORM 都是 ORM：定义 User/Itinerary/Poi 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
     { ab:'MI', name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>例子：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
-    { ab:'OS', name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>例子：</b>用户头像、攻略配图存 OSS（AWS 叫 S3），数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' }
-  ]},
-  { tag: '04', name: '并发与任务', desc: '重活丢后台，并发扛得住', items: [
-    { ab:'CE', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', more:'<b>例子：</b>毕设导出行程 PDF、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
-    { ab:'KF', name:'Kafka', tag:'分布式消息流', use:'高吞吐、可重放的事件流。', more:'<b>例子：</b>埋点日志、事件总线、数据管道（大数据标配）。', eg:'"用 Kafka 做事件流，日志和埋点走它"' },
-    { ab:'RQ', name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', more:'<b>例子：</b>任务分发、系统解耦，A 系统发消息 B 系统消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
+    { ab:'OS', name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>例子：</b>用户头像、攻略配图存 OSS（AWS 叫 S3），数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' },
     { ab:'CS', name:'缓存策略', tag:'穿透 / 击穿 / 雪崩', use:'缓存不命中的三种翻车姿势。', more:'<b>例子：</b>穿透=查不存在的 key 狂打库；击穿=热点 key 过期；雪崩=大批 key 同时过期。', eg:'"加 Redis 缓存，处理穿透、击穿和雪崩"' },
-    { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', more:'<b>例子：</b>高并发下每个请求 new 连接会打爆数据库；连接池复用是标配。', eg:'"数据库配连接池，别每次请求新建连接"' },
+    { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', more:'<b>例子：</b>高并发下每个请求 new 连接会打爆数据库；连接池复用是标配。', eg:'"数据库配连接池，别每次请求新建连接"' }
   ]},
-  { tag: '05', name: '认证与安全', desc: '你是谁、你能干什么、防谁', items: [
+  { tag: '04', name: '认证授权', desc: '你是谁、能干什么', items: [
     { ab:'JW', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，请求带 Authorization 头。存储要权衡：localStorage 简单但怕 XSS，HttpOnly Cookie 更抗偷但要配 CSRF 防护；另外要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
     { ab:'SC', name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>例子：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
     { ab:'O2', name:'OAuth2 / OIDC', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', more:'<b>例子：</b>微信 / GitHub / 手机号一键登录都是它，用户不注册直接用。OIDC 在 OAuth2 之上补了「登录身份」标准（id_token），分清：OAuth2 管授权，OIDC 管认证。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
-    { ab:'MW', name:'中间件 Middleware', tag:'请求流水线的关卡', use:'请求进来先过一道再放行。', more:'<b>例子：</b>Express 用 app.use + next() 挂中间件；FastAPI 用 @app.middleware("http") 包住每个请求。日志、鉴权、限流适合写成中间件统一挂。FastAPI 的 Dependencies 是依赖注入，做路由级鉴权很顺手，但它不等同于中间件——中间件覆盖所有请求，依赖只挂在声明它的路由上。', eg:'"登录校验写成中间件，接口统一挂上"' },
     { ab:'RB', name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>例子：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
     { ab:'PH', name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>例子：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
+    { ab:'RT', name:'令牌刷新与撤销', tag:'Refresh Token', use:'短命访问令牌 + 长命刷新令牌。', more:'<b>例子：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出/被盗时把 refresh 加入黑名单强制下线。', eg:'"JWT 配 refresh token，登出能撤销"' },
+    { ab:'OI', name:'对象级授权', tag:'防越权（IDOR）', use:'查「能不能动这条数据」，不只查「登录没有」。', more:'<b>例子：</b>/api/plan/42 谁登录都能看就是漏洞——必须校验这条行程属于当前用户；水平越权是 Web 漏洞 Top 常客。', eg:'"接口按 user_id 过滤数据，防止水平越权"' }
+  ]},
+  { tag: '05', name: '安全防护', desc: '怎么不被打', items: [
+    { ab:'MW', name:'中间件 Middleware', tag:'请求流水线的关卡', use:'请求进来先过一道再放行。', more:'<b>例子：</b>Express 用 app.use + next() 挂中间件；FastAPI 用 @app.middleware("http") 包住每个请求。日志、鉴权、限流适合写成中间件统一挂。FastAPI 的 Dependencies 是依赖注入，做路由级鉴权很顺手，但它不等同于中间件——中间件覆盖所有请求，依赖只挂在声明它的路由上。', eg:'"登录校验写成中间件，接口统一挂上"' },
     { ab:'AP', name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>例子：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' },
     { ab:'CO', name:'CORS', tag:'跨域资源共享', use:'浏览器对不同域的安检规则。', more:'<b>例子：</b>前端 localhost:5173 调后端 8000 就是跨域，后端要显式允许来源、方法和头；别图省事 allow_origins=["*"] 配上 credentials。', eg:'"后端配 CORS，允许前端域名，带 credentials"' },
-    { ab:'OI', name:'对象级授权', tag:'防越权（IDOR）', use:'查「能不能动这条数据」，不只查「登录没有」。', more:'<b>例子：</b>/api/plan/42 谁登录都能看就是漏洞——必须校验这条行程属于当前用户；水平越权是 Web 漏洞 Top 常客。', eg:'"接口按 user_id 过滤数据，防止水平越权"' },
-    { ab:'RT', name:'令牌刷新与撤销', tag:'Refresh Token', use:'短命访问令牌 + 长命刷新令牌。', more:'<b>例子：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出/被盗时把 refresh 加入黑名单强制下线。', eg:'"JWT 配 refresh token，登出能撤销"' }
+    { ab:'HT', name:'域名 + HTTPS', tag:'门牌号 + 加密通道', use:'别人访问你的地址，还得带把锁。', more:'<b>例子：</b>买域名解析到服务器 IP，配免费证书让地址栏变锁，浏览器才认你是正经站点。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
+    { ab:'EV', name:'环境变量', tag:'配置与密钥管理', use:'密钥和配置不进代码仓库。', more:'<b>例子：</b>API Key、数据库密码放 .env，代码里只读环境变量，换环境不用改代码；别把密钥提交到 git。', eg:'"密钥放环境变量，别写死在代码里"' }
   ]},
-  { tag: '06', name: '架构与部署', desc: '代码怎么组织、怎么上线', items: [
+  { tag: '06', name: '部署与运维', desc: '怎么上线、上线后怎么活得久', items: [
+    { ab:'NX', name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>例子：</b>毕设前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
+    { ab:'DO', name:'Docker', tag:'容器化打包', use:'环境打包成镜像，处处一致。', more:'<b>例子：</b>毕设后端写 Dockerfile，云服务器 docker compose up 一键起。', eg:'"写 Dockerfile 打包，docker-compose 一键部署"' },
+    { ab:'CI', name:'CI/CD', tag:'自动构建测试部署', use:'推代码 → 自动构建 → 自动上线。', more:'<b>例子：</b>GitHub Actions 就是；改完代码 push 就自动部署，不用手动 SSH 上去拉。', eg:'"配 CI/CD，push 到 main 自动构建部署"' },
+    { ab:'K8', name:'K8s', tag:'容器编排', use:'自动扩容、故障自愈。', more:'<b>例子：</b>服务多了、流量会涨才需要；一个 Docker 搞不定的规模才上。', eg:'"服务多了用 K8s 编排，自动扩容"' },
+    { ab:'CD', name:'CDN', tag:'内容分发网络', use:'静态资源全球加速。', more:'<b>例子：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿，首屏快很多。', eg:'"静态资源挂 CDN 加速"' },
     { ab:'MV', name:'MVC 分层', tag:'模型-视图-控制器', use:'数据 / 界面 / 逻辑各司其职。', more:'<b>例子：</b>几乎所有后端的基础分层：路由层接请求、业务层写逻辑、模型层管数据。', eg:'"按 MVC 分层：路由、Service、Model 分开写"' },
     { ab:'MS', name:'单体 vs 微服务', tag:'一个应用 vs 拆成多个', use:'小项目先单体，大了再拆。', more:'<b>例子：</b>毕设是单体（一个 FastAPI 应用）；上百万用户、多团队协作才值得微服务。', eg:'"先做单体架构上线，别一上来就微服务"' },
-    { ab:'CI', name:'CI/CD', tag:'自动构建测试部署', use:'推代码 → 自动构建 → 自动上线。', more:'<b>例子：</b>GitHub Actions 就是；改完代码 push 就自动部署，不用手动 SSH 上去拉。', eg:'"配 CI/CD，push 到 main 自动构建部署"' },
-    { ab:'DO', name:'Docker', tag:'容器化打包', use:'环境打包成镜像，处处一致。', more:'<b>例子：</b>毕设后端写 Dockerfile，云服务器 docker compose up 一键起。', eg:'"写 Dockerfile 打包，docker-compose 一键部署"' },
-    { ab:'K8', name:'K8s', tag:'容器编排', use:'自动扩容、故障自愈。', more:'<b>例子：</b>服务多了、流量会涨才需要；一个 Docker 搞不定的规模才上。', eg:'"服务多了用 K8s 编排，自动扩容"' },
-    { ab:'NX', name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>例子：</b>毕设前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
-    { ab:'CD', name:'CDN', tag:'内容分发网络', use:'静态资源全球加速。', more:'<b>例子：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿，首屏快很多。', eg:'"静态资源挂 CDN 加速"' },
-    { ab:'HT', name:'域名 + HTTPS', tag:'门牌号 + 加密通道', use:'别人访问你的地址，还得带把锁。', more:'<b>例子：</b>买域名解析到服务器 IP，配免费证书让地址栏变锁，浏览器才认你是正经站点。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
-    { ab:'EV', name:'环境变量', tag:'配置管理', use:'密钥和配置不进代码仓库。', more:'<b>例子：</b>高德 API Key、数据库密码放 .env，代码里只读环境变量，换环境不用改代码。', eg:'"密钥放环境变量，别写死在代码里"' }
-  ]},
-  { tag: '07', name: '可靠性与可观测', desc: '上线之后怎么活得久', items: [
     { ab:'LG', name:'日志 Logging', tag:'排障的第一现场', use:'请求进来干了啥，留下记录。', more:'<b>例子：</b>结构化日志（JSON）记 时间/级别/trace_id/用户/耗时；别 print 一堆字符串，出事查不到。', eg:'"日志用结构化格式，带上 trace_id"' },
     { ab:'MT', name:'指标 Metrics', tag:'系统体检表', use:'QPS、延迟、错误率一眼看清。', more:'<b>例子：</b>Prometheus 采集 + Grafana 画板：p95 延迟、错误率、在线用户；毕设也能接个简易统计。', eg:'"接口暴露延迟和错误率指标"' },
     { ab:'TR', name:'链路追踪 Tracing', tag:'一个请求串全程', use:'跨服务定位慢在哪一步。', more:'<b>例子：</b>OpenTelemetry 给每个请求发 trace_id，前端→网关→服务→数据库全程串起来，慢和错都定位到具体环节。', eg:'"接 OpenTelemetry，全链路 trace_id 贯通"' },
-    { ab:'HC', name:'健康检查', tag:'存活 + 就绪探针', use:'让平台知道服务还活着。', more:'<b>例子：</b>/healthz 查存活（进程没挂）、/readyz 查就绪（依赖都通）；K8s 和负载均衡靠它摘除坏实例。', eg:'"加 /healthz 和 /readyz 健康检查接口"' },
+    { ab:'AL', name:'告警 Alerting', tag:'指标异常通知', use:'系统出问题主动找你。', more:'<b>例子：</b>错误率 >5%、p95 >1s、磁盘满了，自动发短信/钉钉/邮件；别等用户投诉才发现。', eg:'"关键指标配告警阈值，出问题立刻通知"' },
+    { ab:'HC', name:'健康检查', tag:'存活 + 就绪探针', use:'让平台知道服务还活着。', more:'<b>例子：</b>/healthz 查存活（进程没挂）、/readyz 查就绪（依赖都通）；负载均衡靠它摘除坏实例。', eg:'"加 /healthz 和 /readyz 健康检查接口"' },
     { ab:'TO', name:'超时 / 重试 / 幂等', tag:'分布式三件套', use:'网络会抖，请求会丢，别裸奔。', more:'<b>例子：</b>所有外呼设超时；重试要配指数退避；扣款、下单这类操作要幂等（同一请求重发不重复扣钱）。', eg:'"外呼设超时，重试加退避，写操作做幂等"' },
     { ab:'LR', name:'限流与降级', tag:'过载自我保护', use:'流量太大先保命。', more:'<b>例子：</b>Nginx 或网关限 QPS，超了排队或拒绝；下游挂了降级返回缓存/兜底数据，别跟着雪崩。', eg:'"接口加限流，下游故障时降级返回缓存"' },
+    { ab:'BT', name:'压测', tag:'上线前摸家底', use:'能扛多少 QPS 心里有数。', more:'<b>例子：</b>用 k6 / wrk 模拟 1000 并发打接口，看 p95 和错误率；别等真流量来了才发现扛不住。', eg:'"上线前用 k6 压测核心接口，看 p95 和错误率"' },
+    { ab:'TK', name:'测试', tag:'单元 / 集成 / E2E', use:'改坏了能立刻知道。', more:'<b>例子：</b>pytest 写单元测试测业务逻辑；TestClient 测接口；Playwright 跑核心流程 E2E；跑进 CI 每次 push 自动跑。', eg:'"核心接口写 pytest，跑进 CI 每次自动测"' },
     { ab:'BK', name:'备份与恢复', tag:'数据丢了才最痛', use:'定期备份 + 演练恢复。', more:'<b>例子：</b>数据库每日备份 + 异地存放；定期演练「真恢复一次」，没恢复过的备份等于没有备份。', eg:'"数据库每天备份，恢复流程演练过"' },
     { ab:'RL', name:'灰度与回滚', tag:'上线不出大事', use:'新版本先放小流量。', more:'<b>例子：</b>新版本先发 5% 用户，指标正常再全量；出问题一条命令回滚到上一版；镜像版本化是前提。', eg:'"上线走灰度发布，保留一键回滚能力"' }
+  ]},
+  { tag: '07', name: '异步任务', desc: '重活丢后台慢慢跑', items: [
+    { ab:'CE', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', more:'<b>例子：</b>毕设导出行程 PDF、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
+    { ab:'RQ', name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', more:'<b>例子：</b>任务分发、系统解耦，A 系统发消息 B 系统消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
+    { ab:'KF', name:'Kafka', tag:'分布式消息流', use:'高吞吐、可重放的事件流。', more:'<b>例子：</b>埋点日志、事件总线、数据管道（大数据标配）。', eg:'"用 Kafka 做事件流，日志和埋点走它"' }
   ]}
 ];
 var techGroupsEl = document.getElementById('techGroups');
@@ -3186,9 +3213,12 @@ var feEngGroups = [
   ]}
 ];
 function renderTechCards(groups, container){
+  var catMap = { '01':'api','02':'frame','03':'data','04':'auth','05':'sec','06':'ops','07':'async' };
   groups.forEach(function(g){
     var wrap = document.createElement('div');
     wrap.className = 'tech-group';
+    wrap.setAttribute('data-cat', catMap[g.tag] || 'all');
+    wrap.setAttribute('data-tag', g.tag);
     wrap.innerHTML = '<div class="tg-head"><span class="tg-tag">' + g.tag + '</span><span class="tg-name">' + g.name + '</span><span class="tg-desc">' + (g.desc || '') + '</span></div>' +
       '<div class="tech-grid"></div>';
     var grid = wrap.querySelector('.tech-grid');
@@ -3219,6 +3249,39 @@ function renderTechCards(groups, container){
 if(techGroupsEl){
   renderTechCards(techGroups, techGroupsEl);
 }
+(function(){
+  var search = document.getElementById('techSearch');
+  var chips = document.getElementById('techChips');
+  var empty = document.getElementById('techEmpty');
+  if(!search || !chips) return;
+  var curCat = 'all';
+  function apply(){
+    var kw = search.value.trim().toLowerCase();
+    var anyVisible = false;
+    techGroupsEl.querySelectorAll('.tech-group').forEach(function(g){
+      var catMatch = (curCat === 'all' || g.getAttribute('data-cat') === curCat);
+      var gVisible = false;
+      g.querySelectorAll('.tech-card').forEach(function(c){
+        var txt = (c.textContent || '').toLowerCase();
+        var kwMatch = !kw || txt.indexOf(kw) > -1;
+        var show = catMatch && kwMatch;
+        c.classList.toggle('hidden', !show);
+        if(show) gVisible = true;
+      });
+      g.classList.toggle('hidden', !gVisible);
+      if(gVisible) anyVisible = true;
+    });
+    if(empty) empty.hidden = anyVisible;
+  }
+  search.addEventListener('input', apply);
+  chips.addEventListener('click', function(e){
+    var chip = e.target.closest('.tchip');
+    if(!chip) return;
+    chips.querySelectorAll('.tchip').forEach(function(c){ c.classList.toggle('on', c === chip); });
+    curCat = chip.getAttribute('data-cat');
+    apply();
+  });
+})();
 var feEngGrid = document.getElementById('feEngGrid');
 if(feEngGrid){
   renderTechCards(feEngGroups, feEngGrid);
