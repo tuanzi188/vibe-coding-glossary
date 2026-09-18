@@ -114,7 +114,7 @@ button{font-family:var(--sans);cursor:pointer;}
 .nav-in{max-width:1120px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:16px;}
 .nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap;}
 .nav-logo svg{flex:none;}
-.nav-links{display:flex;gap:8px;overflow:visible;margin-left:auto;align-items:center;}
+.nav-links{display:flex;gap:8px;overflow:visible;align-items:center;}
 .nav-dd{position:relative;}
 .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--ink-2);border:1px solid var(--line);background:var(--card);cursor:pointer;min-height:38px;transition:all .15s;}
 .nav-btn:hover{color:var(--brand);border-color:var(--brand);}
@@ -127,6 +127,11 @@ button{font-family:var(--sans);cursor:pointer;}
 .nav-dd.open .nav-menu{display:block;}
 .nav-menu a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;font-size:13.5px;color:var(--ink-2);white-space:nowrap;}
 .nav-menu a:hover{background:var(--brand-soft);color:var(--brand);}
+.nav-steps{display:flex;gap:2px;align-items:center;margin-left:auto;}
+.nav-step{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;font-size:13px;font-weight:500;color:var(--ink-3);text-decoration:none;transition:all .15s;white-space:nowrap;}
+.nav-step:hover{color:var(--brand);background:var(--brand-soft);}
+.nav-step.cur{color:var(--brand);background:var(--brand-soft);font-weight:600;}
+.nav-step .num{font-family:var(--mono);font-size:11px;font-weight:700;opacity:.7;}
 .menu-btn{display:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;align-items:center;justify-content:center;flex:none;transition:all .15s;}
 .menu-btn:hover{border-color:var(--brand);color:var(--brand);}
 
@@ -489,8 +494,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 [data-theme="dark"] .jwt-token{background:var(--stage);}
 
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:4px;}
-.tech-card{border:1px solid var(--line);border-left:3px solid var(--cat-color, var(--line));border-radius:12px;background:#fff;padding:14px;cursor:pointer;transition:all .18s;position:relative;min-width:0;}
-.tech-card:hover{border-color:var(--brand);border-left-color:var(--cat-color, var(--brand));transform:translateY(-2px);box-shadow:var(--shadow);}
+.tech-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;cursor:pointer;transition:all .18s;position:relative;min-width:0;}
+.tech-card:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow);}
 .tech-group[data-cat="api"] .tech-card{--cat-color:#3b5bdb;}
 .tech-group[data-cat="frame"] .tech-card{--cat-color:#7048e8;}
 .tech-group[data-cat="data"] .tech-card{--cat-color:#0ca678;}
@@ -783,35 +788,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#3b5bdb"/><path d="M6 8l4 4-4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
       前后端模拟台
     </a>
-    <div class="nav-links">
-      <div class="nav-dd" id="navFe">
-        <button class="nav-btn" type="button" aria-haspopup="true" aria-expanded="false">
-          前端 Frontend
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="nav-menu">
-          <a href="#layout">布局</a>
-          <a href="#nav">导航</a>
-          <a href="#form">录入</a>
-          <a href="#feedback">反馈</a>
-          <a href="#display">展示</a>
-          <a href="#behavior">行为</a>
-        </div>
-      </div>
-      <div class="nav-dd" id="navBe">
-        <button class="nav-btn nav-btn-be" type="button" aria-haspopup="true" aria-expanded="false">
-          后端 Backend
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="nav-menu">
-          <a href="#pyd">框架与入口</a>
-          <a href="#http">接口通信</a>
-          <a href="#sqlite">数据存储</a>
-          <a href="#jwt">认证授权</a>
-          <a href="#cicd">部署运维</a>
-          <a href="#techPanorama">技术栈全景</a>
-        </div>
-      </div>
+    <div class="nav-steps" id="navSteps">
+      <a class="nav-step" href="#layout"><span class="num">01</span>布局</a>
+      <a class="nav-step" href="#nav"><span class="num">02</span>导航</a>
+      <a class="nav-step" href="#form"><span class="num">03</span>录入</a>
+      <a class="nav-step" href="#feedback"><span class="num">04</span>反馈</a>
+      <a class="nav-step" href="#display"><span class="num">05</span>展示</a>
+      <a class="nav-step" href="#behavior"><span class="num">06</span>行为</a>
+      <a class="nav-step" href="#backend"><span class="num">07</span>后端</a>
     </div>
     <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -3765,22 +3749,28 @@ var techGroups = [
 ];
 var techGroupsEl = document.getElementById('techGroups');
 var feEngGroups = [
-  { tag: 'FE', name: '前端工程能力', items: [
+  { tag: '①', name: '搭项目', desc: '先把脚手架搭起来——装依赖、配工具、设环境', items: [
+    {name:'包管理与依赖', tag:'装第三方库用的工具', use:'React、Lodash 这些都是别人写的包，需要个工具统一管理版本。', more:'<b>解决什么：</b>手动下载解压太蠢，多个项目共用同个库浪费空间。<br><b>npm vs pnpm：</b>npm 最通用，pnpm 快 2 倍、磁盘省 80%。<br><b>lockfile：</b>package.json 写"用 React 18"，lockfile 锁死"具体是 18.3.1"，保证所有人装的版本一样。<br><b>注意：</b>lockfile 一定要提交到 git。', eg:'"包管理用 pnpm，lockfile 提交仓库"' },
+    {name:'环境变量与配置', tag:'不同环境不同配置', use:'开发时后端跑在 localhost:8000，上线后指向 api.xxx.com——这个地址不能写死。', more:'<b>解决什么：</b>开发完上线要把代码里的 localhost 全改成线上地址，容易漏。<br><b>怎么做：</b>.env.development 写开发配置，.env.production 写线上配置。Vite 里 import.meta.env.VITE_API_URL 读取。<br><b>注意：</b>密钥（API Key、密钥）只放服务器，前端代码里的环境变量都能被用户看到。', eg:'"API 地址用环境变量区分，开发指向 localhost:8000"' },
+    {name:'构建与工具链', tag:'Vite 开发快，TS 类型不炸', use:'你写的 .tsx / .scss 浏览器不认，需要工具把它们打包成浏览器能跑的代码。', more:'<b>解决什么：</b>裸写 JS 没有热更新、没有类型检查、没有压缩。<br><b>Vite：</b>开发时秒级热更新，改代码浏览器立刻变；构建时打包压缩。<br><b>TypeScript：</b>后端改了接口字段，前端立刻标红报错，而不是线上白屏才发现。<br><b>ESLint + Prettier：</b>统一代码风格，AI 生成的代码也能自动整理。', eg:'"前端用 Vite + TypeScript，配 ESLint 和 Prettier"' }
+  ]},
+  { tag: '②', name: '写业务', desc: '页面怎么切、数据怎么拿、状态怎么管', items: [
     {name:'路由 Router', tag:'多页面切换不刷新', use:'从列表点进详情，URL 变了但不整页刷新，浏览器前进后退还能用。', more:'<b>解决什么：</b>多页应用跳转白屏、状态全丢、URL 不能分享。<br><b>什么时候用：</b>只要有 2 个以上页面就要用。React Router / Vue Router 都干这个，核心是 URL 变化时只换页面组件，不刷新浏览器。<br><b>不用会怎样：</b>每次跳转都整页刷新、白屏 1 秒、表单填了一半回到列表就没了。', eg:'"用 React Router，城市页路由带参数 /city/:id"' },
     {name:'状态管理', tag:'跨页面共享一份数据', use:'登录用户、购物车、筛选条件——这些好几个页面都要用，不能每个组件自己存一份。', more:'<b>解决什么：</b>组件间传 props 传到第三层就乱了，兄弟组件之间传数据要绕一大圈。<br><b>什么时候用：</b>数据被 2 个以上不相关组件用到，就上全局 store。<br><b>注意：</b>服务端数据别塞全局 store，交给 TanStack Query 管（见下一条）。全局 store 只放"用户操作产生的临时状态"。', eg:'"全局状态用 Pinia 存登录用户和购物车"' },
     {name:'数据请求与缓存', tag:'请求去重 + 自动缓存', use:'同一个接口被多个组件调，自动只发一次；切走再切回来，秒显上次数据。', more:'<b>解决什么：</b>手写 fetch 每个组件各管各的——同样的请求发了 3 次、切回来 loading 闪一下、失败了不知道重试。<br><b>什么时候用：</b>只要有接口请求就该上。TanStack Query / SWR 自动管缓存、去重、重试、后台刷新。<br><b>和状态管理的区别：</b>它管"从服务器拿的数据"，不管"用户在页面上临时选了什么"。', eg:'"接口数据用 TanStack Query，key 按参数设计"' },
     {name:'CSR / SSR / SSG', tag:'在哪渲染决定首屏和 SEO', use:'你的网页是浏览器渲染（CSR）、服务器渲染（SSR）、还是构建时生成静态页（SSG）。', more:'<b>CSR：</b>浏览器下 JS 再渲染，首屏慢但交互快，适合后台管理。<br><b>SSR：</b>服务器吐 HTML，首屏快且 SEO 好，适合内容站。<br><b>SSG：</b>构建时就生成 HTML，最快，适合博客/文档/官网。<br><b>怎么选：</b>要 SEO 就 SSR/SSG，纯后台 CSR 够用。Next.js 三种都支持。', eg:'"官网用 Next.js SSG，管理后台用 CSR"' },
-    {name:'构建与工具链', tag:'Vite 开发快，TS 类型不炸', use:'你写的 .tsx / .scss 浏览器不认，需要工具把它们打包成浏览器能跑的代码。', more:'<b>解决什么：</b>裸写 JS 没有热更新、没有类型检查、没有压缩。<br><b>Vite：</b>开发时秒级热更新，改代码浏览器立刻变；构建时打包压缩。<br><b>TypeScript：</b>后端改了接口字段，前端立刻标红报错，而不是线上白屏才发现。<br><b>ESLint + Prettier：</b>统一代码风格，AI 生成的代码也能自动整理。', eg:'"前端用 Vite + TypeScript，配 ESLint 和 Prettier"' },
-    {name:'包管理与依赖', tag:'装第三方库用的工具', use:'React、Lodash 这些都是别人写的包，需要个工具统一管理版本。', more:'<b>解决什么：</b>手动下载解压太蠢，多个项目共用同个库浪费空间。<br><b>npm vs pnpm：</b>npm 最通用，pnpm 快 2 倍、磁盘省 80%。<br><b>lockfile：</b>package.json 写"用 React 18"，lockfile 锁死"具体是 18.3.1"，保证所有人装的版本一样。<br><b>注意：</b>lockfile 一定要提交到 git。', eg:'"包管理用 pnpm，lockfile 提交仓库"' },
-    {name:'环境变量与配置', tag:'不同环境不同配置', use:'开发时后端跑在 localhost:8000，上线后指向 api.xxx.com——这个地址不能写死。', more:'<b>解决什么：</b>开发完上线要把代码里的 localhost 全改成线上地址，容易漏。<br><b>怎么做：</b>.env.development 写开发配置，.env.production 写线上配置。Vite 里 import.meta.env.VITE_API_URL 读取。<br><b>注意：</b>密钥（API Key、密钥）只放服务器，前端代码里的环境变量都能被用户看到。', eg:'"API 地址用环境变量区分，开发指向 localhost:8000"' },
+    {name:'设计系统与主题', tag:'配色统一，暗色模式好切', use:'全站按钮颜色、间距、圆角不能东一个西一个；暗色模式不能写两套样式。', more:'<b>解决什么：</b>每个组件各写各的颜色，切暗色模式要改几百处。<br><b>CSS 变量：</b>--brand/--bg/--card 统一管，切 data-theme 整站换肤（本页上方有 demo）。<br><b>组件库选型：</b>AntD 企业后台快，Tailwind + shadcn 定制感强，Arco 字节系。', eg:'"设计 token 用 CSS 变量，暗色模式切 data-theme"' }
+  ]},
+  { tag: '③', name: '保质量', desc: '提交前自动查、线上报错能看见、改代码不怕改坏', items: [
     {name:'代码规范与提交', tag:'提交前自动检查', use:'团队多人写代码，有人单引号有人双引号，有人分号有人不分——需要自动统一。', more:'<b>解决什么：</b>Code Review 天天在吵"你为什么用分号"，浪费时间。<br><b>ESLint：</b>查语法错误和坏味道（比如忘了 await）。<br><b>Prettier：</b>自动格式化，不管你怎么写，提交前自动变成统一风格。<br><b>Husky：</b>git commit 前自动跑 ESLint + 测试，不合规不让提交。<br><b>commitlint：</b>强制提交信息格式 "feat: 加登录页"，以后查 changelog 方便。', eg:'"配 Husky pre-commit，提交前自动跑 ESLint 和格式化"' },
     {name:'错误监控与上报', tag:'线上报错能看到', use:'你自己测没问题，但用户手机上报错了——你怎么知道？', more:'<b>解决什么：</b>用户说"点不了"，你不知道他点了什么、报了什么错。<br><b>Sentry：</b>自动捕获前端未处理的错误，记录用户在哪个页面、用什么浏览器、报什么错，还能截图。<br><b>ErrorBoundary：</b>某个组件炸了不拖垮整页，显示个"出错了"兜底。<br><b>和后端日志的区别：</b>后端记请求，前端记用户操作时的错误。', eg:'"接 Sentry 捕获前端异常，带路由和用户信息"' },
+    {name:'测试与质量', tag:'改代码不怕改坏', use:'你改了个搜索功能，怎么知道没把用户下单流程搞挂？', more:'<b>解决什么：</b>手动测太慢，每次发版都心惊胆战。<br><b>单元测试（Vitest）：</b>测工具函数，比如"输入手机号校验"对不对。<br><b>E2E 测试（Playwright）：</b>模拟真实用户跑"登录→下单→支付"完整流程，跑进 CI，每次提交自动跑。<br><b>可访问性（axe）：</b>自动扫有没有图片没 alt、颜色对比度不够。', eg:'"核心流程写 E2E 测试，跑进 CI"' }
+  ]},
+  { tag: '④', name: '上线优化', desc: '首屏快、联调顺、权限拦得住、代码推上去就上线', items: [
     {name:'性能优化', tag:'首屏快、交互不卡', use:'首页加载 5 秒用户就走了，需要让首屏最快、其他页面按需加载。', more:'<b>解决什么：</b>首屏加载慢、列表滚动卡、包体积大。<br><b>路由懒加载：</b>点到那个页面才下载那个页面的代码，首屏只加载首页。<br><b>图片：</b>用 WebP/AVIF 格式 + 懒加载（滚到可视区才加载）。<br><b>打包分析：</b>rollup-plugin-visualizer 看哪个库占体积大，能换小的就换。', eg:'"路由懒加载，首屏只加载首页代码"' },
     {name:'Mock 与联调', tag:'后端没写完前端先跑', use:'后端接口还没好，前端不能干等——需要假数据先跑起来。', more:'<b>解决什么：</b>后端接口要等两周，前端这两周就闲着。<br><b>MSW：</b>在浏览器层拦截请求，返回假数据，前端开发时完全独立。<br><b>OpenAPI：</b>后端写好接口文档后，自动生成 TypeScript 类型，不用手写 interface。<br><b>联调时：</b>切个环境变量就从 mock 切到真接口。', eg:'"用 MSW mock 接口，后端没写完前端先开发"' },
     {name:'权限控制', tag:'谁能看什么页面', use:'普通用户看不到管理后台，没登录不能访问个人中心——前端先拦一道。', more:'<b>解决什么：</b>没登录的人输个网址就进到了内部页面。<br><b>路由守卫：</b>未登录跳登录页，登录了才能访问 /admin。<br><b>按钮级权限：</b>管理员才能看到"删除"按钮，普通用户直接不渲染。<br><b>注意：</b>前端权限只是体验层，后端必须再校验一次，别只靠前端藏按钮。', eg:'"未登录跳登录页，删除按钮按权限显示"' },
-    {name:'部署与 CDN', tag:'代码推上去就上线', use:'你写完的代码在你电脑上，怎么让全世界访问？', more:'<b>解决什么：</b>自己电脑不能当服务器，需要个地方托管。<br><b>Vercel/Netlify：</b>连 GitHub，push 到 main 自动部署，零配置。<br><b>CDN：</b>静态资源全球节点加速，文件名带 hash 改了自动更新缓存。<br><b>SPA 注意：</b>要配 fallback 路由，不然用户刷新 /city/hangzhou 就 404。', eg:'"Vercel 连 GitHub 自动部署，推 main 就上线"' },
-    {name:'设计系统与主题', tag:'配色统一，暗色模式好切', use:'全站按钮颜色、间距、圆角不能东一个西一个；暗色模式不能写两套样式。', more:'<b>解决什么：</b>每个组件各写各的颜色，切暗色模式要改几百处。<br><b>CSS 变量：</b>--brand/--bg/--card 统一管，切 data-theme 整站换肤（本页上方有 demo）。<br><b>组件库选型：</b>AntD 企业后台快，Tailwind + shadcn 定制感强，Arco 字节系。', eg:'"设计 token 用 CSS 变量，暗色模式切 data-theme"' },
-    {name:'测试与质量', tag:'改代码不怕改坏', use:'你改了个搜索功能，怎么知道没把用户下单流程搞挂？', more:'<b>解决什么：</b>手动测太慢，每次发版都心惊胆战。<br><b>单元测试（Vitest）：</b>测工具函数，比如"输入手机号校验"对不对。<br><b>E2E 测试（Playwright）：</b>模拟真实用户跑"登录→下单→支付"完整流程，跑进 CI，每次提交自动跑。<br><b>可访问性（axe）：</b>自动扫有没有图片没 alt、颜色对比度不够。', eg:'"核心流程写 E2E 测试，跑进 CI"' }
+    {name:'部署与 CDN', tag:'代码推上去就上线', use:'你写完的代码在你电脑上，怎么让全世界访问？', more:'<b>解决什么：</b>自己电脑不能当服务器，需要个地方托管。<br><b>Vercel/Netlify：</b>连 GitHub，push 到 main 自动部署，零配置。<br><b>CDN：</b>静态资源全球节点加速，文件名带 hash 改了自动更新缓存。<br><b>SPA 注意：</b>要配 fallback 路由，不然用户刷新 /city/hangzhou 就 404。', eg:'"Vercel 连 GitHub 自动部署，推 main 就上线"' }
   ]}
 ];
 function renderTechCards(groups, container){
