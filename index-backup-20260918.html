@@ -136,17 +136,10 @@ button{font-family:var(--sans);cursor:pointer;}
 .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);}
 .hero h1{font-size:36px;line-height:1.25;font-weight:900;letter-spacing:-.5px;}
 .hero h1 .accent{color:var(--brand);}
-.hero p.lead{margin-top:12px;color:var(--ink-2);font-size:15.5px;max-width:44em;line-height:1.85;}
-.hero .stats{display:grid;grid-template-columns:repeat(4,auto);gap:18px 28px;margin-top:22px;justify-content:start;}
+.hero p.lead{margin-top:12px;color:var(--ink-2);font-size:15.5px;max-width:40em;}
+.hero .stats{display:flex;gap:24px;margin-top:22px;flex-wrap:wrap;}
 .hero .stat b{font-size:24px;font-weight:800;font-family:var(--mono);}
-.hero .stat span{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px;}
-
-/* 键盘焦点统一可见 */
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
-  outline:2px solid var(--brand);
-  outline-offset:2px;
-  border-radius:4px;
-}
+.hero .stat span{display:block;font-size:12.5px;color:var(--ink-3);}
 
 /* ===== 分组 ===== */
 .group{padding:40px 0;}
@@ -225,7 +218,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .breadcrumb .sep{color:#c3cbd8;font-family:var(--mono);}
 .breadcrumb .cur{color:var(--ink);font-weight:600;}
 .steps{display:flex;width:100%;}
-.step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;gap:6px;}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;gap:6px;cursor:pointer;}
 .step .dot{width:26px;height:26px;border-radius:50%;background:#eef1f5;color:var(--ink-3);display:flex;align-items:center;justify-content:center;font-size:12px;font-family:var(--mono);font-weight:700;position:relative;z-index:1;transition:all .2s;}
 .step.done .dot{background:var(--green);color:#fff;}
 .step.active .dot{background:var(--brand);color:#fff;box-shadow:0 0 0 4px rgba(59,91,219,.18);}
@@ -464,7 +457,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .db-fields .df-type{width:96px;flex:none;color:var(--brand);}
 .db-fields .df-desc{flex:1;color:var(--ink-2);}
 [data-theme="dark"] .db-tab{background:var(--card);}
-[data-theme="dark"] .db-tab.on{background:var(--brand);color:#fff;border-color:var(--brand);}
 [data-theme="dark"] .db-fields{background:var(--card);}
 [data-theme="dark"] .db-fields .df-row{border-color:var(--line);}
 [data-theme="dark"] .db-fields .df-row:first-child{background:var(--stage);}
@@ -488,23 +480,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .jwt-token .s{color:var(--orange);}
 [data-theme="dark"] .jwt-token{background:var(--stage);}
 
-.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:4px;}
-.tech-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;cursor:pointer;transition:all .18s;position:relative;min-width:0;}
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px;}
+@media (min-width:961px){
+  .tech-grid:has(> :nth-child(9):last-child){grid-template-columns:repeat(3,1fr);}
+  .tech-grid:has(> :nth-child(5):last-child){grid-template-columns:repeat(3,1fr);}
+}
+.tech-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;cursor:pointer;transition:all .18s;position:relative;}
 .tech-card:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow);}
 .tech-card .tc-ic{width:34px;height:34px;border-radius:9px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
 .tech-card .tc-name{font-size:14px;font-weight:700;}
-.tech-card .tc-tag{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);}
-.tech-card .tc-use{font-size:13px;color:var(--ink-2);margin-top:6px;line-height:1.6;}
-.tech-card .tc-more{display:none;font-size:12.5px;color:var(--ink-2);line-height:1.7;}
-.tech-card.open .tc-more{display:block;padding-top:8px;border-top:1px dashed var(--line);margin-top:8px;}
+.tech-card .tc-tag{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+.tech-card .tc-use{font-size:12px;color:var(--ink-2);margin-top:6px;line-height:1.6;}
+.tech-card .tc-more{max-height:0;overflow:hidden;transition:max-height .25s ease;font-size:12px;color:var(--ink-3);line-height:1.7;}
+.tech-card.open .tc-more{max-height:260px;padding-top:8px;border-top:1px dashed var(--line);margin-top:8px;}
 .tech-card .tc-more b{color:var(--brand);}
-.tech-card .tc-eg{font-family:var(--mono);font-size:11.5px;color:var(--green);background:#f0faf6;border-radius:5px;padding:2px 8px;display:inline-block;margin-top:6px;word-break:break-all;}
+.tech-card .tc-eg{font-family:var(--mono);font-size:11px;color:var(--green);background:#f0faf6;border-radius:5px;padding:2px 8px;display:inline-block;margin-top:6px;}
 .pyd-input{width:100%;font-family:var(--mono);font-size:12.5px;line-height:1.7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;background:#fff;color:var(--ink);resize:vertical;min-height:84px;transition:border .15s,box-shadow .15s;}
 .pyd-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(59,91,219,.12);}
 [data-theme="dark"] .pyd-input{background:var(--card);}
 
-.tech-group{margin-bottom:24px;width:100%;}
-#techGroups{width:100%;display:block;}
+.tech-group{margin-bottom:24px;}
 .tech-group:last-child{margin-bottom:0;}
 .tg-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
 .tg-head .tg-tag{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--brand);letter-spacing:.03em;}
@@ -529,10 +524,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 [data-theme="dark"] .http-box .h-line.body{border-color:#22303f;}
 [data-theme="dark"] .http-expl{background:#1c2740;}
 [data-theme="dark"] .http-sc .sc-tab{background:var(--card);}
-[data-theme="dark"] .http-sc .sc-tab.on{background:var(--brand);color:#fff;border-color:var(--brand);}
 [data-theme="dark"] .tech-card{background:var(--card);}
-@media (max-width:960px){.tech-grid{grid-template-columns:repeat(2,1fr);}}
-@media (max-width:560px){.tech-grid{grid-template-columns:1fr;}}
+@media (max-width:960px){.tech-grid{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:640px){.tech-grid{grid-template-columns:repeat(2,1fr);}}
 
 /* ===== 06 行为与全局 ===== */
 .theme-btn{border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-left:auto;flex:none;transition:all .15s;}
@@ -564,7 +558,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .rate .star.on{color:#f5b301;}
 .rate .star:hover{transform:scale(1.18);}
 [data-theme="dark"] .rate .star{color:#3a4657;}
-[data-theme="dark"] .rate .star.on{color:#f5b301;}
 
 /* InputNumber */
 .input-number{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card);}
@@ -701,7 +694,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   .nav-in{padding:0 12px;}
   .hero{padding:38px 0 30px;}
   .hero h1{font-size:24px;}
-  .hero .stats{grid-template-columns:repeat(2,auto);gap:14px 20px;}
   .grid-demo{grid-template-columns:repeat(2,1fr);}
 }
 @media (prefers-reduced-motion:reduce){
@@ -741,7 +733,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         </button>
         <div class="nav-menu">
           <a href="#http">HTTP 解剖</a>
-          <a href="#loopback">联调闭环</a>
           <a href="#pyd">数据校验</a>
           <a href="#rag">RAG 检索</a>
           <a href="#rest">REST API</a>
@@ -766,12 +757,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="wrap">
     <div class="kicker"><span class="dot"></span>不是词汇表：前端能上手，后端能听懂</div>
     <h1>前后端实验室<br><span class="accent">组件看得见 · 技术讲得清</span></h1>
-    <p class="lead">这一页把前后端平起平坐地讲：前端把 46+ 个常用 UI 组件真的写出来——弹窗能开、抽屉能滑、表格能删、列表能拖拽；后端把 HTTP、框架、数据库、API、认证安全、部署上线、可靠性一次讲明白。每个名词都配「人话解释 + vibe coding 例句」，能用毕设「智旅云图」举例的就拿它举。</p>
+    <p class="lead">这一页把前后端平起平坐地讲：前端把 46+ 个常用 UI 组件真的写出来——弹窗能开、抽屉能滑、表格能删、列表能拖拽；后端把 HTTP、框架、数据库、API、认证安全、部署上线一次讲明白。每个名词都配「人话解释 + vibe coding 例句」，能用毕设「智旅云图」举例的就拿它举。</p>
     <div class="stats">
       <div class="stat"><b>46+</b><span>前端组件 · 真实可交互</span></div>
-      <div class="stat"><b>6</b><span>前端大区 + 工程能力卡</span></div>
-      <div class="stat"><b>56</b><span>后端技术卡 · 七类全景</span></div>
-      <div class="stat"><b>7</b><span>后端分类</span></div>
+      <div class="stat"><b>6</b><span>前端大区</span></div>
+      <div class="stat"><b>45</b><span>后端技术卡 · 六类全景</span></div>
+      <div class="stat"><b>6</b><span>后端分类</span></div>
     </div>
   </div>
 </header>
@@ -921,10 +912,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-head"><span class="d-name">Steps 步骤条</span><span class="d-en">/ stepper</span></div>
         <div class="demo-stage">
           <div style="width:100%;">
-            <div class="steps" id="steps" role="tablist">
-              <div class="step done" data-step="0" role="button" tabindex="0" aria-selected="false"><span class="dot">1</span><span class="st-label">填写信息</span></div>
-              <div class="step active" data-step="1" role="button" tabindex="0" aria-selected="true"><span class="dot">2</span><span class="st-label">确认订单</span></div>
-              <div class="step" data-step="2" role="button" tabindex="0" aria-selected="false"><span class="dot">3</span><span class="st-label">支付完成</span></div>
+            <div class="steps" id="steps">
+              <div class="step done" data-step="0"><span class="dot">1</span><span class="st-label">填写信息</span></div>
+              <div class="step active" data-step="1"><span class="dot">2</span><span class="st-label">确认订单</span></div>
+              <div class="step" data-step="2"><span class="dot">3</span><span class="st-label">支付完成</span></div>
             </div>
             <div style="margin-top:12px;font-size:12.5px;color:var(--ink-2);" id="stepMsg">当前步骤：确认订单（点步骤可跳转）</div>
           </div>
@@ -952,11 +943,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <div class="demo">
         <div class="demo-head"><span class="d-name">Menu 菜单</span><span class="d-en">/ navigation list</span></div>
         <div class="demo-stage">
-          <div class="menu-vert" id="menuVert" role="menu">
-            <div class="mv on" data-item="0" role="menuitem" tabindex="0" aria-current="true">仪表盘 <span style="font-size:11px;font-family:var(--mono)">▸</span></div>
-            <div class="mv" data-item="1" role="menuitem" tabindex="0">订单管理</div>
-            <div class="mv" data-item="2" role="menuitem" tabindex="0">用户列表</div>
-            <div class="mv" data-item="3" role="menuitem" tabindex="0">系统设置</div>
+          <div class="menu-vert" id="menuVert">
+            <div class="mv on" data-item="0">仪表盘 <span style="font-size:11px;font-family:var(--mono)">▸</span></div>
+            <div class="mv" data-item="1">订单管理</div>
+            <div class="mv" data-item="2">用户列表</div>
+            <div class="mv" data-item="3">系统设置</div>
           </div>
         </div>
         <div class="demo-exp"><span class="plain">侧边或顶部的导航菜单，当前项高亮。点其他项看选中态移动。</span><br><span class="eg">"左侧 Menu 做导航，选中项高亮"</span></div>
@@ -992,7 +983,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
             </div>
             <div style="display:flex;gap:10px;">
               <button class="btn btn-primary" type="button" onclick="validateForm()">提交</button>
-              <button class="btn btn-outline" type="button" onclick="resetForm()">重置</button>
+              <button class="btn btn-outline" type="button" onclick="labToast('表单已重置')">重置</button>
             </div>
           </div>
         </div>
@@ -1005,12 +996,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
           <div style="width:100%;max-width:240px;">
             <label class="label" for="selFruit">选择水果</label>
             <div class="select-wrap" id="selFruit">
-              <div class="select-box" onclick="toggleSelect('selFruit')" role="combobox" aria-expanded="false" tabindex="0" aria-haspopup="listbox"><span id="selFruitVal">请选择</span><span class="arr">▼</span></div>
-              <div class="select-list" role="listbox">
-                <div class="si" data-v="苹果" role="option" tabindex="-1">苹果</div>
-                <div class="si" data-v="香蕉" role="option" tabindex="-1">香蕉</div>
-                <div class="si" data-v="橙子" role="option" tabindex="-1">橙子</div>
-                <div class="si" data-v="葡萄" role="option" tabindex="-1">葡萄</div>
+              <div class="select-box" onclick="toggleSelect('selFruit')"><span id="selFruitVal">请选择</span><span class="arr">▼</span></div>
+              <div class="select-list">
+                <div class="si" data-v="苹果">苹果</div>
+                <div class="si" data-v="香蕉">香蕉</div>
+                <div class="si" data-v="橙子">橙子</div>
+                <div class="si" data-v="葡萄">葡萄</div>
               </div>
             </div>
           </div>
@@ -1062,7 +1053,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-head"><span class="d-name">DatePicker 日期选择</span><span class="d-en">/ calendar picker</span></div>
         <div class="demo-stage">
           <div class="date-wrap" id="dateWrap">
-            <div class="date-input" onclick="toggleDate(event)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleDate(event);event.preventDefault();}"><span id="dateVal">选择日期</span><span style="display:inline-flex;color:var(--ink-3);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span></div>
+            <div class="date-input" onclick="toggleDate(event)"><span id="dateVal">选择日期</span><span style="display:inline-flex;color:var(--ink-3);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span></div>
             <div class="date-panel" id="datePanel">
               <div class="date-head">
                 <button type="button" id="datePrev" onclick="dateShift(-1)">‹</button>
@@ -1409,11 +1400,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-head"><span class="d-name">Collapse 折叠面板</span><span class="d-en">/ 手风琴</span></div>
         <div class="demo-stage center">
           <div class="collapse" id="collapse">
-            <div class="col-h open" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="true" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>产品功能</span><span class="arr">▼</span></div>
+            <div class="col-h open" onclick="toggleCollapse(this)"><span>产品功能</span><span class="arr">▼</span></div>
             <div class="col-b show">支持团队协作、任务看板、数据报表三大核心功能，可接入飞书与钉钉。</div>
-            <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>定价说明</span><span class="arr">▼</span></div>
+            <div class="col-h" onclick="toggleCollapse(this)"><span>定价说明</span><span class="arr">▼</span></div>
             <div class="col-b">免费版 5 人以内；专业版 ¥99/人/月；企业版按年报价。</div>
-            <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>技术支持</span><span class="arr">▼</span></div>
+            <div class="col-h" onclick="toggleCollapse(this)"><span>技术支持</span><span class="arr">▼</span></div>
             <div class="col-b">工作时段 10 分钟内响应，企业版提供专属客户成功经理。</div>
           </div>
         </div>
@@ -1619,14 +1610,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">整页颜色由一组 CSS 变量（Design Token）驱动，切一个变量全站变色。和 AI 说「颜色走设计变量」比逐个改色高效得多。</span><br><span class="eg">"支持暗色模式，用 CSS 变量切换，别写死颜色"</span></div>
       </div>
 
-      <div class="demo full">
-        <div class="demo-head"><span class="d-name">前端工程能力地图</span><span class="d-en">/ 组件之外的前端</span></div>
-        <div class="demo-stage">
-          <div id="feEngGrid" class="tech-grid" style="width:100%;"></div>
-        </div>
-        <div class="demo-exp"><span class="plain">上面六区是「看得见的组件」；一个完整前端还会用到这些工程能力：路由、状态管理、数据请求、渲染模式、构建与质量。点卡片展开看「在哪用 + 怎么跟 AI 说」。</span><br><span class="eg">"前端工程化：路由 + 状态管理 + 请求层封装 + 构建部署"</span></div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1660,39 +1643,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">FastAPI 在入口就用 Pydantic 把请求体校验一遍：字段类型、必填、范围不合格直接返回 422 错误列表。你代码里拿到的永远是正确的数据，不用自己写一堆 if 判空。</span><br><span class="eg">"后端用 FastAPI，请求体建一个 Pydantic 模型做校验，类型和范围错了返回 422"</span></div>
       </div>
 
-      <div class="demo full" id="loopback">
-        <div class="demo-head"><span class="d-name">前后端联调闭环</span><span class="d-en">/ 一次请求的完整旅程</span></div>
-        <div class="demo-stage">
-          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
-            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
-              <div>
-                <label class="label" for="lbCity">城市</label>
-                <input class="input" id="lbCity" type="text" value="杭州" style="width:120px;">
-              </div>
-              <div>
-                <label class="label" for="lbDays">天数</label>
-                <input class="input" id="lbDays" type="text" value="3" inputmode="numeric" style="width:80px;">
-              </div>
-              <div>
-                <label class="label" for="lbBudget">预算</label>
-                <input class="input" id="lbBudget" type="text" value="4000" inputmode="numeric" style="width:100px;">
-              </div>
-              <button class="btn btn-primary" type="button" id="lbBtn">生成行程（模拟）</button>
-            </div>
-            <div class="steps" id="lbSteps" style="width:100%;">
-              <div class="step" data-step="0"><span class="dot">1</span><span class="st-label">表单收集</span></div>
-              <div class="step" data-step="1"><span class="dot">2</span><span class="st-label">POST 请求</span></div>
-              <div class="step" data-step="2"><span class="dot">3</span><span class="st-label">Pydantic 校验</span></div>
-              <div class="step" data-step="3"><span class="dot">4</span><span class="st-label">JWT 鉴权</span></div>
-              <div class="step" data-step="4"><span class="dot">5</span><span class="st-label">入库 SQLite</span></div>
-              <div class="step" data-step="5"><span class="dot">6</span><span class="st-label">返回结果</span></div>
-            </div>
-            <div class="api-res" id="lbRes" style="min-height:56px;">点「生成行程」看一次完整联调：前端表单 → 请求 → 校验 → 鉴权 → 入库 → 响应，每一步的报文都展示在这里。</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">联调闭环 = 把前面的组件和后端概念串成一条线。真实项目里，前端发的每个请求都走这条链路；哪一步 4xx/5xx，顺着链路排查而不是瞎猜。</span><br><span class="eg">"把表单提交串成完整链路：校验 → 请求 → 错误分支 → loading → 结果页"</span></div>
-      </div>
-
       <div class="demo full" id="rag">
         <div class="demo-head"><span class="d-name">RAG 检索增强生成</span><span class="d-en">/ 毕设的核心</span></div>
         <div class="demo-stage">
@@ -1701,22 +1651,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
               <input class="input" id="ragInput" type="text" value="杭州适合带爸妈玩 3 天怎么安排？" aria-label="RAG 查询问题">
               <button class="btn btn-primary" type="button" id="ragBtn">跑一遍 RAG</button>
             </div>
-            <div style="font-size:12px;color:var(--ink-3);">固定案例演示：输入框只做展示，流程按预设问题跑。真实 RAG 里这个问题会进入第 1 步的查询理解。</div>
             <div class="rag-steps" id="ragSteps"></div>
             <div class="rag-out" id="ragOut"></div>
-            <div style="font-size:12px;color:var(--ink-3);">查询阶段如上；一条完整的生产级 RAG 链路还包括前面这些环节——点开看：</div>
-            <div class="collapse" id="ragPipeline" style="max-width:100%;">
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>① 文档导入与清洗</span><span class="arr">▼</span></div>
-              <div class="col-b">攻略、游记、官方介绍从网页或 PDF 进来：去广告、去重、去乱码，统一成纯文本。垃圾进垃圾出——清洗质量直接决定检索质量。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>② 切块 Chunking</span><span class="arr">▼</span></div>
-              <div class="col-b">长文档切成带上下文重叠的段落（如每块 300 字、重叠 50 字）。块太大检索不准，块太小语义不完整，需要按内容类型调。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>③ Embedding 与索引</span><span class="arr">▼</span></div>
-              <div class="col-b">每个块过 Embedding 模型变成向量，连同原文存进向量库（Chroma/Milvus）。BM25 倒排索引也在这时建好；知识更新要重新入库。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>④ 引用来源与权限过滤</span><span class="arr">▼</span></div>
-              <div class="col-b">生成的答案要标注「依据哪几篇文档」，能点回原文；检索阶段先按用户权限过滤可见文档，避免把无权内容拼进答案。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>⑤ 评估与失败回退</span><span class="arr">▼</span></div>
-              <div class="col-b">用标注好的「问题 → 应命中文档」测试集评估召回率；检索置信度太低时回退成兜底话术或人工推荐，别硬编。</div>
-            </div>
           </div>
         </div>
         <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25 抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
@@ -1781,7 +1717,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
             <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
+        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。前端存 localStorage 就行。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer <token>"</span></div>
       </div>
 
       <div class="demo full" id="http">
@@ -1789,10 +1725,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-stage center">
           <div class="http-demo">
             <div class="http-box" id="httpBox">
-              <div class="h-line reqline" data-part="0">POST /api/plan/generate HTTP/1.1</div>
+              <div class="h-line reqline" data-part="0">GET /api/city/hangzhou/guide HTTP/1.1</div>
               <div class="h-line headers" data-part="1">Host: api.zhilv.com
 Authorization: Bearer &lt;token&gt;
-Content-Type: application/json
 Accept: application/json</div>
               <div class="h-line body" data-part="2">{ "days": 3, "budget": 4000, "travelers": 2 }</div>
             </div>
@@ -1816,11 +1751,11 @@ Accept: application/json</div>
       </div>
 
       <div class="demo full">
-        <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
+        <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 六类 · 点卡展开</span></div>
         <div class="demo-stage">
           <div id="techGroups"></div>
         </div>
-        <div class="demo-exp"><span class="plain">把 Web 后端的技术全貌按七类铺开：接口通信、框架、数据存储、并发任务、认证安全、架构部署、可靠性可观测。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选型、数据放哪、并发怎么扛、认证怎么做、怎么部署上线、怎么保证可靠"</span></div>
+        <div class="demo-exp"><span class="plain">把 Web 后端的技术全貌按六类铺开：接口通信、框架、数据存储、并发任务、认证安全、架构部署。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这六类给我讲后端技术栈：接口怎么定、框架选型、数据放哪、并发怎么扛、认证怎么做、怎么部署上线"</span></div>
       </div>
 
     </div>
@@ -1830,7 +1765,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 前端工程能力卡 + 后端七类全景（56 张技术卡）· 每个都配 vibe coding 例句</p>
+    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 后端六类全景（45 张技术卡）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
@@ -1895,10 +1830,7 @@ function labToast(msg, type){
       : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#93c5fd" stroke-width="2"/><path d="M12 11v5m0-8h.01" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"/></svg>';
   var el = document.createElement('div');
   el.className = 'toast-item ' + type;
-  el.innerHTML = icon;
-  var msgSpan = document.createElement('span');
-  msgSpan.textContent = msg;
-  el.appendChild(msgSpan);
+  el.innerHTML = icon + '<span>' + msg + '</span>';
   wrap.appendChild(el);
   setTimeout(function(){
     el.classList.add('hide');
@@ -1959,23 +1891,15 @@ window.toggleDropdown = toggleDropdown;
 /* Steps */
 var stepsBox = document.getElementById('steps');
 if(stepsBox){
-  function setStep(idx){
-    stepsBox.querySelectorAll('.step').forEach(function(s, i){
-      s.classList.toggle('done', i < idx);
-      s.classList.toggle('active', i === idx);
-      s.setAttribute('aria-selected', i === idx ? 'true' : 'false');
-    });
-    document.getElementById('stepMsg').textContent = '当前步骤：' + ['填写信息','确认订单','支付完成'][idx] + '（点步骤可跳转）';
-  }
   stepsBox.addEventListener('click', function(e){
     var st = e.target.closest('.step');
     if(!st) return;
-    setStep(parseInt(st.getAttribute('data-step'), 10));
-  });
-  stepsBox.addEventListener('keydown', function(e){
-    var st = e.target.closest('.step');
-    if(!st) return;
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setStep(parseInt(st.getAttribute('data-step'), 10)); }
+    var idx = parseInt(st.getAttribute('data-step'), 10);
+    stepsBox.querySelectorAll('.step').forEach(function(s, i){
+      s.classList.toggle('done', i < idx);
+      s.classList.toggle('active', i === idx);
+    });
+    document.getElementById('stepMsg').textContent = '当前步骤：' + ['填写信息','确认订单','支付完成'][idx] + '（点步骤可跳转）';
   });
 }
 /* Pagination */
@@ -2000,20 +1924,10 @@ if(pagBox){
 /* Menu */
 var menuVert = document.getElementById('menuVert');
 if(menuVert){
-  function pickMenu(mv){
-    menuVert.querySelectorAll('.mv').forEach(function(m){
-      m.classList.toggle('on', m === mv);
-      if(m.hasAttribute('aria-current')) m.setAttribute('aria-current', m === mv ? 'true' : 'false');
-    });
-  }
   menuVert.addEventListener('click', function(e){
     var mv = e.target.closest('.mv');
-    if(mv) pickMenu(mv);
-  });
-  menuVert.addEventListener('keydown', function(e){
-    var mv = e.target.closest('.mv');
     if(!mv) return;
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pickMenu(mv); }
+    menuVert.querySelectorAll('.mv').forEach(function(m){ m.classList.toggle('on', m === mv); });
   });
 }
 
@@ -2026,24 +1940,12 @@ window.validateForm = function(){
   var mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail.value.trim());
   document.getElementById('f-name').classList.toggle('show-err', !nameOk);
   document.getElementById('f-mail').classList.toggle('show-err', !mailOk);
-  name.setAttribute('aria-invalid', nameOk ? 'false' : 'true');
-  mail.setAttribute('aria-invalid', mailOk ? 'false' : 'true');
   if(nameOk && mailOk){
     labToast('表单校验通过，提交成功', 'ok');
     name.value = ''; mail.value = '';
   } else {
     labToast('请检查红色标记的字段', 'err');
   }
-};
-window.resetForm = function(){
-  var name = document.getElementById('inpName');
-  var mail = document.getElementById('inpMail');
-  name.value = ''; mail.value = '';
-  name.setAttribute('aria-invalid', 'false');
-  mail.setAttribute('aria-invalid', 'false');
-  document.getElementById('f-name').classList.remove('show-err');
-  document.getElementById('f-mail').classList.remove('show-err');
-  labToast('表单已重置');
 };
 /* Select */
 function toggleSelect(id){
@@ -2052,67 +1954,22 @@ function toggleSelect(id){
 }
 window.toggleSelect = toggleSelect;
 document.querySelectorAll('.select-wrap').forEach(function(box){
-  var trigger = box.querySelector('.select-box');
-  if(trigger){
-    trigger.setAttribute('role', 'combobox');
-    trigger.setAttribute('aria-expanded', 'false');
-    trigger.setAttribute('tabindex', '0');
-    trigger.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); box.classList.toggle('open'); }
-      if(e.key === 'Escape') box.classList.remove('open');
-    });
-    box.addEventListener('transitionend', function(){});
-  }
-  var items = box.querySelectorAll('.si');
-  items.forEach(function(si, idx){
-    si.setAttribute('role', 'option');
-    si.setAttribute('tabindex', '-1');
+  box.querySelectorAll('.si').forEach(function(si){
     si.addEventListener('click', function(){
       box.querySelectorAll('.si').forEach(function(s){ s.classList.toggle('sel', s === si); });
       box.querySelector('.select-box span').textContent = si.getAttribute('data-v');
       box.classList.remove('open');
-      if(trigger) trigger.focus();
       labToast('已选择：' + si.getAttribute('data-v'), 'ok');
     });
-    si.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); si.click(); }
-    });
-  });
-  if(trigger){
-    trigger.addEventListener('keydown', function(e){
-      if(box.classList.contains('open')){
-        var dir = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0;
-        if(dir){
-          e.preventDefault();
-          var items = box.querySelectorAll('.si');
-          var target = items[dir > 0 ? 0 : items.length - 1];
-          if(target) target.setAttribute('tabindex', '0');
-          if(target) target.focus();
-        }
-      }
-    });
-  }
-  box.addEventListener('keydown', function(e){
-    if(!box.classList.contains('open')) return;
-    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
-      e.preventDefault();
-      var items = Array.prototype.slice.call(box.querySelectorAll('.si'));
-      if(!items.length) return;
-      var cur = items.indexOf(document.activeElement);
-      var next = items[(cur + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length];
-      items.forEach(function(i){ i.setAttribute('tabindex', '-1'); });
-      next.setAttribute('tabindex', '0');
-      next.focus();
-    }
   });
 });
-/* Switch：示例开关直接联动全局主题（和右上角月亮按钮同一套逻辑） */
+/* Switch */
 window.toggleSwitch = function(btn){
   var on = btn.classList.toggle('on');
   btn.setAttribute('aria-checked', on ? 'true' : 'false');
   var msg = document.getElementById('switchMsg');
   if(msg) msg.textContent = on ? '开启' : '关闭';
-  applyTheme(on);
+  labToast('深色模式已' + (on ? '开启' : '关闭'));
 };
 /* Slider */
 var sliderDemo = document.getElementById('sliderDemo');
@@ -2141,15 +1998,13 @@ function renderDate(){
 }
 window.toggleDate = function(e){
   var wrap = document.getElementById('dateWrap');
-  var trigger = wrap.querySelector('.date-input');
-  if(wrap.classList.contains('open')){ wrap.classList.remove('open'); trigger.setAttribute('aria-expanded','false'); return; }
+  if(wrap.classList.contains('open')){ wrap.classList.remove('open'); return; }
   if(dateState.sel === null){
     var now = new Date();
     dateState.vy = now.getFullYear(); dateState.vm = now.getMonth();
   }
   renderDate();
   wrap.classList.add('open');
-  trigger.setAttribute('aria-expanded','true');
 };
 window.dateShift = function(delta){
   dateState.vm += delta;
@@ -2174,31 +2029,12 @@ var fileInput = document.getElementById('fileInput');
 var uploadZone = document.getElementById('uploadZone');
 function addFiles(fileList){
   var list = document.getElementById('uploadList');
-  var maxBytes = 10 * 1024 * 1024;
   Array.prototype.slice.call(fileList).forEach(function(f){
-    if(f.size > maxBytes){
-      labToast('「' + f.name + '」超过 10MB，已拒绝', 'err');
-      return;
-    }
     var item = document.createElement('div');
     item.className = 'ul-item';
-    var nm = document.createElement('span');
-    nm.className = 'nm';
-    nm.textContent = f.name;
-    nm.title = f.name;
     var size = f.size > 1024 * 1024 ? (f.size / 1024 / 1024).toFixed(1) + ' MB' : Math.ceil(f.size / 1024) + ' KB';
-    var sz = document.createElement('span');
-    sz.className = 'sz';
-    sz.textContent = size;
-    var rm = document.createElement('button');
-    rm.className = 'rm';
-    rm.type = 'button';
-    rm.setAttribute('aria-label', '删除文件');
-    rm.textContent = '×';
-    rm.addEventListener('click', function(){ item.remove(); });
-    item.appendChild(nm);
-    item.appendChild(sz);
-    item.appendChild(rm);
+    item.innerHTML = '<span class="nm">' + f.name + '</span><span class="sz">' + size + '</span><button class="rm" type="button" aria-label="删除">×</button>';
+    item.querySelector('.rm').addEventListener('click', function(){ item.remove(); });
     list.appendChild(item);
   });
 }
@@ -2227,81 +2063,30 @@ if(uploadZone){
 var overlay = document.getElementById('overlay');
 var modalBox = document.getElementById('modalBox');
 var drawerBox = document.getElementById('drawerBox');
-/* 统一浮层控制器：焦点移入、Tab 限制、滚动锁、关闭恢复 */
-var overlayCtl = (function(){
-  var activeLayer = null;
-  var lastTrigger = null;
-  var scrollY = 0;
-  function visibleFocusables(root){
-    return Array.prototype.filter.call(root.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])'), function(el){
-      return el.offsetWidth > 0 || el.offsetHeight > 0;
-    });
-  }
-  function openLayer(layer){
-    lastTrigger = document.activeElement;
-    activeLayer = layer;
-    overlay.classList.add('show');
-    layer.classList.add('show');
-    scrollY = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    var focusables = visibleFocusables(layer);
-    if(focusables.length) focusables[0].focus();
-  }
-  function closeLayer(){
-    if(!activeLayer) return;
-    overlay.classList.remove('show');
-    modalBox.classList.remove('show');
-    drawerBox.classList.remove('show');
-    document.body.style.overflow = '';
-    window.scrollTo(0, scrollY);
-    activeLayer = null;
-    if(lastTrigger && lastTrigger.focus) lastTrigger.focus();
-    lastTrigger = null;
-  }
-  document.addEventListener('keydown', function(e){
-    if(!activeLayer) return;
-    if(e.key === 'Escape'){
-      e.preventDefault();
-      closeLayer();
-      return;
-    }
-    if(e.key === 'Tab'){
-      var focusables = visibleFocusables(activeLayer);
-      if(!focusables.length) return;
-      var first = focusables[0], last = focusables[focusables.length - 1];
-      if(e.shiftKey && document.activeElement === first){
-        e.preventDefault();
-        last.focus();
-      } else if(!e.shiftKey && document.activeElement === last){
-        e.preventDefault();
-        first.focus();
-      } else if(!activeLayer.contains(document.activeElement)){
-        e.preventDefault();
-        first.focus();
-      }
-    }
-  });
-  return { open: openLayer, close: closeLayer };
-})();
 window.openModal = function(){
-  overlayCtl.open(modalBox);
+  overlay.classList.add('show');
+  modalBox.classList.add('show');
 };
 window.closeModal = function(){
-  overlayCtl.close();
+  overlay.classList.remove('show');
+  modalBox.classList.remove('show');
 };
 window.modalSave = function(){
   closeModal();
-  var name = document.getElementById('mName').value.trim() || '未命名项目';
-  labToast('已保存：' + name, 'ok');
+  labToast('已保存：' + (document.getElementById('mName').value || '未命名项目'), 'ok');
 };
 window.openDrawer = function(){
-  overlayCtl.open(drawerBox);
+  overlay.classList.add('show');
+  drawerBox.classList.add('show');
 };
 window.closeDrawer = function(){
-  overlayCtl.close();
+  overlay.classList.remove('show');
+  drawerBox.classList.remove('show');
 };
 window.closeAllOverlays = function(){
-  overlayCtl.close();
+  overlay.classList.remove('show');
+  modalBox.classList.remove('show');
+  drawerBox.classList.remove('show');
   document.querySelectorAll('.dropdown.open,.select-wrap.open,.date-wrap.open,.popover.open,.popconfirm.open').forEach(function(el){ el.classList.remove('open'); });
 };
 /* Popconfirm */
@@ -2423,7 +2208,6 @@ window.toggleCollapse = function(head){
   var body = head.nextElementSibling;
   var isOpen = head.classList.toggle('open');
   body.classList.toggle('show', isOpen);
-  head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 };
 /* Segmented */
 window.segClick = function(btn){
@@ -2433,22 +2217,15 @@ window.segClick = function(btn){
 };
 
 /* ========== 全局：外部点击 / ESC / 返回顶部 / 平滑滚动 ========== */
-function closeFloatingMenus(){
-  document.querySelectorAll('.dropdown.open,.select-wrap.open,.date-wrap.open,.popover.open,.popconfirm.open').forEach(function(el){
-    el.classList.remove('open');
-    var trigger = el.querySelector('[aria-expanded]');
-    if(trigger) trigger.setAttribute('aria-expanded', 'false');
-  });
-}
 document.addEventListener('click', function(e){
   if(!e.target.closest('.dropdown') && !e.target.closest('.select-wrap') && !e.target.closest('.date-wrap') && !e.target.closest('.popover') && !e.target.closest('.popconfirm')){
-    closeFloatingMenus();
+    document.querySelectorAll('.dropdown.open,.select-wrap.open,.date-wrap.open').forEach(function(el){ el.classList.remove('open'); });
   }
 });
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){
     closeAllOverlays();
-    closeFloatingMenus();
+    document.querySelectorAll('.dropdown.open,.select-wrap.open,.date-wrap.open').forEach(function(el){ el.classList.remove('open'); });
   }
 });
 var backtop = document.getElementById('backtop');
@@ -2483,7 +2260,7 @@ var rateValue = 0;
   stars.forEach(function(s, i){
     s.addEventListener('click', function(){
       rateValue = i + 1;
-      stars.forEach(function(x, j){ x.setAttribute('aria-checked', j === i ? 'true' : 'false'); });
+      stars.forEach(function(x, j){ x.setAttribute('aria-checked', j < rateValue ? 'true' : 'false'); });
       paint(rateValue);
       msg.textContent = '你打了 ' + rateValue + ' 星：' + tips[i];
     });
@@ -2491,17 +2268,6 @@ var rateValue = 0;
   });
   var box = document.getElementById('rateDemo');
   if(box) box.addEventListener('mouseleave', function(){ paint(rateValue); });
-  /* 左右方向键切换评分 */
-  if(box){
-    box.addEventListener('keydown', function(e){
-      if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      e.preventDefault();
-      var d = e.key === 'ArrowRight' ? 1 : -1;
-      var next = Math.max(1, Math.min(5, (rateValue || 0) + d));
-      stars[next - 1].focus();
-      stars[next - 1].click();
-    });
-  }
 })();
 
 window.numStep = function(d){
@@ -2511,26 +2277,6 @@ window.numStep = function(d){
   inp.value = v;
   document.getElementById('numVal').textContent = v;
 };
-/* InputNumber：手动输入也校验并同步显示 */
-(function(){
-  var inp = document.getElementById('numInput');
-  if(!inp) return;
-  function clamp(){
-    var v = parseInt(inp.value, 10);
-    if(isNaN(v)) v = 1;
-    v = Math.max(1, Math.min(99, v));
-    inp.value = v;
-    document.getElementById('numVal').textContent = v;
-  }
-  inp.addEventListener('input', function(){
-    var v = parseInt(inp.value, 10);
-    if(!isNaN(v)) document.getElementById('numVal').textContent = Math.max(1, Math.min(99, v));
-  });
-  inp.addEventListener('blur', clamp);
-  inp.addEventListener('keydown', function(e){
-    if(e.key === 'Enter'){ clamp(); inp.blur(); }
-  });
-})();
 
 window.notifyDemo = function(type){
   var map = {
@@ -2582,15 +2328,10 @@ window.openLightbox = function(src){
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightboxMask').classList.add('show');
   document.body.style.overflow = 'hidden';
-  lbLastTrigger = document.activeElement;
-  document.getElementById('lightboxMask').querySelector('.lb-close').focus();
 };
-var lbLastTrigger = null;
 window.closeLightbox = function(){
   document.getElementById('lightboxMask').classList.remove('show');
   document.body.style.overflow = '';
-  if(lbLastTrigger && lbLastTrigger.focus) lbLastTrigger.focus();
-  lbLastTrigger = null;
 };
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeLightbox();
@@ -2618,7 +2359,7 @@ document.addEventListener('click', function(e){
 });
 
 var dbTimer = null, dbTypeCount = 0, dbHitCount = 0;
-var poiSearchData = ['西湖 断桥残雪','灵隐寺 飞来峰','千岛湖 游船','乌镇 西栅','西溪湿地','雷峰塔','岳王庙','苏堤春晓','河坊街','南宋御街','九溪烟树','云栖竹径','良渚古城','径山寺','湘湖','龙井村'];
+var dbData = ['西湖 断桥残雪','灵隐寺 飞来峰','千岛湖 游船','乌镇 西栅','西溪湿地','雷峰塔','岳王庙','苏堤春晓','河坊街','南宋御街','九溪烟树','云栖竹径','良渚古城','径山寺','湘湖','龙井村'];
 document.getElementById('debounceInput').addEventListener('input', function(){
   dbTypeCount++;
   document.getElementById('dbType').textContent = dbTypeCount;
@@ -2626,26 +2367,16 @@ document.getElementById('debounceInput').addEventListener('input', function(){
   dbTimer = setTimeout(debounceSearch, 300);
 });
 window.debounceSearch = function(){
-  clearTimeout(dbTimer);
   dbHitCount++;
   document.getElementById('dbHit').textContent = dbHitCount;
   var kw = document.getElementById('debounceInput').value.trim();
   var res = document.getElementById('dbRes');
-  res.textContent = '';
-  if(!kw){
-    res.textContent = '输入关键词试试，如「西湖」';
-    return;
-  }
-  var hits = poiSearchData.filter(function(x){ return x.indexOf(kw) > -1; });
+  if(!kw){ res.innerHTML = '输入关键词试试，如「西湖」'; return; }
+  var hits = dbData.filter(function(x){ return x.indexOf(kw) > -1; });
   if(hits.length){
-    res.appendChild(document.createTextNode('找到 '));
-    var b = document.createElement('span');
-    b.className = 'hit';
-    b.textContent = hits.length;
-    res.appendChild(b);
-    res.appendChild(document.createTextNode(' 个景点：' + hits.slice(0, 4).join(' · ')));
+    res.innerHTML = '找到 <span class="hit">' + hits.length + '</span> 个景点：' + hits.slice(0, 4).join(' · ');
   } else {
-    res.textContent = '没有匹配的景点，换个词试试';
+    res.innerHTML = '没有匹配的景点，换个词试试';
   }
 };
 
@@ -2926,7 +2657,7 @@ if(apiCall && apiRes && apiStatus){
 }
 
 /* SQLite 表结构 */
-var dbSchemaData = {
+var dbData = {
   users: [['字段','类型','说明'],['id','INTEGER PK','自增主键'],['username','TEXT UNIQUE','登录名'],['password_hash','TEXT','密码哈希，不存明文'],['created_at','DATETIME','注册时间']],
   itineraries: [['字段','类型','说明'],['id','INTEGER PK','行程主键'],['user_id','INTEGER FK','外键 → users.id'],['city','TEXT','目的地城市'],['days','INTEGER','行程天数'],['budget','REAL','预算（元）'],['status','TEXT','草稿 / 已生成']],
   pois: [['字段','类型','说明'],['id','INTEGER PK','景点主键'],['name','TEXT','景点名'],['city','TEXT','所属城市'],['lat_lng','TEXT','经纬度坐标'],['tags','TEXT','标签：亲子 / 夜游…'],['walk_level','TEXT','步行强度：轻松 / 中等 / 累']]
@@ -2934,7 +2665,7 @@ var dbSchemaData = {
 var dbTabs = document.getElementById('dbTabs');
 var dbFields = document.getElementById('dbFields');
 function renderDbTable(name){
-  var rows = dbSchemaData[name];
+  var rows = dbData[name];
   dbFields.innerHTML = rows.map(function(r, i){
     return '<div class="df-row' + (i === 0 ? '' : '') + '">' +
       '<span class="df-name">' + r[0] + '</span>' +
@@ -3033,36 +2764,17 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
     var payload = b64url(JSON.stringify({ sub: user, role: 'user', iat: now, exp: now + 86400 }));
     var sig = b64url('HS256-signature-demo:' + user + ':' + now).slice(0, 32);
     var expTime = new Date((now + 86400) * 1000).toLocaleString('zh-CN', { hour12: false });
-    jwtToken.textContent = '';
-    var segH = document.createElement('span');
-    segH.className = 'h';
-    segH.textContent = header;
-    var segP = document.createElement('span');
-    segP.className = 'p';
-    segP.textContent = payload;
-    var segS = document.createElement('span');
-    segS.className = 's';
-    segS.textContent = sig;
-    jwtToken.appendChild(segH);
-    jwtToken.appendChild(document.createTextNode('.'));
-    jwtToken.appendChild(segP);
-    jwtToken.appendChild(document.createTextNode('.'));
-    jwtToken.appendChild(segS);
-    jwtToken.appendChild(document.createElement('br'));
-    jwtToken.appendChild(document.createTextNode('已登录（结构演示，签名非真实认证）：' + user + ' · 有效期 24 小时（到 ' + expTime + '）'));
-    jwtToken.appendChild(document.createElement('br'));
-    var tip = document.createElement('span');
-    tip.style.color = 'var(--ink-3)';
-    tip.textContent = '三截 = header(算法).payload(身份+过期).signature(防伪章)';
-    jwtToken.appendChild(tip);
+    jwtToken.innerHTML = '<span class="h">' + header + '</span>.<span class="p">' + payload + '</span>.<span class="s">' + sig + '</span><br>' +
+      '已登录：' + user + ' · 有效期 24 小时（到 ' + expTime + '）<br>' +
+      '<span style="color:var(--ink-3);">三截 = header(算法).payload(身份+过期).signature(防伪章)</span>';
     labToast('登录成功，JWT 已签发（演示）', 'ok');
   });
 }
 
 /* HTTP 请求解剖 */
 var httpParts = [
-  { t: '请求行', d: '第一行是「需求单」：方法 POST 表示「提交数据」，后面是路径，末尾是协议版本。读它就知道客户端要做什么。' },
-  { t: '请求头', d: '附加信息键值对：Host 告诉服务器去哪个域名，Authorization 带登录凭证，Content-Type 声明请求体是 JSON，Accept 声明「我要 JSON 格式」。' },
+  { t: '请求行', d: '第一行是「需求单」：方法 GET 表示「拿数据」，后面是路径，末尾是协议版本。读它就知道客户端想要什么资源。' },
+  { t: '请求头', d: '附加信息键值对：Host 告诉服务器去哪个域名，Authorization 带登录凭证，Accept 声明「我要 JSON 格式」。' },
   { t: '请求体', d: '要传给服务器的数据本体（GET 通常没有）。这里是行程生成的参数 JSON，POST/PUT 才有。' }
 ];
 var httpBox = document.getElementById('httpBox');
@@ -3141,16 +2853,13 @@ var techGroups = [
     { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', more:'<b>例子：</b>高并发下每个请求 new 连接会打爆数据库；连接池复用是标配。', eg:'"数据库配连接池，别每次请求新建连接"' },
   ]},
   { tag: '05', name: '认证与安全', desc: '你是谁、你能干什么、防谁', items: [
-    { ab:'JW', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，请求带 Authorization 头。存储要权衡：localStorage 简单但怕 XSS，HttpOnly Cookie 更抗偷但要配 CSRF 防护；另外要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
+    { ab:'JW', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，前端存 localStorage，请求带 Authorization 头。', eg:'"登录返回 JWT，前端存起来每次带上"' },
     { ab:'SC', name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>例子：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
-    { ab:'O2', name:'OAuth2 / OIDC', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', more:'<b>例子：</b>微信 / GitHub / 手机号一键登录都是它，用户不注册直接用。OIDC 在 OAuth2 之上补了「登录身份」标准（id_token），分清：OAuth2 管授权，OIDC 管认证。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
-    { ab:'MW', name:'中间件 Middleware', tag:'请求流水线的关卡', use:'请求进来先过一道再放行。', more:'<b>例子：</b>Express 用 app.use + next() 挂中间件；FastAPI 用 @app.middleware("http") 包住每个请求。日志、鉴权、限流适合写成中间件统一挂。FastAPI 的 Dependencies 是依赖注入，做路由级鉴权很顺手，但它不等同于中间件——中间件覆盖所有请求，依赖只挂在声明它的路由上。', eg:'"登录校验写成中间件，接口统一挂上"' },
+    { ab:'O2', name:'OAuth2', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', more:'<b>例子：</b>微信 / GitHub / 手机号一键登录都是它，用户不注册直接用。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
+    { ab:'MW', name:'中间件 Middleware', tag:'请求流水线的关卡', use:'请求进来先过一道再放行。', more:'<b>例子：</b>Express 的 next()、FastAPI 的 dependencies：日志、鉴权、限流都写成中间件统一挂。', eg:'"登录校验写成中间件，接口统一挂上"' },
     { ab:'RB', name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>例子：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
     { ab:'PH', name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>例子：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
-    { ab:'AP', name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>例子：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' },
-    { ab:'CO', name:'CORS', tag:'跨域资源共享', use:'浏览器对不同域的安检规则。', more:'<b>例子：</b>前端 localhost:5173 调后端 8000 就是跨域，后端要显式允许来源、方法和头；别图省事 allow_origins=["*"] 配上 credentials。', eg:'"后端配 CORS，允许前端域名，带 credentials"' },
-    { ab:'OI', name:'对象级授权', tag:'防越权（IDOR）', use:'查「能不能动这条数据」，不只查「登录没有」。', more:'<b>例子：</b>/api/plan/42 谁登录都能看就是漏洞——必须校验这条行程属于当前用户；水平越权是 Web 漏洞 Top 常客。', eg:'"接口按 user_id 过滤数据，防止水平越权"' },
-    { ab:'RT', name:'令牌刷新与撤销', tag:'Refresh Token', use:'短命访问令牌 + 长命刷新令牌。', more:'<b>例子：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出/被盗时把 refresh 加入黑名单强制下线。', eg:'"JWT 配 refresh token，登出能撤销"' }
+    { ab:'AP', name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>例子：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' }
   ]},
   { tag: '06', name: '架构与部署', desc: '代码怎么组织、怎么上线', items: [
     { ab:'MV', name:'MVC 分层', tag:'模型-视图-控制器', use:'数据 / 界面 / 逻辑各司其职。', more:'<b>例子：</b>几乎所有后端的基础分层：路由层接请求、业务层写逻辑、模型层管数据。', eg:'"按 MVC 分层：路由、Service、Model 分开写"' },
@@ -3162,34 +2871,14 @@ var techGroups = [
     { ab:'CD', name:'CDN', tag:'内容分发网络', use:'静态资源全球加速。', more:'<b>例子：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿，首屏快很多。', eg:'"静态资源挂 CDN 加速"' },
     { ab:'HT', name:'域名 + HTTPS', tag:'门牌号 + 加密通道', use:'别人访问你的地址，还得带把锁。', more:'<b>例子：</b>买域名解析到服务器 IP，配免费证书让地址栏变锁，浏览器才认你是正经站点。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
     { ab:'EV', name:'环境变量', tag:'配置管理', use:'密钥和配置不进代码仓库。', more:'<b>例子：</b>高德 API Key、数据库密码放 .env，代码里只读环境变量，换环境不用改代码。', eg:'"密钥放环境变量，别写死在代码里"' }
-  ]},
-  { tag: '07', name: '可靠性与可观测', desc: '上线之后怎么活得久', items: [
-    { ab:'LG', name:'日志 Logging', tag:'排障的第一现场', use:'请求进来干了啥，留下记录。', more:'<b>例子：</b>结构化日志（JSON）记 时间/级别/trace_id/用户/耗时；别 print 一堆字符串，出事查不到。', eg:'"日志用结构化格式，带上 trace_id"' },
-    { ab:'MT', name:'指标 Metrics', tag:'系统体检表', use:'QPS、延迟、错误率一眼看清。', more:'<b>例子：</b>Prometheus 采集 + Grafana 画板：p95 延迟、错误率、在线用户；毕设也能接个简易统计。', eg:'"接口暴露延迟和错误率指标"' },
-    { ab:'TR', name:'链路追踪 Tracing', tag:'一个请求串全程', use:'跨服务定位慢在哪一步。', more:'<b>例子：</b>OpenTelemetry 给每个请求发 trace_id，前端→网关→服务→数据库全程串起来，慢和错都定位到具体环节。', eg:'"接 OpenTelemetry，全链路 trace_id 贯通"' },
-    { ab:'HC', name:'健康检查', tag:'存活 + 就绪探针', use:'让平台知道服务还活着。', more:'<b>例子：</b>/healthz 查存活（进程没挂）、/readyz 查就绪（依赖都通）；K8s 和负载均衡靠它摘除坏实例。', eg:'"加 /healthz 和 /readyz 健康检查接口"' },
-    { ab:'TO', name:'超时 / 重试 / 幂等', tag:'分布式三件套', use:'网络会抖，请求会丢，别裸奔。', more:'<b>例子：</b>所有外呼设超时；重试要配指数退避；扣款、下单这类操作要幂等（同一请求重发不重复扣钱）。', eg:'"外呼设超时，重试加退避，写操作做幂等"' },
-    { ab:'LR', name:'限流与降级', tag:'过载自我保护', use:'流量太大先保命。', more:'<b>例子：</b>Nginx 或网关限 QPS，超了排队或拒绝；下游挂了降级返回缓存/兜底数据，别跟着雪崩。', eg:'"接口加限流，下游故障时降级返回缓存"' },
-    { ab:'BK', name:'备份与恢复', tag:'数据丢了才最痛', use:'定期备份 + 演练恢复。', more:'<b>例子：</b>数据库每日备份 + 异地存放；定期演练「真恢复一次」，没恢复过的备份等于没有备份。', eg:'"数据库每天备份，恢复流程演练过"' },
-    { ab:'RL', name:'灰度与回滚', tag:'上线不出大事', use:'新版本先放小流量。', more:'<b>例子：</b>新版本先发 5% 用户，指标正常再全量；出问题一条命令回滚到上一版；镜像版本化是前提。', eg:'"上线走灰度发布，保留一键回滚能力"' }
   ]}
 ];
 var techGroupsEl = document.getElementById('techGroups');
-var feEngGroups = [
-  { tag: 'FE', name: '前端工程能力', items: [
-    { ab:'RO', name:'路由 Router', tag:'URL 即状态', use:'页面切换不刷新，URL 可分享可回退。', more:'<b>例子：</b>React Router / Vue Router：/city/hangzhou 对应城市攻略页；参数变化只拉增量数据。', eg:'"用 React Router，城市页路由带参数"' },
-    { ab:'ST', name:'状态管理', tag:'组件外的共享数据', use:'跨页面共享登录态、购物车、筛选条件。', more:'<b>例子：</b>Zustand / Pinia 存登录用户、行程草稿；服务端数据交给 TanStack Query 管，别都塞全局 store。', eg:'"全局状态用 Pinia，服务端数据用请求库缓存"' },
-    { ab:'DT', name:'数据请求与缓存', tag:'TanStack Query / SWR', use:'请求去重、缓存、失效重拉都交给库。', more:'<b>例子：</b>同一攻略页多处请求自动去重；切换页面秒显缓存再后台刷新；错误自动重试。', eg:'"接口数据用 TanStack Query 管理，key 按参数设计"' },
-    { ab:'RR', name:'CSR / SSR / SSG', tag:'渲染模式选型', use:'在哪渲染决定首屏与 SEO。', more:'<b>例子：</b>后台管理系统 CSR 够用；要 SEO 的官网/攻略页用 Next.js SSR 或 SSG；流式 SSR 配 RSC 是新趋势。', eg:'"官网用 Next.js SSG，管理后台用 CSR"' },
-    { ab:'BD', name:'构建与工具链', tag:'Vite / TypeScript', use:'开发快、构建稳、类型有保障。', more:'<b>例子：</b>Vite 秒级热更；TS 让接口字段改了前端立刻报错；ESLint + Prettier 统一风格，AI 生成的代码也过检查。', eg:'"前端用 Vite + TypeScript，配 ESLint 和 Prettier"' },
-    { ab:'TS', name:'测试与质量', tag:'单元 / E2E / 可访问性', use:'改坏了能立刻知道。', more:'<b>例子：</b>Vitest 测工具函数和组件；Playwright 跑核心流程 E2E；axe 扫可访问性问题进 CI。', eg:'"核心流程写 E2E 测试，跑进 CI"' }
-  ]}
-];
-function renderTechCards(groups, container){
-  groups.forEach(function(g){
+if(techGroupsEl){
+  techGroups.forEach(function(g){
     var wrap = document.createElement('div');
     wrap.className = 'tech-group';
-    wrap.innerHTML = '<div class="tg-head"><span class="tg-tag">' + g.tag + '</span><span class="tg-name">' + g.name + '</span><span class="tg-desc">' + (g.desc || '') + '</span></div>' +
+    wrap.innerHTML = '<div class="tg-head"><span class="tg-tag">' + g.tag + '</span><span class="tg-name">' + g.name + '</span><span class="tg-desc">' + g.desc + '</span></div>' +
       '<div class="tech-grid"></div>';
     var grid = wrap.querySelector('.tech-grid');
     g.items.forEach(function(t){
@@ -3213,102 +2902,9 @@ function renderTechCards(groups, container){
       });
       grid.appendChild(card);
     });
-    container.appendChild(wrap);
+    techGroupsEl.appendChild(wrap);
   });
 }
-if(techGroupsEl){
-  renderTechCards(techGroups, techGroupsEl);
-}
-var feEngGrid = document.getElementById('feEngGrid');
-if(feEngGrid){
-  renderTechCards(feEngGroups, feEngGrid);
-}
-
-/* ========== 前后端联调闭环 ========== */
-(function(){
-  var btn = document.getElementById('lbBtn');
-  var steps = document.getElementById('lbSteps');
-  var res = document.getElementById('lbRes');
-  if(!btn || !steps || !res) return;
-  var running = false;
-  function setStep(idx){
-    steps.querySelectorAll('.step').forEach(function(s, i){
-      s.classList.toggle('done', i < idx);
-      s.classList.toggle('active', i === idx);
-    });
-  }
-  function line(tag, text){
-    return tag + ' ' + text + '\n';
-  }
-  btn.addEventListener('click', function(){
-    if(running) return;
-    running = true;
-    btn.disabled = true;
-    var city = document.getElementById('lbCity').value.trim() || '杭州';
-    var daysRaw = document.getElementById('lbDays').value.trim();
-    var budgetRaw = document.getElementById('lbBudget').value.trim();
-    var days = parseInt(daysRaw, 10);
-    var budget = parseFloat(budgetRaw);
-    var out = '';
-    /* 1 表单收集（前端） */
-    setStep(0);
-    out += line('[前端]', '表单收集：city="' + city + '", days=' + daysRaw + ', budget=' + budgetRaw);
-    res.textContent = out;
-    setTimeout(function(){
-      /* 2 发请求 */
-      setStep(1);
-      out += line('[请求]', 'POST /api/plan/generate  (Authorization: Bearer eyJhbGci…)');
-      out += line('[请求体]', '{ "city": "' + city + '", "days": ' + daysRaw + ', "budget": ' + budgetRaw + ' }');
-      res.textContent = out;
-      setTimeout(function(){
-        /* 3 Pydantic 校验 */
-        setStep(2);
-        var errors = [];
-        if(!city) errors.push('body.city: 必填且为字符串');
-        if(isNaN(days) || !Number.isInteger(days)) errors.push('body.days: 应为整数，收到 "' + daysRaw + '"');
-        else if(days < 1 || days > 14) errors.push('body.days: 数值应在 1 到 14 之间');
-        if(isNaN(budget) || budget < 0) errors.push('body.budget: 应为非负数字，收到 "' + budgetRaw + '"');
-        if(errors.length){
-          out += line('[校验]', 'HTTP 422 Unprocessable Entity —— 前端拿到的应该是这个错误分支');
-          out += JSON.stringify({ detail: errors.map(function(e){ return { loc: ['body'], msg: e }; }) }, null, 2) + '\n';
-          out += '[前端] 显示表单红框错误 + err Toast，流程终止（不会走到鉴权和入库）';
-          res.textContent = out;
-          setStep(5);
-          running = false;
-          btn.disabled = false;
-          labToast('422 校验失败：前端要处理这个分支', 'err');
-          return;
-        }
-        out += line('[校验]', 'HTTP 200 · Pydantic 校验通过，days=' + days + ' budget=' + budget);
-        res.textContent = out;
-        setTimeout(function(){
-          /* 4 JWT 鉴权 */
-          setStep(3);
-          out += line('[鉴权]', 'JWT 验签通过：sub=zhilv_user, role=user · 对象级授权：允许为自己生成行程');
-          res.textContent = out;
-          setTimeout(function(){
-            /* 5 入库 */
-            setStep(4);
-            var planId = 'PL-' + Math.floor(1000 + Math.random() * 9000);
-            out += line('[入库]', 'INSERT INTO itineraries (user_id, city, days, budget, status) VALUES (1, "' + city + '", ' + days + ', ' + budget + ', "已生成") → ' + planId);
-            res.textContent = out;
-            setTimeout(function(){
-              /* 6 返回 */
-              setStep(5);
-              out += line('[响应]', 'HTTP 200 OK');
-              out += '{\n  "planId": "' + planId + '",\n  "city": "' + city + '",\n  "days": ' + days + ',\n  "status": "已生成"\n}\n';
-              out += '[前端] loading 结束 → 跳 Result 成功页；若 401 则跳登录页，5xx 则 Toast + 重试按钮';
-              res.textContent = out;
-              running = false;
-              btn.disabled = false;
-              labToast('联调闭环跑通：' + city + ' ' + days + ' 日行程（模拟）', 'ok');
-            }, 450);
-          }, 450);
-        }, 450);
-      }, 450);
-    }, 400);
-  });
-})();
 
 window.addEventListener('load', function(){ setTimeout(statAnimate, 400); setTimeout(infAppend, 100); });
 })();
