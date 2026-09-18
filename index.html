@@ -1693,10 +1693,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
               <button class="al" type="button" data-target="behavior">行为 Behavior</button>
               <button class="al" type="button" data-target="backend">后端 Backend</button>
             </div>
-            <div style="font-size:12.5px;color:var(--ink-3);padding-top:6px;">点目录平滑滚动到对应章节；<br>滚动页面时高亮会自动跟随。</div>
+            <div style="font-size:12.5px;color:var(--ink-3);padding-top:6px;">点目录平滑滚动到对应章节；<br>滚动页面时高亮自动跟随，<br>地址栏 hash 同步更新——刷新不丢位置。</div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">点目录平滑滚到目标区块，滚动时自动高亮当前章节（Scrollspy）。页面顶部的导航就是这么做的。</span><br><span class="eg">"右侧加 Anchor 目录，点击平滑滚动，滚动时 Scrollspy 高亮当前章节"</span></div>
+        <div class="demo-exp"><span class="plain"><b>生产实践：</b>点目录跳转时 URL 加 hash（<code>#layout</code>），滚动时自动更新——<b>刷新不丢位置、浏览器前进后退能记住、可以直接分享链接</b>。这就是 Scrollspy + 路由记忆的组合。</span><br><span class="eg">"右侧加 Anchor 目录，点击平滑滚动，滚动时更新 URL hash，刷新记住位置"</span></div>
       </div>
 
       <div class="demo full">
@@ -3127,8 +3127,12 @@ document.querySelectorAll('#dragList .drag-item').forEach(function(item){
 
 var anchorBtns = document.querySelectorAll('#anchorList .al');
 var anchorSections = ['layout','nav','form','feedback','display','behavior','backend'];
-function setAnchorOn(id){
+function setAnchorOn(id, pushHash){
   anchorBtns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-target') === id); });
+  // 更新 URL hash（记忆定位）
+  if(pushHash !== false){
+    history.replaceState(null, '', '#' + id);
+  }
 }
 anchorBtns.forEach(function(b){
   b.addEventListener('click', function(){
@@ -3149,6 +3153,18 @@ window.addEventListener('scroll', function(){
   });
   setAnchorOn(cur);
 }, { passive: true });
+// 页面加载时从 URL hash 恢复位置
+(function(){
+  var hash = location.hash.slice(1);
+  if(hash && document.getElementById(hash)){
+    setTimeout(function(){
+      var sec = document.getElementById(hash);
+      var top = sec.getBoundingClientRect().top + window.scrollY - 66;
+      window.scrollTo({ top: top, behavior: 'instant' });
+      setAnchorOn(hash, false);
+    }, 100);
+  }
+})();
 
 function applyTheme(dark){
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
