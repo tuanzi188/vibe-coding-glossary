@@ -2073,6 +2073,52 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain"><b>CI（持续集成）</b>：push 后自动跑 lint → 测试 → 构建，任何一步红了就拦住，不进生产。<b>CD（持续部署）</b>：绿了自动 SSH 上服务器拉新代码、重启服务，最后 curl 验证 HTTPS 能访问。点上面的 tab 逐步看每一步的命令和解释。</span><br><span class="eg">"配 CI/CD：push 到 main 自动跑测试，过了 SSH 部署并重启，最后 curl 验证 HTTPS 200"</span></div>
       </div>
 
+      <div class="demo full" id="debug">
+        <div class="demo-head"><span class="d-name">故障排查思维</span><span class="d-en">/ 线上出问题了怎么定位</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
+            <div style="padding:10px 14px;background:var(--brand-soft,#eef2ff);border-radius:8px;font-size:12.5px;color:var(--ink-2);">
+              <b>故障现象：</b>凌晨 2 点，监控告警——<code>POST /api/orders</code> 接口 P99 延迟从 200ms 涨到 8s，用户反馈"下单按钮点了没反应"。
+            </div>
+            <div class="debug-tabs" id="debugTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;font-family:var(--mono);">// 排查命令 / 步骤</div>
+                <div id="debugCmd" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:12px 14px;font-size:12.5px;min-height:240px;max-height:320px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.8;"></div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--ink-3);margin-bottom:4px;">// 这步能发现什么、下一步干嘛</div>
+                <div id="debugWhy" style="border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-height:240px;max-height:320px;overflow-y:auto;font-size:12.5px;line-height:1.7;"></div>
+              </div>
+            </div>
+            <div style="padding:10px 14px;background:#fef3c7;border-radius:8px;font-size:12.5px;color:#92400e;">
+              <b>根因：</b>某次上线加了个 <code>for 循环里查数据库</code>（N+1 问题），订单列表有 50 个商品就查了 50 次 DB，连接池打满。<b>修复：</b>改成一次 <code>IN</code> 查询批量拿。
+            </div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">线上故障别慌——先看监控确认影响面，再看日志找报错，然后复现或定位代码。<b>排查顺序：监控 → 日志 → 代码 → 回滚</b>。先止血（回滚/扩容），再查根因。</span><br><span class="eg">"线上变慢先看 P99 监控，再 grep 错误日志，最后定位代码"</span></div>
+      </div>
+
+      <div class="demo full" id="security">
+        <div class="demo-head"><span class="d-name">安全实践</span><span class="d-en">/ 生产环境必防的 3 个坑</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
+            <div class="sec-tabs" id="secTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <div style="font-size:11px;color:#ef4444;margin-bottom:4px;font-family:var(--mono);">// 有漏洞的写法</div>
+                <div id="secBad" style="background:#1f0f14;color:#fca5a5;border-radius:8px;padding:12px 14px;font-size:12.5px;min-height:200px;max-height:280px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.7;"></div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:#10b981;margin-bottom:4px;font-family:var(--mono);">// 正确的写法</div>
+                <div id="secGood" style="background:#0f1f14;color:#86efac;border-radius:8px;padding:12px 14px;font-size:12.5px;min-height:200px;max-height:280px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.7;"></div>
+              </div>
+            </div>
+            <div id="secExplain" style="border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:12.5px;line-height:1.7;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">生产环境安全不是"加个登录"就完了——<b>SQL 注入、XSS、密钥泄露</b>是最常见的三类。左边是攻击者怎么利用，右边是怎么防。原则：<b>永远不信任用户输入，永远不用硬编码密钥</b>。</span><br><span class="eg">"后端用参数化查询防注入，前端输出转义防 XSS，密钥放环境变量"</span></div>
+      </div>
       <div class="demo full" id="techPanorama">
         <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
         <div class="demo-stage">
@@ -3626,6 +3672,110 @@ if(ciTabs){
   showStep(0);
 }
 
+/* 故障排查 */
+var debugTabs = document.getElementById('debugTabs');
+if(debugTabs){
+  var debugSteps = [
+    {
+      title:'① 看监控',
+      cmd:'> 看 Grafana 监控\n  接口延迟：P99 从 200ms → 8s\n  DB 连接数：从 10 → 95（打满）\n  错误率：0.1% → 12%\n  时间点：和上次上线时间吻合',
+      why:'<b>先看监控确认三件事：</b><br>1. 是不是真的慢了？（对比历史基线）<br>2. 影响范围多大？（哪个接口、多少用户）<br>3. 什么时候开始的？（和发版/流量峰值对比）<br><br><b>这步结论：</b>DB 连接数打满了，说明慢查询或连接泄漏。'
+    },
+    {
+      title:'② 看日志',
+      cmd:'$ kubectl logs app-pod-xxx --tail=200\n  \n  [WARN] slow query: SELECT * FROM orders \n  WHERE user_id = ? (5.2s)\n  [WARN] slow query: SELECT * FROM orders \n  WHERE user_id = ? (7.1s)\n  [ERROR] connection pool timeout: \n  wait timeout after 3000ms',
+      why:'<b>grep 慢查询日志</b>，看是哪条 SQL 慢。<br>再看 <b>错误日志</b>，确认是不是连接池打满导致超时。<br><br><b>这步结论：</b>订单查询慢，连接池等不到连接。下一步去代码里找这个接口。'
+    },
+    {
+      title:'③ 定位代码',
+      cmd:'$ git log --oneline -10\n  a1b2c3d 加了订单详情页商品列表\n  e4f5g6h 修复登录 bug\n  \n>$ git show a1b2c3d\n  // 新代码：\n  for (order of orders) {\n    const items = db.query(\n      "SELECT * FROM items WHERE order_id = ?",\n      order.id\n    )\n    order.items = items\n  }',
+      why:'<b>git log 找最近改了什么</b>，和故障时间点对一下。<br>发现新代码在 <b>for 循环里查数据库</b>——50 个订单就查 50 次，这就是经典的 <b>N+1 问题</b>。<br><br><b>这步结论：</b>根因找到了。'
+    },
+    {
+      title:'④ 止血+修复',
+      cmd:'# 先止血：回滚到上一个版本\n$ kubectl rollout undo deployment/app\n  \n# 再修复：改成批量查询\n// 修复后：\nconst orderIds = orders.map(o => o.id)\nconst items = db.query(\n  "SELECT * FROM items WHERE order_id IN (?)",\n  [orderIds]\n)\norders.forEach(o => {\n  o.items = items.filter(i => i.order_id === o.id)\n})',
+      why:'<b>故障处理原则：先止血再修。</b><br>1. 先回滚版本，让线上恢复（5 分钟搞定）<br>2. 再写正确的修复代码（批量 IN 查询）<br>3. 加个单测覆盖这个场景<br>4. 重新上线观察<br><br><b>生产经验：</b>别在凌晨 2 点现场改代码，先回滚保命。'
+    }
+  ];
+  var tabs = [];
+  debugSteps.forEach(function(s, i){
+    var t = document.createElement('button');
+    t.className = 'btn btn-sm';
+    t.style.cssText = 'border:1px solid var(--line);background:var(--card);color:var(--ink-2);font-size:12.5px;';
+    t.textContent = s.title;
+    t.addEventListener('click', function(){ showDebug(i); });
+    debugTabs.appendChild(t);
+    tabs.push(t);
+  });
+  function showDebug(i){
+    tabs.forEach(function(t, j){
+      if(j === i){
+        t.style.background = 'var(--brand)';
+        t.style.color = '#fff';
+        t.style.borderColor = 'var(--brand)';
+      } else {
+        t.style.background = 'var(--card)';
+        t.style.color = 'var(--ink-2)';
+        t.style.borderColor = 'var(--line)';
+      }
+    });
+    document.getElementById('debugCmd').textContent = debugSteps[i].cmd;
+    document.getElementById('debugWhy').innerHTML = debugSteps[i].why;
+  }
+  showDebug(0);
+}
+
+/* 安全实践 */
+var secTabs = document.getElementById('secTabs');
+if(secTabs){
+  var secCases = [
+    {
+      title:'SQL 注入',
+      bad:'// 后端代码：直接拼字符串\nconst userId = req.query.userId;\nconst sql = `SELECT * FROM orders \n  WHERE user_id = ${userId}`;\ndb.query(sql);\n\n// 攻击输入：\n?userId=1 OR 1=1\n\n// 执行的 SQL：\nSELECT * FROM orders \n  WHERE user_id = 1 OR 1=1\n// 全表数据被拖走了！',
+      good:'// 正确：用参数化查询\nconst userId = req.query.userId;\nconst sql = `SELECT * FROM orders \n  WHERE user_id = ?`;\ndb.query(sql, [userId]);\n\n// 攻击输入：\n?userId=1 OR 1=1\n\n// 执行的 SQL：\nSELECT * FROM orders \n  WHERE user_id = '1 OR 1=1'\n// 当成一个字符串值，查不到东西',
+      explain:'<b>原理：</b>用户输入被当成 SQL 语法执行了。<br><b>防御：</b>永远用参数化查询（占位符 ?），别拼字符串。<br><b>额外：</b>数据库账号只给必要权限，别用 root。'
+    },
+    {
+      title:'XSS 跨站脚本',
+      bad:'// 前端：直接把用户输入插到 HTML\nconst comment = userInput;\ncontainer.innerHTML = \n  "<p>" + comment + "</p>";\n\n// 攻击输入：\n<\/script>stealCookie()<\/script>\n\n// 页面里直接执行了！\n// 用户的 cookie 被偷走',
+      good:'// 正确：转义特殊字符\nfunction escapeHtml(str) {\n  return str.replace(/[&<>"']/g, \n    c => ({\n      "&": "&amp;",\n      "<": "&lt;",\n      ">": "&gt;",\n      \'"\': "&quot;",\n      "'": "&#39;"\n    }[c])\n  );\n}\ncontainer.innerHTML = \n  "<p>" + escapeHtml(comment) + "</p>";\n\n// 攻击输入变成纯文本，不执行',
+      explain:'<b>原理：</b>用户输入的 <script> 标签被浏览器执行了。<br><b>防御：</b>输出前转义 < > & 这些特殊字符。<br><b>框架：</b>React/Vue 默认自动转义，别用 v-html / dangerouslySetInnerHTML。'
+    },
+    {
+      title:'密钥泄露',
+      bad:'// 代码里硬编码密钥！\nconst API_KEY = "sk-abc123xyz789";\nconst DB_PASSWORD = "admin123";\n\n// 推到 GitHub 公开仓库\n$ git push origin main\n\n// 结果：\n// GitHub 自动扫描到密钥泄露\n// 黑客 5 分钟内扫到你的仓库\n// 用你的 API key 烧钱',
+      good:'// 正确：放环境变量\nconst API_KEY = \n  process.env.OPENAI_API_KEY;\nconst DB_PASSWORD = \n  process.env.DB_PASSWORD;\n\n// .env 文件（.gitignore 忽略）\nOPENAI_API_KEY=sk-xxx\nDB_PASSWORD=xxx\n\n// 服务器上配环境变量\n// 不进 git，不泄露',
+      explain:'<b>原理：</b>代码推到公开仓库，密钥就公开了。<br><b>防御：</b>密钥永远放环境变量，.env 加进 .gitignore。<br><b>额外：</b>GitHub 有 secret scanning 自动扫，泄露了要立刻换 key。'
+    }
+  ];
+  var tabs = [];
+  secCases.forEach(function(s, i){
+    var t = document.createElement('button');
+    t.className = 'btn btn-sm';
+    t.style.cssText = 'border:1px solid var(--line);background:var(--card);color:var(--ink-2);font-size:12.5px;';
+    t.textContent = s.title;
+    t.addEventListener('click', function(){ showSec(i); });
+    secTabs.appendChild(t);
+    tabs.push(t);
+  });
+  function showSec(i){
+    tabs.forEach(function(t, j){
+      if(j === i){
+        t.style.background = 'var(--brand)';
+        t.style.color = '#fff';
+        t.style.borderColor = 'var(--brand)';
+      } else {
+        t.style.background = 'var(--card)';
+        t.style.color = 'var(--ink-2)';
+        t.style.borderColor = 'var(--line)';
+      }
+    });
+    document.getElementById('secBad').textContent = secCases[i].bad;
+    document.getElementById('secGood').textContent = secCases[i].good;
+    document.getElementById('secExplain').innerHTML = secCases[i].explain;
+  }
+  showSec(0);
+}
 /* HTTP 请求解剖 */
 var httpParts = [
   { t: '请求行', d: '第一行是「需求单」：方法 POST 表示「提交数据」，后面是路径，末尾是协议版本。读它就知道客户端要做什么。' },
