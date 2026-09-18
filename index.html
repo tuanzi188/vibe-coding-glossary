@@ -3456,7 +3456,7 @@ var techGroups = [
   { tag: '06', name: '部署与运维', desc: '怎么上线、上线后怎么活得久', items: [
     { ab:'NX', name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>在哪用：</b>前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
     { ab:'DO', name:'Docker', tag:'容器化打包', use:'环境打包成镜像，处处一致。', more:'<b>在哪用：</b>后端写 Dockerfile，云服务器 docker compose up 一键起。', eg:'"写 Dockerfile 打包，docker-compose 一键部署"' },
-    { ab:'HT', name:'HTTPS', tag:'加密通道', use:'让地址栏变锁，数据不被窃听。', more:'<b>在哪用：</b>买域名后配免费证书（Let's Encrypt），全站 HTTPS；登录和支付必须。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
+    { ab:'HT', name:'HTTPS', tag:'加密通道', use:'让地址栏变锁，数据不被窃听。', more:'<b>在哪用：</b>买域名后配免费证书（Let\'s Encrypt），全站 HTTPS；登录和支付必须。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
     { ab:'EV', name:'环境变量', tag:'配置与密钥管理', use:'密钥和配置不进代码仓库。', more:'<b>在哪用：</b>API Key、数据库密码放 .env，代码里只读环境变量；换环境不用改代码；别提交到 git。', eg:'"密钥放环境变量，别写死在代码里"' },
     { ab:'CI', name:'CI/CD', tag:'自动构建测试部署', use:'推代码 → 自动构建 → 自动上线。', more:'<b>在哪用：</b>GitHub Actions；改完代码 push 就自动部署，不用手动 SSH。', eg:'"配 CI/CD，push 到 main 自动构建部署"' },
     { ab:'LG', name:'日志 Logging', tag:'排障第一现场', use:'请求进来干了啥，留下记录。', more:'<b>在哪用：</b>结构化日志记 时间/级别/trace_id/用户/耗时；别 print 一堆字符串，出事查不到。', eg:'"日志用结构化格式，带上 trace_id"' },
