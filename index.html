@@ -1491,18 +1491,20 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       </div>
 
       <div class="demo">
-        <div class="demo-head"><span class="d-name">Segmented 分段控制器</span><span class="d-en">/ 三选一</span></div>
+        <div class="demo-head"><span class="d-name">Segmented 分段控制器</span><span class="d-en">/ 同一个内容，换个看法</span></div>
         <div class="demo-stage center">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-            <div class="segmented">
-              <button class="sg on" type="button" onclick="segClick(this)">列表视图</button>
-              <button class="sg" type="button" onclick="segClick(this)">网格视图</button>
-              <button class="sg" type="button" onclick="segClick(this)">时间线</button>
+          <div style="display:flex;flex-direction:column;gap:12px;width:100%;">
+            <div style="display:flex;justify-content:center;">
+              <div class="segmented">
+                <button class="sg on" type="button" onclick="segClick(this,'list')">列表视图</button>
+                <button class="sg" type="button" onclick="segClick(this,'grid')">网格视图</button>
+                <button class="sg" type="button" onclick="segClick(this,'timeline')">时间线</button>
+              </div>
             </div>
-            <div style="font-size:12.5px;color:var(--ink-2);" id="segMsg">当前：列表视图</div>
+            <div id="segContent" style="border:1px solid var(--line);border-radius:8px;padding:14px;background:var(--card, #fff);min-height:180px;"></div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">互斥的小选项组，比 Radio 更紧凑，比 Tabs 更轻。适合视图切换、筛选口径。</span><br><span class="eg">"视图切换用 Segmented：列表 / 网格"</span></div>
+        <div class="demo-exp"><span class="plain"><b>和 Tabs 的区别：</b>Tabs 切的是<b>完全不同的内容</b>（首页/订单/个人中心），Segmented 切的是<b>同一份内容的不同展示方式</b>（都是用户列表，只是排成列表/网格/时间线）。</span><br><span class="eg">"列表页顶部用 Segmented 切换：列表 / 卡片 / 时间线"</span></div>
       </div>
 
       <div class="demo">
@@ -2828,11 +2830,38 @@ window.toggleCollapse = function(head){
   head.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 };
 /* Segmented */
-window.segClick = function(btn){
+window.segClick = function(btn, mode){
   btn.parentElement.querySelectorAll('.sg').forEach(function(s){ s.classList.toggle('on', s === btn); });
-  var msg = document.getElementById('segMsg');
-  if(msg) msg.textContent = '当前：' + btn.textContent;
+  var data = [
+    {name:'张三', status:'在线', time:'刚刚'},
+    {name:'李四', status:'离线', time:'10分钟前'},
+    {name:'王五', status:'忙碌', time:'1小时前'}
+  ];
+  var html = '';
+  if(mode === 'list'){
+    html = '<div style="display:flex;flex-direction:column;gap:8px;">';
+    data.forEach(function(u){
+      html += '<div style="display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--line);font-size:13px;"><span>'+u.name+'</span><span style="color:var(--ink-3);">'+u.status+' · '+u.time+'</span></div>';
+    });
+    html += '</div>';
+  } else if(mode === 'grid'){
+    html = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">';
+    data.forEach(function(u){
+      var color = u.status==='在线'?'var(--green)':u.status==='忙碌'?'var(--amber,#f59e0b)':'var(--ink-3)';
+      html += '<div style="padding:14px;border:1px solid var(--line);border-radius:8px;text-align:center;"><div style="width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:14px;">'+u.name[0]+'</div><div style="font-size:13px;font-weight:600;">'+u.name+'</div><div style="font-size:11px;color:'+color+';margin-top:2px;">'+u.status+'</div></div>';
+    });
+    html += '</div>';
+  } else {
+    html = '<div style="position:relative;padding-left:20px;">';
+    data.forEach(function(u, i){
+      html += '<div style="position:relative;padding-bottom:16px;"><div style="position:absolute;left:-16px;top:4px;width:8px;height:8px;border-radius:50%;background:var(--brand);"></div>' + (i < data.length-1 ? '<div style="position:absolute;left:-13px;top:14px;width:2px;height:calc(100% - 14px);background:var(--line);"></div>' : '') + '<div style="font-size:13px;font-weight:600;">'+u.name+'</div><div style="font-size:11px;color:var(--ink-3);margin-top:2px;">'+u.status+' · '+u.time+'</div></div>';
+    });
+    html += '</div>';
+  }
+  document.getElementById('segContent').innerHTML = html;
 };
+// 初始化
+window.segClick(document.querySelector('.segmented .sg.on'), 'list');
 
 /* ========== 全局：外部点击 / ESC / 返回顶部 / 平滑滚动 ========== */
 function closeFloatingMenus(){
