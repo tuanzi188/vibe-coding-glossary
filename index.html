@@ -518,6 +518,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .tg-path{width:100%;font-size:12.5px;color:var(--ink-3);margin:-4px 0 12px;padding:8px 12px;background:var(--brand-soft);border-radius:8px;line-height:1.6;}
 .tg-path b{color:var(--brand);font-weight:600;}
 .tc-adv{position:absolute;top:10px;right:10px;font-size:10.5px;font-family:var(--mono);color:#b45309;background:#fef3c7;padding:2px 7px;border-radius:6px;font-weight:600;letter-spacing:.02em;}
+.roadmap{width:100%;margin-bottom:16px;padding:18px;background:#fff;border:1px solid #e6eaf2;border-radius:12px;}
+.rm-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.rm-title{font-size:15px;font-weight:700;color:var(--ink);}
+.rm-sub{font-size:12.5px;color:var(--ink-3);}
+.rm-steps{display:flex;flex-direction:column;gap:0;}
+.rm-step{display:grid;grid-template-columns:36px 1fr;gap:12px;position:relative;padding-bottom:14px;}
+.rm-step:last-child{padding-bottom:0;}
+.rm-step:not(:last-child)::before{content:'';position:absolute;left:17px;top:36px;bottom:0;width:2px;background:#e6eaf2;}
+.rm-no{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;z-index:1;}
+.rm-body{padding-top:4px;}
+.rm-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.rm-goal{font-size:12.5px;color:var(--ink-3);margin-bottom:8px;}
+.rm-cards{display:flex;flex-wrap:wrap;gap:6px;}
+.rm-chip{border:1px solid #d9deea;background:#f8fafc;color:var(--ink-2);font-size:12px;padding:5px 11px;border-radius:14px;cursor:pointer;transition:all .15s;font-family:inherit;min-height:28px;}
+.rm-chip:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);}
+@media (max-width:560px){.roadmap{padding:14px 12px;}.rm-step{grid-template-columns:28px 1fr;gap:10px;}.rm-no{width:28px;height:28px;font-size:12px;}.rm-step:not(:last-child)::before{left:13px;top:28px;}}
 .tech-group:last-child{margin-bottom:0;}
 .tg-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
 .tg-head .tg-tag{font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--brand);letter-spacing:.03em;}
@@ -1831,6 +1847,90 @@ Accept: application/json</div>
       <div class="demo full">
         <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
         <div class="demo-stage">
+          <div class="roadmap" id="roadmap">
+            <div class="rm-head"><span class="rm-title">初学者路线图</span><span class="rm-sub">按顺序走完前 5 步就能独立做一个全栈项目，第 6 步先眼熟</span></div>
+            <div class="rm-steps">
+              <div class="rm-step">
+                <div class="rm-no">1</div>
+                <div class="rm-body">
+                  <div class="rm-name">第 1 周 · 搞懂 HTTP</div>
+                  <div class="rm-goal">知道一个请求长什么样、接口怎么定</div>
+                  <div class="rm-cards">
+                    <button type="button" class="rm-chip" data-card="HTTP 请求解剖">HTTP 请求解剖</button>
+                    <button type="button" class="rm-chip" data-card="RESTful">RESTful</button>
+                    <button type="button" class="rm-chip" data-card="OpenAPI">OpenAPI</button>
+                  </div>
+                </div>
+              </div>
+              <div class="rm-step">
+                <div class="rm-no">2</div>
+                <div class="rm-body">
+                  <div class="rm-name">第 2 周 · 跑通一个后端</div>
+                  <div class="rm-goal">选一个框架，能写一个返回 JSON 的接口</div>
+                  <div class="rm-cards">
+                    <button type="button" class="rm-chip" data-card="FastAPI">FastAPI</button>
+                    <button type="button" class="rm-chip" data-card="Flask">Flask</button>
+                    <button type="button" class="rm-chip" data-card="Express">Express</button>
+                  </div>
+                </div>
+              </div>
+              <div class="rm-step">
+                <div class="rm-no">3</div>
+                <div class="rm-body">
+                  <div class="rm-name">第 3 周 · 数据存起来</div>
+                  <div class="rm-goal">连上数据库，能做增删改查</div>
+                  <div class="rm-cards">
+                    <button type="button" class="rm-chip" data-card="SQLite">SQLite</button>
+                    <button type="button" class="rm-chip" data-card="MySQL">MySQL</button>
+                    <button type="button" class="rm-chip" data-card="ORM 对象映射">ORM</button>
+                    <button type="button" class="rm-chip" data-card="迁移 Migration">迁移</button>
+                    <button type="button" class="rm-chip" data-card="索引 Index">索引</button>
+                  </div>
+                </div>
+              </div>
+              <div class="rm-step">
+                <div class="rm-no">4</div>
+                <div class="rm-body">
+                  <div class="rm-name">第 4 周 · 让人登录</div>
+                  <div class="rm-goal">能做注册登录，接口能鉴权</div>
+                  <div class="rm-cards">
+                    <button type="button" class="rm-chip" data-card="JWT">JWT</button>
+                    <button type="button" class="rm-chip" data-card="密码哈希">密码哈希</button>
+                    <button type="button" class="rm-chip" data-card="RBAC">RBAC</button>
+                  </div>
+                </div>
+              </div>
+              <div class="rm-step">
+                <div class="rm-no">5</div>
+                <div class="rm-body">
+                  <div class="rm-name">第 5 周 · 上线</div>
+                  <div class="rm-goal">把服务跑在公网上，别人能访问</div>
+                  <div class="rm-cards">
+                    <button type="button" class="rm-chip" data-card="Docker">Docker</button>
+                    <button type="button" class="rm-chip" data-card="Nginx">Nginx</button>
+                    <button type="button" class="rm-chip" data-card="环境变量">环境变量</button>
+                    <button type="button" class="rm-chip" data-card="日志 Logging">日志</button>
+                    <button type="button" class="rm-chip" data-card="CI/CD">CI/CD</button>
+                  </div>
+                </div>
+              </div>
+              <div class="rm-step">
+                <div class="rm-no">6</div>
+                <div class="rm-body">
+                  <div class="rm-name">进阶 · 面试能聊</div>
+                  <div class="rm-goal">项目用到再深入，先知道是什么</div>
+                  <div class="rm-cards">
+                    <button type="button" class="rm-chip" data-card="Redis">Redis</button>
+                    <button type="button" class="rm-chip" data-card="Celery">Celery</button>
+                    <button type="button" class="rm-chip" data-card="RabbitMQ">RabbitMQ</button>
+                    <button type="button" class="rm-chip" data-card="Kafka">Kafka</button>
+                    <button type="button" class="rm-chip" data-card="测试">测试</button>
+                    <button type="button" class="rm-chip" data-card="K8s">K8s</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="tech-toolbar" id="techToolbar">
             <input class="tech-search" id="techSearch" type="search" placeholder="搜索技术卡：如 缓存 / 鉴权 / 部署" aria-label="搜索技术卡">
             <div class="tech-chips" id="techChips">
@@ -3252,6 +3352,22 @@ function renderTechCards(groups, container){
 if(techGroupsEl){
   renderTechCards(techGroups, techGroupsEl);
 }
+document.querySelectorAll('.rm-chip').forEach(function(chip){
+  chip.addEventListener('click', function(){
+    var name = chip.getAttribute('data-card');
+    var found = null;
+    techGroupsEl.querySelectorAll('.tc-name').forEach(function(el){
+      if(el.textContent.trim() === name || el.textContent.indexOf(name) === 0) found = el.closest('.tech-card');
+    });
+    if(found){
+      found.scrollIntoView({behavior:'smooth', block:'center'});
+      found.style.outline = '2px solid var(--brand)';
+      found.style.outlineOffset = '2px';
+      setTimeout(function(){ found.style.outline = ''; }, 1800);
+      if(!found.classList.contains('open')) found.click();
+    }
+  });
+});
 (function(){
   var search = document.getElementById('techSearch');
   var chips = document.getElementById('techChips');
