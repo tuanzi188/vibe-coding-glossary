@@ -726,6 +726,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         </button>
         <div class="nav-menu">
           <a href="#http">HTTP 解剖</a>
+          <a href="#pyd">数据校验</a>
+          <a href="#rag">RAG 检索</a>
+          <a href="#rest">REST API</a>
+          <a href="#sqlite">数据库</a>
+          <a href="#async">同步 vs 异步</a>
+          <a href="#jwt">JWT 登录</a>
           <a href="#backend">技术栈全景</a>
         </div>
       </div>
@@ -1611,7 +1617,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     </div>
     <div class="demos">
 
-      <div class="demo full">
+      <div class="demo full" id="pyd">
         <div class="demo-head"><span class="d-name">FastAPI + Pydantic 数据校验</span><span class="d-en">/ 类型安全的入口</span></div>
         <div class="demo-stage center">
           <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
@@ -1630,7 +1636,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">FastAPI 在入口就用 Pydantic 把请求体校验一遍：字段类型、必填、范围不合格直接返回 422 错误列表。你代码里拿到的永远是正确的数据，不用自己写一堆 if 判空。</span><br><span class="eg">"后端用 FastAPI，请求体建一个 Pydantic 模型做校验，类型和范围错了返回 422"</span></div>
       </div>
 
-      <div class="demo full">
+      <div class="demo full" id="rag">
         <div class="demo-head"><span class="d-name">RAG 检索增强生成</span><span class="d-en">/ 毕设的核心</span></div>
         <div class="demo-stage">
           <div class="rag-demo">
@@ -1645,7 +1651,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25 抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
       </div>
 
-      <div class="demo">
+      <div class="demo" id="rest">
         <div class="demo-head"><span class="d-name">RESTful API</span><span class="d-en">/ 前后端唯一的对话通道</span></div>
         <div class="demo-stage center">
           <div class="api-demo">
@@ -1662,7 +1668,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">REST 的规矩：URL 只写名词（资源），动作交给 GET/POST/PUT/DELETE，结果用状态码表达（200 成功 / 404 找不到 / 500 服务器炸了）。</span><br><span class="eg">"帮我设计 RESTful API：行程生成走 POST /api/plan/generate，城市攻略走 GET /api/city/{city}/guide"</span></div>
       </div>
 
-      <div class="demo">
+      <div class="demo" id="sqlite">
         <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
         <div class="demo-stage center">
           <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
@@ -1677,7 +1683,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
       </div>
 
-      <div class="demo">
+      <div class="demo" id="async">
         <div class="demo-head"><span class="d-name">同步 vs 异步</span><span class="d-en">/ FastAPI 为什么快</span></div>
         <div class="demo-stage center">
           <div class="sa-demo">
@@ -1692,7 +1698,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">同步：三个请求排队等，总耗时 ≈ 2.1s；异步：三个请求同时发出、一起等，总耗时 ≈ 0.75s。请求卡在网络/数据库时不占 CPU，async 就是把「等」这件事并发掉。</span><br><span class="eg">"FastAPI 接口用 async def，同时调高德 API 和天气接口，别串行等"</span></div>
       </div>
 
-      <div class="demo">
+      <div class="demo" id="jwt">
         <div class="demo-head"><span class="d-name">JWT 登录态</span><span class="d-en">/ 无状态认证</span></div>
         <div class="demo-stage center">
           <div class="jwt-demo">
