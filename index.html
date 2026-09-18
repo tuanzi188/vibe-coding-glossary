@@ -1202,7 +1202,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-head"><span class="d-name">Modal 居中弹窗</span><span class="d-en">/ dialog · 遮罩 + 必须交互</span></div>
         <div class="demo-stage center">
           <button class="btn btn-primary" type="button" onclick="openModal()">打开 Modal</button>
-          <button class="btn btn-outline" type="button" onclick="labToast('Modal 常用来放表单或详情')">它放什么？</button>
+          <div class="popover-wrap" style="display:inline-block;position:relative;">
+            <button class="btn btn-outline" type="button" onclick="openModalHint(event)">它放什么？</button>
+            <div class="popover" id="modalHintBox" style="width:260px;left:0;top:calc(100% + 8px);">
+              <div class="pv-t">Modal 里放什么？</div>
+              <div style="line-height:1.7;">编辑表单、确认操作、详情查看——<b>必须用户处理完才能继续</b>的内容。<br><br>和 Drawer 的区别：Modal 居中打断流程，Drawer 侧边滑出不打断。</div>
+            </div>
+          </div>
         </div>
         <div class="demo-exp"><span class="plain">居中弹出、带遮罩、必须交互才能关。适合确认、编辑表单这类「必须处理」的场景。</span><br><span class="eg">"点击编辑弹 Modal，宽度 640"</span></div>
       </div>
@@ -1253,7 +1259,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-head"><span class="d-name">Popover 气泡卡片</span><span class="d-en">/ 点击弹出</span></div>
         <div class="demo-stage center">
           <div class="popover-wrap" id="pvWrap">
-            <button class="btn btn-outline btn-sm" type="button" onclick="togglePopover(event)">点击查看说明</button>
+            <button class="btn btn-outline btn-sm" type="button" onclick="openPopoverBox(event)">点击查看说明</button>
             <div class="popover" id="pvBox">
               <div class="pv-t">使用说明</div>
               <div>Popover 点击弹出，可放标题、文字、链接、按钮等富内容；点页面其他位置关闭。</div>
@@ -1398,33 +1404,52 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <div class="demo">
         <div class="demo-head"><span class="d-name">Tag / Badge / Avatar</span><span class="d-en">/ 标签 · 角标 · 头像</span></div>
         <div class="demo-stage">
-          <div style="display:flex;flex-direction:column;gap:14px;width:100%;">
-            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-              <span class="tag tag-green">已发布</span>
-              <span class="tag tag-blue">进行中</span>
-              <span class="tag tag-amber">待审核</span>
-              <span class="tag tag-red">已下线</span>
-              <span class="tag tag-gray">草稿</span>
+          <div style="width:100%;display:flex;flex-direction:column;gap:18px;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:12px;color:var(--ink-3);font-weight:600;letter-spacing:.5px;">TAG · 状态标签（点一下切换状态）</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                <span class="tag tag-green" style="cursor:pointer;" onclick="cycleTag(this)">已发布</span>
+                <span class="tag tag-blue" style="cursor:pointer;" onclick="cycleTag(this)">进行中</span>
+                <span class="tag tag-amber" style="cursor:pointer;" onclick="cycleTag(this)">待审核</span>
+                <span class="tag tag-red" style="cursor:pointer;" onclick="cycleTag(this)">已下线</span>
+                <span class="tag tag-gray" style="cursor:pointer;" onclick="cycleTag(this)">草稿</span>
+              </div>
             </div>
-            <div style="display:flex;gap:30px;align-items:center;">
-              <div class="badge-wrap">
-                <button class="btn btn-outline btn-sm" type="button" onclick="labToast('消息中心：5 条未读')">消息</button>
-                <span class="badge">5</span>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:12px;color:var(--ink-3);font-weight:600;letter-spacing:.5px;">BADGE · 角标（点按钮消红点）</div>
+              <div style="display:flex;gap:30px;align-items:center;">
+                <div class="badge-wrap">
+                  <button class="btn btn-outline btn-sm" type="button" onclick="clearBadge(this)">消息</button>
+                  <span class="badge">5</span>
+                </div>
+                <div class="badge-wrap">
+                  <button class="btn btn-outline btn-sm" type="button" onclick="clearBadge(this)">动态</button>
+                  <span class="badge-dot"></span>
+                </div>
               </div>
-              <div class="badge-wrap">
-                <button class="btn btn-outline btn-sm" type="button" onclick="labToast('动态：有新内容小红点')">动态</button>
-                <span class="badge-dot"></span>
-              </div>
-              <div style="display:flex;gap:10px;align-items:center;">
-                <span class="avatar" style="background:#3b5bdb;">陈</span>
-                <span class="avatar" style="background:#0ca678;">林</span>
-                <span class="avatar" style="background:#e8590c;">王</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-size:12px;color:var(--ink-3);font-weight:600;letter-spacing:.5px;">AVATAR · 头像（绿点=在线，灰点=离开）</div>
+              <div style="display:flex;gap:14px;align-items:center;">
+                <div style="position:relative;">
+                  <span class="avatar" style="background:#3b5bdb;">陈</span>
+                  <span style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:#0ca678;border:2px solid var(--card);"></span>
+                </div>
+                <div style="position:relative;">
+                  <span class="avatar" style="background:#0ca678;">林</span>
+                  <span style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:#adb5bd;border:2px solid var(--card);"></span>
+                </div>
+                <div style="position:relative;">
+                  <span class="avatar" style="background:#e8590c;">王</span>
+                  <span style="position:absolute;bottom:0;right:0;width:11px;height:11px;border-radius:50%;background:#0ca678;border:2px solid var(--card);"></span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">Tag 状态标签、Badge 红点角标（数字或小圆点）、Avatar 头像。</span><br><span class="eg">"未读用 Badge 红点，状态用 Tag：已发布 / 草稿"</span></div>
+        <div class="demo-exp"><span class="plain">Tag 是状态文字标签（可点切换）；Badge 是挂在按钮/图标上的角标（数字或红点，点一下消掉）；Avatar 是人头缩写，右下角小圆点表示在线状态。</span><br><span class="eg">"未读用 Badge 红点，状态用 Tag：已发布 / 草稿，头像加在线绿点"</span></div>
       </div>
+
 
       <div class="demo">
         <div class="demo-head"><span class="d-name">Carousel 轮播</span><span class="d-en">/ 自动播放</span></div>
@@ -1579,6 +1604,38 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
           </div>
         </div>
         <div class="demo-exp"><span class="plain">图片列表点击后全屏放大（灯箱），支持 ESC 和点击背景关闭。电商图库、作品集标配。</span><br><span class="eg">"图片列表点击弹 Lightbox 预览，支持键盘关闭"</span></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-head"><span class="d-name">CSS 变量 / 主题切换原理</span><span class="d-en">/ 改一个值，全站变色</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="font-size:13px;color:var(--ink-2);line-height:1.7;">
+              全站颜色不写死，而是存在 CSS 变量里。改 <code style="font-family:var(--mono);background:var(--stage);padding:2px 6px;border-radius:4px;">--brand</code>，所有按钮、链接、选中态实时跟着变——暗色模式就是换了一整套变量值。
+            </div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                <span style="width:70px;font-family:var(--mono);color:var(--ink-3);">--brand</span>
+                <input type="color" id="cvBrand" value="#3b5bdb" style="width:42px;height:32px;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:2px;background:var(--card);">
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                <span style="width:70px;font-family:var(--mono);color:var(--ink-3);">--bg</span>
+                <input type="color" id="cvBg" value="#f5f6f8" style="width:42px;height:32px;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:2px;background:var(--card);">
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px;">
+                <span style="width:70px;font-family:var(--mono);color:var(--ink-3);">--card</span>
+                <input type="color" id="cvCard" value="#ffffff" style="width:42px;height:32px;border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:2px;background:var(--card);">
+              </label>
+              <button class="btn btn-outline btn-sm" type="button" onclick="resetThemeVars()">重置</button>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px;">
+              <button class="btn btn-primary btn-sm" type="button" style="pointer-events:none;">主按钮（实时变色）</button>
+              <span class="tag tag-blue">选中标签</span>
+              <span style="background:var(--brand-soft);color:var(--brand);padding:4px 10px;border-radius:6px;font-size:12px;">brand-soft 底色</span>
+            </div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">CSS 变量（Custom Properties）是主题系统的基础：<code>:root</code> 定义一套亮色值，<code>[data-theme="dark"]</code> 覆盖一套暗色值，JS 只切 <code>data-theme</code> 属性名就整站换肤。上面的色板直接改 <code>document.documentElement.style</code>，你能看到全站实时响应。</span><br><span class="eg">"改 --brand 主色，全站按钮链接实时变"</span></div>
       </div>
 
     </div>
@@ -2629,7 +2686,7 @@ window.confirmDelete = function(){
   labToast('记录已删除', 'ok');
 };
 /* Popover */
-window.togglePopover = function(e){
+window.openPopoverBox = function(e){
   e.stopPropagation();
   var box = document.getElementById('pvBox');
   var anyOpen = box.classList.contains('open');
@@ -3247,6 +3304,63 @@ if(restRows.length && restWhy){
   });
   showRest(0);
 }
+/* Modal 说明气泡 */
+window.openModalHint = function(e){
+  e.stopPropagation();
+  var box = document.getElementById('modalHintBox');
+  var anyOpen = box.classList.contains('open');
+  closeAllOverlays();
+  if(!anyOpen) box.classList.add('open');
+};
+/* Tag 循环切换 */
+var tagStates = [
+  {cls:'tag-green', text:'已发布'},
+  {cls:'tag-blue', text:'进行中'},
+  {cls:'tag-amber', text:'待审核'},
+  {cls:'tag-red', text:'已下线'},
+  {cls:'tag-gray', text:'草稿'}
+];
+window.cycleTag = function(el){
+  var cur = el.textContent.trim();
+  var idx = tagStates.findIndex(function(s){ return s.text === cur; });
+  idx = (idx + 1) % tagStates.length;
+  el.className = el.className.replace(/tag-(green|blue|amber|red|gray)/g, '').trim();
+  el.classList.add(tagStates[idx].cls);
+  el.textContent = tagStates[idx].text;
+};
+/* Badge 消红点 */
+window.clearBadge = function(btn){
+  var wrap = btn.closest('.badge-wrap');
+  var b = wrap.querySelector('.badge, .badge-dot');
+  if(b) b.style.display = 'none';
+  labToast('已读', 'ok');
+};
+/* CSS 变量实时改色 */
+var cvBrand = document.getElementById('cvBrand');
+var cvBg = document.getElementById('cvBg');
+var cvCard = document.getElementById('cvCard');
+if(cvBrand){
+  cvBrand.addEventListener('input', function(){
+    document.documentElement.style.setProperty('--brand', this.value);
+    document.documentElement.style.setProperty('--brand-soft', this.value + '1a');
+  });
+  cvBg.addEventListener('input', function(){
+    document.documentElement.style.setProperty('--bg', this.value);
+  });
+  cvCard.addEventListener('input', function(){
+    document.documentElement.style.setProperty('--card', this.value);
+  });
+}
+window.resetThemeVars = function(){
+  document.documentElement.style.removeProperty('--brand');
+  document.documentElement.style.removeProperty('--brand-soft');
+  document.documentElement.style.removeProperty('--bg');
+  document.documentElement.style.removeProperty('--card');
+  cvBrand.value = '#3b5bdb';
+  cvBg.value = '#f5f6f8';
+  cvCard.value = '#ffffff';
+};
+
 
 
 /* SQLite 表结构 */
