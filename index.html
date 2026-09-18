@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前后端实验室 · 组件看得见 · 技术讲得清</title>
+<title>前后端模拟台 · 组件看得见 · 技术讲得清</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%233b5bdb'/%3E%3Cpath d='M6 8l4 4-4 4' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 16h5' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
@@ -762,7 +762,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   .hero{padding:38px 0 30px;}
   .hero h1{font-size:24px;}
   .hero .stats{grid-template-columns:repeat(2,auto);gap:14px 20px;}
-  .grid-demo{grid-template-columns:repeat(2,1fr);}
+  .group{padding:28px 0;}
+  .demo-stage{padding:16px 14px;}
+  .desc-demo .d-row{grid-template-columns:88px 1fr;}
+  .desc-demo .d-l,.desc-demo .d-v{padding:7px 10px;}
+  .layout-skel .ls-side{width:104px;padding:10px;font-size:11px;}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
@@ -777,7 +781,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="nav-in">
     <a class="nav-logo" href="#top" aria-label="回到顶部">
       <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#3b5bdb"/><path d="M6 8l4 4-4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-      前后端实验室
+      前后端模拟台
     </a>
     <div class="nav-links">
       <div class="nav-dd" id="navFe">
@@ -800,11 +804,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <div class="nav-menu">
-          <a href="#http">接口与通信</a>
-          <a href="#pyd">框架与校验</a>
-          <a href="#sqlite">数据与存储</a>
+          <a href="#pyd">框架与入口</a>
+          <a href="#http">接口通信</a>
+          <a href="#sqlite">数据存储</a>
           <a href="#jwt">认证授权</a>
-          <a href="#backend">技术栈全景</a>
+          <a href="#cicd">部署运维</a>
+          <a href="#techPanorama">技术栈全景</a>
         </div>
       </div>
     </div>
@@ -821,13 +826,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 <header class="hero" id="top">
   <div class="wrap">
     <div class="kicker"><span class="dot"></span>不是背词表：组件真能点，技术真能讲清</div>
-    <h1>前后端实验室<br><span class="accent">组件看得见 · 技术讲得清</span></h1>
-    <p class="lead">这一页把前后端平起平坐地讲：前端把 46+ 个常用 UI 组件真的写出来——弹窗能开、抽屉能滑、表格能删、列表能拖拽；后端把 HTTP、框架、数据库、API、认证安全、部署上线、可靠性一次讲明白。每个名词都配「人话解释 + vibe coding 例句」，看完能直接跟 AI 说清楚你要什么。</p>
+    <h1>前后端模拟台<br><span class="accent">组件看得见 · 技术讲得清</span></h1>
+    <p class="lead">这一页把前后端平起平坐地讲：前端把常用 UI 组件真的写出来——弹窗能开、抽屉能滑、表格能删、列表能拖拽；后端把 HTTP、框架、数据库、API、认证安全、部署上线、可靠性一次讲明白。每个名词都配「人话解释 + vibe coding 例句」，看完能直接跟 AI 说清楚你要什么。<b>边界说明：前端区的交互都是真的；后端区的请求、报文和状态码由前端模拟生成，本页不发起任何网络请求。</b></p>
     <div class="stats">
-      <div class="stat"><b>46+</b><span>前端组件 · 真实可交互</span></div>
-      <div class="stat"><b>6</b><span>前端大区 + 工程能力卡</span></div>
-      <div class="stat"><b>59</b><span>后端技术卡 · 七类全景</span></div>
-      <div class="stat"><b>7</b><span>后端分类</span></div>
+      <div class="stat"><b id="stFe">–</b><span>前端组件 · 真实可交互</span></div>
+      <div class="stat"><b id="stFeGrp">–</b><span>前端大区 + 工程能力卡</span></div>
+      <div class="stat"><b id="stBeCards">–</b><span>后端技术卡 · 七类全景</span></div>
+      <div class="stat"><b id="stBeDemo">–</b><span>后端可操纵 demo</span></div>
     </div>
   </div>
 </header>
@@ -1675,7 +1680,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">整页颜色由一组 CSS 变量（Design Token）驱动，切一个变量全站变色。和 AI 说「颜色走设计变量」比逐个改色高效得多。</span><br><span class="eg">"支持暗色模式，用 CSS 变量切换，别写死颜色"</span></div>
       </div>
 
-      <div class="demo full">
+      <div class="demo full" id="fePanorama">
         <div class="demo-head"><span class="d-name">前端工程能力地图</span><span class="d-en">/ 组件之外的前端</span></div>
         <div class="demo-stage">
           <div id="feEngGrid" class="tech-grid" style="width:100%;"></div>
@@ -1693,7 +1698,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="group-head">
       <div class="tag">07 · 后端技术栈 Backend</div>
       <h2>后端技术栈</h2>
-      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到接口通信、框架、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</p>
+      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到接口通信、框架、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。<b>本区所有 demo 均为前端模拟</b>：动画和报文在浏览器里生成，不发起任何真实请求，看的是流程而不是网络。</p>
     </div>
     <div class="demos">
 
@@ -1716,100 +1721,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">FastAPI 在入口就用 Pydantic 把请求体校验一遍：字段类型、必填、范围不合格直接返回 422 错误列表。你代码里拿到的永远是正确的数据，不用自己写一堆 if 判空。</span><br><span class="eg">"后端用 FastAPI，请求体建一个 Pydantic 模型做校验，类型和范围错了返回 422"</span></div>
       </div>
 
-      <div class="demo full" id="loopback">
-        <div class="demo-head"><span class="d-name">前后端联调闭环</span><span class="d-en">/ 一次请求的完整旅程</span></div>
-        <div class="demo-stage">
-          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
-            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
-              <div>
-                <label class="label" for="lbCity">城市</label>
-                <input class="input" id="lbCity" type="text" value="杭州" style="width:120px;">
-              </div>
-              <div>
-                <label class="label" for="lbDays">天数</label>
-                <input class="input" id="lbDays" type="text" value="3" inputmode="numeric" style="width:80px;">
-              </div>
-              <div>
-                <label class="label" for="lbBudget">预算</label>
-                <input class="input" id="lbBudget" type="text" value="4000" inputmode="numeric" style="width:100px;">
-              </div>
-              <button class="btn btn-primary" type="button" id="lbBtn">生成行程（模拟）</button>
-            </div>
-            <div class="steps" id="lbSteps" style="width:100%;">
-              <div class="step" data-step="0"><span class="dot">1</span><span class="st-label">表单收集</span></div>
-              <div class="step" data-step="1"><span class="dot">2</span><span class="st-label">POST 请求</span></div>
-              <div class="step" data-step="2"><span class="dot">3</span><span class="st-label">Pydantic 校验</span></div>
-              <div class="step" data-step="3"><span class="dot">4</span><span class="st-label">JWT 鉴权</span></div>
-              <div class="step" data-step="4"><span class="dot">5</span><span class="st-label">入库 SQLite</span></div>
-              <div class="step" data-step="5"><span class="dot">6</span><span class="st-label">返回结果</span></div>
-            </div>
-            <div class="api-res" id="lbRes" style="min-height:56px;">点「生成行程」看一次完整联调：前端表单 → 请求 → 校验 → 鉴权 → 入库 → 响应，每一步的报文都展示在这里。</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">联调闭环 = 把前面的组件和后端概念串成一条线。真实项目里，前端发的每个请求都走这条链路；哪一步 4xx/5xx，顺着链路排查而不是瞎猜。</span><br><span class="eg">"把表单提交串成完整链路：校验 → 请求 → 错误分支 → loading → 结果页"</span></div>
-      </div>
-
-      <div class="demo full" id="rag">
-        <div class="demo-head"><span class="d-name">RAG 检索增强生成</span><span class="d-en">/ 毕设的核心</span></div>
-        <div class="demo-stage">
-          <div class="rag-demo">
-            <div class="rag-query">
-              <input class="input" id="ragInput" type="text" value="杭州适合带爸妈玩 3 天怎么安排？" aria-label="RAG 查询问题">
-              <button class="btn btn-primary" type="button" id="ragBtn">跑一遍 RAG</button>
-            </div>
-            <div style="font-size:12px;color:var(--ink-3);">固定案例演示：输入框只做展示，流程按预设问题跑。真实 RAG 里这个问题会进入第 1 步的查询理解。</div>
-            <div class="rag-steps" id="ragSteps"></div>
-            <div class="rag-out" id="ragOut"></div>
-            <div style="font-size:12px;color:var(--ink-3);">查询阶段如上；一条完整的生产级 RAG 链路还包括前面这些环节——点开看：</div>
-            <div class="collapse" id="ragPipeline" style="max-width:100%;">
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>① 文档导入与清洗</span><span class="arr">▼</span></div>
-              <div class="col-b">攻略、游记、官方介绍从网页或 PDF 进来：去广告、去重、去乱码，统一成纯文本。垃圾进垃圾出——清洗质量直接决定检索质量。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>② 切块 Chunking</span><span class="arr">▼</span></div>
-              <div class="col-b">长文档切成带上下文重叠的段落（如每块 300 字、重叠 50 字）。块太大检索不准，块太小语义不完整，需要按内容类型调。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>③ Embedding 与索引</span><span class="arr">▼</span></div>
-              <div class="col-b">每个块过 Embedding 模型变成向量，连同原文存进向量库（Chroma/Milvus）。BM25 倒排索引也在这时建好；知识更新要重新入库。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>④ 引用来源与权限过滤</span><span class="arr">▼</span></div>
-              <div class="col-b">生成的答案要标注「依据哪几篇文档」，能点回原文；检索阶段先按用户权限过滤可见文档，避免把无权内容拼进答案。</div>
-              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>⑤ 评估与失败回退</span><span class="arr">▼</span></div>
-              <div class="col-b">用标注好的「问题 → 应命中文档」测试集评估召回率；检索置信度太低时回退成兜底话术或人工推荐，别硬编。</div>
-            </div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25 抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
-      </div>
-
-      <div class="demo" id="rest">
-        <div class="demo-head"><span class="d-name">RESTful API</span><span class="d-en">/ 前后端唯一的对话通道</span></div>
-        <div class="demo-stage center">
-          <div class="api-demo">
-            <div class="api-row"><span class="api-method get">GET</span><span class="api-path">/api/city/hangzhou/guide</span></div>
-            <div class="api-row"><span class="api-method post">POST</span><span class="api-path">/api/plan/generate</span></div>
-            <div class="api-row"><span class="api-method get">GET</span><span class="api-path">/api/poi/search?q=西湖&amp;tag=长辈友好</span></div>
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-outline btn-sm" type="button" id="apiCall">发送请求（模拟）</button>
-              <span class="api-status s200" id="apiStatus" style="display:none;">—</span>
-            </div>
-            <div class="api-res" id="apiRes" style="min-height:44px;">路径 = 资源名，动词 = 动作。前后端 90% 的沟通就是「发请求、收 JSON」。</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">REST 的规矩：URL 只写名词（资源），动作交给 GET/POST/PUT/DELETE，结果用状态码表达（200 成功 / 404 找不到 / 500 服务器炸了）。</span><br><span class="eg">"帮我设计 RESTful API：行程生成走 POST /api/plan/generate，城市攻略走 GET /api/city/{city}/guide"</span></div>
-      </div>
-
-      <div class="demo" id="sqlite">
-        <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
-        <div class="demo-stage center">
-          <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
-            <div class="db-tabs" id="dbTabs">
-              <button class="db-tab on" type="button" data-table="users">users</button>
-              <button class="db-tab" type="button" data-table="itineraries">itineraries</button>
-              <button class="db-tab" type="button" data-table="pois">pois</button>
-            </div>
-            <div class="db-fields" id="dbFields"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
-      </div>
-
       <div class="demo" id="async">
         <div class="demo-head"><span class="d-name">同步 vs 异步</span><span class="d-en">/ FastAPI 为什么快</span></div>
         <div class="demo-stage center">
@@ -1825,46 +1736,143 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">同步：三个请求排队等，总耗时 ≈ 2.1s；异步：三个请求同时发出、一起等，总耗时 ≈ 0.75s。请求卡在网络/数据库时不占 CPU，async 就是把「等」这件事并发掉。</span><br><span class="eg">"FastAPI 接口用 async def，同时调高德 API 和天气接口，别串行等"</span></div>
       </div>
 
-      <div class="demo" id="jwt">
-        <div class="demo-head"><span class="d-name">JWT 登录态</span><span class="d-en">/ 无状态认证</span></div>
+      <div class="demo full" id="http">
+        <div class="demo-head"><span class="d-name">HTTP 请求解剖</span><span class="d-en">/ 一次请求长什么样</span></div>
         <div class="demo-stage center">
-          <div class="jwt-demo">
-            <div class="jwt-form">
-              <input class="input" id="jwtUser" type="text" value="zhilv_user" placeholder="用户名" aria-label="用户名">
-              <input class="input" id="jwtPass" type="password" placeholder="密码" value="123456" aria-label="密码">
-              <button class="btn btn-primary" type="button" id="jwtBtn">登录</button>
+          <div class="http-demo">
+            <div class="http-box" id="httpBox">
+              <div class="h-line reqline" data-part="0">POST /api/plan/generate HTTP/1.1</div>
+              <div class="h-line headers" data-part="1">Host: api.zhilv.com
+Authorization: Bearer &lt;token&gt;
+Content-Type: application/json
+Accept: application/json</div>
+              <div class="h-line body" data-part="2">{ "days": 3, "budget": 4000, "travelers": 2 }</div>
             </div>
-            <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
+            <div class="http-ctrls">
+              <button class="btn btn-outline btn-sm" type="button" data-part="0">请求行</button>
+              <button class="btn btn-outline btn-sm" type="button" data-part="1">请求头</button>
+              <button class="btn btn-outline btn-sm" type="button" data-part="2">请求体</button>
+            </div>
+            <div class="http-expl" id="httpExpl">点上面按钮看请求的三部分；下面还能看状态码。</div>
+            <div class="http-sc" id="httpSc">
+              <button class="sc-tab" type="button" data-code="1xx">1xx</button>
+              <button class="sc-tab" type="button" data-code="2xx">2xx</button>
+              <button class="sc-tab" type="button" data-code="3xx">3xx</button>
+              <button class="sc-tab" type="button" data-code="4xx">4xx</button>
+              <button class="sc-tab" type="button" data-code="5xx">5xx</button>
+              <div class="sc-ex" id="scEx">状态码 = 服务器给请求的「回执单」：2xx 成功、3xx 重定向、4xx 你的问题、5xx 我的问题。点分类看例子。</div>
+            </div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
+        <div class="demo-exp"><span class="plain">HTTP 是前后端通信的「快递单」：请求行写要什么（方法 + 路径），请求头写附加信息（认证、格式），请求体装数据；服务器回一个状态码 + 响应体。</span><br><span class="eg">"接口文档写清：方法、路径、Header、Body、响应状态码和字段"</span></div>
       </div>
 
-      <div class="demo" id="redis">
-        <div class="demo-head"><span class="d-name">Redis 缓存</span><span class="d-en">/ 命中 vs 未命中</span></div>
+      <div class="demo" id="rest">
+        <div class="demo-head"><span class="d-name">RESTful API</span><span class="d-en">/ 资源命名 + 方法语义</span></div>
         <div class="demo-stage center">
-          <div class="rd-demo">
-            <div class="rd-row">
-              <button class="btn btn-primary btn-sm" type="button" id="rdQuery">查询「杭州攻略」</button>
-              <button class="btn btn-outline btn-sm" type="button" id="rdClear">清空缓存</button>
+          <div class="api-demo" style="width:100%;">
+            <div class="api-row rest-row" data-rest="0" style="cursor:pointer;align-items:flex-start;">
+              <span class="api-method get">GET</span>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:var(--mono);font-size:12.5px;word-break:break-all;">/api/city/hangzhou/guide</div>
+                <div style="font-size:11.5px;color:var(--ink-3);margin-top:2px;">读单个资源 → 城市名放路径</div>
+              </div>
             </div>
-            <div class="rd-status" id="rdStatus">点查询看第一次和第二次的区别</div>
-            <div class="rd-meta" id="rdMeta"></div>
+            <div class="api-row rest-row" data-rest="1" style="cursor:pointer;align-items:flex-start;">
+              <span class="api-method post">POST</span>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:var(--mono);font-size:12.5px;word-break:break-all;">/api/plan/generate</div>
+                <div style="font-size:11.5px;color:var(--ink-3);margin-top:2px;">提交生成 → 参数放请求体</div>
+              </div>
+            </div>
+            <div class="api-row rest-row" data-rest="2" style="cursor:pointer;align-items:flex-start;">
+              <span class="api-method get">GET</span>
+              <div style="flex:1;min-width:0;">
+                <div style="font-family:var(--mono);font-size:12.5px;word-break:break-all;">/api/poi/search?q=西湖&amp;tag=长辈友好</div>
+                <div style="font-size:11.5px;color:var(--ink-3);margin-top:2px;">搜索过滤 → 条件放查询串</div>
+              </div>
+            </div>
+            <div class="rest-why" id="restWhy" style="font-size:12.5px;color:var(--ink-2);margin-top:2px;">点上面任意一行，看这次请求到底发了什么、服务器回了什么、REST 为什么这么设计。</div>
+            <div class="rest-req" id="restReq" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:10px 12px;font-size:12px;overflow-x:auto;white-space:pre;font-family:var(--mono);min-height:60px;"></div>
+            <div class="rest-res" id="restRes" style="background:#052e16;color:#bbf7d0;border-radius:8px;padding:10px 12px;font-size:12px;overflow-x:auto;white-space:pre;font-family:var(--mono);min-height:60px;margin-top:6px;"></div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">第一次：缓存没有，去数据库查，240ms；第二次：直接从内存拿，2ms。差 100 倍。所以热点数据先问缓存，没有再查库并写回缓存。</span><br><span class="eg">"热点数据加 Redis 缓存，TTL 10 分钟，未命中再查数据库并写回"</span></div>
+        <div class="demo-exp"><span class="plain">REST 的规矩：URL 只写名词（资源），动作交给 GET/POST/PUT/DELETE，结果用状态码表达（200 成功 / 404 找不到 / 500 服务器炸了）。点上面三行对比：同样是 GET，一个用路径参数定位资源，一个用查询串做搜索。</span><br><span class="eg">"帮我设计 RESTful API：行程生成走 POST /api/plan/generate，城市攻略走 GET /api/city/{city}/guide"</span></div>
       </div>
 
-      <div class="demo" id="ratelimit">
-        <div class="demo-head"><span class="d-name">限流 Rate Limit</span><span class="d-en">/ 点太快会被拒</span></div>
-        <div class="demo-stage center">
-          <div class="rl-demo">
-            <button class="btn btn-primary btn-sm" type="button" id="rlBtn">发送请求</button>
-            <div class="rl-bar"><div class="rl-fill" id="rlFill"></div></div>
-            <div class="rl-status" id="rlStatus">剩余额度 10 / 10（每秒恢复）</div>
+      <div class="demo full" id="pagination">
+        <div class="demo-head"><span class="d-name">分页 Pagination</span><span class="d-en">/ 前端那个分页器到了后端变成什么</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
+              <div style="width:130px;">
+                <label class="label" for="pgTotal">总条数 total</label>
+                <input class="input" type="number" id="pgTotal" value="137" min="0" max="9999">
+              </div>
+              <div style="width:120px;">
+                <label class="label" for="pgSize">每页 size</label>
+                <input class="input" type="number" id="pgSize" value="10" min="1" max="500">
+              </div>
+              <div style="flex:1;min-width:240px;">
+                <label class="label" for="pgPage">当前页 page</label>
+                <div class="slider-row">
+                  <input type="range" id="pgPage" min="1" max="14" value="1" aria-label="当前页">
+                  <span class="slider-val" id="pgPageVal">1</span>
+                </div>
+              </div>
+            </div>
+            <div class="mono" id="pgSql" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:10px 12px;font-size:12.5px;overflow-x:auto;"></div>
+            <div class="api-res" id="pgRes" style="min-height:170px;white-space:pre;overflow-x:auto;"></div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS，防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
+        <div class="demo-exp"><span class="plain">前端只发两个数字：<code>page</code> 和 <code>size</code>。后端把它翻译成 <code>LIMIT ? OFFSET ?</code>——offset = (page-1) * size。响应里除了本页 <code>items</code>，还要回 <code>total / page_count / has_next</code>，否则前端分页器画不出页码。注意两条保护：size 要在后端夹住上限（前端能改成 999999），page 越界返回空数组而不是报错。</span><br><span class="eg">"列表接口支持分页，参数 page 和 size，size 最大 50，返回 items、total、page_count、has_next"</span></div>
+      </div>
+
+      <div class="demo full" id="cors">
+        <div class="demo-head"><span class="d-name">CORS 跨域</span><span class="d-en">/ 浏览器拦的，不是服务器报的错</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
+              <div style="width:210px;">
+                <label class="label" for="csOrigin">页面所在源</label>
+                <select class="input" id="csOrigin">
+                  <option value="same">https://api.trip.demo（与接口同源）</option>
+                  <option value="cross" selected>https://trip.demo（跨源）</option>
+                </select>
+              </div>
+              <div style="width:230px;">
+                <label class="label" for="csReq">前端发的请求</label>
+                <select class="input" id="csReq">
+                  <option value="simple" selected>GET /cities（简单请求）</option>
+                  <option value="preflight">GET /plans + Authorization 头（触发预检）</option>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding-bottom:4px;">
+                <label style="font-size:13px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="csAllowOrigin" checked> 后端带 <code>Access-Control-Allow-Origin</code></label>
+                <label style="font-size:13px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="csAllowHeaders" checked> 预检响应带 <code>Allow-Headers: Authorization</code></label>
+              </div>
+              <button class="btn btn-primary btn-sm" type="button" id="csSend">发送请求</button>
+            </div>
+            <div class="api-res" id="csLog" style="min-height:150px;white-space:pre-wrap;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">CORS 是<b>浏览器</b>的同源策略，不是服务器的报错：请求照样发出去，服务器也可能返回 <code>200</code>，但浏览器不给 JS 读响应——所以「Network 里 200，前端却报 CORS 错」是真的。带了自定义头（如 <code>Authorization</code>）会先自动发一次 <code>OPTIONS</code> 预检，预检没过，真实请求根本不会发出。</span><br><span class="eg">"后端加 CORS 中间件：允许来源 https://trip.demo、允许 GET/POST、允许 Authorization 头，并处理 OPTIONS 预检"</span></div>
+      </div>
+
+
+      <div class="demo" id="sqlite">
+        <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
+            <div class="db-tabs" id="dbTabs">
+              <button class="db-tab on" type="button" data-table="users">users</button>
+              <button class="db-tab" type="button" data-table="itineraries">itineraries</button>
+              <button class="db-tab" type="button" data-table="pois">pois</button>
+            </div>
+            <div class="db-fields" id="dbFields"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
       </div>
 
       <div class="demo" id="txn">
@@ -1900,38 +1908,127 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">表里 10 万行：没索引就一行行扫，扫 10 万行花 120ms；有索引直接定位到那 1 行，0.3ms。索引就是书的目录，空间换时间。</span><br><span class="eg">"WHERE 常用字段加索引，避免 SELECT 走全表扫描"</span></div>
       </div>
 
-      <div class="demo full" id="http">
-        <div class="demo-head"><span class="d-name">HTTP 请求解剖</span><span class="d-en">/ 一次请求长什么样</span></div>
+      <div class="demo" id="redis">
+        <div class="demo-head"><span class="d-name">Redis 缓存</span><span class="d-en">/ 命中 vs 未命中</span></div>
         <div class="demo-stage center">
-          <div class="http-demo">
-            <div class="http-box" id="httpBox">
-              <div class="h-line reqline" data-part="0">POST /api/plan/generate HTTP/1.1</div>
-              <div class="h-line headers" data-part="1">Host: api.zhilv.com
-Authorization: Bearer &lt;token&gt;
-Content-Type: application/json
-Accept: application/json</div>
-              <div class="h-line body" data-part="2">{ "days": 3, "budget": 4000, "travelers": 2 }</div>
+          <div class="rd-demo">
+            <div class="rd-row">
+              <button class="btn btn-primary btn-sm" type="button" id="rdQuery">查询「杭州攻略」</button>
+              <button class="btn btn-outline btn-sm" type="button" id="rdClear">清空缓存</button>
             </div>
-            <div class="http-ctrls">
-              <button class="btn btn-outline btn-sm" type="button" data-part="0">请求行</button>
-              <button class="btn btn-outline btn-sm" type="button" data-part="1">请求头</button>
-              <button class="btn btn-outline btn-sm" type="button" data-part="2">请求体</button>
+            <div class="rd-status" id="rdStatus">点查询看第一次和第二次的区别</div>
+            <div class="rd-meta" id="rdMeta"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">第一次：缓存没有，去数据库查，240ms；第二次：直接从内存拿，2ms。差 100 倍。所以热点数据先问缓存，没有再查库并写回缓存。</span><br><span class="eg">"热点数据加 Redis 缓存，TTL 10 分钟，未命中再查数据库并写回"</span></div>
+      </div>
+
+      <div class="demo" id="jwt">
+        <div class="demo-head"><span class="d-name">JWT 登录态</span><span class="d-en">/ 无状态认证</span></div>
+        <div class="demo-stage center">
+          <div class="jwt-demo">
+            <div class="jwt-form">
+              <input class="input" id="jwtUser" type="text" value="zhilv_user" placeholder="用户名" aria-label="用户名">
+              <input class="input" id="jwtPass" type="password" placeholder="密码" value="123456" aria-label="密码">
+              <button class="btn btn-primary" type="button" id="jwtBtn">登录</button>
             </div>
-            <div class="http-expl" id="httpExpl">点上面按钮看请求的三部分；下面还能看状态码。</div>
-            <div class="http-sc" id="httpSc">
-              <button class="sc-tab" type="button" data-code="1xx">1xx</button>
-              <button class="sc-tab" type="button" data-code="2xx">2xx</button>
-              <button class="sc-tab" type="button" data-code="3xx">3xx</button>
-              <button class="sc-tab" type="button" data-code="4xx">4xx</button>
-              <button class="sc-tab" type="button" data-code="5xx">5xx</button>
-              <div class="sc-ex" id="scEx">状态码 = 服务器给请求的「回执单」：2xx 成功、3xx 重定向、4xx 你的问题、5xx 我的问题。点分类看例子。</div>
+            <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
+      </div>
+
+      <div class="demo" id="ratelimit">
+        <div class="demo-head"><span class="d-name">限流 Rate Limit</span><span class="d-en">/ 点太快会被拒</span></div>
+        <div class="demo-stage center">
+          <div class="rl-demo">
+            <button class="btn btn-primary btn-sm" type="button" id="rlBtn">发送请求</button>
+            <div class="rl-bar"><div class="rl-fill" id="rlFill"></div></div>
+            <div class="rl-status" id="rlStatus">剩余额度 10 / 10（每秒恢复）</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS，防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
+      </div>
+
+      <div class="demo full" id="loopback">
+        <div class="demo-head"><span class="d-name">前后端联调预演</span><span class="d-en">/ 一次请求的完整旅程（报文前端生成）</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+              <div>
+                <label class="label" for="lbCity">城市</label>
+                <input class="input" id="lbCity" type="text" value="杭州" style="width:120px;">
+              </div>
+              <div>
+                <label class="label" for="lbDays">天数</label>
+                <input class="input" id="lbDays" type="text" value="3" inputmode="numeric" style="width:80px;">
+              </div>
+              <div>
+                <label class="label" for="lbBudget">预算</label>
+                <input class="input" id="lbBudget" type="text" value="4000" inputmode="numeric" style="width:100px;">
+              </div>
+              <button class="btn btn-primary" type="button" id="lbBtn">生成行程（模拟）</button>
+            </div>
+            <div class="steps" id="lbSteps" style="width:100%;">
+              <div class="step" data-step="0"><span class="dot">1</span><span class="st-label">表单收集</span></div>
+              <div class="step" data-step="1"><span class="dot">2</span><span class="st-label">POST 请求</span></div>
+              <div class="step" data-step="2"><span class="dot">3</span><span class="st-label">Pydantic 校验</span></div>
+              <div class="step" data-step="3"><span class="dot">4</span><span class="st-label">JWT 鉴权</span></div>
+              <div class="step" data-step="4"><span class="dot">5</span><span class="st-label">入库 SQLite</span></div>
+              <div class="step" data-step="5"><span class="dot">6</span><span class="st-label">返回结果</span></div>
+            </div>
+            <div class="api-res" id="lbRes" style="min-height:56px;">点「生成行程」看一次完整链路预演：前端表单 → 请求 → 校验 → 鉴权 → 入库 → 响应，每一步的报文都展示在这里。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">联调预演 = 把前面的组件和后端概念串成一条线。真实项目里，前端发的每个请求都走这条链路；哪一步 4xx/5xx，顺着链路排查而不是瞎猜。这里的报文由前端生成，真实项目要看浏览器 Network 面板里的那一份。</span><br><span class="eg">"把表单提交串成完整链路：校验 → 请求 → 错误分支 → loading → 结果页"</span></div>
+      </div>
+
+      <div class="demo full" id="rag">
+        <div class="demo-head"><span class="d-name">RAG 检索增强生成</span><span class="d-en">/ 毕设的核心</span></div>
+        <div class="demo-stage">
+          <div class="rag-demo">
+            <div class="rag-query">
+              <input class="input" id="ragInput" type="text" value="杭州适合带爸妈玩 3 天怎么安排？" aria-label="RAG 查询问题">
+              <button class="btn btn-primary" type="button" id="ragBtn">跑一遍 RAG</button>
+            </div>
+            <div style="font-size:12px;color:var(--ink-3);">固定案例演示：输入框只做展示，流程按预设问题跑。真实 RAG 里这个问题会进入第 1 步的查询理解。</div>
+            <div class="rag-steps" id="ragSteps"></div>
+            <div class="rag-out" id="ragOut"></div>
+            <div style="font-size:12px;color:var(--ink-3);">查询阶段如上；一条完整的生产级 RAG 链路还包括前面这些环节——点开看：</div>
+            <div class="collapse" id="ragPipeline" style="max-width:100%;">
+              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>① 文档导入与清洗</span><span class="arr">▼</span></div>
+              <div class="col-b">攻略、游记、官方介绍从网页或 PDF 进来：去广告、去重、去乱码，统一成纯文本。垃圾进垃圾出——清洗质量直接决定检索质量。</div>
+              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>② 切块 Chunking</span><span class="arr">▼</span></div>
+              <div class="col-b">长文档切成带上下文重叠的段落（如每块 300 字、重叠 50 字）。块太大检索不准，块太小语义不完整，需要按内容类型调。</div>
+              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>③ Embedding 与索引</span><span class="arr">▼</span></div>
+              <div class="col-b">每个块过 Embedding 模型变成向量，连同原文存进向量库（Chroma/Milvus）。BM25 倒排索引也在这时建好；知识更新要重新入库。</div>
+              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>④ 引用来源与权限过滤</span><span class="arr">▼</span></div>
+              <div class="col-b">生成的答案要标注「依据哪几篇文档」，能点回原文；检索阶段先按用户权限过滤可见文档，避免把无权内容拼进答案。</div>
+              <div class="col-h" onclick="toggleCollapse(this)" role="button" tabindex="0" aria-expanded="false" onkeydown="if(event.key==='Enter'||event.key===' '){toggleCollapse(this);event.preventDefault();}"><span>⑤ 评估与失败回退</span><span class="arr">▼</span></div>
+              <div class="col-b">用标注好的「问题 → 应命中文档」测试集评估召回率；检索置信度太低时回退成兜底话术或人工推荐，别硬编。</div>
             </div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">HTTP 是前后端通信的「快递单」：请求行写要什么（方法 + 路径），请求头写附加信息（认证、格式），请求体装数据；服务器回一个状态码 + 响应体。</span><br><span class="eg">"接口文档写清：方法、路径、Header、Body、响应状态码和字段"</span></div>
+        <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25 抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
       </div>
 
-      <div class="demo full">
+      <div class="demo full" id="cicd">
+        <div class="demo-head"><span class="d-name">CI/CD 持续集成部署</span><span class="d-en">/ push 即上线</span></div>
+        <div class="demo-stage center">
+          <div class="ci-demo" style="width:100%;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:12px;color:var(--ink-3);flex:none;">模拟一次 push</span>
+              <button class="btn btn-primary btn-sm" type="button" id="ciRun">push 到 main</button>
+              <span class="ci-status" id="ciStatus" style="font-size:12.5px;color:var(--ink-3);">点按钮跑一遍流水线</span>
+            </div>
+            <div class="ci-pipe" id="ciPipe" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+            <div class="ci-log" id="ciLog" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:10px 12px;font-size:12.5px;min-height:96px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">CI（持续集成）：push 后自动跑 lint、测试、构建，任何一步红了就拦住；CD（持续部署）：绿了就自动发布到服务器。GitHub Actions / GitLab CI 就是干这个的——你只管 push，上线全自动，不用 SSH 上去手敲。</span><br><span class="eg">"配 CI/CD：push 到 main 自动跑测试，过了就 Docker 构建并部署，别手动 SSH"</span></div>
+      </div>
+
+      <div class="demo full" id="techPanorama">
         <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
         <div class="demo-stage">
           <div class="roadmap" id="roadmap">
@@ -2044,7 +2141,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 前端工程能力卡 + 后端七类全景（59 张技术卡）· 每个都配 vibe coding 例句</p>
+    <p><b>前后端模拟台</b> · 前端真实可交互组件与行为 + 前端工程能力卡 + 后端七类技术卡（demo 为前端模拟）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
@@ -3110,34 +3207,47 @@ if(ragBox && ragBtn && ragOutEl){
   });
 }
 
-/* REST API 模拟 */
-var apiResponses = [
-  { status: 200, ms: 17, body: 'HTTP 200 OK · 17ms\n{\n  "city": "杭州",\n  "weather": "多云 24°C",\n  "topPois": ["西湖", "灵隐寺", "千岛湖"],\n  "bestSeason": "3-5月"\n}' },
-  { status: 200, ms: 412, body: 'HTTP 200 OK · 412ms\n{\n  "planId": "PL-8842",\n  "days": [\n    { "day": 1, "title": "西湖环线", "pois": ["断桥残雪", "苏堤", "雷峰塔"] },\n    { "day": 2, "title": "灵隐寺慢走", "pois": ["飞来峰", "青芝坞"] }\n  ],\n  "costEstimate": 3260\n}' },
-  { status: 200, ms: 23, body: 'HTTP 200 OK · 23ms\n{\n  "results": [\n    { "name": "西湖风景名胜区", "distance": "1.2km", "tags": ["长辈友好", "免费"] },\n    { "name": "苏堤春晓", "distance": "1.8km", "tags": ["步行轻松"] }\n  ]\n}' }
+/* REST API：点行展开请求/响应/设计说明 */
+var restApis = [
+  {
+    why: 'GET = 读操作，不改数据。城市名「hangzhou」放路径里，URL 就定位了「杭州攻略」这一份资源。同一个 URL 每次拿到的应该是同一份内容（浏览器可缓存）。',
+    req: 'GET /api/city/hangzhou/guide HTTP/1.1\nHost: api.trip.demo\nAuthorization: Bearer <token>\nAccept: application/json',
+    res: 'HTTP/1.1 200 OK · 17ms\nContent-Type: application/json\n\n{\n  "city": "杭州",\n  "weather": "多云 24°C",\n  "topPois": ["西湖", "灵隐寺", "千岛湖"]\n}'
+  },
+  {
+    why: 'POST = 创建/提交。行程不是现成资源、要现算，所以把 days/budget 这些参数放请求体 JSON，由服务器生成后返回 planId。用 POST 而不是 GET，因为参数多、且每次结果可能不同。',
+    req: 'POST /api/plan/generate HTTP/1.1\nHost: api.trip.demo\nAuthorization: Bearer <token>\nContent-Type: application/json\n\n{\n  "city": "杭州",\n  "days": 3,\n  "budget": 4000\n}',
+    res: 'HTTP/1.1 200 OK · 412ms\nContent-Type: application/json\n\n{\n  "planId": "PL-8842",\n  "days": [\n    { "day": 1, "title": "西湖环线", "pois": ["断桥", "苏堤"] }\n  ],\n  "costEstimate": 3260\n}'
+  },
+  {
+    why: '同样是 GET，但这次是「搜索」：资源还是名词 poi，?后面的 q、tag 是筛选条件。查询参数不创建新资源，所以用 GET；URL 里带 query 也方便收藏、分享、浏览器缓存。',
+    req: 'GET /api/poi/search?q=%E8%A5%BF%E6%B9%96&tag=%E9%95%BF%E8%BE%88%E5%8F%8B%E5%A5%BD HTTP/1.1\nHost: api.trip.demo',
+    res: 'HTTP/1.1 200 OK · 23ms\nContent-Type: application/json\n\n{\n  "results": [\n    { "name": "西湖风景名胜区", "distance": "1.2km", "tags": ["长辈友好","免费"] },\n    { "name": "苏堤春晓", "distance": "1.8km", "tags": ["步行轻松"] }\n  ]\n}'
+  }
 ];
-var apiIdx = 0;
-var apiCall = document.getElementById('apiCall');
-var apiRes = document.getElementById('apiRes');
-var apiStatus = document.getElementById('apiStatus');
-if(apiCall && apiRes && apiStatus){
-  apiCall.addEventListener('click', function(){
-    var item = apiResponses[apiIdx % apiResponses.length];
-    apiIdx++;
-    apiCall.disabled = true;
-    apiCall.textContent = '请求中…';
-    apiStatus.style.display = 'none';
-    setTimeout(function(){
-      apiStatus.textContent = 'HTTP ' + item.status + ' · ' + item.ms + 'ms';
-      apiStatus.className = 'api-status s200';
-      apiStatus.style.display = '';
-      apiRes.textContent = item.body;
-      apiRes.style.color = '';
-      apiCall.disabled = false;
-      apiCall.textContent = '发送请求（模拟）';
-    }, item.ms);
+var restRows = document.querySelectorAll('.rest-row');
+var restWhy = document.getElementById('restWhy');
+var restReq = document.getElementById('restReq');
+var restRes = document.getElementById('restRes');
+if(restRows.length && restWhy){
+  function showRest(i){
+    var a = restApis[i];
+    restRows.forEach(function(r,j){
+      r.style.borderColor = (i === j) ? 'var(--brand)' : 'var(--line)';
+      r.style.background = (i === j) ? 'var(--brand-soft)' : '#fff';
+    });
+    restWhy.textContent = a.why;
+    restReq.textContent = a.req;
+    restRes.textContent = a.res;
+  }
+  restRows.forEach(function(r){
+    r.addEventListener('click', function(){
+      showRest(parseInt(r.getAttribute('data-rest'), 10));
+    });
   });
+  showRest(0);
 }
+
 
 /* SQLite 表结构 */
 var dbSchemaData = {
@@ -3359,6 +3469,65 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
   });
 })();
 
+/* CI/CD 流水线 */
+var ciRun = document.getElementById('ciRun');
+if(ciRun){
+  var ciPipe = document.getElementById('ciPipe');
+  var ciLog = document.getElementById('ciLog');
+  var ciStatus = document.getElementById('ciStatus');
+  var stages = ['拉代码','Lint','测试','构建','部署'];
+  var logs = [
+    ['$ git push origin main', '→ trigger: deploy-main'],
+    ['checkout @main', 'eslint 通过，0 warning'],
+    ['pytest 42 passed', '覆盖率 87%'],
+    ['docker build app:latest', 'image 38MB'],
+    ['ssh deploy', 'systemd restart → healthy']
+  ];
+  ciRun.addEventListener('click', function(){
+    ciRun.disabled = true;
+    ciStatus.textContent = '流水线运行中…';
+    ciStatus.style.color = 'var(--brand)';
+    ciPipe.innerHTML = '';
+    ciLog.textContent = '$ git push origin main\n';
+    var chips = [];
+    stages.forEach(function(s){
+      var c = document.createElement('span');
+      c.className = 'tchip';
+      c.style.pointerEvents = 'none';
+      c.style.opacity = '.45';
+      c.textContent = s;
+      ciPipe.appendChild(c);
+      chips.push(c);
+    });
+    var i = 0;
+    function runStage(){
+      if(i > 0){
+        chips[i-1].style.background = 'var(--green)';
+        chips[i-1].style.color = '#fff';
+        chips[i-1].style.borderColor = 'var(--green)';
+        chips[i-1].style.opacity = '1';
+      }
+      if(i >= stages.length){
+        ciStatus.textContent = '✓ 全部通过，已部署到生产';
+        ciStatus.style.color = 'var(--green)';
+        ciRun.disabled = false;
+        return;
+      }
+      chips[i].style.background = 'var(--brand)';
+      chips[i].style.color = '#fff';
+      chips[i].style.opacity = '1';
+      ciLog.textContent += logs[i][0] + '\n';
+      setTimeout(function(){
+        ciLog.textContent += logs[i][1] + '\n';
+        ciLog.scrollTop = ciLog.scrollHeight;
+        i++;
+        runStage();
+      }, 600);
+    }
+    setTimeout(runStage, 300);
+  });
+}
+
 /* HTTP 请求解剖 */
 var httpParts = [
   { t: '请求行', d: '第一行是「需求单」：方法 POST 表示「提交数据」，后面是路径，末尾是协议版本。读它就知道客户端要做什么。' },
@@ -3404,91 +3573,91 @@ if(httpSc && scEx){
 /* 后端技术栈全景（六组卡片） */
 var techGroups = [
   { tag: '01', name: '接口与通信', desc: '前端怎么跟后端说话', items: [
-    { ab:'RE', demo:'rest', name:'RESTful', tag:'URL 写名词，方法表动作', use:'GET /cities 查城市、POST /plans 建行程，URL 只写资源名。', more:'<b>在哪用：</b>毕设全套接口：GET 查攻略、POST 生成行程。<b>对比：</b>REST 接口固定、简单直接；GraphQL 前端自选字段但后端更复杂。', eg:'"接口按 RESTful 设计，路径写资源名"' },
-    { ab:'OA', name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>在哪用：</b>FastAPI 的 /docs 就是它；前端照着文档联调，不用口头问。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' },
-    { ab:'ER', name:'错误处理', tag:'接口报错返回什么', use:'统一错误格式，别裸抛异常。', more:'<b>在哪用：</b>业务错误返回 {code, message} + 对应 HTTP 状态码（400 参数错、401 未登录、403 没权限、404 找不到、500 服务器炸了）；别把 Python traceback 直接返给前端。', eg:'"接口错误统一返回 {code, message}，别直接抛异常"' },
-    { ab:'WS', name:'WebSocket', tag:'实时双向长连接', use:'服务器和浏览器互相发消息。', adv:true, more:'<b>在哪用：</b>聊天、协同编辑、实时通知、行程变更推送。<b>对比：</b>要双向就 WebSocket；只服务器推用 SSE。', eg:'"用 WebSocket 做实时消息推送"' },
-    { ab:'SE', name:'SSE', tag:'服务器单向推送', use:'服务器→浏览器单向推，AI 回复逐字蹦用它。', adv:true, more:'<b>在哪用：</b>AI 回复逐字蹦、通知气泡、实时比分。<b>对比：</b>SSE 只能服务器推、够简单；要双向聊天就上 WebSocket。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
-    { ab:'GP', name:'进阶通信协议', tag:'GraphQL / gRPC', use:'GraphQL 前端自选字段，gRPC 服务间二进制快。', adv:true, more:'<b>在哪用：</b>GraphQL 适合前端字段差异大的场景；gRPC 只在服务间调用（浏览器用不了）。初学先不用。', eg:'"前端字段差异大用 GraphQL，服务间调用用 gRPC"' }
+    {demo:'rest', name:'RESTful', tag:'URL 写名词，方法表动作', use:'GET /cities 查城市、POST /plans 建行程，URL 只写资源名。', more:'<b>在哪用：</b>毕设全套接口：GET 查攻略、POST 生成行程。<b>对比：</b>REST 接口固定、简单直接；GraphQL 前端自选字段但后端更复杂。', eg:'"接口按 RESTful 设计，路径写资源名"' },
+    {name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>在哪用：</b>FastAPI 的 /docs 就是它；前端照着文档联调，不用口头问。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' },
+    {demo:'loopback', name:'错误处理', tag:'接口报错返回什么', use:'统一错误格式，别裸抛异常。', more:'<b>在哪用：</b>业务错误返回 {code, message} + 对应 HTTP 状态码（400 参数错、401 未登录、403 没权限、404 找不到、500 服务器炸了）；别把 Python traceback 直接返给前端。', eg:'"接口错误统一返回 {code, message}，别直接抛异常"' },
+    {name:'WebSocket', tag:'实时双向长连接', use:'服务器和浏览器互相发消息。', adv:true, more:'<b>在哪用：</b>聊天、协同编辑、实时通知、行程变更推送。<b>对比：</b>要双向就 WebSocket；只服务器推用 SSE。', eg:'"用 WebSocket 做实时消息推送"' },
+    {name:'SSE', tag:'服务器单向推送', use:'服务器→浏览器单向推，AI 回复逐字蹦用它。', adv:true, more:'<b>在哪用：</b>AI 回复逐字蹦、通知气泡、实时比分。<b>对比：</b>SSE 只能服务器推、够简单；要双向聊天就上 WebSocket。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
+    {name:'进阶通信协议', tag:'GraphQL / gRPC', use:'GraphQL 前端自选字段，gRPC 服务间二进制快。', adv:true, more:'<b>在哪用：</b>GraphQL 适合前端字段差异大的场景；gRPC 只在服务间调用（浏览器用不了）。初学先不用。', eg:'"前端字段差异大用 GraphQL，服务间调用用 gRPC"' }
   ]},
   { tag: '02', name: '框架与语言', desc: '选一个框架 + 代码怎么组织', items: [
-    { ab:'FA', demo:'pyd', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>在哪用：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
-    { ab:'FL', name:'Flask', tag:'Python 轻量框架', use:'简单灵活，一个文件能起服务。', more:'<b>在哪用：</b>小工具、API 原型、个人项目首选，想加什么自己拼。', eg:'"用 Flask 写个轻量 API，别引入太多东西"' },
-    { ab:'DJ', name:'Django', tag:'Python 全家桶', use:'Admin、ORM、鉴权开箱即用。', adv:true, more:'<b>在哪用：</b>内容型网站、管理后台，自带后台界面省一半工作量。', eg:'"用 Django 全家桶，后台管理界面白送"' },
-    { ab:'SB', name:'Spring Boot', tag:'Java 企业标配', use:'Java 后端事实标准，金融/电商/大厂用它。', adv:true, more:'<b>在哪用：</b>企业级系统；和 FastAPI 比：FastAPI 开发快、Python 简洁，Spring Boot 生态重、适合大型团队。', eg:'"后端用 Spring Boot + Maven，按模块分包"' },
-    { ab:'EX', name:'Express', tag:'Node 最流行', use:'轻量中间件模型，前后端同语言。', more:'<b>在哪用：</b>Node 项目事实标准，配 TypeScript 更稳。', eg:'"用 Express 搭 Node 后端，中间件分层"' },
-    { ab:'NS', name:'NestJS', tag:'Node 企业级', use:'TS 全支持、模块化架构。', adv:true, more:'<b>在哪用：</b>中型以上 Node 项目，结构清晰好维护。', eg:'"用 NestJS + TypeScript，按模块拆分"' },
-    { ab:'GN', name:'Gin', tag:'Go 高并发框架', use:'Go 写 API 的标配，部署是单个二进制。', adv:true, more:'<b>在哪用：</b>网关、高并发接口；Go 编译型性能高但语法啰嗦，Python 开发快。', eg:'"用 Gin 写高并发接口，性能优先"' },
-    { ab:'MW', name:'中间件 Middleware', tag:'请求流水线', use:'每个请求进来先过一道再放行。', more:'<b>在哪用：</b>日志、鉴权、限流统一挂这里；Express 用 app.use + next()，FastAPI 用 @app.middleware。<b>注意：</b>中间件覆盖所有请求，路由级鉴权用依赖注入。', eg:'"登录校验写成中间件，接口统一挂上"' },
-    { ab:'BV', name:'业务校验', tag:'参数校验之外的规则', use:'Pydantic 管类型，业务逻辑自己查。', more:'<b>在哪用：</b>「余额不足」「用户名已存在」「行程日期冲突」这类不是格式问题、是业务规则，在接口里 if 判断 + 抛业务错误。', eg:'"业务校验在接口逻辑里写，别让 Pydantic 管"' },
-    { ab:'MV', name:'MVC 分层', tag:'代码组织方式', use:'路由 / 业务 / 数据各司其职。', more:'<b>在哪用：</b>路由层接请求、Service 层写逻辑、Model 层管数据；别把数据库查询写在路由里。', eg:'"按 MVC 分层：路由、Service、Model 分开写"' },
-    { ab:'MS', name:'单体 vs 微服务', tag:'架构选型', use:'小项目先单体，大了再拆。', more:'<b>在哪用：</b>毕设就是单体（一个 FastAPI 应用）；上百万用户、多团队协作才值得微服务。', eg:'"先做单体架构上线，别一上来就微服务"' }
+    {demo:'pyd', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>在哪用：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
+    {name:'Flask', tag:'Python 轻量框架', use:'简单灵活，一个文件能起服务。', more:'<b>在哪用：</b>小工具、API 原型、个人项目首选，想加什么自己拼。', eg:'"用 Flask 写个轻量 API，别引入太多东西"' },
+    {name:'Django', tag:'Python 全家桶', use:'Admin、ORM、鉴权开箱即用。', adv:true, more:'<b>在哪用：</b>内容型网站、管理后台，自带后台界面省一半工作量。', eg:'"用 Django 全家桶，后台管理界面白送"' },
+    {name:'Spring Boot', tag:'Java 企业标配', use:'Java 后端事实标准，金融/电商/大厂用它。', adv:true, more:'<b>在哪用：</b>企业级系统；和 FastAPI 比：FastAPI 开发快、Python 简洁，Spring Boot 生态重、适合大型团队。', eg:'"后端用 Spring Boot + Maven，按模块分包"' },
+    {name:'Express', tag:'Node 最流行', use:'轻量中间件模型，前后端同语言。', more:'<b>在哪用：</b>Node 项目事实标准，配 TypeScript 更稳。', eg:'"用 Express 搭 Node 后端，中间件分层"' },
+    {name:'NestJS', tag:'Node 企业级', use:'TS 全支持、模块化架构。', adv:true, more:'<b>在哪用：</b>中型以上 Node 项目，结构清晰好维护。', eg:'"用 NestJS + TypeScript，按模块拆分"' },
+    {name:'Gin', tag:'Go 高并发框架', use:'Go 写 API 的标配，部署是单个二进制。', adv:true, more:'<b>在哪用：</b>网关、高并发接口；Go 编译型性能高但语法啰嗦，Python 开发快。', eg:'"用 Gin 写高并发接口，性能优先"' },
+    {name:'中间件 Middleware', tag:'请求流水线', use:'每个请求进来先过一道再放行。', more:'<b>在哪用：</b>日志、鉴权、限流统一挂这里；Express 用 app.use + next()，FastAPI 用 @app.middleware。<b>注意：</b>中间件覆盖所有请求，路由级鉴权用依赖注入。', eg:'"登录校验写成中间件，接口统一挂上"' },
+    {name:'业务校验', tag:'参数校验之外的规则', use:'Pydantic 管类型，业务逻辑自己查。', more:'<b>在哪用：</b>「余额不足」「用户名已存在」「行程日期冲突」这类不是格式问题、是业务规则，在接口里 if 判断 + 抛业务错误。', eg:'"业务校验在接口逻辑里写，别让 Pydantic 管"' },
+    {name:'MVC 分层', tag:'代码组织方式', use:'路由 / 业务 / 数据各司其职。', more:'<b>在哪用：</b>路由层接请求、Service 层写逻辑、Model 层管数据；别把数据库查询写在路由里。', eg:'"按 MVC 分层：路由、Service、Model 分开写"' },
+    {name:'单体 vs 微服务', tag:'架构选型', use:'小项目先单体，大了再拆。', more:'<b>在哪用：</b>毕设就是单体（一个 FastAPI 应用）；上百万用户、多团队协作才值得微服务。', eg:'"先做单体架构上线，别一上来就微服务"' }
   ]},
   { tag: '03', name: '数据与存储', desc: '数据放哪、怎么查得快', items: [
-    { ab:'SQ', demo:'sqlite', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>在哪用：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
-    { ab:'MY', demo:'sqlite', name:'MySQL / PostgreSQL', tag:'最常用关系库', use:'互联网公司存业务数据的标配。', more:'<b>在哪用：</b>用户、订单、内容等业务数据首选。<b>区别：</b>MySQL 最主流、生态最成熟；PG 功能更强（JSON/地理/全文搜索）。初学用 MySQL 就够。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
-    { ab:'MG', name:'NoSQL / MongoDB', tag:'文档型数据库', use:'字段随意、天然 JSON。', adv:true, more:'<b>在哪用：</b>日志、评论、配置等结构灵活的数据；初学用不到，知道有这东西。', eg:'"结构灵活的数据用 MongoDB，文档模式"' },
-    { ab:'RD', demo:'redis', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>在哪用：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
-    { ab:'ES', name:'Elasticsearch', tag:'全文搜索引擎', use:'海量文本的模糊搜索秒出。', adv:true, more:'<b>在哪用：</b>站内搜索、日志检索；MySQL 的 LIKE 查不动大数据量时换它。', eg:'"搜索功能用 Elasticsearch，分词 + 高亮"' },
-    { ab:'IX', demo:'index', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>在哪用：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
-    { ab:'AC', demo:'txn', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>在哪用：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
-    { ab:'OR', name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>在哪用：</b>SQLAlchemy / Prisma 都是 ORM：定义 User/Itinerary 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
-    { ab:'MI', name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>在哪用：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
-    { ab:'OS', name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>在哪用：</b>用户头像、攻略配图存 OSS，数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' },
-    { ab:'UP', name:'文件上传', tag:'multipart/form-data', use:'前端上传文件，后端接住存起来。', more:'<b>在哪用：</b>限制大小（10MB）、校验类型、存到 OSS 或本地；别把文件内容直接存数据库。', eg:'"文件上传接口限制大小和类型，存 OSS 返回 URL"' },
-    { ab:'PG', name:'分页 Pagination', tag:'列表接口怎么翻页', use:'列表太长不能一次全返。', more:'<b>在哪用：</b>offset/limit 最简单（第几页、每页几条）；数据深时用游标分页；前端 Table 分页组件直接对接。', eg:'"列表接口加分页参数 page/page_size，返回总数和数据"' },
-    { ab:'CS', name:'缓存一致性', tag:'缓存和库怎么同步', use:'先删缓存还是先更库？', adv:true, more:'<b>在哪用：</b>更新数据时先删缓存再更库（别更完库忘删缓存）；删缓存失败要重试；热点数据加短 TTL 兜底。', eg:'"更新数据先删缓存再写库，缓存设短 TTL"' },
-    { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', adv:true, more:'<b>在哪用：</b>高并发下每个请求 new 连接会打爆数据库；框架默认都配好了，知道有这回事。', eg:'"数据库用连接池，别每次请求新建连接"' }
+    {demo:'sqlite', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>在哪用：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
+    {demo:'sqlite', name:'MySQL / PostgreSQL', tag:'最常用关系库', use:'互联网公司存业务数据的标配。', more:'<b>在哪用：</b>用户、订单、内容等业务数据首选。<b>区别：</b>MySQL 最主流、生态最成熟；PG 功能更强（JSON/地理/全文搜索）。初学用 MySQL 就够。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
+    {name:'NoSQL / MongoDB', tag:'文档型数据库', use:'字段随意、天然 JSON。', adv:true, more:'<b>在哪用：</b>日志、评论、配置等结构灵活的数据；初学用不到，知道有这东西。', eg:'"结构灵活的数据用 MongoDB，文档模式"' },
+    {demo:'redis', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>在哪用：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
+    {name:'Elasticsearch', tag:'全文搜索引擎', use:'海量文本的模糊搜索秒出。', adv:true, more:'<b>在哪用：</b>站内搜索、日志检索；MySQL 的 LIKE 查不动大数据量时换它。', eg:'"搜索功能用 Elasticsearch，分词 + 高亮"' },
+    {demo:'index', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>在哪用：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
+    {demo:'txn', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>在哪用：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
+    {name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>在哪用：</b>SQLAlchemy / Prisma 都是 ORM：定义 User/Itinerary 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
+    {name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>在哪用：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
+    {name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>在哪用：</b>用户头像、攻略配图存 OSS，数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' },
+    {name:'文件上传', tag:'multipart/form-data', use:'前端上传文件，后端接住存起来。', more:'<b>在哪用：</b>限制大小（10MB）、校验类型、存到 OSS 或本地；别把文件内容直接存数据库。', eg:'"文件上传接口限制大小和类型，存 OSS 返回 URL"' },
+    {demo:'pagination', name:'分页 Pagination', tag:'列表接口怎么翻页', use:'列表太长不能一次全返。', more:'<b>在哪用：</b>offset/limit 最简单（第几页、每页几条）；数据深时用游标分页；前端 Table 分页组件直接对接。', eg:'"列表接口加分页参数 page/page_size，返回总数和数据"' },
+    {name:'缓存一致性', tag:'缓存和库怎么同步', use:'先删缓存还是先更库？', adv:true, more:'<b>在哪用：</b>更新数据时先删缓存再更库（别更完库忘删缓存）；删缓存失败要重试；热点数据加短 TTL 兜底。', eg:'"更新数据先删缓存再写库，缓存设短 TTL"' },
+    {name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', adv:true, more:'<b>在哪用：</b>高并发下每个请求 new 连接会打爆数据库；框架默认都配好了，知道有这回事。', eg:'"数据库用连接池，别每次请求新建连接"' }
   ]},
   { tag: '04', name: '认证授权', desc: '你是谁、能干什么', items: [
-    { ab:'JW', demo:'jwt', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>在哪用：</b>毕设登录返回 JWT，请求带 Authorization 头。<b>注意：</b>localStorage 怕 XSS，HttpOnly Cookie 更安全；要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
-    { ab:'SC', name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>在哪用：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
-    { ab:'O2', name:'OAuth2 / OIDC', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', adv:true, more:'<b>在哪用：</b>微信/GitHub 一键登录。OAuth2 管授权，OIDC 管认证（发 id_token）。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
-    { ab:'RB', name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>在哪用：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
-    { ab:'PH', name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>在哪用：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
-    { ab:'RT', name:'令牌刷新与撤销', tag:'Refresh Token', use:'短命访问令牌 + 长命刷新令牌。', adv:true, more:'<b>在哪用：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出时把 refresh 拉黑。', eg:'"JWT 配 refresh token，登出能撤销"' },
-    { ab:'OI', name:'对象级授权', tag:'防越权（IDOR）', use:'查「能不能动这条数据」。', adv:true, more:'<b>在哪用：</b>/api/plan/42 谁登录都能看就是漏洞——必须校验这条行程属于当前用户。', eg:'"接口按 user_id 过滤数据，防止水平越权"' }
+    {demo:'jwt', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>在哪用：</b>毕设登录返回 JWT，请求带 Authorization 头。<b>注意：</b>localStorage 怕 XSS，HttpOnly Cookie 更安全；要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
+    {name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>在哪用：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
+    {name:'OAuth2 / OIDC', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', adv:true, more:'<b>在哪用：</b>微信/GitHub 一键登录。OAuth2 管授权，OIDC 管认证（发 id_token）。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
+    {name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>在哪用：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
+    {name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>在哪用：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
+    {name:'令牌刷新与撤销', tag:'Refresh Token', use:'短命访问令牌 + 长命刷新令牌。', adv:true, more:'<b>在哪用：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出时把 refresh 拉黑。', eg:'"JWT 配 refresh token，登出能撤销"' },
+    {name:'对象级授权', tag:'防越权（IDOR）', use:'查「能不能动这条数据」。', adv:true, more:'<b>在哪用：</b>/api/plan/42 谁登录都能看就是漏洞——必须校验这条行程属于当前用户。', eg:'"接口按 user_id 过滤数据，防止水平越权"' }
   ]},
   { tag: '05', name: '安全防护', desc: '怎么不被打', items: [
-    { ab:'AP', name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>在哪用：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' },
-    { ab:'CO', name:'CORS', tag:'跨域资源共享', use:'浏览器对不同域的安检规则。', more:'<b>在哪用：</b>前端 localhost:5173 调后端 8000 就是跨域，后端要显式允许来源；别图省事 allow_origins=["*"] 配 credentials。', eg:'"后端配 CORS，允许前端域名，带 credentials"' }
+    {name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>在哪用：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' },
+    {demo:'cors', name:'CORS', tag:'跨域资源共享', use:'浏览器对不同域的安检规则。', more:'<b>在哪用：</b>前端 localhost:5173 调后端 8000 就是跨域，后端要显式允许来源；别图省事 allow_origins=["*"] 配 credentials。', eg:'"后端配 CORS，允许前端域名，带 credentials"' }
   ]},
   { tag: '06', name: '部署与运维', desc: '怎么上线、上线后怎么活得久', items: [
-    { ab:'NX', name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>在哪用：</b>前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
-    { ab:'DO', name:'Docker', tag:'容器化打包', use:'环境打包成镜像，处处一致。', more:'<b>在哪用：</b>后端写 Dockerfile，云服务器 docker compose up 一键起。', eg:'"写 Dockerfile 打包，docker-compose 一键部署"' },
-    { ab:'HT', name:'HTTPS', tag:'加密通道', use:'让地址栏变锁，数据不被窃听。', more:'<b>在哪用：</b>买域名后配免费证书（Let\'s Encrypt），全站 HTTPS；登录和支付必须。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
-    { ab:'EV', name:'环境变量', tag:'配置与密钥管理', use:'密钥和配置不进代码仓库。', more:'<b>在哪用：</b>API Key、数据库密码放 .env，代码里只读环境变量；换环境不用改代码；别提交到 git。', eg:'"密钥放环境变量，别写死在代码里"' },
-    { ab:'CI', name:'CI/CD', tag:'自动构建测试部署', use:'推代码 → 自动构建 → 自动上线。', more:'<b>在哪用：</b>GitHub Actions；改完代码 push 就自动部署，不用手动 SSH。', eg:'"配 CI/CD，push 到 main 自动构建部署"' },
-    { ab:'LG', name:'日志 Logging', tag:'排障第一现场', use:'请求进来干了啥，留下记录。', more:'<b>在哪用：</b>结构化日志记 时间/级别/trace_id/用户/耗时；别 print 一堆字符串，出事查不到。', eg:'"日志用结构化格式，带上 trace_id"' },
-    { ab:'TK', name:'测试', tag:'单元 / 集成 / E2E', use:'改坏了能立刻知道。', more:'<b>在哪用：</b>pytest 写单元测试测业务逻辑；TestClient 测接口；跑进 CI 每次 push 自动跑。', eg:'"核心接口写 pytest，跑进 CI 每次自动测"' },
-    { ab:'CD', name:'CDN', tag:'静态资源全球加速', use:'静态资源挂 CDN，首屏快。', more:'<b>在哪用：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿。', eg:'"静态资源挂 CDN 加速"' },
-    { ab:'K8', name:'K8s', tag:'容器编排', use:'自动扩容、故障自愈。', adv:true, more:'<b>在哪用：</b>服务多了、流量会涨才需要；一个 Docker 搞不定的规模才上。', eg:'"服务多了用 K8s 编排，自动扩容"' },
-    { ab:'MT', name:'指标 Metrics', tag:'系统体检表', use:'QPS、延迟、错误率一眼看清。', adv:true, more:'<b>在哪用：</b>Prometheus + Grafana：p95 延迟、错误率；毕设也能接个简易统计。', eg:'"接口暴露延迟和错误率指标"' },
-    { ab:'TR', name:'链路追踪 Tracing', tag:'跨服务定位', use:'跨服务定位慢在哪一步。', adv:true, more:'<b>在哪用：</b>OpenTelemetry 给每个请求发 trace_id，全程串起来。', eg:'"接 OpenTelemetry，全链路 trace_id 贯通"' },
-    { ab:'AL', name:'告警 Alerting', tag:'主动通知', use:'系统出问题主动找你。', adv:true, more:'<b>在哪用：</b>错误率 >5%、p95 >1s，自动发钉钉/邮件；别等用户投诉。', eg:'"关键指标配告警阈值，出问题立刻通知"' },
-    { ab:'HC', name:'健康检查', tag:'存活 + 就绪探针', use:'让平台知道服务还活着。', adv:true, more:'<b>在哪用：</b>/healthz 查存活、/readyz 查就绪；负载均衡靠它摘除坏实例。', eg:'"加 /healthz 和 /readyz 健康检查接口"' },
-    { ab:'TO', name:'超时 / 重试 / 幂等', tag:'分布式三件套', use:'网络会抖，请求会丢，别裸奔。', adv:true, more:'<b>在哪用：</b>外呼设超时；重试配退避；扣款下单要幂等（重发不重复扣钱）。', eg:'"外呼设超时，重试加退避，写操作做幂等"' },
-    { ab:'LR', demo:'ratelimit', name:'限流与降级', tag:'过载自我保护', use:'流量太大先保命。', adv:true, more:'<b>在哪用：</b>网关限 QPS，超了拒绝；下游挂了降级返回缓存，别跟着雪崩。', eg:'"接口加限流，下游故障时降级返回缓存"' },
-    { ab:'BT', name:'压测', tag:'上线前摸家底', use:'能扛多少 QPS 心里有数。', adv:true, more:'<b>在哪用：</b>k6 模拟 1000 并发打接口，看 p95 和错误率。', eg:'"上线前用 k6 压测核心接口"' },
-    { ab:'BK', name:'备份与恢复', tag:'数据丢了才最痛', use:'定期备份 + 演练恢复。', adv:true, more:'<b>在哪用：</b>数据库每日备份 + 异地存放；定期演练「真恢复一次」。', eg:'"数据库每天备份，恢复流程演练过"' },
-    { ab:'RL', name:'灰度与回滚', tag:'上线不出大事', use:'新版本先放小流量。', adv:true, more:'<b>在哪用：</b>先发 5% 用户，指标正常再全量；出问题一条命令回滚。', eg:'"上线走灰度发布，保留一键回滚能力"' }
+    {name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>在哪用：</b>前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
+    {name:'Docker', tag:'容器化打包', use:'环境打包成镜像，处处一致。', more:'<b>在哪用：</b>后端写 Dockerfile，云服务器 docker compose up 一键起。', eg:'"写 Dockerfile 打包，docker-compose 一键部署"' },
+    {name:'HTTPS', tag:'加密通道', use:'让地址栏变锁，数据不被窃听。', more:'<b>在哪用：</b>买域名后配免费证书（Let\'s Encrypt），全站 HTTPS；登录和支付必须。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
+    {name:'环境变量', tag:'配置与密钥管理', use:'密钥和配置不进代码仓库。', more:'<b>在哪用：</b>API Key、数据库密码放 .env，代码里只读环境变量；换环境不用改代码；别提交到 git。', eg:'"密钥放环境变量，别写死在代码里"' },
+    {name:'CI/CD', tag:'自动构建测试部署', use:'推代码 → 自动构建 → 自动上线。', more:'<b>在哪用：</b>GitHub Actions；改完代码 push 就自动部署，不用手动 SSH。', eg:'"配 CI/CD，push 到 main 自动构建部署"' },
+    {name:'日志 Logging', tag:'排障第一现场', use:'请求进来干了啥，留下记录。', more:'<b>在哪用：</b>结构化日志记 时间/级别/trace_id/用户/耗时；别 print 一堆字符串，出事查不到。', eg:'"日志用结构化格式，带上 trace_id"' },
+    {name:'测试', tag:'单元 / 集成 / E2E', use:'改坏了能立刻知道。', more:'<b>在哪用：</b>pytest 写单元测试测业务逻辑；TestClient 测接口；跑进 CI 每次 push 自动跑。', eg:'"核心接口写 pytest，跑进 CI 每次自动测"' },
+    {name:'CDN', tag:'静态资源全球加速', use:'静态资源挂 CDN，首屏快。', more:'<b>在哪用：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿。', eg:'"静态资源挂 CDN 加速"' },
+    {name:'K8s', tag:'容器编排', use:'自动扩容、故障自愈。', adv:true, more:'<b>在哪用：</b>服务多了、流量会涨才需要；一个 Docker 搞不定的规模才上。', eg:'"服务多了用 K8s 编排，自动扩容"' },
+    {name:'指标 Metrics', tag:'系统体检表', use:'QPS、延迟、错误率一眼看清。', adv:true, more:'<b>在哪用：</b>Prometheus + Grafana：p95 延迟、错误率；毕设也能接个简易统计。', eg:'"接口暴露延迟和错误率指标"' },
+    {name:'链路追踪 Tracing', tag:'跨服务定位', use:'跨服务定位慢在哪一步。', adv:true, more:'<b>在哪用：</b>OpenTelemetry 给每个请求发 trace_id，全程串起来。', eg:'"接 OpenTelemetry，全链路 trace_id 贯通"' },
+    {name:'告警 Alerting', tag:'主动通知', use:'系统出问题主动找你。', adv:true, more:'<b>在哪用：</b>错误率 >5%、p95 >1s，自动发钉钉/邮件；别等用户投诉。', eg:'"关键指标配告警阈值，出问题立刻通知"' },
+    {name:'健康检查', tag:'存活 + 就绪探针', use:'让平台知道服务还活着。', adv:true, more:'<b>在哪用：</b>/healthz 查存活、/readyz 查就绪；负载均衡靠它摘除坏实例。', eg:'"加 /healthz 和 /readyz 健康检查接口"' },
+    {name:'超时 / 重试 / 幂等', tag:'分布式三件套', use:'网络会抖，请求会丢，别裸奔。', adv:true, more:'<b>在哪用：</b>外呼设超时；重试配退避；扣款下单要幂等（重发不重复扣钱）。', eg:'"外呼设超时，重试加退避，写操作做幂等"' },
+    {demo:'ratelimit', name:'限流与降级', tag:'过载自我保护', use:'流量太大先保命。', adv:true, more:'<b>在哪用：</b>网关限 QPS，超了拒绝；下游挂了降级返回缓存，别跟着雪崩。', eg:'"接口加限流，下游故障时降级返回缓存"' },
+    {name:'压测', tag:'上线前摸家底', use:'能扛多少 QPS 心里有数。', adv:true, more:'<b>在哪用：</b>k6 模拟 1000 并发打接口，看 p95 和错误率。', eg:'"上线前用 k6 压测核心接口"' },
+    {name:'备份与恢复', tag:'数据丢了才最痛', use:'定期备份 + 演练恢复。', adv:true, more:'<b>在哪用：</b>数据库每日备份 + 异地存放；定期演练「真恢复一次」。', eg:'"数据库每天备份，恢复流程演练过"' },
+    {name:'灰度与回滚', tag:'上线不出大事', use:'新版本先放小流量。', adv:true, more:'<b>在哪用：</b>先发 5% 用户，指标正常再全量；出问题一条命令回滚。', eg:'"上线走灰度发布，保留一键回滚能力"' }
   ]},
   { tag: '07', name: '异步任务', desc: '重活丢后台慢慢跑', items: [
-    { ab:'CE', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', adv:true, more:'<b>在哪用：</b>导出行程 PDF、发邮件、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
-    { ab:'SC', name:'定时任务', tag:'每天凌晨跑', use:'定时执行清理、备份、抓取。', adv:true, more:'<b>在哪用：</b>「每天凌晨清理过期数据」「每周生成报表」；Celery Beat 或系统 crontab 都能做。', eg:'"定时清理过期数据用 Celery Beat 或 crontab"' },
-    { ab:'RQ', name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', adv:true, more:'<b>在哪用：</b>任务分发、系统解耦，A 发消息 B 消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
-    { ab:'KF', name:'Kafka', tag:'分布式消息流', use:'高吞吐、可重放的事件流。', adv:true, more:'<b>在哪用：</b>埋点日志、事件总线、数据管道（大数据标配）。', eg:'"用 Kafka 做事件流，日志和埋点走它"' }
+    {demo:'async', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', adv:true, more:'<b>在哪用：</b>导出行程 PDF、发邮件、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
+    {name:'定时任务', tag:'每天凌晨跑', use:'定时执行清理、备份、抓取。', adv:true, more:'<b>在哪用：</b>「每天凌晨清理过期数据」「每周生成报表」；Celery Beat 或系统 crontab 都能做。', eg:'"定时清理过期数据用 Celery Beat 或 crontab"' },
+    {name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', adv:true, more:'<b>在哪用：</b>任务分发、系统解耦，A 发消息 B 消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
+    {name:'Kafka', tag:'分布式消息流', use:'高吞吐、可重放的事件流。', adv:true, more:'<b>在哪用：</b>埋点日志、事件总线、数据管道（大数据标配）。', eg:'"用 Kafka 做事件流，日志和埋点走它"' }
   ]}
 ];
 var techGroupsEl = document.getElementById('techGroups');
 var feEngGroups = [
   { tag: 'FE', name: '前端工程能力', items: [
-    { ab:'RO', name:'路由 Router', tag:'URL 即状态', use:'页面切换不刷新，URL 可分享可回退。', more:'<b>例子：</b>React Router / Vue Router：/city/hangzhou 对应城市攻略页；参数变化只拉增量数据。', eg:'"用 React Router，城市页路由带参数"' },
-    { ab:'ST', name:'状态管理', tag:'组件外的共享数据', use:'跨页面共享登录态、购物车、筛选条件。', more:'<b>例子：</b>Zustand / Pinia 存登录用户、行程草稿；服务端数据交给 TanStack Query 管，别都塞全局 store。', eg:'"全局状态用 Pinia，服务端数据用请求库缓存"' },
-    { ab:'DT', name:'数据请求与缓存', tag:'TanStack Query / SWR', use:'请求去重、缓存、失效重拉都交给库。', more:'<b>例子：</b>同一攻略页多处请求自动去重；切换页面秒显缓存再后台刷新；错误自动重试。', eg:'"接口数据用 TanStack Query 管理，key 按参数设计"' },
-    { ab:'RR', name:'CSR / SSR / SSG', tag:'渲染模式选型', use:'在哪渲染决定首屏与 SEO。', more:'<b>例子：</b>后台管理系统 CSR 够用；要 SEO 的官网/攻略页用 Next.js SSR 或 SSG；流式 SSR 配 RSC 是新趋势。', eg:'"官网用 Next.js SSG，管理后台用 CSR"' },
-    { ab:'BD', name:'构建与工具链', tag:'Vite / TypeScript', use:'开发快、构建稳、类型有保障。', more:'<b>例子：</b>Vite 秒级热更；TS 让接口字段改了前端立刻报错；ESLint + Prettier 统一风格，AI 生成的代码也过检查。', eg:'"前端用 Vite + TypeScript，配 ESLint 和 Prettier"' },
-    { ab:'TS', name:'测试与质量', tag:'单元 / E2E / 可访问性', use:'改坏了能立刻知道。', more:'<b>例子：</b>Vitest 测工具函数和组件；Playwright 跑核心流程 E2E；axe 扫可访问性问题进 CI。', eg:'"核心流程写 E2E 测试，跑进 CI"' }
+    {name:'路由 Router', tag:'URL 即状态', use:'页面切换不刷新，URL 可分享可回退。', more:'<b>例子：</b>React Router / Vue Router：/city/hangzhou 对应城市攻略页；参数变化只拉增量数据。', eg:'"用 React Router，城市页路由带参数"' },
+    {name:'状态管理', tag:'组件外的共享数据', use:'跨页面共享登录态、购物车、筛选条件。', more:'<b>例子：</b>Zustand / Pinia 存登录用户、行程草稿；服务端数据交给 TanStack Query 管，别都塞全局 store。', eg:'"全局状态用 Pinia，服务端数据用请求库缓存"' },
+    {name:'数据请求与缓存', tag:'TanStack Query / SWR', use:'请求去重、缓存、失效重拉都交给库。', more:'<b>例子：</b>同一攻略页多处请求自动去重；切换页面秒显缓存再后台刷新；错误自动重试。', eg:'"接口数据用 TanStack Query 管理，key 按参数设计"' },
+    {name:'CSR / SSR / SSG', tag:'渲染模式选型', use:'在哪渲染决定首屏与 SEO。', more:'<b>例子：</b>后台管理系统 CSR 够用；要 SEO 的官网/攻略页用 Next.js SSR 或 SSG；流式 SSR 配 RSC 是新趋势。', eg:'"官网用 Next.js SSG，管理后台用 CSR"' },
+    {name:'构建与工具链', tag:'Vite / TypeScript', use:'开发快、构建稳、类型有保障。', more:'<b>例子：</b>Vite 秒级热更；TS 让接口字段改了前端立刻报错；ESLint + Prettier 统一风格，AI 生成的代码也过检查。', eg:'"前端用 Vite + TypeScript，配 ESLint 和 Prettier"' },
+    {name:'测试与质量', tag:'单元 / E2E / 可访问性', use:'改坏了能立刻知道。', more:'<b>例子：</b>Vitest 测工具函数和组件；Playwright 跑核心流程 E2E；axe 扫可访问性问题进 CI。', eg:'"核心流程写 E2E 测试，跑进 CI"' }
   ]}
 ];
 function renderTechCards(groups, container){
@@ -3596,7 +3765,7 @@ if(feEngGrid){
   renderTechCards(feEngGroups, feEngGrid);
 }
 
-/* ========== 前后端联调闭环 ========== */
+/* ========== 前后端联调预演（报文前端生成） ========== */
 (function(){
   var btn = document.getElementById('lbBtn');
   var steps = document.getElementById('lbSteps');
@@ -3673,12 +3842,144 @@ if(feEngGrid){
               res.textContent = out;
               running = false;
               btn.disabled = false;
-              labToast('联调闭环跑通：' + city + ' ' + days + ' 日行程（模拟）', 'ok');
+              labToast('联调预演跑完：' + city + ' ' + days + ' 日行程（报文前端模拟）', 'ok');
             }, 450);
           }, 450);
         }, 450);
       }, 450);
     }, 400);
+  });
+})();
+
+/* ========== 分页 Pagination（可操纵） ========== */
+(function(){
+  var totalEl = document.getElementById('pgTotal');
+  var sizeEl = document.getElementById('pgSize');
+  var pageEl = document.getElementById('pgPage');
+  var pageVal = document.getElementById('pgPageVal');
+  var sqlEl = document.getElementById('pgSql');
+  var resEl = document.getElementById('pgRes');
+  if(!totalEl || !sizeEl || !pageEl || !sqlEl || !resEl) return;
+  var SIZE_CAP = 50;
+  var POI = ['西湖','灵隐寺','雷峰塔','断桥残雪','苏堤','三潭印月','河坊街','宋城','龙井村','九溪烟树','西溪湿地','岳王庙','曲院风荷','花港观鱼'];
+  function clampInt(v, d, lo, hi){
+    var n = parseInt(v, 10);
+    if(isNaN(n)) n = d;
+    return Math.min(hi, Math.max(lo, n));
+  }
+  function poiName(i){
+    return POI[i % POI.length] + (i >= POI.length ? ' · ' + (Math.floor(i / POI.length) + 1) + '号' : '');
+  }
+  function render(){
+    var total = clampInt(totalEl.value, 0, 0, 9999);
+    var sizeReq = clampInt(sizeEl.value, 10, 1, 9999);
+    var size = Math.min(sizeReq, SIZE_CAP);
+    var pages = Math.max(1, Math.ceil(total / size));
+    var requested = parseInt(pageEl.value, 10);
+    if(isNaN(requested) || requested < 1) requested = 1;
+    pageEl.max = pages;
+    pageEl.value = Math.min(requested, pages);
+    pageVal.textContent = requested;
+    var offset = (requested - 1) * size;
+    var shown = [];
+    for(var i = 0; i < Math.min(size, 5); i++){
+      var idx = offset + i;
+      if(idx < total) shown.push('    { "id": ' + (idx + 1) + ', "name": "' + poiName(idx) + '" }');
+    }
+    var more = Math.max(0, Math.min(size, total - offset) - shown.length);
+    sqlEl.textContent = "SELECT id, name FROM poi WHERE city = '杭州' ORDER BY id LIMIT " + size + " OFFSET " + offset + ";    -- page=" + requested + " size=" + size;
+    var out = '{\n  "items": [\n' + (shown.length ? shown.join(',\n') + (more ? ',\n    … 还有 ' + more + ' 条未展开' : '') : '') + '\n  ],\n';
+    out += '  "page": ' + requested + ',\n  "size": ' + size + ',\n  "total": ' + total + ',\n';
+    out += '  "page_count": ' + pages + ',\n  "has_next": ' + (requested < pages ? 'true' : 'false') + '\n}';
+    var warn = '';
+    if(sizeReq > SIZE_CAP) warn += '\n\n⚠ 前端传了 size=' + sizeReq + '：后端夹到 ' + SIZE_CAP + ' —— 上限永远在服务端判，别信前端。';
+    if(offset >= total) warn += '\n\n⚠ page=' + requested + ' 已越界（只有 ' + pages + ' 页）：items 返回空数组，不是 500 报错。';
+    else if(offset >= 500) warn += '\n\n⚠ 深分页：OFFSET ' + offset + ' 要先扫过前 ' + offset + ' 行，越翻越慢。改用游标（记住上一页最后一条 id）：WHERE id > ' + offset + ' ORDER BY id LIMIT ' + size;
+    resEl.textContent = out + warn;
+  }
+  [totalEl, sizeEl].forEach(function(el){ el.addEventListener('input', render); });
+  pageEl.addEventListener('input', render);
+  render();
+})();
+
+/* ========== CORS 跨域（可操纵） ========== */
+(function(){
+  var originEl = document.getElementById('csOrigin');
+  var reqEl = document.getElementById('csReq');
+  var aoEl = document.getElementById('csAllowOrigin');
+  var ahEl = document.getElementById('csAllowHeaders');
+  var btn = document.getElementById('csSend');
+  var log = document.getElementById('csLog');
+  if(!originEl || !reqEl || !aoEl || !ahEl || !btn || !log) return;
+  function finish(lines, ok){
+    log.textContent = lines.join('\n');
+    log.style.color = ok ? '' : '#d64545';
+  }
+  function run(){
+    var same = originEl.value === 'same';
+    var preflight = reqEl.value === 'preflight';
+    var allowOrigin = aoEl.checked;
+    var allowHeaders = ahEl.checked;
+    var url = preflight ? 'GET https://api.trip.demo/plans' : 'GET https://api.trip.demo/cities';
+    var L = ['页面源：' + (same ? 'https://api.trip.demo' : 'https://trip.demo') + '　接口源：https://api.trip.demo'];
+    if(same){
+      L.push('→ 同源，浏览器不做 CORS 检查');
+      L.push('✓ 200 OK  { "items": [...] }　—— fetch 直接拿到数据');
+      L.push('');
+      L.push('结论：CORS 只在「源不同」时出场。本地 127.0.0.1:5173 调 127.0.0.1:8000 也算不同源（端口不同）。');
+      finish(L, true);
+      return;
+    }
+    L.push('→ 跨源，浏览器要做 CORS 检查');
+    if(preflight){
+      L.push('① 浏览器自动发预检：OPTIONS /plans');
+      L.push('   Origin: https://trip.demo');
+      L.push('   Access-Control-Request-Method: GET');
+      L.push('   Access-Control-Request-Headers: authorization');
+      if(!allowOrigin || !allowHeaders){
+        var miss = !allowOrigin ? 'Access-Control-Allow-Origin' : 'Access-Control-Allow-Headers';
+        L.push('← 预检响应里没有 ' + miss);
+        L.push('✗ 预检失败 —— 真实请求根本不会发出');
+        L.push('');
+        L.push("浏览器控制台：Access to fetch at 'https://api.trip.demo/plans' has been blocked by CORS policy:");
+        L.push("  Response to preflight request doesn't pass access control check: No '" + miss + "' header is present.");
+        L.push('');
+        L.push('Network 里只会看到一条 OPTIONS，没有 /plans —— 别去后端日志找，请求压根没到业务代码。');
+        finish(L, false);
+        return;
+      }
+      L.push('← 200 + Allow-Origin / Allow-Methods / Allow-Headers ✓ 预检通过（结果浏览器会缓存，不会每次都发 OPTIONS）');
+    }
+    L.push((preflight ? '② ' : '') + '真实请求发出：' + url);
+    L.push('← 服务器返回 200 OK  { "items": [...] }　← 后端其实成功了');
+    if(!allowOrigin){
+      L.push('');
+      L.push("浏览器控制台：Access to fetch at 'https://api.trip.demo/cities' has been blocked by CORS policy:");
+      L.push("  No 'Access-Control-Allow-Origin' header is present on the requested resource.");
+      L.push('');
+      L.push('关键：Network 里这条是 200，Response 也看得到，但 JS 拿不到 —— 拦人的是浏览器，不是服务器。');
+      finish(L, false);
+      return;
+    }
+    L.push('✓ Allow-Origin: https://trip.demo 与页面源匹配 → fetch resolve，页面拿到数据');
+    finish(L, true);
+  }
+  btn.addEventListener('click', run);
+  [originEl, reqEl, aoEl, ahEl].forEach(function(el){ el.addEventListener('change', run); });
+  run();
+})();
+
+/* ========== hero 统计：从 DOM 与数据自算，避免手写数字漂移 ========== */
+(function(){
+  var vals = {
+    stFe: document.querySelectorAll('section.group:not(#backend) .demo:not(#fePanorama)').length,
+    stFeGrp: document.querySelectorAll('section.group:not(#backend)').length,
+    stBeCards: techGroups.reduce(function(n, g){ return n + g.items.length; }, 0),
+    stBeDemo: document.querySelectorAll('#backend .demo:not(#techPanorama)').length
+  };
+  Object.keys(vals).forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.textContent = vals[id];
   });
 })();
 
