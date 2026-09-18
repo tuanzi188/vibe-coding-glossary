@@ -114,16 +114,14 @@ button{font-family:var(--sans);cursor:pointer;}
 .nav-in{max-width:1120px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:16px;}
 .nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap;}
 .nav-logo svg{flex:none;}
-.nav-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto;}
+.nav-links{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-left:auto;align-items:center;}
 .nav-links::-webkit-scrollbar{display:none;}
 .nav-links a{white-space:nowrap;padding:6px 11px;border-radius:8px;font-size:13.5px;color:var(--ink-2);transition:background .15s,color .15s;}
 .nav-links a:hover{background:var(--brand-soft);color:var(--brand);}
-.nav-group{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);padding:0 6px;white-space:nowrap;}
-.nav-group-be{color:var(--brand);font-weight:700;}
-.nav-sep{width:1px;height:18px;background:var(--line);margin:0 4px;flex:none;align-self:center;}
-.nav-links a.nav-be{color:var(--brand);font-weight:600;display:inline-flex;align-items:center;gap:5px;}
-.nav-links a.nav-be:hover{background:var(--brand-soft);}
-.nav-links a.nav-be .nd{width:6px;height:6px;border-radius:50%;background:var(--brand);flex:none;}
+.nav-side{display:inline-flex;align-items:center;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px 4px;flex:none;}
+.nav-side-be{background:var(--brand-soft);border-color:transparent;}
+.nav-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);padding:0 8px;white-space:nowrap;}
+.nav-side-be .nav-label{color:var(--brand);font-weight:700;}
 .menu-btn{display:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;align-items:center;justify-content:center;flex:none;transition:all .15s;}
 .menu-btn:hover{border-color:var(--brand);color:var(--brand);}
 
@@ -672,11 +670,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 @media (max-width:640px){
   .nav-in{position:relative;}
   .menu-btn{display:flex;}
-  .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);flex-direction:column;padding:8px 12px 14px;gap:2px;display:none;margin-left:0;}
+  .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);flex-direction:column;padding:8px 12px 14px;gap:6px;display:none;margin-left:0;}
   .nav-links.open{display:flex;}
   .nav-links a{padding:13px 14px;font-size:14.5px;text-align:left;min-width:0;border-radius:10px;}
-  .nav-sep{width:100%;height:1px;background:var(--line);margin:8px 0;align-self:stretch;}
-  .nav-group{padding:10px 14px 2px;font-size:10.5px;}
+  .nav-side{flex-direction:column;align-items:stretch;width:100%;background:none;border:none;padding:0;gap:0;}
+  .nav-side-be{margin-top:4px;}
+  .nav-label{padding:10px 14px 4px;font-size:10.5px;}
 }
 @media (max-width:560px){
   .wrap{padding:0 14px;}
@@ -701,17 +700,20 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       前后端实验室
     </a>
     <div class="nav-links">
-      <span class="nav-group">前端 Frontend</span>
-      <a href="#layout">布局</a>
-      <a href="#nav">导航</a>
-      <a href="#form">录入</a>
-      <a href="#feedback">反馈</a>
-      <a href="#display">展示</a>
-      <a href="#behavior">行为</a>
-      <span class="nav-sep" aria-hidden="true"></span>
-      <span class="nav-group nav-group-be">后端 Backend</span>
-      <a href="#http">HTTP 解剖</a>
-      <a class="nav-be" href="#backend"><span class="nd" aria-hidden="true"></span>技术栈全景</a>
+      <div class="nav-side">
+        <span class="nav-label">前端 Frontend</span>
+        <a href="#layout">布局</a>
+        <a href="#nav">导航</a>
+        <a href="#form">录入</a>
+        <a href="#feedback">反馈</a>
+        <a href="#display">展示</a>
+        <a href="#behavior">行为</a>
+      </div>
+      <div class="nav-side nav-side-be">
+        <span class="nav-label">后端 Backend</span>
+        <a href="#http">HTTP 解剖</a>
+        <a href="#backend">技术栈全景</a>
+      </div>
     </div>
     <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
