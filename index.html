@@ -754,7 +754,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="stats">
       <div class="stat"><b>46+</b><span>前端组件 · 真实可交互</span></div>
       <div class="stat"><b>7</b><span>前端大区</span></div>
-      <div class="stat"><b>46</b><span>后端技术卡 · 六类全景</span></div>
+      <div class="stat"><b>45</b><span>后端技术卡 · 六类全景</span></div>
       <div class="stat"><b>6</b><span>后端分类</span></div>
     </div>
   </div>
@@ -1613,7 +1613,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="group-head">
       <div class="tag">07 · 后端技术栈 Backend</div>
       <h2>后端技术栈</h2>
-      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到框架、数据库、API、认证安全、异步扩展、部署上线。能用毕设「智旅云图」举例的就拿它举，没有的就用通用例子。</p>
+      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到接口通信、框架、数据存储、并发任务、认证安全、部署上线。能用毕设「智旅云图」举例的就拿它举，没有的就用通用例子。</p>
     </div>
     <div class="demos">
 
@@ -1748,7 +1748,7 @@ Accept: application/json</div>
         <div class="demo-stage">
           <div id="techGroups"></div>
         </div>
-        <div class="demo-exp"><span class="plain">把 Web 后端的技术全貌按六类铺开：框架、数据库、API、认证安全、异步扩展、架构部署。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这六类给我讲后端技术栈：框架选型、数据库、API 设计、认证、消息队列、部署上线"</span></div>
+        <div class="demo-exp"><span class="plain">把 Web 后端的技术全貌按六类铺开：接口通信、框架、数据存储、并发任务、认证安全、架构部署。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这六类给我讲后端技术栈：接口怎么定、框架选型、数据放哪、并发怎么扛、认证怎么做、怎么部署上线"</span></div>
       </div>
 
     </div>
@@ -1758,7 +1758,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 后端六类全景（46 张技术卡）· 每个都配 vibe coding 例句</p>
+    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 后端六类全景（45 张技术卡）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
@@ -2798,7 +2798,15 @@ if(httpSc && scEx){
 
 /* 后端技术栈全景（六组卡片） */
 var techGroups = [
-  { tag: '01', name: '框架与语言', desc: '选一个框架 = 定后端的地基', items: [
+  { tag: '01', name: '接口与通信', desc: '前端怎么跟后端说话', items: [
+    { ab:'RE', name:'RESTful', tag:'资源 + 动词 + 状态码', use:'最主流的接口风格。', more:'<b>例子：</b>毕设全套接口：GET 查攻略、POST 生成行程，路径只写名词。', eg:'"接口按 RESTful 设计，路径写资源名"' },
+    { ab:'GQ', name:'GraphQL', tag:'按需查字段', use:'一次请求拿想要的数据，不多不少。', more:'<b>例子：</b>前端页面字段差异大、嵌套深时特别好用。', eg:'"用 GraphQL，前端自选返回字段"' },
+    { ab:'WS', name:'WebSocket', tag:'实时双向长连接', use:'服务器能主动推消息。', more:'<b>例子：</b>聊天、协同编辑、实时通知、行程变更推送。', eg:'"用 WebSocket 做实时消息推送"' },
+    { ab:'SE', name:'SSE', tag:'服务器单向推送', use:'只推一条道，比 WebSocket 更轻。', more:'<b>例子：</b>AI 回复逐字蹦、通知气泡、实时比分——服务器 → 浏览器单向下推就够了。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
+    { ab:'GR', name:'gRPC', tag:'高性能 RPC', use:'二进制协议、跨语言、快。', more:'<b>例子：</b>微服务之间的内部调用（浏览器用不了，服务间用）。', eg:'"服务间调用用 gRPC，性能更高"' },
+    { ab:'OA', name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>例子：</b>FastAPI 的 /docs 就是它；前端照着文档联调。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' }
+  ]},
+  { tag: '02', name: '框架与语言', desc: '选一个框架 = 定后端的地基', items: [
     { ab:'FA', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>例子：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
     { ab:'FL', name:'Flask', tag:'Python 轻量框架', use:'简单灵活，一个文件能起服务。', more:'<b>例子：</b>小工具、API 原型、个人项目首选，想加什么自己拼。', eg:'"用 Flask 写个轻量 API，别引入太多东西"' },
     { ab:'DJ', name:'Django', tag:'Python 全家桶', use:'Admin、ORM、鉴权开箱即用。', more:'<b>例子：</b>内容型网站、管理后台，自带后台界面省一半工作量。', eg:'"用 Django 全家桶，后台管理界面白送"' },
@@ -2807,7 +2815,7 @@ var techGroups = [
     { ab:'NS', name:'NestJS', tag:'Node 企业级', use:'TS 全支持、模块化架构。', more:'<b>例子：</b>中型以上 Node 项目，结构清晰好维护。', eg:'"用 NestJS + TypeScript，按模块拆分"' },
     { ab:'GN', name:'Gin', tag:'Go 高性能框架', use:'高并发、低内存、编译型快。', more:'<b>例子：</b>网关、高并发接口、中间件服务。', eg:'"用 Gin 写高并发接口，性能优先"' }
   ]},
-  { tag: '02', name: '数据库与存储', desc: '数据放哪、怎么查得快', items: [
+  { tag: '03', name: '数据与存储', desc: '数据放哪、怎么查得快', items: [
     { ab:'SQ', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>例子：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
     { ab:'MY', name:'MySQL', tag:'最常用关系库', use:'互联网标配，生态最成熟。', more:'<b>例子：</b>用户、订单、内容等业务数据首选；几乎人人都会。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
     { ab:'PG', name:'PostgreSQL', tag:'功能最强开源库', use:'JSON、地理、全文搜索全支持。', more:'<b>例子：</b>复杂查询、地理数据、JSON 混合存储的强需求场景。', eg:'"用 PostgreSQL，需要 JSON 字段和地理查询"' },
@@ -2820,15 +2828,14 @@ var techGroups = [
     { ab:'MI', name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>例子：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
     { ab:'OS', name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>例子：</b>用户头像、攻略配图存 OSS（AWS 叫 S3），数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' }
   ]},
-  { tag: '03', name: 'API 与通信', desc: '接口除了 REST 还有别的玩法', items: [
-    { ab:'RE', name:'RESTful', tag:'资源 + 动词 + 状态码', use:'最主流的接口风格。', more:'<b>例子：</b>毕设全套接口：GET 查攻略、POST 生成行程，路径只写名词。', eg:'"接口按 RESTful 设计，路径写资源名"' },
-    { ab:'GQ', name:'GraphQL', tag:'按需查字段', use:'一次请求拿想要的数据，不多不少。', more:'<b>例子：</b>前端页面字段差异大、嵌套深时特别好用。', eg:'"用 GraphQL，前端自选返回字段"' },
-    { ab:'WS', name:'WebSocket', tag:'实时双向长连接', use:'服务器能主动推消息。', more:'<b>例子：</b>聊天、协同编辑、实时通知、行程变更推送。', eg:'"用 WebSocket 做实时消息推送"' },
-    { ab:'SE', name:'SSE', tag:'服务器单向推送', use:'只推一条道，比 WebSocket 更轻。', more:'<b>例子：</b>AI 回复逐字蹦、通知气泡、实时比分——服务器 → 浏览器单向下推就够了。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
-    { ab:'GR', name:'gRPC', tag:'高性能 RPC', use:'二进制协议、跨语言、快。', more:'<b>例子：</b>微服务之间的内部调用（浏览器用不了，服务间用）。', eg:'"服务间调用用 gRPC，性能更高"' },
-    { ab:'OA', name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>例子：</b>FastAPI 的 /docs 就是它；前端照着文档联调。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' }
+  { tag: '04', name: '并发与任务', desc: '重活丢后台，并发扛得住', items: [
+    { ab:'CE', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', more:'<b>例子：</b>毕设导出行程 PDF、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
+    { ab:'KF', name:'Kafka', tag:'分布式消息流', use:'高吞吐、可重放的事件流。', more:'<b>例子：</b>埋点日志、事件总线、数据管道（大数据标配）。', eg:'"用 Kafka 做事件流，日志和埋点走它"' },
+    { ab:'RQ', name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', more:'<b>例子：</b>任务分发、系统解耦，A 系统发消息 B 系统消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
+    { ab:'CS', name:'缓存策略', tag:'穿透 / 击穿 / 雪崩', use:'缓存不命中的三种翻车姿势。', more:'<b>例子：</b>穿透=查不存在的 key 狂打库；击穿=热点 key 过期；雪崩=大批 key 同时过期。', eg:'"加 Redis 缓存，处理穿透、击穿和雪崩"' },
+    { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', more:'<b>例子：</b>高并发下每个请求 new 连接会打爆数据库；连接池复用是标配。', eg:'"数据库配连接池，别每次请求新建连接"' },
   ]},
-  { tag: '04', name: '认证与安全', desc: '你是谁、你能干什么、防谁', items: [
+  { tag: '05', name: '认证与安全', desc: '你是谁、你能干什么、防谁', items: [
     { ab:'JW', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，前端存 localStorage，请求带 Authorization 头。', eg:'"登录返回 JWT，前端存起来每次带上"' },
     { ab:'SC', name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>例子：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
     { ab:'O2', name:'OAuth2', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', more:'<b>例子：</b>微信 / GitHub / 手机号一键登录都是它，用户不注册直接用。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
@@ -2836,14 +2843,6 @@ var techGroups = [
     { ab:'RB', name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>例子：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
     { ab:'PH', name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>例子：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
     { ab:'AP', name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>例子：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' }
-  ]},
-  { tag: '05', name: '异步与扩展', desc: '重活别让用户等，流量大要扛住', items: [
-    { ab:'CE', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', more:'<b>例子：</b>毕设导出行程 PDF、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
-    { ab:'KF', name:'Kafka', tag:'分布式消息流', use:'高吞吐、可重放的事件流。', more:'<b>例子：</b>埋点日志、事件总线、数据管道（大数据标配）。', eg:'"用 Kafka 做事件流，日志和埋点走它"' },
-    { ab:'RQ', name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', more:'<b>例子：</b>任务分发、系统解耦，A 系统发消息 B 系统消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
-    { ab:'CS', name:'缓存策略', tag:'穿透 / 击穿 / 雪崩', use:'缓存不命中的三种翻车姿势。', more:'<b>例子：</b>穿透=查不存在的 key 狂打库；击穿=热点 key 过期；雪崩=大批 key 同时过期。', eg:'"加 Redis 缓存，处理穿透、击穿和雪崩"' },
-    { ab:'CP', name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', more:'<b>例子：</b>高并发下每个请求 new 连接会打爆数据库；连接池复用是标配。', eg:'"数据库配连接池，别每次请求新建连接"' },
-    { ab:'GA', name:'高德开放平台', tag:'第三方地图 API', use:'坐标、POI、路线规划。', more:'<b>例子：</b>毕设景点坐标、周边搜索、城市距离都接它，省得自己造地图数据。', eg:'"接高德 API 拿景点坐标和周边 POI"' }
   ]},
   { tag: '06', name: '架构与部署', desc: '代码怎么组织、怎么上线', items: [
     { ab:'MV', name:'MVC 分层', tag:'模型-视图-控制器', use:'数据 / 界面 / 逻辑各司其职。', more:'<b>例子：</b>几乎所有后端的基础分层：路由层接请求、业务层写逻辑、模型层管数据。', eg:'"按 MVC 分层：路由、Service、Model 分开写"' },
