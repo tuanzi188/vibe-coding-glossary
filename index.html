@@ -482,7 +482,7 @@ button{font-family:var(--sans);cursor:pointer;}
 
 .tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px;}
 @media (min-width:961px){
-  .tech-grid:has(> :nth-child(9)){grid-template-columns:repeat(3,1fr);}
+  .tech-grid:has(> :nth-child(9):last-child){grid-template-columns:repeat(3,1fr);}
   .tech-grid:has(> :nth-child(5):last-child){grid-template-columns:repeat(3,1fr);}
 }
 .tech-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;cursor:pointer;transition:all .18s;position:relative;}
@@ -754,7 +754,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="stats">
       <div class="stat"><b>46+</b><span>前端组件 · 真实可交互</span></div>
       <div class="stat"><b>7</b><span>前端大区</span></div>
-      <div class="stat"><b>41</b><span>后端技术卡 · 六类全景</span></div>
+      <div class="stat"><b>46</b><span>后端技术卡 · 六类全景</span></div>
       <div class="stat"><b>6</b><span>后端分类</span></div>
     </div>
   </div>
@@ -1758,7 +1758,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 后端六类全景（41 张技术卡）· 每个都配 vibe coding 例句</p>
+    <p><b>前后端实验室</b> · 前端 46+ 个真实组件与行为 + 后端六类全景（46 张技术卡）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
@@ -2812,16 +2812,19 @@ var techGroups = [
     { ab:'MY', name:'MySQL', tag:'最常用关系库', use:'互联网标配，生态最成熟。', more:'<b>例子：</b>用户、订单、内容等业务数据首选；几乎人人都会。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
     { ab:'PG', name:'PostgreSQL', tag:'功能最强开源库', use:'JSON、地理、全文搜索全支持。', more:'<b>例子：</b>复杂查询、地理数据、JSON 混合存储的强需求场景。', eg:'"用 PostgreSQL，需要 JSON 字段和地理查询"' },
     { ab:'MG', name:'MongoDB', tag:'文档型 NoSQL', use:'字段随意、天然 JSON。', more:'<b>例子：</b>日志、评论、配置等结构灵活的数据。', eg:'"非结构化数据存 MongoDB，文档结构灵活"' },
+    { ab:'RD', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>例子：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
+    { ab:'ES', name:'Elasticsearch', tag:'全文搜索引擎', use:'海量文本的模糊搜索秒出。', more:'<b>例子：</b>站内搜索、日志检索；MySQL 的 LIKE 查不动大数据量时换它。', eg:'"搜索功能用 Elasticsearch，分词 + 高亮"' },
     { ab:'IX', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>例子：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
     { ab:'AC', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>例子：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
-    { ab:'OR', name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>例子：</b>SQLAlchemy 定义 User/Itinerary/Poi 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
+    { ab:'OR', name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>例子：</b>SQLAlchemy / Prisma / TypeORM 都是 ORM：定义 User/Itinerary/Poi 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
     { ab:'MI', name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>例子：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
-    { ab:'OS', name:'对象存储 OSS', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>例子：</b>用户头像、攻略配图存 OSS，数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' }
+    { ab:'OS', name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>例子：</b>用户头像、攻略配图存 OSS（AWS 叫 S3），数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' }
   ]},
   { tag: '03', name: 'API 与通信', desc: '接口除了 REST 还有别的玩法', items: [
     { ab:'RE', name:'RESTful', tag:'资源 + 动词 + 状态码', use:'最主流的接口风格。', more:'<b>例子：</b>毕设全套接口：GET 查攻略、POST 生成行程，路径只写名词。', eg:'"接口按 RESTful 设计，路径写资源名"' },
     { ab:'GQ', name:'GraphQL', tag:'按需查字段', use:'一次请求拿想要的数据，不多不少。', more:'<b>例子：</b>前端页面字段差异大、嵌套深时特别好用。', eg:'"用 GraphQL，前端自选返回字段"' },
     { ab:'WS', name:'WebSocket', tag:'实时双向长连接', use:'服务器能主动推消息。', more:'<b>例子：</b>聊天、协同编辑、实时通知、行程变更推送。', eg:'"用 WebSocket 做实时消息推送"' },
+    { ab:'SE', name:'SSE', tag:'服务器单向推送', use:'只推一条道，比 WebSocket 更轻。', more:'<b>例子：</b>AI 回复逐字蹦、通知气泡、实时比分——服务器 → 浏览器单向下推就够了。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
     { ab:'GR', name:'gRPC', tag:'高性能 RPC', use:'二进制协议、跨语言、快。', more:'<b>例子：</b>微服务之间的内部调用（浏览器用不了，服务间用）。', eg:'"服务间调用用 gRPC，性能更高"' },
     { ab:'OA', name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>例子：</b>FastAPI 的 /docs 就是它；前端照着文档联调。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' }
   ]},
@@ -2829,6 +2832,7 @@ var techGroups = [
     { ab:'JW', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>例子：</b>毕设登录返回 JWT，前端存 localStorage，请求带 Authorization 头。', eg:'"登录返回 JWT，前端存起来每次带上"' },
     { ab:'SC', name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>例子：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
     { ab:'O2', name:'OAuth2', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', more:'<b>例子：</b>微信 / GitHub / 手机号一键登录都是它，用户不注册直接用。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
+    { ab:'MW', name:'中间件 Middleware', tag:'请求流水线的关卡', use:'请求进来先过一道再放行。', more:'<b>例子：</b>Express 的 next()、FastAPI 的 dependencies：日志、鉴权、限流都写成中间件统一挂。', eg:'"登录校验写成中间件，接口统一挂上"' },
     { ab:'RB', name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>例子：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
     { ab:'PH', name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>例子：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
     { ab:'AP', name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>例子：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' }
@@ -2849,6 +2853,7 @@ var techGroups = [
     { ab:'K8', name:'K8s', tag:'容器编排', use:'自动扩容、故障自愈。', more:'<b>例子：</b>服务多了、流量会涨才需要；一个 Docker 搞不定的规模才上。', eg:'"服务多了用 K8s 编排，自动扩容"' },
     { ab:'NX', name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>例子：</b>毕设前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
     { ab:'CD', name:'CDN', tag:'内容分发网络', use:'静态资源全球加速。', more:'<b>例子：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿，首屏快很多。', eg:'"静态资源挂 CDN 加速"' },
+    { ab:'HT', name:'域名 + HTTPS', tag:'门牌号 + 加密通道', use:'别人访问你的地址，还得带把锁。', more:'<b>例子：</b>买域名解析到服务器 IP，配免费证书让地址栏变锁，浏览器才认你是正经站点。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
     { ab:'EV', name:'环境变量', tag:'配置管理', use:'密钥和配置不进代码仓库。', more:'<b>例子：</b>高德 API Key、数据库密码放 .env，代码里只读环境变量，换环境不用改代码。', eg:'"密钥放环境变量，别写死在代码里"' }
   ]}
 ];
