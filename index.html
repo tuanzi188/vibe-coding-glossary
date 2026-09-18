@@ -2491,8 +2491,18 @@ document.querySelectorAll('.nav-dd').forEach(function(dd){
   }
   btn.addEventListener('click', function(e){
     e.stopPropagation();
-    var open = dd.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    var wasOpen = dd.classList.contains('open');
+    document.querySelectorAll('.nav-dd.open').forEach(function(other){
+      other.classList.remove('open');
+      var ob = other.querySelector('.nav-btn');
+      if(ob) ob.setAttribute('aria-expanded', 'false');
+    });
+    if(!wasOpen){
+      dd.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    } else {
+      btn.setAttribute('aria-expanded', 'false');
+    }
   });
   dd.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', close);
