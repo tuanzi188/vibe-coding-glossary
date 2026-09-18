@@ -118,6 +118,11 @@ button{font-family:var(--sans);cursor:pointer;}
 .nav-links::-webkit-scrollbar{display:none;}
 .nav-links a{white-space:nowrap;padding:6px 11px;border-radius:8px;font-size:13.5px;color:var(--ink-2);transition:background .15s,color .15s;}
 .nav-links a:hover{background:var(--brand-soft);color:var(--brand);}
+.nav-group{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);padding:0 6px;white-space:nowrap;}
+.nav-sep{width:1px;height:18px;background:var(--line);margin:0 4px;flex:none;align-self:center;}
+.nav-links a.nav-be{color:var(--brand);font-weight:600;display:inline-flex;align-items:center;gap:5px;}
+.nav-links a.nav-be:hover{background:var(--brand-soft);}
+.nav-links a.nav-be .nd{width:6px;height:6px;border-radius:50%;background:var(--brand);flex:none;}
 .menu-btn{display:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;align-items:center;justify-content:center;flex:none;transition:all .15s;}
 .menu-btn:hover{border-color:var(--brand);color:var(--brand);}
 
@@ -405,6 +410,90 @@ button{font-family:var(--sans);cursor:pointer;}
 .empty-demo{width:100%;max-width:320px;border:1px dashed var(--line);border-radius:12px;padding:30px 20px;text-align:center;background:#fff;}
 .empty-demo .e-ic{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:#f1f3f8;display:flex;align-items:center;justify-content:center;color:#a7b1c5;}
 
+/* ===== 07 后端技术栈 ===== */
+.api-demo{width:100%;display:flex;flex-direction:column;gap:12px;}
+.api-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;}
+.api-method{font-family:var(--mono);font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:5px;flex:none;}
+.api-method.get{background:#e6f6ef;color:#0ca678;}
+.api-method.post{background:#eef1fd;color:#3b5bdb;}
+.api-path{font-family:var(--mono);font-size:12.5px;color:var(--ink);flex:1;min-width:150px;word-break:break-all;}
+.api-res{width:100%;border:1px solid #1f2b3d;border-radius:10px;background:#0f172a;color:#c9d8ef;font-family:var(--mono);font-size:12px;line-height:1.7;padding:12px 14px;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-all;}
+.api-res .ok{color:#3dd68c;}
+.api-res .err{color:#ff6b6b;}
+.api-status{font-size:11.5px;font-family:var(--mono);padding:2px 8px;border-radius:999px;flex:none;}
+.api-status.s200{background:#e6f6ef;color:#0ca678;}
+.api-status.s422{background:#fff1f1;color:#e03131;}
+[data-theme="dark"] .api-row{background:var(--card);}
+[data-theme="dark"] .api-res{background:#0b1220;color:#c4d3ea;}
+
+.rag-demo{width:100%;display:flex;flex-direction:column;gap:14px;}
+.rag-query{display:flex;gap:8px;}
+.rag-query .input{flex:1;}
+.rag-steps{display:flex;flex-direction:column;gap:8px;}
+.rag-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;opacity:.55;transition:all .2s;}
+.rag-step.on{opacity:1;border-color:var(--brand);box-shadow:0 0 0 3px rgba(59,91,219,.1);}
+.rag-step .rs-idx{flex:none;width:24px;height:24px;border-radius:50%;background:var(--stage-2);color:var(--ink-2);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);}
+.rag-step.on .rs-idx{background:var(--brand);color:#fff;}
+.rag-step .rs-body{flex:1;min-width:0;}
+.rag-step .rs-name{font-size:13px;font-weight:700;}
+.rag-step .rs-desc{font-size:12px;color:var(--ink-3);}
+.rag-step .rs-out{font-family:var(--mono);font-size:11.5px;color:var(--green);margin-top:4px;display:none;word-break:break-all;}
+.rag-step.on .rs-out{display:block;}
+.rag-out{margin-top:2px;border:1px dashed var(--brand);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--ink-2);background:var(--brand-soft);display:none;line-height:1.8;}
+.rag-out.show{display:block;}
+[data-theme="dark"] .rag-step{background:var(--card);}
+
+.db-tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.db-tab{min-height:40px;padding:8px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);transition:all .15s;}
+.db-tab.on{background:var(--brand);color:#fff;border-color:var(--brand);}
+.db-fields{margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;width:100%;}
+.db-fields .df-row{display:flex;gap:10px;padding:8px 12px;font-size:12.5px;border-top:1px solid var(--line-2);font-family:var(--mono);}
+.db-fields .df-row:first-child{font-weight:700;background:var(--stage);border-top:none;font-family:var(--sans);font-size:12px;color:var(--ink-3);}
+.db-fields .df-name{width:130px;flex:none;}
+.db-fields .df-type{width:96px;flex:none;color:var(--brand);}
+.db-fields .df-desc{flex:1;color:var(--ink-2);}
+[data-theme="dark"] .db-tab{background:var(--card);}
+[data-theme="dark"] .db-fields{background:var(--card);}
+[data-theme="dark"] .db-fields .df-row{border-color:var(--line);}
+[data-theme="dark"] .db-fields .df-row:first-child{background:var(--stage);}
+
+.sa-demo{width:100%;display:flex;flex-direction:column;gap:12px;}
+.sa-ctrl{display:flex;gap:8px;flex-wrap:wrap;}
+.sa-tracks{display:flex;flex-direction:column;gap:8px;}
+.sa-track{display:flex;align-items:center;gap:10px;}
+.sa-track .st-label{width:96px;font-size:12px;color:var(--ink-2);flex:none;text-align:right;}
+.sa-track .st-bar{flex:1;height:18px;border-radius:6px;background:var(--stage-2);overflow:hidden;position:relative;}
+.sa-track .st-fill{height:100%;width:0;border-radius:6px;background:var(--brand);transition:width .12s linear;}
+.sa-track .st-fill.done{background:var(--green);}
+.sa-time{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--brand);}
+
+.jwt-demo{width:100%;display:flex;flex-direction:column;gap:10px;}
+.jwt-form{display:flex;gap:8px;flex-wrap:wrap;}
+.jwt-form .input{flex:1;min-width:140px;}
+.jwt-token{font-family:var(--mono);font-size:11px;line-height:1.9;word-break:break-all;background:var(--stage);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--ink-2);}
+.jwt-token .h{color:var(--red);}
+.jwt-token .p{color:var(--brand);}
+.jwt-token .s{color:var(--orange);}
+[data-theme="dark"] .jwt-token{background:var(--stage);}
+
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px;}
+.tech-card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px;cursor:pointer;transition:all .18s;position:relative;}
+.tech-card:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow);}
+.tech-card .tc-ic{width:34px;height:34px;border-radius:9px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.tech-card .tc-name{font-size:14px;font-weight:700;}
+.tech-card .tc-tag{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);}
+.tech-card .tc-use{font-size:12px;color:var(--ink-2);margin-top:6px;line-height:1.6;}
+.tech-card .tc-more{max-height:0;overflow:hidden;transition:max-height .25s ease;font-size:12px;color:var(--ink-3);line-height:1.7;}
+.tech-card.open .tc-more{max-height:260px;padding-top:8px;border-top:1px dashed var(--line);margin-top:8px;}
+.tech-card .tc-more b{color:var(--brand);}
+.tech-card .tc-eg{font-family:var(--mono);font-size:11px;color:var(--green);background:#f0faf6;border-radius:5px;padding:2px 8px;display:inline-block;margin-top:6px;}
+.pyd-input{width:100%;font-family:var(--mono);font-size:12.5px;line-height:1.7;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none;background:#fff;color:var(--ink);resize:vertical;min-height:84px;transition:border .15s,box-shadow .15s;}
+.pyd-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(59,91,219,.12);}
+[data-theme="dark"] .pyd-input{background:var(--card);}
+[data-theme="dark"] .tech-card{background:var(--card);}
+@media (max-width:960px){.tech-grid{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:640px){.tech-grid{grid-template-columns:repeat(2,1fr);}}
+
 /* ===== 06 行为与全局 ===== */
 .theme-btn{border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-left:auto;flex:none;transition:all .15s;}
 .theme-btn:hover{border-color:var(--brand);color:var(--brand);}
@@ -555,6 +644,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);flex-direction:column;padding:8px 12px 14px;gap:2px;display:none;margin-left:0;}
   .nav-links.open{display:flex;}
   .nav-links a{padding:13px 14px;font-size:14.5px;text-align:left;min-width:0;border-radius:10px;}
+  .nav-sep{width:100%;height:1px;background:var(--line);margin:8px 0;align-self:stretch;}
+  .nav-group{padding:10px 14px 2px;font-size:10.5px;}
 }
 @media (max-width:560px){
   .wrap{padding:0 14px;}
@@ -579,12 +670,16 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       前端组件实验室
     </a>
     <div class="nav-links">
+      <span class="nav-group">前端 Frontend</span>
       <a href="#layout">布局</a>
       <a href="#nav">导航</a>
       <a href="#form">录入</a>
       <a href="#feedback">反馈</a>
       <a href="#display">展示</a>
       <a href="#behavior">行为</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <span class="nav-group">后端 Backend</span>
+      <a class="nav-be" href="#backend"><span class="nd" aria-hidden="true"></span>技术栈</a>
     </div>
     <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -600,11 +695,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="wrap">
     <div class="kicker"><span class="dot"></span>不是词汇表，是能用的真组件</div>
     <h1>前端组件实验室<br><span class="accent">每个组件都真实可交互</span></h1>
-    <p class="lead">这一页把 40+ 个常用 UI 组件真的写了出来：弹窗能开、抽屉能滑、滑条能拖、表格能删、列表能拖拽排序、还能切换暗色主题。每个组件下方附「人话解释 + vibe coding 例句」——看完就知道怎么跟 AI 描述它。</p>
+    <p class="lead">这一页把 40+ 个常用 UI 组件真的写了出来：弹窗能开、抽屉能滑、滑条能拖、表格能删、列表能拖拽排序、还能切换暗色主题。每个组件下方附「人话解释 + vibe coding 例句」。最后还有一整个「后端技术栈」区，拿毕设智旅云图当例子，把 FastAPI、数据库、RAG 这些名词一次讲明白。</p>
     <div class="stats">
       <div class="stat"><b>46+</b><span>真实组件</span></div>
-      <div class="stat"><b>6</b><span>大类</span></div>
-      <div class="stat"><b>全部可点</b><span>试试就懂了</span></div>
+      <div class="stat"><b>7</b><span>大区</span></div>
+      <div class="stat"><b>后端技术栈</b><span>毕设同款例子</span></div>
     </div>
   </div>
 </header>
@@ -1419,6 +1514,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
               <button class="al" type="button" data-target="form">录入 Form</button>
               <button class="al" type="button" data-target="feedback">反馈 Feedback</button>
               <button class="al" type="button" data-target="display">展示 Display</button>
+              <button class="al" type="button" data-target="behavior">行为 Behavior</button>
+              <button class="al" type="button" data-target="backend">后端 Backend</button>
             </div>
             <div style="font-size:12.5px;color:var(--ink-3);padding-top:6px;">点目录平滑滚动到对应章节；<br>滚动页面时高亮会自动跟随。</div>
           </div>
@@ -1454,11 +1551,129 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   </div>
 </section>
 
+<!-- ===== 07 后端技术栈 ===== -->
+<section class="group" id="backend">
+  <div class="wrap">
+    <div class="group-head">
+      <div class="tag">07 · 后端技术栈 Backend</div>
+      <h2>后端技术栈</h2>
+      <p>拿毕设「智旅云图」当例子——一个 AI 驱动的旅行行程规划系统，后端到底要用哪些东西。每个名词都告诉你：干什么用、在毕设里出现在哪、怎么跟 AI 说。</p>
+    </div>
+    <div class="demos">
+
+      <div class="demo full">
+        <div class="demo-head"><span class="d-name">FastAPI + Pydantic 数据校验</span><span class="d-en">/ 类型安全的入口</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:12px;color:var(--ink-3);flex:none;">请求体 JSON</span>
+              <button class="btn btn-outline btn-sm" type="button" id="pydBadBtn">换成错误版本</button>
+            </div>
+            <textarea class="pyd-input" id="pydInput" rows="4" spellcheck="false" aria-label="请求体 JSON"></textarea>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-primary" type="button" id="pydBtn">发送校验</button>
+              <span class="api-status" id="pydStatus" style="display:none;">—</span>
+            </div>
+            <div class="api-res" id="pydRes" style="min-height:52px;">点「发送校验」看 FastAPI 怎么拦数据</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">FastAPI 在入口就用 Pydantic 把请求体校验一遍：字段类型、必填、范围不合格直接返回 422 错误列表。你代码里拿到的永远是正确的数据，不用自己写一堆 if 判空。</span><br><span class="eg">"后端用 FastAPI，请求体建一个 Pydantic 模型做校验，类型和范围错了返回 422"</span></div>
+      </div>
+
+      <div class="demo full">
+        <div class="demo-head"><span class="d-name">RAG 检索增强生成</span><span class="d-en">/ 毕设的核心</span></div>
+        <div class="demo-stage">
+          <div class="rag-demo">
+            <div class="rag-query">
+              <input class="input" id="ragInput" type="text" value="杭州适合带爸妈玩 3 天怎么安排？" aria-label="RAG 查询问题">
+              <button class="btn btn-primary" type="button" id="ragBtn">跑一遍 RAG</button>
+            </div>
+            <div class="rag-steps" id="ragSteps"></div>
+            <div class="rag-out" id="ragOut"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25 抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-head"><span class="d-name">RESTful API</span><span class="d-en">/ 前后端唯一的对话通道</span></div>
+        <div class="demo-stage center">
+          <div class="api-demo">
+            <div class="api-row"><span class="api-method get">GET</span><span class="api-path">/api/city/hangzhou/guide</span></div>
+            <div class="api-row"><span class="api-method post">POST</span><span class="api-path">/api/plan/generate</span></div>
+            <div class="api-row"><span class="api-method get">GET</span><span class="api-path">/api/poi/search?q=西湖&amp;tag=长辈友好</span></div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-outline btn-sm" type="button" id="apiCall">发送请求（模拟）</button>
+              <span class="api-status s200" id="apiStatus" style="display:none;">—</span>
+            </div>
+            <div class="api-res" id="apiRes" style="min-height:44px;">路径 = 资源名，动词 = 动作。前后端 90% 的沟通就是「发请求、收 JSON」。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">REST 的规矩：URL 只写名词（资源），动作交给 GET/POST/PUT/DELETE，结果用状态码表达（200 成功 / 404 找不到 / 500 服务器炸了）。</span><br><span class="eg">"帮我设计 RESTful API：行程生成走 POST /api/plan/generate，城市攻略走 GET /api/city/{city}/guide"</span></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
+            <div class="db-tabs" id="dbTabs">
+              <button class="db-tab on" type="button" data-table="users">users</button>
+              <button class="db-tab" type="button" data-table="itineraries">itineraries</button>
+              <button class="db-tab" type="button" data-table="pois">pois</button>
+            </div>
+            <div class="db-fields" id="dbFields"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-head"><span class="d-name">同步 vs 异步</span><span class="d-en">/ FastAPI 为什么快</span></div>
+        <div class="demo-stage center">
+          <div class="sa-demo">
+            <div class="sa-ctrl">
+              <button class="btn btn-outline btn-sm" type="button" id="saSyncBtn">同步串行</button>
+              <button class="btn btn-outline btn-sm" type="button" id="saAsyncBtn">异步并发</button>
+              <span class="sa-time" id="saTime">点按钮跑一遍</span>
+            </div>
+            <div class="sa-tracks" id="saTracks"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">同步：三个请求排队等，总耗时 ≈ 2.1s；异步：三个请求同时发出、一起等，总耗时 ≈ 0.75s。请求卡在网络/数据库时不占 CPU，async 就是把「等」这件事并发掉。</span><br><span class="eg">"FastAPI 接口用 async def，同时调高德 API 和天气接口，别串行等"</span></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-head"><span class="d-name">JWT 登录态</span><span class="d-en">/ 无状态认证</span></div>
+        <div class="demo-stage center">
+          <div class="jwt-demo">
+            <div class="jwt-form">
+              <input class="input" id="jwtUser" type="text" value="zhilv_user" placeholder="用户名" aria-label="用户名">
+              <input class="input" id="jwtPass" type="password" placeholder="密码" value="123456" aria-label="密码">
+              <button class="btn btn-primary" type="button" id="jwtBtn">登录</button>
+            </div>
+            <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。前端存 localStorage 就行。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer <token>"</span></div>
+      </div>
+
+      <div class="demo full">
+        <div class="demo-head"><span class="d-name">后端技术栈速查表</span><span class="d-en">/ 点卡片看「在哪用 + 怎么说」</span></div>
+        <div class="demo-stage">
+          <div class="tech-grid" id="techGrid"></div>
+        </div>
+        <div class="demo-exp"><span class="plain">把毕设用到的（和常用的）后端技术点一网打尽：每张卡点开有「毕设里干什么」+ 一句 vibe 例句。全展开就是一份给 AI 描述后端需求的词汇表。</span><br><span class="eg">"按这个清单把我的后端技术栈讲一遍：FastAPI、SQLite、RAG、Redis…"</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前端组件实验室</b> · 46+ 个真实可交互组件与行为 · 每个都配 vibe coding 例句</p>
-    <p style="margin-top:4px;">心法：组件名 + 交互词说准确，AI 就不用猜。对着这一页念，你描述的界面就是它渲染的样子。</p>
+    <p><b>前端组件实验室</b> · 46+ 个真实可交互组件与行为 + 一整个后端技术栈区 · 每个都配 vibe coding 例句</p>
+    <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
 
@@ -1472,8 +1687,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   </div>
   <div class="modal-body">
     <div style="display:flex;flex-direction:column;gap:12px;">
-      <div><label class="label" for="mName">项目名称</label><input class="input" id="mName" type="text" value="巅峰极速 3D"></div>
-      <div><label class="label" for="mDesc">项目描述</label><input class="input" id="mDesc" type="text" value="Three.js 单文件 3D 赛车游戏"></div>
+      <div><label class="label" for="mName">项目名称</label><input class="input" id="mName" type="text" value="智旅云图"></div>
+      <div><label class="label" for="mDesc">项目描述</label><input class="input" id="mDesc" type="text" value="AI 驱动的旅行行程规划系统"></div>
     </div>
   </div>
   <div class="modal-foot">
@@ -1488,7 +1703,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <button class="dx" type="button" onclick="closeDrawer()" aria-label="关闭">×</button>
   </div>
   <div class="drawer-body">
-    <p style="margin-bottom:10px;"><b>巅峰极速 3D</b></p>
+    <p style="margin-bottom:10px;"><b>智旅云图</b></p>
     <p>Drawer 从右侧滑出，适合展示详情、设置这类「看完了就关」的内容，不打断主流程。</p>
     <p style="margin-top:10px;">小屏手机上，Drawer 几乎占满屏宽（88vw），这是移动端的常见处理。</p>
   </div>
@@ -2118,7 +2333,7 @@ document.querySelectorAll('#dragList .drag-item').forEach(function(item){
 });
 
 var anchorBtns = document.querySelectorAll('#anchorList .al');
-var anchorSections = ['layout','nav','form','feedback','display'];
+var anchorSections = ['layout','nav','form','feedback','display','behavior','backend'];
 function setAnchorOn(id){
   anchorBtns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-target') === id); });
 }
@@ -2179,6 +2394,295 @@ if(menuBtn && navLinksEl){
   try { saved = localStorage.getItem('vc-theme') || 'light'; } catch(err){}
   if(saved === 'dark') applyTheme(true);
 })();
+/* ========== 07 后端技术栈 ========== */
+/* Pydantic 校验 */
+var pydGood = '{\n  "city": "杭州",\n  "days": 3,\n  "budget": 4000,\n  "travelers": 2,\n  "tags": ["亲老", "轻松"]\n}';
+var pydBad = '{\n  "city": "杭州",\n  "days": "三天",\n  "budget": -1,\n  "travelers": 2.5\n}';
+var pydInput = document.getElementById('pydInput');
+var pydBtn = document.getElementById('pydBtn');
+var pydBadBtn = document.getElementById('pydBadBtn');
+var pydRes = document.getElementById('pydRes');
+var pydStatus = document.getElementById('pydStatus');
+if(pydInput && pydBtn && pydBadBtn && pydRes && pydStatus){
+  pydInput.value = pydGood;
+  pydBadBtn.addEventListener('click', function(){
+    var isBad = pydInput.value.indexOf('"三天"') !== -1;
+    pydInput.value = isBad ? pydGood : pydBad;
+    pydBadBtn.textContent = isBad ? '换成错误版本' : '换回正确版本';
+    pydRes.textContent = '点「发送校验」看 FastAPI 怎么拦数据';
+    pydRes.style.color = '';
+    pydStatus.style.display = 'none';
+  });
+  pydBtn.addEventListener('click', function(){
+    var status, out;
+    try{
+      var obj = JSON.parse(pydInput.value);
+      var errors = [];
+      if(typeof obj.city !== 'string' || !obj.city) errors.push('body.city: 必填且为字符串');
+      if(typeof obj.days !== 'number') errors.push('body.days: 应为整数，收到 "' + (obj.days === undefined ? 'undefined' : obj.days) + '"');
+      else if(!Number.isInteger(obj.days)) errors.push('body.days: 应为整数');
+      else if(obj.days < 1 || obj.days > 14) errors.push('body.days: 数值应在 1 到 14 之间');
+      if(typeof obj.budget !== 'number') errors.push('body.budget: 应为数字');
+      else if(obj.budget < 0) errors.push('body.budget: 不能为负数');
+      if(typeof obj.travelers === 'number' && !Number.isInteger(obj.travelers)) errors.push('body.travelers: 应为整数');
+      if(errors.length){
+        status = 422;
+        out = 'HTTP 422 Unprocessable Entity\n{\n  "detail": [\n' + errors.map(function(e){
+          return '    { "loc": ["body"], "msg": "' + e + '" }';
+        }).join(',\n') + '\n  ]\n}';
+      } else {
+        status = 200;
+        out = 'HTTP 200 OK\n{\n  "ok": true,\n  "planDraft": "杭州 3 日亲老游：西湖环线 + 灵隐寺慢走 + 千岛湖游船",\n  "costEstimate": 3260\n}';
+      }
+    }catch(err){
+      status = 422;
+      out = 'HTTP 422 Unprocessable Entity\n{\n  "detail": "请求体不是合法 JSON"\n}';
+    }
+    pydStatus.textContent = 'HTTP ' + status;
+    pydStatus.className = 'api-status ' + (status === 200 ? 's200' : 's422');
+    pydStatus.style.display = '';
+    pydRes.textContent = out;
+    pydRes.style.color = status === 200 ? '#3dd68c' : '#ff6b6b';
+  });
+}
+
+/* RAG 流程 */
+var ragStepsData = [
+  { name:'查询理解', desc:'拆出目的地、天数、人群、偏好', out:'{"city":"杭州","days":3,"group":"带爸妈","pref":"轻松"}' },
+  { name:'BM25 关键词检索', desc:'倒排索引里找命中关键词的文档', out:'命中：《杭州 3 日游保姆级攻略》《西湖周边无障碍路线》《灵隐寺步行强度说明》' },
+  { name:'向量语义检索', desc:'在向量库找语义相似的段落（Chroma）', out:'命中：《西湖游船适合长辈吗》《苏堤-雷峰塔慢走路线》' },
+  { name:'重排 Rerank', desc:'两路结果去重、按相关度打分，取 Top K', out:'Top3：《杭州 3 日游保姆级攻略》《西湖游船适合长辈吗》《灵隐寺步行强度说明》' },
+  { name:'拼接上下文生成', desc:'把 Top K 片段拼进 Prompt 喂给大模型', out:'↓ 生成行程草稿 ↓' }
+];
+var ragOutText = 'Day 1 西湖环线：断桥残雪 → 白堤 → 苏堤（可租电瓶车）→ 傍晚雷峰塔看落日\nDay 2 灵隐寺 + 飞来峰（走小门少爬台阶）→ 下午青芝坞喝茶\nDay 3 千岛湖游船半日 → 返程前河坊街买伴手礼';
+var ragBox = document.getElementById('ragSteps');
+var ragBtn = document.getElementById('ragBtn');
+var ragOutEl = document.getElementById('ragOut');
+if(ragBox && ragBtn && ragOutEl){
+  ragStepsData.forEach(function(s){
+    var el = document.createElement('div');
+    el.className = 'rag-step';
+    el.innerHTML = '<span class="rs-idx">' + (ragStepsData.indexOf(s) + 1) + '</span>' +
+      '<div class="rs-body"><div class="rs-name">' + s.name + '</div>' +
+      '<div class="rs-desc">' + s.desc + '</div>' +
+      '<div class="rs-out"></div></div>';
+    ragBox.appendChild(el);
+  });
+  var ragRun = false;
+  ragBtn.addEventListener('click', function(){
+    if(ragRun) return;
+    ragRun = true;
+    ragBtn.disabled = true;
+    ragOutEl.classList.remove('show');
+    var steps = ragBox.children;
+    for(var i=0;i<steps.length;i++){
+      steps[i].classList.remove('on');
+      steps[i].querySelector('.rs-out').textContent = '';
+    }
+    var i = 0;
+    var timer = setInterval(function(){
+      if(i >= ragStepsData.length){
+        clearInterval(timer);
+        setTimeout(function(){
+          ragOutEl.textContent = ragOutText;
+          ragOutEl.classList.add('show');
+          ragRun = false;
+          ragBtn.disabled = false;
+          labToast('RAG 跑完：行程草稿已生成（演示）', 'ok');
+        }, 350);
+        return;
+      }
+      steps[i].classList.add('on');
+      steps[i].querySelector('.rs-out').textContent = ragStepsData[i].out;
+      i++;
+    }, 650);
+  });
+}
+
+/* REST API 模拟 */
+var apiResponses = [
+  { status: 200, ms: 17, body: 'HTTP 200 OK · 17ms\n{\n  "city": "杭州",\n  "weather": "多云 24°C",\n  "topPois": ["西湖", "灵隐寺", "千岛湖"],\n  "bestSeason": "3-5月"\n}' },
+  { status: 200, ms: 412, body: 'HTTP 200 OK · 412ms\n{\n  "planId": "PL-8842",\n  "days": [\n    { "day": 1, "title": "西湖环线", "pois": ["断桥残雪", "苏堤", "雷峰塔"] },\n    { "day": 2, "title": "灵隐寺慢走", "pois": ["飞来峰", "青芝坞"] }\n  ],\n  "costEstimate": 3260\n}' },
+  { status: 200, ms: 23, body: 'HTTP 200 OK · 23ms\n{\n  "results": [\n    { "name": "西湖风景名胜区", "distance": "1.2km", "tags": ["长辈友好", "免费"] },\n    { "name": "苏堤春晓", "distance": "1.8km", "tags": ["步行轻松"] }\n  ]\n}' }
+];
+var apiIdx = 0;
+var apiCall = document.getElementById('apiCall');
+var apiRes = document.getElementById('apiRes');
+var apiStatus = document.getElementById('apiStatus');
+if(apiCall && apiRes && apiStatus){
+  apiCall.addEventListener('click', function(){
+    var item = apiResponses[apiIdx % apiResponses.length];
+    apiIdx++;
+    apiCall.disabled = true;
+    apiCall.textContent = '请求中…';
+    apiStatus.style.display = 'none';
+    setTimeout(function(){
+      apiStatus.textContent = 'HTTP ' + item.status + ' · ' + item.ms + 'ms';
+      apiStatus.className = 'api-status s200';
+      apiStatus.style.display = '';
+      apiRes.textContent = item.body;
+      apiRes.style.color = '';
+      apiCall.disabled = false;
+      apiCall.textContent = '发送请求（模拟）';
+    }, item.ms);
+  });
+}
+
+/* SQLite 表结构 */
+var dbData = {
+  users: [['字段','类型','说明'],['id','INTEGER PK','自增主键'],['username','TEXT UNIQUE','登录名'],['password_hash','TEXT','密码哈希，不存明文'],['created_at','DATETIME','注册时间']],
+  itineraries: [['字段','类型','说明'],['id','INTEGER PK','行程主键'],['user_id','INTEGER FK','外键 → users.id'],['city','TEXT','目的地城市'],['days','INTEGER','行程天数'],['budget','REAL','预算（元）'],['status','TEXT','草稿 / 已生成']],
+  pois: [['字段','类型','说明'],['id','INTEGER PK','景点主键'],['name','TEXT','景点名'],['city','TEXT','所属城市'],['lat_lng','TEXT','经纬度坐标'],['tags','TEXT','标签：亲子 / 夜游…'],['walk_level','TEXT','步行强度：轻松 / 中等 / 累']]
+};
+var dbTabs = document.getElementById('dbTabs');
+var dbFields = document.getElementById('dbFields');
+function renderDbTable(name){
+  var rows = dbData[name];
+  dbFields.innerHTML = rows.map(function(r, i){
+    return '<div class="df-row' + (i === 0 ? '' : '') + '">' +
+      '<span class="df-name">' + r[0] + '</span>' +
+      '<span class="df-type">' + r[1] + '</span>' +
+      '<span class="df-desc">' + r[2] + '</span></div>';
+  }).join('');
+}
+if(dbTabs && dbFields){
+  renderDbTable('users');
+  dbTabs.addEventListener('click', function(e){
+    var tab = e.target.closest('.db-tab');
+    if(!tab) return;
+    dbTabs.querySelectorAll('.db-tab').forEach(function(t){ t.classList.toggle('on', t === tab); });
+    renderDbTable(tab.getAttribute('data-table'));
+  });
+}
+
+/* 同步 vs 异步 */
+var saTasks = [
+  { name: '调高德 POI 接口', ms: 700 },
+  { name: '查目的地天气', ms: 650 },
+  { name: '拉取攻略段落', ms: 750 }
+];
+var saTracks = document.getElementById('saTracks');
+var saTime = document.getElementById('saTime');
+var saSyncBtn = document.getElementById('saSyncBtn');
+var saAsyncBtn = document.getElementById('saAsyncBtn');
+if(saTracks && saTime && saSyncBtn && saAsyncBtn){
+  saTasks.forEach(function(t){
+    var row = document.createElement('div');
+    row.className = 'sa-track';
+    row.innerHTML = '<span class="st-label">' + t.name + '</span>' +
+      '<div class="st-bar"><div class="st-fill" style="transition-duration:' + t.ms + 'ms"></div></div>';
+    saTracks.appendChild(row);
+  });
+  var saRunning = false;
+  function resetSa(){
+    Array.prototype.forEach.call(saTracks.querySelectorAll('.st-fill'), function(f){
+      f.style.width = '0'; f.classList.remove('done');
+    });
+    saTime.textContent = '…';
+  }
+  function animateFill(fill, ms, done){
+    setTimeout(function(){
+      fill.style.width = '100%';
+      if(done) fill.classList.add('done');
+    }, ms);
+  }
+  saSyncBtn.addEventListener('click', function(){
+    if(saRunning) return; saRunning = true;
+    resetSa();
+    var t0 = Date.now();
+    var fills = saTracks.querySelectorAll('.st-fill');
+    var total = 0;
+    saTasks.forEach(function(t, i){
+      total += t.ms;
+      animateFill(fills[i], total, true);
+    });
+    setTimeout(function(){
+      saTime.textContent = '总耗时 ' + ((Date.now() - t0) / 1000).toFixed(1) + 's（串行排队）';
+      saRunning = false;
+    }, total + 200);
+  });
+  saAsyncBtn.addEventListener('click', function(){
+    if(saRunning) return; saRunning = true;
+    resetSa();
+    var t0 = Date.now();
+    var fills = saTracks.querySelectorAll('.st-fill');
+    var max = 0;
+    saTasks.forEach(function(t, i){
+      if(t.ms > max) max = t.ms;
+      animateFill(fills[i], t.ms, true);
+    });
+    setTimeout(function(){
+      saTime.textContent = '总耗时 ' + ((Date.now() - t0) / 1000).toFixed(1) + 's（并发等待）';
+      saRunning = false;
+    }, max + 200);
+  });
+}
+
+/* JWT 模拟 */
+var jwtUser = document.getElementById('jwtUser');
+var jwtPass = document.getElementById('jwtPass');
+var jwtBtn = document.getElementById('jwtBtn');
+var jwtToken = document.getElementById('jwtToken');
+if(jwtUser && jwtPass && jwtBtn && jwtToken){
+  function b64url(str){
+    try{
+      return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    }catch(e){ return ''; }
+  }
+  jwtBtn.addEventListener('click', function(){
+    var user = jwtUser.value.trim() || 'zhilv_user';
+    var now = Math.floor(Date.now() / 1000);
+    var header = b64url(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+    var payload = b64url(JSON.stringify({ sub: user, role: 'user', iat: now, exp: now + 86400 }));
+    var sig = b64url('HS256-signature-demo:' + user + ':' + now).slice(0, 32);
+    var expTime = new Date((now + 86400) * 1000).toLocaleString('zh-CN', { hour12: false });
+    jwtToken.innerHTML = '<span class="h">' + header + '</span>.<span class="p">' + payload + '</span>.<span class="s">' + sig + '</span><br>' +
+      '已登录：' + user + ' · 有效期 24 小时（到 ' + expTime + '）<br>' +
+      '<span style="color:var(--ink-3);">三截 = header(算法).payload(身份+过期).signature(防伪章)</span>';
+    labToast('登录成功，JWT 已签发（演示）', 'ok');
+  });
+}
+
+/* 技术栈速查卡片 */
+var techData = [
+  { ab:'FA', name:'FastAPI', tag:'Python Web 框架', use:'毕设后端主框架：路由、依赖注入、自动生成 Swagger 文档。', more:'<b>毕设里：</b>所有接口都从它出去，浏览器访问 /docs 就能看到全部 API 文档，前端联调前先对着文档写。', eg:'"后端用 FastAPI 搭，每个接口都带 Pydantic 请求/响应模型"' },
+  { ab:'DB', name:'SQLite', tag:'嵌入式数据库', use:'零配置、单文件，毕设的用户/行程/景点数据全存这。', more:'<b>毕设里：</b>开发期不需要装数据库服务，一个 .db 文件搞定；上线再换 MySQL 也不动业务代码。', eg:'"数据库用 SQLite，表结构按我的模型自动建"' },
+  { ab:'ORM', name:'SQLAlchemy', tag:'对象关系映射', use:'用 Python 对象操作表，不手写 SQL 字符串。', more:'<b>毕设里：</b>定义 User、Itinerary、Poi 三个模型类，增删改查全是对象方法，防注入还省事。', eg:'"用 SQLAlchemy 定义模型，建表和查询都走 ORM，别写裸 SQL"' },
+  { ab:'PD', name:'Pydantic', tag:'数据校验', use:'请求体类型、必填、范围校验，不合格直接 422。', more:'<b>毕设里：</b>行程生成的入参 days/budget 都靠它把关，业务函数里再也不用判空判类型。', eg:'"所有请求体都建 Pydantic 模型，校验失败返回 422"' },
+  { ab:'BM', name:'BM25 检索', tag:'RAG 第一路', use:'倒排索引做关键词召回，命中「杭州 攻略」这类词。', more:'<b>毕设里：</b>把攻略文档建索引，用户问题先按关键词粗筛，速度快、术语命中准。', eg:'"RAG 第一路用 BM25 做关键词召回"' },
+  { ab:'VEC', name:'向量检索', tag:'语义召回', use:'Chroma 向量库，找「意思相近」的段落。', more:'<b>毕设里：</b>攻略段落切成块做 embedding 存进 Chroma，用户说「适合老人」能召回没这关键词的段落。', eg:'"攻略段落向量化存 Chroma，查询时做语义检索"' },
+  { ab:'RK', name:'重排 Rerank', tag:'融合排序', use:'两路结果去重、按相关度打分，取 Top K。', more:'<b>毕设里：</b>BM25 和向量的结果各回 10 条，重排后只留最相关的 3 段喂给大模型，质量明显提升。', eg:'"BM25 和向量结果做重排融合，再取 Top K 喂给大模型"' },
+  { ab:'MAP', name:'高德开放平台', tag:'地图 / POI API', use:'景点坐标、周边搜索、路线规划都从它拿。', more:'<b>毕设里：</b>前端地图组件 + 后端周边 POI 搜索都接高德，还用它做城市间距离计算。', eg:'"高德 API 拿景点坐标和周边 POI，地图组件也用它"' },
+  { ab:'RC', name:'Redis', tag:'缓存', use:'热门城市攻略缓存，接口从 200ms 降到 20ms。', more:'<b>毕设里：</b>杭州、上海这种热门目的地的攻略查一次缓存 10 分钟，数据库压力小一大截。', eg:'"热门城市攻略缓存到 Redis，带过期时间"' },
+  { ab:'CEL', name:'Celery', tag:'异步任务队列', use:'导出 PDF、定时抓攻略这类重活放后台跑。', more:'<b>毕设里：</b>用户点「导出行程 PDF」不干等，任务丢队列，完成后通知下载。', eg:'"导出 PDF 走 Celery 异步任务，完成后通知用户"' },
+  { ab:'DO', name:'Docker', tag:'容器化部署', use:'环境打包成镜像，一处构建处处跑。', more:'<b>毕设里：</b>后端 + 数据库写进 Dockerfile，云服务器一条 docker compose up 就起来。', eg:'"后端写 Dockerfile 和 docker-compose，一键部署"' },
+  { ab:'NG', name:'Nginx', tag:'反向代理', use:'统一入口：托管前端静态文件，/api 转发给后端。', more:'<b>毕设里：</b>前端 build 产物丢 Nginx，接口走 /api 反代到 8000 端口，域名直接访问。', eg:'"Nginx 托管前端静态文件，/api 转发到后端 8000"' }
+];
+var techGrid = document.getElementById('techGrid');
+if(techGrid){
+  techData.forEach(function(t){
+    var card = document.createElement('div');
+    card.className = 'tech-card';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-expanded', 'false');
+    card.innerHTML = '<div class="tc-ic"><span style="font-family:var(--mono);font-size:12px;font-weight:700;">' + t.ab + '</span></div>' +
+      '<div class="tc-name">' + t.name + '</div>' +
+      '<div class="tc-tag">' + t.tag + '</div>' +
+      '<div class="tc-use">' + t.use + '</div>' +
+      '<div class="tc-more">' + t.more + '<span class="tc-eg">prompt: ' + t.eg + '</span></div>';
+    var toggle = function(){
+      var open = card.classList.toggle('open');
+      card.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+    techGrid.appendChild(card);
+  });
+}
+
 window.addEventListener('load', function(){ setTimeout(statAnimate, 400); setTimeout(infAppend, 100); });
 })();
 </script>
