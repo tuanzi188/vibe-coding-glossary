@@ -2063,10 +2063,10 @@ Accept: application/json</div>
               <span class="ci-status" id="ciStatus" style="font-size:12.5px;color:var(--ink-3);">点按钮跑一遍流水线</span>
             </div>
             <div class="ci-pipe" id="ciPipe" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
-            <div class="ci-log" id="ciLog" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:10px 12px;font-size:12.5px;min-height:96px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;"></div>
+            <div class="ci-log" id="ciLog" style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:12px 14px;font-size:12.5px;min-height:200px;max-height:320px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.8;"></div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">CI（持续集成）：push 后自动跑 lint、测试、构建，任何一步红了就拦住；CD（持续部署）：绿了就自动发布到服务器。GitHub Actions / GitLab CI 就是干这个的——你只管 push，上线全自动，不用 SSH 上去手敲。</span><br><span class="eg">"配 CI/CD：push 到 main 自动跑测试，过了就 Docker 构建并部署，别手动 SSH"</span></div>
+        <div class="demo-exp"><span class="plain"><b>CI（持续集成）</b>：push 后自动跑 lint → 测试 → 构建，任何一步红了就拦住，不进生产。<b>CD（持续部署）</b>：绿了自动 SSH 上服务器拉新代码、重启服务，最后 curl 验证 HTTPS 能访问。</span><br><span class="eg">"配 CI/CD：push 到 main 自动跑测试，过了 SSH 部署并重启，最后 curl 验证 HTTPS 200"</span></div>
       </div>
 
       <div class="demo full" id="techPanorama">
@@ -3573,20 +3573,22 @@ if(ciRun){
   var ciPipe = document.getElementById('ciPipe');
   var ciLog = document.getElementById('ciLog');
   var ciStatus = document.getElementById('ciStatus');
-  var stages = ['拉代码','Lint','测试','构建','部署'];
+  var stages = ['触发','拉代码','Lint','测试','构建','SSH 部署','HTTPS 验证'];
   var logs = [
-    ['$ git push origin main', '→ trigger: deploy-main'],
-    ['checkout @main', 'eslint 通过，0 warning'],
-    ['pytest 42 passed', '覆盖率 87%'],
-    ['docker build app:latest', 'image 38MB'],
-    ['ssh deploy', 'systemd restart → healthy']
+    ['$ git push origin main', '→ push 到 main，触发 GitHub Actions'],
+    ['actions/checkout@v4', '→ 拉取 main 分支最新代码'],
+    ['$ npm run lint', '→ eslint . --ext .ts,.tsx', '✓ 0 errors, 0 warnings'],
+    ['$ npm run test', '→ vitest run', '✓ 42 passed (87% coverage)'],
+    ['$ npm run build', '→ vite build', '✓ dist/ 380KB (gzip 92KB)'],
+    ['$ ssh deploy@47.96.12.34', '→ 连接生产服务器', '$ cd /var/www/app', '$ git pull origin main', '$ docker compose up -d --build', '✓ app container healthy'],
+    ['$ curl -I https://api.trip.demo/health', '→ 验证线上服务', 'HTTP/1.1 200 OK', 'Content-Type: application/json', '{"status":"ok","version":"1.4.2"}']
   ];
   ciRun.addEventListener('click', function(){
     ciRun.disabled = true;
     ciStatus.textContent = '流水线运行中…';
     ciStatus.style.color = 'var(--brand)';
     ciPipe.innerHTML = '';
-    ciLog.textContent = '$ git push origin main\n';
+    ciLog.textContent = '';
     var chips = [];
     stages.forEach(function(s){
       var c = document.createElement('span');
@@ -3614,13 +3616,18 @@ if(ciRun){
       chips[i].style.background = 'var(--brand)';
       chips[i].style.color = '#fff';
       chips[i].style.opacity = '1';
-      ciLog.textContent += logs[i][0] + '\n';
-      setTimeout(function(){
-        ciLog.textContent += logs[i][1] + '\n';
-        ciLog.scrollTop = ciLog.scrollHeight;
-        i++;
-        runStage();
-      }, 600);
+      // 打印当前阶段的所有日志行
+      var lines = logs[i];
+      lines.forEach(function(line, li){
+        setTimeout(function(){
+          ciLog.textContent += line + '\n';
+          ciLog.scrollTop = ciLog.scrollHeight;
+          if(li === lines.length - 1){
+            i++;
+            runStage();
+          }
+        }, li * 350);
+      });
     }
     setTimeout(runStage, 300);
   });
