@@ -533,6 +533,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .rm-cards{display:flex;flex-wrap:wrap;gap:6px;}
 .rm-chip{border:1px solid #d9deea;background:#f8fafc;color:var(--ink-2);font-size:12px;padding:5px 11px;border-radius:14px;cursor:pointer;transition:all .15s;font-family:inherit;min-height:28px;}
 .rm-chip:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft);}
+.rd-demo{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:280px;}
+.rd-row{display:flex;gap:8px;}
+.rd-status{font-size:13.5px;color:var(--ink);min-height:22px;}
+.rd-meta{font-family:var(--mono);font-size:12px;color:var(--ink-3);min-height:18px;}
+.rl-demo{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:280px;}
+.rl-bar{width:240px;height:8px;background:#e6eaf2;border-radius:4px;overflow:hidden;}
+.rl-fill{height:100%;width:100%;background:var(--brand);transition:width .2s;}
+.rl-status{font-size:13px;color:var(--ink);min-height:20px;}
+.tx-demo{display:flex;flex-direction:column;gap:14px;align-items:center;min-width:300px;}
+.tx-accounts{display:flex;align-items:center;gap:14px;}
+.tx-acc{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 16px;background:#f8fafc;border-radius:10px;min-width:90px;}
+.tx-acc span{font-size:11.5px;color:var(--ink-3);}
+.tx-acc b{font-size:17px;color:var(--ink);}
+.tx-arrow{font-size:12px;color:var(--ink-3);}
+.tx-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.tx-status{font-size:13px;color:var(--ink);min-height:20px;text-align:center;max-width:340px;}
+.ix-demo{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:280px;}
+.ix-btns{display:flex;gap:8px;}
+.ix-status{font-size:13.5px;color:var(--ink);min-height:22px;text-align:center;}
+@media (max-width:560px){.tx-accounts{flex-direction:column;gap:8px;}.tx-arrow{transform:rotate(90deg);}}
 @media (max-width:560px){.roadmap{padding:14px 12px;}.rm-step{grid-template-columns:28px 1fr;gap:10px;}.rm-no{width:28px;height:28px;font-size:12px;}.rm-step:not(:last-child)::before{left:13px;top:28px;}}
 .tech-group:last-child{margin-bottom:0;}
 .tg-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
@@ -776,6 +796,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
           <a href="#sqlite">数据库</a>
           <a href="#async">同步 vs 异步</a>
           <a href="#jwt">JWT 登录</a>
+          <a href="#redis">Redis 缓存</a>
+          <a href="#ratelimit">限流</a>
+          <a href="#txn">事务 ACID</a>
+          <a href="#index">索引</a>
           <a href="#http">HTTP 解剖</a>
           <a href="#backend">技术栈全景</a>
         </div>
@@ -1811,6 +1835,66 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
           </div>
         </div>
         <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
+      </div>
+
+      <div class="demo" id="redis">
+        <div class="demo-head"><span class="d-name">Redis 缓存</span><span class="d-en">/ 命中 vs 未命中</span></div>
+        <div class="demo-stage center">
+          <div class="rd-demo">
+            <div class="rd-row">
+              <button class="btn btn-primary btn-sm" type="button" id="rdQuery">查询「杭州攻略」</button>
+              <button class="btn btn-outline btn-sm" type="button" id="rdClear">清空缓存</button>
+            </div>
+            <div class="rd-status" id="rdStatus">点查询看第一次和第二次的区别</div>
+            <div class="rd-meta" id="rdMeta"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">第一次：缓存没有，去数据库查，240ms；第二次：直接从内存拿，2ms。差 100 倍。所以热点数据先问缓存，没有再查库并写回缓存。</span><br><span class="eg">"热点数据加 Redis 缓存，TTL 10 分钟，未命中再查数据库并写回"</span></div>
+      </div>
+
+      <div class="demo" id="ratelimit">
+        <div class="demo-head"><span class="d-name">限流 Rate Limit</span><span class="d-en">/ 点太快会被拒</span></div>
+        <div class="demo-stage center">
+          <div class="rl-demo">
+            <button class="btn btn-primary btn-sm" type="button" id="rlBtn">发送请求</button>
+            <div class="rl-bar"><div class="rl-fill" id="rlFill"></div></div>
+            <div class="rl-status" id="rlStatus">剩余额度 10 / 10（每秒恢复）</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS，防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
+      </div>
+
+      <div class="demo" id="txn">
+        <div class="demo-head"><span class="d-name">事务 ACID</span><span class="d-en">/ 要么都成，要么都不成</span></div>
+        <div class="demo-stage center">
+          <div class="tx-demo">
+            <div class="tx-accounts">
+              <div class="tx-acc"><span>A 的余额</span><b id="txA">¥100</b></div>
+              <div class="tx-arrow">→ 转 30 →</div>
+              <div class="tx-acc"><span>B 的余额</span><b id="txB">¥50</b></div>
+            </div>
+            <div class="tx-btns">
+              <button class="btn btn-primary btn-sm" type="button" id="txOk">正常转账（都成功）</button>
+              <button class="btn btn-outline btn-sm" type="button" id="txFail">B 加钱失败（回滚）</button>
+            </div>
+            <div class="tx-status" id="txStatus">A 扣 30 成功、B 加 30 也成功 → 提交，两边都变。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">正常：A 扣钱、B 加钱都成功，一起提交。失败：A 扣了但 B 加不了，事务回滚——A 自动加回来，两边都没变。这就是原子性。</span><br><span class="eg">"转账和扣库存放同一个事务，任何一步失败全部回滚"</span></div>
+      </div>
+
+      <div class="demo" id="index">
+        <div class="demo-head"><span class="d-name">索引 Index</span><span class="d-en">/ 全表扫 vs 走索引</span></div>
+        <div class="demo-stage center">
+          <div class="ix-demo">
+            <div class="ix-btns">
+              <button class="btn btn-outline btn-sm" type="button" id="ixFull">全表扫描（无索引）</button>
+              <button class="btn btn-outline btn-sm" type="button" id="ixIdx">走索引</button>
+            </div>
+            <div class="ix-status" id="ixStatus">点按钮对比</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">表里 10 万行：没索引就一行行扫，扫 10 万行花 120ms；有索引直接定位到那 1 行，0.3ms。索引就是书的目录，空间换时间。</span><br><span class="eg">"WHERE 常用字段加索引，避免 SELECT 走全表扫描"</span></div>
       </div>
 
       <div class="demo full" id="http">
@@ -3185,6 +3269,92 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
     labToast('登录成功，JWT 已签发（演示）', 'ok');
   });
 }
+
+/* Redis 缓存 */
+(function(){
+  var btn = document.getElementById('rdQuery'), clr = document.getElementById('rdClear');
+  var st = document.getElementById('rdStatus'), meta = document.getElementById('rdMeta');
+  if(!btn || !st) return;
+  var hit = false;
+  btn.addEventListener('click', function(){
+    if(hit){
+      st.textContent = '缓存命中，直接从内存返回，耗时 2ms';
+      meta.textContent = 'KEY:cache:guide:hangzhou · TTL:8m';
+    } else {
+      st.textContent = '缓存未命中，查数据库后写回缓存，耗时 240ms';
+      meta.textContent = 'DB:SELECT * FROM guide WHERE city=? · 1 row';
+      hit = true;
+    }
+  });
+  clr.addEventListener('click', function(){
+    hit = false;
+    st.textContent = '缓存已清空，下次查询会重新查库';
+    meta.textContent = 'DEL cache:guide:hangzhou';
+  });
+})();
+
+/* 限流 */
+(function(){
+  var btn = document.getElementById('rlBtn'), fill = document.getElementById('rlFill'), st = document.getElementById('rlStatus');
+  if(!btn || !fill) return;
+  var quota = 10, MAX = 10;
+  function render(){
+    fill.style.width = (quota / MAX * 100) + '%';
+    fill.style.background = quota === 0 ? '#e03131' : 'var(--brand)';
+    st.textContent = '剩余额度 ' + quota + ' / ' + MAX + '（每秒恢复 1 次）';
+  }
+  btn.addEventListener('click', function(){
+    if(quota > 0){
+      quota--;
+      st.textContent = '200 OK · 请求成功';
+    } else {
+      st.textContent = '429 Too Many Requests · 你点太快了，等一秒';
+    }
+    render();
+  });
+  setInterval(function(){
+    if(quota < MAX){ quota++; render(); }
+  }, 1000);
+})();
+
+/* 事务 ACID */
+(function(){
+  var aEl = document.getElementById('txA'), bEl = document.getElementById('txB');
+  var ok = document.getElementById('txOk'), fail = document.getElementById('txFail');
+  var st = document.getElementById('txStatus');
+  if(!aEl || !ok) return;
+  var a = 100, b = 50;
+  function show(){
+    aEl.textContent = '¥' + a;
+    bEl.textContent = '¥' + b;
+  }
+  ok.addEventListener('click', function(){
+    a -= 30; b += 30; show();
+    st.textContent = 'A 扣 30 成功、B 加 30 也成功 → 提交，两边都变。';
+  });
+  fail.addEventListener('click', function(){
+    var oldA = a, oldB = b;
+    a -= 30; show();
+    st.textContent = 'A 扣了 30，但 B 加钱失败 → 回滚！';
+    setTimeout(function(){
+      a = oldA; b = oldB; show();
+      st.textContent = '回滚完成：A 自动加回来，两边都没变（原子性）。';
+    }, 900);
+  });
+})();
+
+/* 索引 */
+(function(){
+  var full = document.getElementById('ixFull'), idx = document.getElementById('ixIdx');
+  var st = document.getElementById('ixStatus');
+  if(!full || !st) return;
+  full.addEventListener('click', function(){
+    st.textContent = '扫描了 100000 行，耗时 120ms（一行行找）';
+  });
+  idx.addEventListener('click', function(){
+    st.textContent = '直接定位到 1 行，耗时 0.3ms（走索引，像翻目录）';
+  });
+})();
 
 /* HTTP 请求解剖 */
 var httpParts = [
