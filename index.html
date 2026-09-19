@@ -133,6 +133,7 @@ button{font-family:var(--sans);cursor:pointer;}
 .nav-step.cur{color:var(--brand);background:var(--brand-soft);font-weight:600;}
 .nav-step .num{font-family:var(--mono);font-size:11px;font-weight:700;opacity:.7;}
 .menu-btn{display:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;align-items:center;justify-content:center;flex:none;transition:all .15s;}
+.nav-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);flex-direction:column;padding:10px 12px 14px;gap:4px;margin:0;}
 .menu-btn:hover{border-color:var(--brand);color:var(--brand);}
 
 /* ===== Hero ===== */
@@ -757,6 +758,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   .ttip .tip-right::after{right:auto;left:50%;top:-5px;margin:0 0 0 -5px;border-right-color:transparent;border-bottom-color:#101828;}
   .demo-stage .btn,.demo-stage .bt,.demo-stage .sc-tab,.demo-stage .db-tab{min-height:44px;}
   .pagination .pg{min-width:44px;height:44px;}
+  .nav-steps{display:none;}
+  .nav-mobile{display:flex;}
   .breadcrumb a{padding:11px 6px;display:inline-block;}
   .modal-foot .btn{min-height:44px;}
   .select-box,.date-input{min-height:44px;}
@@ -800,6 +803,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
+    <div class="nav-mobile" id="navMobile">
+      <a class="nav-step" href="#layout"><span class="num">01</span>布局</a>
+      <a class="nav-step" href="#nav"><span class="num">02</span>导航</a>
+      <a class="nav-step" href="#form"><span class="num">03</span>录入</a>
+      <a class="nav-step" href="#feedback"><span class="num">04</span>反馈</a>
+      <a class="nav-step" href="#display"><span class="num">05</span>展示</a>
+      <a class="nav-step" href="#behavior"><span class="num">06</span>行为</a>
+      <a class="nav-step" href="#backend"><span class="num">07</span>后端</a>
+    </div>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="切换亮暗主题" title="切换主题（Design Token 演示）">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
     </button>
@@ -2863,6 +2875,23 @@ window.segClick = function(btn, mode){
 // 初始化
 window.segClick(document.querySelector('.segmented .sg.on'), 'list');
 
+/* 移动端菜单切换 */
+var menuBtn = document.getElementById('menuBtn');
+var navMobile = document.getElementById('navMobile');
+if(menuBtn && navMobile){
+  menuBtn.addEventListener('click', function(){
+    var open = navMobile.style.display === 'flex';
+    navMobile.style.display = open ? 'none' : 'flex';
+    menuBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+  });
+  // 点了链接就收起
+  navMobile.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navMobile.style.display = 'none';
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
 /* ========== 全局：外部点击 / ESC / 返回顶部 / 平滑滚动 ========== */
 function closeFloatingMenus(){
   document.querySelectorAll('.dropdown.open,.select-wrap.open,.date-wrap.open,.popover.open,.popconfirm.open').forEach(function(el){
