@@ -811,6 +811,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <a class="nav-step" href="#display"><span class="num">05</span>展示</a>
       <a class="nav-step" href="#behavior"><span class="num">06</span>行为</a>
       <a class="nav-step" href="#backend"><span class="num">07</span>后端</a>
+      <a class="nav-step" href="#cicd"><span class="num">08</span>CI/CD</a>
+      <a class="nav-step" href="#debug"><span class="num">09</span>排障</a>
+      <a class="nav-step" href="#security"><span class="num">10</span>安全</a>
     </div>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="切换亮暗主题" title="切换主题（Design Token 演示）">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
@@ -3155,7 +3158,7 @@ document.querySelectorAll('#dragList .drag-item').forEach(function(item){
 });
 
 var anchorBtns = document.querySelectorAll('#anchorList .al');
-var anchorSections = ['layout','nav','form','feedback','display','behavior','backend'];
+var anchorSections = ['layout','nav','form','feedback','display','behavior','backend','cicd','debug','security'];
 function setAnchorOn(id, pushHash){
   anchorBtns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-target') === id); });
   // 更新 URL hash（记忆定位）
