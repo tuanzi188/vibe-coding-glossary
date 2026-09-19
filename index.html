@@ -1700,26 +1700,53 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 
       <div class="demo full">
         <div class="demo-head"><span class="d-name">暗色模式 / Design Token</span><span class="d-en">/ 主题变量</span></div>
-        <div class="demo-stage">
-          <div style="width:100%;">
-            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-              <button class="btn btn-outline" type="button" onclick="toggleTheme()">切换全局主题</button>
-              <span style="font-size:12.5px;color:var(--ink-3);">也可以点右上角的月亮按钮</span>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-primary btn-sm" type="button" onclick="toggleTheme()">切换全局主题</button>
+              <span style="font-size:12.5px;color:var(--ink-3);">点一下，整站颜色都变了</span>
             </div>
-            <div class="swatches">
-              <div class="swatch"><div class="sw-c" style="background:var(--bg)"></div><div class="sw-n">--bg</div></div>
-              <div class="swatch"><div class="sw-c" style="background:var(--card)"></div><div class="sw-n">--card</div></div>
-              <div class="swatch"><div class="sw-c" style="background:var(--ink)"></div><div class="sw-n">--ink</div></div>
-              <div class="swatch"><div class="sw-c" style="background:var(--line)"></div><div class="sw-n">--line</div></div>
-              <div class="swatch"><div class="sw-c" style="background:var(--brand)"></div><div class="sw-n">--brand</div></div>
-              <div class="swatch"><div class="sw-c" style="background:var(--brand-soft)"></div><div class="sw-n">--brand-soft</div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+                <div style="padding:8px 12px;font-size:12px;color:var(--ink-3);border-bottom:1px solid var(--line);background:var(--stage);">亮色模式</div>
+                <div style="padding:16px;background:#fff;">
+                  <div style="width:100%;height:60px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#6b7280;">页面背景 --bg</div>
+                  <div style="padding:12px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);">
+                    <div style="font-size:13px;font-weight:600;color:#111827;margin-bottom:4px;">卡片标题 --ink</div>
+                    <div style="font-size:12px;color:#6b7280;">正文内容 --ink-2</div>
+                  </div>
+                  <button style="padding:6px 14px;background:#3b5bdb;color:#fff;border:none;border-radius:6px;font-size:12px;">按钮 --brand</button>
+                </div>
+              </div>
+              <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+                <div style="padding:8px 12px;font-size:12px;color:var(--ink-3);border-bottom:1px solid var(--line);background:var(--stage);">暗色模式</div>
+                <div style="padding:16px;background:#0f172a;">
+                  <div style="width:100%;height:60px;background:#1e293b;border:1px solid #334155;border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#94a3b8;">页面背景 --bg</div>
+                  <div style="padding:12px;background:#1e293b;border:1px solid #334155;border-radius:8px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.3);">
+                    <div style="font-size:13px;font-weight:600;color:#f1f5f9;margin-bottom:4px;">卡片标题 --ink</div>
+                    <div style="font-size:12px;color:#94a3b8;">正文内容 --ink-2</div>
+                  </div>
+                  <button style="padding:6px 14px;background:#6366f1;color:#fff;border:none;border-radius:6px;font-size:12px;">按钮 --brand</button>
+                </div>
+              </div>
             </div>
-            <div class="token-chips">
-              <span class="token-chip">--bg</span><span class="token-chip">--card</span><span class="token-chip">--ink</span><span class="token-chip">--ink-2</span><span class="token-chip">--ink-3</span><span class="token-chip">--line</span><span class="token-chip">--brand</span><span class="token-chip">--brand-soft</span><span class="token-chip">--radius</span><span class="token-chip">--shadow</span>
+            <div style="background:#0f1729;color:#c8e1ff;border-radius:8px;padding:12px 14px;font-size:12.5px;font-family:var(--mono);line-height:1.8;overflow-x:auto;">
+:root {<br>
+&nbsp;&nbsp;--bg: #ffffff;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 页面背景 */<br>
+&nbsp;&nbsp;--card: #f8fafc;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 卡片背景 */<br>
+&nbsp;&nbsp;--ink: #111827;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 主文字 */<br>
+&nbsp;&nbsp;--brand: #3b5bdb;&nbsp;&nbsp;&nbsp;&nbsp;/* 品牌主色 */<br>
+}<br>
+[data-theme="dark"] {<br>
+&nbsp;&nbsp;--bg: #0f172a;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 背景变深 */<br>
+&nbsp;&nbsp;--card: #1e293b;&nbsp;&nbsp;&nbsp;&nbsp;/* 卡片变深 */<br>
+&nbsp;&nbsp;--ink: #f1f5f9;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* 文字变白 */<br>
+&nbsp;&nbsp;--brand: #6366f1;&nbsp;&nbsp;&nbsp;/* 主色调亮 */<br>
+}
             </div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">整页颜色由一组 CSS 变量（Design Token）驱动，切一个变量全站变色。和 AI 说「颜色走设计变量」比逐个改色高效得多。</span><br><span class="eg">"支持暗色模式，用 CSS 变量切换，别写死颜色"</span></div>
+        <div class="demo-exp"><span class="plain"><b>为什么这么做：</b>所有组件都用 <code style="font-family:var(--mono);background:var(--stage);padding:2px 6px;border-radius:4px;">var(--brand)</code> 这种变量，不写死颜色。切暗色模式就是换一套变量值，整站自动跟着变——不用改几百个组件。</span><br><span class="eg">"支持暗色模式，用 CSS 变量切换，别写死颜色"</span></div>
       </div>
 
       <div class="demo full" id="fePanorama">
