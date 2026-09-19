@@ -111,30 +111,20 @@ button{font-family:var(--sans);cursor:pointer;}
 
 /* ===== 顶部导航 ===== */
 .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
-.nav-in{max-width:1120px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:16px;}
-.nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap;}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:14px;}
+.nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--ink);white-space:nowrap;flex:none;}
 .nav-logo svg{flex:none;}
-.nav-links{display:flex;gap:8px;overflow:visible;align-items:center;}
-.nav-dd{position:relative;}
-.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--ink-2);border:1px solid var(--line);background:var(--card);cursor:pointer;min-height:38px;transition:all .15s;}
-.nav-btn:hover{color:var(--brand);border-color:var(--brand);}
-.nav-btn.open{color:var(--brand);border-color:var(--brand);}
-.nav-btn svg{transition:transform .15s;flex:none;}
-.nav-btn.open svg{transform:rotate(180deg);}
-.nav-btn-be{color:var(--brand);border-color:#dbe3fa;background:var(--brand-soft);}
-.nav-btn-be:hover{color:var(--brand);border-color:var(--brand);}
-.nav-menu{position:absolute;top:calc(100% + 8px);left:0;min-width:176px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;display:none;z-index:90;}
-.nav-dd.open .nav-menu{display:block;}
-.nav-menu a{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;font-size:13.5px;color:var(--ink-2);white-space:nowrap;}
-.nav-menu a:hover{background:var(--brand-soft);color:var(--brand);}
-.nav-steps{display:flex;gap:2px;align-items:center;margin-left:auto;}
-.nav-step{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:8px;font-size:13px;font-weight:500;color:var(--ink-3);text-decoration:none;transition:all .15s;white-space:nowrap;}
-.nav-step:hover{color:var(--brand);background:var(--brand-soft);}
-.nav-step.cur{color:var(--brand);background:var(--brand-soft);font-weight:600;}
-.nav-step .num{font-family:var(--mono);font-size:11px;font-weight:700;opacity:.7;}
-.menu-btn{display:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;align-items:center;justify-content:center;flex:none;transition:all .15s;}
-.nav-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);flex-direction:column;padding:10px 12px 14px;gap:4px;margin:0;}
-.menu-btn:hover{border-color:var(--brand);color:var(--brand);}
+.nav-tabs{display:flex;align-items:center;gap:8px;min-width:0;}
+/* 两键并排靠左，不用 margin-left:auto 推到两端 */
+.nav-tab{display:inline-flex;align-items:center;padding:8px 16px;border-radius:9px;font-size:13.5px;font-weight:700;color:var(--ink-2);border:1px solid var(--line);background:var(--card);cursor:pointer;min-height:38px;white-space:nowrap;transition:all .15s;}
+.nav-tab:hover{color:var(--brand);border-color:var(--brand);}
+.nav-tab[aria-expanded="true"]{color:var(--brand);border-color:var(--brand);background:var(--brand-soft);}
+.nav-panel{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);}
+.nav-panel.open{display:block;}
+/* 向下平铺：一列到底，标签用正文原标题 */
+.nav-panel-in{max-width:1120px;margin:0 auto;padding:8px 20px 12px;display:flex;flex-direction:column;align-items:stretch;gap:2px;}
+.nav-chip{display:flex;align-items:center;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:600;color:var(--ink-2);border:1px solid transparent;background:transparent;cursor:pointer;text-decoration:none;transition:all .15s;}
+.nav-chip:hover{color:var(--brand);background:var(--brand-soft);border-color:#dbe3fa;}
 
 /* ===== Hero ===== */
 .hero{padding:52px 0 40px;}
@@ -603,7 +593,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* ===== 06 行为与全局 ===== */
 .theme-btn{border:1px solid var(--line);background:var(--card);color:var(--ink-2);min-width:44px;min-height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-left:auto;flex:none;transition:all .15s;}
 .theme-btn:hover{border-color:var(--brand);color:var(--brand);}
-.nav-in{gap:12px;}
 .theme-demo .swatches{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
 .swatch{width:52px;border-radius:10px;border:1px solid var(--line);overflow:hidden;background:var(--card);box-shadow:var(--shadow);}
 .swatch .sw-c{height:34px;}
@@ -745,21 +734,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   .backtop{width:48px;height:48px;}
 }
 @media (max-width:640px){
-  .nav-in{position:relative;}
-  .menu-btn{display:flex;}
-  .nav-links{position:absolute;top:100%;left:0;right:0;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow-lg);flex-direction:column;padding:10px 12px 14px;gap:8px;display:none;margin-left:0;}
-  .nav-links.open{display:flex;}
-  .nav-dd{width:100%;}
-  .nav-btn{width:100%;justify-content:space-between;min-height:44px;font-size:14.5px;padding:10px 14px;}
-  .nav-menu{position:static;display:none;box-shadow:none;border:none;padding:2px 0 0;min-width:0;}
-  .nav-dd.open .nav-menu{display:block;}
-  .nav-menu a{padding:12px 14px;font-size:14.5px;border-radius:10px;}
+  /* 窄屏：两键与大类行放大到 44px 触控高度，面板高于视口时可滚 */
+  .nav-tab{min-height:44px;font-size:14px;padding:10px 18px;}
+  .nav-panel-in{padding:8px 14px 12px;max-height:calc(100vh - 58px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .nav-chip{min-height:44px;font-size:14.5px;padding:10px 12px;}
   .ttip .tip-right{left:50%;top:calc(100% + 7px);transform:translateX(-50%);}
   .ttip .tip-right::after{right:auto;left:50%;top:-5px;margin:0 0 0 -5px;border-right-color:transparent;border-bottom-color:#101828;}
   .demo-stage .btn,.demo-stage .bt,.demo-stage .sc-tab,.demo-stage .db-tab{min-height:44px;}
   .pagination .pg{min-width:44px;height:44px;}
-  .nav-steps{display:none;}
-  .nav-mobile{display:flex;}
   .breadcrumb a{padding:11px 6px;display:inline-block;}
   .modal-foot .btn{min-height:44px;}
   .select-box,.date-input{min-height:44px;}
@@ -791,39 +773,35 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#3b5bdb"/><path d="M6 8l4 4-4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
       前后端模拟台
     </a>
-    <div class="nav-links">
-      <div class="nav-dd" id="navFe">
-        <button class="nav-btn" type="button" aria-haspopup="true" aria-expanded="false">
-          前端 Frontend
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="nav-menu">
-          <a href="#layout">布局 Layout</a>
-          <a href="#nav">导航 Nav</a>
-          <a href="#form">录入 Form</a>
-          <a href="#feedback">反馈 Feedback</a>
-          <a href="#display">展示 Display</a>
-          <a href="#behavior">行为 Behavior</a>
-        </div>
-      </div>
-      <div class="nav-dd" id="navBe">
-        <button class="nav-btn nav-btn-be" type="button" aria-haspopup="true" aria-expanded="false">
-          后端 Backend
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="nav-menu">
-          <a href="#backend">后端基础</a>
-          <a href="#cicd">CI/CD 部署</a>
-          <a href="#debug">故障排查</a>
-          <a href="#security">安全实践</a>
-        </div>
-      </div>
+    <div class="nav-tabs">
+      <button class="nav-tab" id="navTabFe" type="button" aria-expanded="false" aria-controls="navPanelFe">前端组件</button>
+      <button class="nav-tab" id="navTabBe" type="button" aria-expanded="false" aria-controls="navPanelBe">后端技术栈</button>
     </div>
-    <button class="menu-btn" id="menuBtn" type="button" aria-label="打开导航菜单" aria-expanded="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>    <button class="theme-btn" id="themeBtn" type="button" aria-label="切换亮暗主题" title="切换主题（Design Token 演示）">
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="切换亮暗主题" title="切换主题（Design Token 演示）">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
     </button>
+  </div>
+  <div class="nav-panel" id="navPanelFe">
+    <div class="nav-panel-in">
+      <a class="nav-chip" href="#layout">布局</a>
+      <a class="nav-chip" href="#nav">导航</a>
+      <a class="nav-chip" href="#form">录入</a>
+      <a class="nav-chip" href="#feedback">反馈</a>
+      <a class="nav-chip" href="#display">展示</a>
+      <a class="nav-chip" href="#behavior">行为</a>
+      <a class="nav-chip" href="#fePanorama">前端工程能力</a>
+    </div>
+  </div>
+  <div class="nav-panel" id="navPanelBe">
+    <div class="nav-panel-in">
+      <a class="nav-chip" href="#http">接口通信</a>
+      <a class="nav-chip" href="#backend">框架</a>
+      <a class="nav-chip" href="#sqlite">数据存储</a>
+      <a class="nav-chip" href="#jwt">认证授权</a>
+      <a class="nav-chip" href="#security">安全实践</a>
+      <a class="nav-chip" href="#cicd">CI/CD</a>
+      <a class="nav-chip" href="#debug">故障排查</a>
+    </div>
   </div>
 </nav>
 
@@ -1864,7 +1842,7 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">REST 的规矩：URL 只写名词（资源），动作交给 GET/POST/PUT/DELETE，结果用状态码表达（200 成功 / 404 找不到 / 500 服务器炸了）。点上面三行对比：同样是 GET，一个用路径参数定位资源，一个用查询串做搜索。</span><br><span class="eg">"帮我设计 RESTful API：行程生成走 POST /api/plan/generate，城市攻略走 GET /api/city/{city}/guide"</span></div>
       </div>
 
-      <div class="demo full" id="pagination">
+      <div class="demo full" id="bePagination">
         <div class="demo-head"><span class="d-name">分页 Pagination</span><span class="d-en">/ 前端那个分页器到了后端变成什么</span></div>
         <div class="demo-stage">
           <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
@@ -2908,7 +2886,7 @@ window.addEventListener('scroll', function(){
   backtop.classList.toggle('show', window.scrollY > 600);
 }, { passive: true });
 backtop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
-document.querySelectorAll('.nav-links a[href^="#"], .nav-logo[href^="#"]').forEach(function(a){
+document.querySelectorAll('.nav-panel a[href^="#"], .nav-logo[href^="#"]').forEach(function(a){
   a.addEventListener('click', function(e){
     var id = a.getAttribute('href').slice(1);
     var target = id === 'top' ? document.body : document.getElementById(id);
@@ -3198,62 +3176,40 @@ window.toggleTheme = function(){
 };
 var themeBtn = document.getElementById('themeBtn');
 if(themeBtn) themeBtn.addEventListener('click', toggleTheme);
-var menuBtn = document.getElementById('menuBtn');
-var navLinksEl = document.querySelector('.nav-links');
-if(menuBtn && navLinksEl){
-  menuBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    var open = navLinksEl.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  navLinksEl.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      navLinksEl.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    });
-  });
-  document.addEventListener('click', function(e){
-    if(!navLinksEl.contains(e.target) && !menuBtn.contains(e.target)){
-      navLinksEl.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }
-  });
+var navTabs = [document.getElementById('navTabFe'), document.getElementById('navTabBe')];
+function closeNavPanels(){
+  navTabs.forEach(function(t){ if(t) t.setAttribute('aria-expanded', 'false'); });
+  document.querySelectorAll('.nav-panel.open').forEach(function(p){ p.classList.remove('open'); });
 }
-document.querySelectorAll('.nav-dd').forEach(function(dd){
-  var btn = dd.querySelector('.nav-btn');
-  if(!btn) return;
-  function close(){
-    dd.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-  }
-  btn.addEventListener('click', function(e){
+navTabs.forEach(function(tab){
+  if(!tab) return;
+  var panel = document.getElementById(tab.getAttribute('aria-controls'));
+  if(!panel) return;
+  tab.addEventListener('click', function(e){
     e.stopPropagation();
-    var wasOpen = dd.classList.contains('open');
-    document.querySelectorAll('.nav-dd.open').forEach(function(other){
-      other.classList.remove('open');
-      var ob = other.querySelector('.nav-btn');
-      if(ob) ob.setAttribute('aria-expanded', 'false');
-    });
-    if(!wasOpen){
-      dd.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-    } else {
-      btn.setAttribute('aria-expanded', 'false');
-    }
+    var willOpen = tab.getAttribute('aria-expanded') !== 'true';
+    closeNavPanels();
+    if(willOpen){ tab.setAttribute('aria-expanded', 'true'); panel.classList.add('open'); }
   });
-  dd.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', close);
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeNavPanels);
   });
 });
 document.addEventListener('click', function(e){
-  document.querySelectorAll('.nav-dd.open').forEach(function(dd){
-    if(!dd.contains(e.target)){
-      dd.classList.remove('open');
-      var b = dd.querySelector('.nav-btn');
-      if(b) b.setAttribute('aria-expanded', 'false');
-    }
-  });
+  if(!(e.target && e.target.closest && e.target.closest('.nav'))) closeNavPanels();
 });
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeNavPanels();
+});
+/* 后端大类默认被筛选器隐藏（curCat 初值为 api），跳转前必须先点亮对应 chip，
+   否则锚点落在 display:none 的元素上、量到的位置是 0。用 document 捕获阶段保证早于滚动 handler。 */
+document.addEventListener('click', function(e){
+  var a = e.target && e.target.closest ? e.target.closest('.nav-panel a[href^="#tg-"]') : null;
+  if(!a) return;
+  var cat = a.getAttribute('href').slice(4);
+  var chip = document.querySelector('#techChips .tchip[data-cat="' + cat + '"]');
+  if(chip && !chip.classList.contains('on')) chip.click();
+}, true);
 (function(){
   var saved = 'light';
   try { saved = localStorage.getItem('vc-theme') || 'light'; } catch(err){}
@@ -3798,13 +3754,13 @@ if(secTabs){
     {
       title:'SQL 注入',
       bad:'// 后端代码：直接拼字符串\nconst userId = req.query.userId;\nconst sql = `SELECT * FROM orders \n  WHERE user_id = ${userId}`;\ndb.query(sql);\n\n// 攻击输入：\n?userId=1 OR 1=1\n\n// 执行的 SQL：\nSELECT * FROM orders \n  WHERE user_id = 1 OR 1=1\n// 全表数据被拖走了！',
-      good:'// 正确：用参数化查询\nconst userId = req.query.userId;\nconst sql = `SELECT * FROM orders \n  WHERE user_id = ?`;\ndb.query(sql, [userId]);\n\n// 攻击输入：\n?userId=1 OR 1=1\n\n// 执行的 SQL：\nSELECT * FROM orders \n  WHERE user_id = '1 OR 1=1'\n// 当成一个字符串值，查不到东西',
+      good:'// 正确：用参数化查询\nconst userId = req.query.userId;\nconst sql = `SELECT * FROM orders \n  WHERE user_id = ?`;\ndb.query(sql, [userId]);\n\n// 攻击输入：\n?userId=1 OR 1=1\n\n// 执行的 SQL：\nSELECT * FROM orders \n  WHERE user_id = \'1 OR 1=1\'\n// 当成一个字符串值，查不到东西',
       explain:'<b>原理：</b>用户输入被当成 SQL 语法执行了。<br><b>防御：</b>永远用参数化查询（占位符 ?），别拼字符串。<br><b>额外：</b>数据库账号只给必要权限，别用 root。'
     },
     {
       title:'XSS 跨站脚本',
       bad:'// 前端：直接把用户输入插到 HTML\nconst comment = userInput;\ncontainer.innerHTML = \n  "<p>" + comment + "</p>";\n\n// 攻击输入：\n<\/script>stealCookie()<\/script>\n\n// 页面里直接执行了！\n// 用户的 cookie 被偷走',
-      good:'// 正确：转义特殊字符\nfunction escapeHtml(str) {\n  return str.replace(/[&<>"']/g, \n    c => ({\n      "&": "&amp;",\n      "<": "&lt;",\n      ">": "&gt;",\n      \'"\': "&quot;",\n      "'": "&#39;"\n    }[c])\n  );\n}\ncontainer.innerHTML = \n  "<p>" + escapeHtml(comment) + "</p>";\n\n// 攻击输入变成纯文本，不执行',
+      good:'// 正确：转义特殊字符\nfunction escapeHtml(str) {\n  return str.replace(/[&<>"\']/g, \n    c => ({\n      "&": "&amp;",\n      "<": "&lt;",\n      ">": "&gt;",\n      \'"\': "&quot;",\n      "\'": "&#39;"\n    }[c])\n  );\n}\ncontainer.innerHTML = \n  "<p>" + escapeHtml(comment) + "</p>";\n\n// 攻击输入变成纯文本，不执行',
       explain:'<b>原理：</b>用户输入的 <script> 标签被浏览器执行了。<br><b>防御：</b>输出前转义 < > & 这些特殊字符。<br><b>框架：</b>React/Vue 默认自动转义，别用 v-html / dangerouslySetInnerHTML。'
     },
     {
@@ -3919,7 +3875,7 @@ var techGroups = [
     {name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>在哪用：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
     {name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>在哪用：</b>用户头像、攻略配图存 OSS，数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' },
     {name:'文件上传', tag:'multipart/form-data', use:'前端上传文件，后端接住存起来。', more:'<b>在哪用：</b>限制大小（10MB）、校验类型、存到 OSS 或本地；别把文件内容直接存数据库。', eg:'"文件上传接口限制大小和类型，存 OSS 返回 URL"' },
-    {demo:'pagination', name:'分页 Pagination', tag:'列表接口怎么翻页', use:'列表太长不能一次全返。', more:'<b>在哪用：</b>offset/limit 最简单（第几页、每页几条）；数据深时用游标分页；前端 Table 分页组件直接对接。', eg:'"列表接口加分页参数 page/page_size，返回总数和数据"' },
+    {demo:'bePagination', name:'分页 Pagination', tag:'列表接口怎么翻页', use:'列表太长不能一次全返。', more:'<b>在哪用：</b>offset/limit 最简单（第几页、每页几条）；数据深时用游标分页；前端 Table 分页组件直接对接。', eg:'"列表接口加分页参数 page/page_size，返回总数和数据"' },
     {name:'缓存一致性', tag:'缓存和库怎么同步', use:'先删缓存还是先更库？', adv:true, more:'<b>在哪用：</b>更新数据时先删缓存再更库（别更完库忘删缓存）；删缓存失败要重试；热点数据加短 TTL 兜底。', eg:'"更新数据先删缓存再写库，缓存设短 TTL"' },
     {name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', adv:true, more:'<b>在哪用：</b>高并发下每个请求 new 连接会打爆数据库；框架默认都配好了，知道有这回事。', eg:'"数据库用连接池，别每次请求新建连接"' }
   ]},
@@ -3996,6 +3952,7 @@ function renderTechCards(groups, container){
     wrap.className = 'tech-group';
     wrap.setAttribute('data-cat', catMap[g.tag] || 'all');
     wrap.setAttribute('data-tag', g.tag);
+    if(catMap[g.tag]) wrap.id = 'tg-' + catMap[g.tag];
     wrap.innerHTML = '<div class="tg-head"><span class="tg-tag">' + g.tag + '</span><span class="tg-name">' + g.name + '</span><span class="tg-desc">' + (g.desc || '') + '</span></div>' +
       '<div class="tech-grid"></div>';
     var grid = wrap.querySelector('.tech-grid');
