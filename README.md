@@ -4,6 +4,8 @@
 
 一个纯 HTML 单文件的前端组件实验室：收录 **46+ 个真实可交互的 UI 组件与交互行为演示**，每个组件都附带技术解释和 vibe coding 例句，适合边看边学、随手抄走。
 
+**[在线体验](https://tuanzi188.github.io/vibe-coding-glossary/)**
+
 ## 快速开始
 
 直接用浏览器打开 `index.html` 即可，无需构建、无需依赖。
