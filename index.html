@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前后端模拟台 · 组件看得见 · 技术讲得清</title>
+<title>看得见的前后端 · 组件真能点 · 请求看全程</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%233b5bdb'/%3E%3Cpath d='M6 8l4 4-4 4' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13 16h5' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
 :root{
@@ -174,10 +174,21 @@ section[id],.demo[id]{scroll-margin-top:76px;}
 .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);}
 .hero h1{font-size:var(--fs-2xl);line-height:1.25;font-weight:var(--fw-bold);letter-spacing:-.5px;}
 .hero h1 .accent{color:var(--brand);}
-.hero p.lead{margin-top:12px;color:var(--ink-2);font-size:var(--fs-base);max-width:44em;line-height:var(--lh-base);}
-.hero .stats{display:grid;grid-template-columns:repeat(4,auto);gap:18px 28px;margin-top:22px;justify-content:start;}
+.hero p.lead{margin-top:12px;color:var(--ink-2);font-size:var(--fs-base);line-height:var(--lh-base);}
+.hero .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px;}
 .hero .stat b{font-size:var(--fs-xl);font-weight:var(--fw-bold);font-family:var(--mono);}
 .hero .stat span{display:block;font-size:var(--fs-2xs);color:var(--ink-3);margin-top:2px;}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center;}
+.hero-left{min-width:0;}
+.hero-right{min-width:0;}
+.journey{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.journey-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--brand);background:var(--brand-soft);border:1px solid var(--line-strong);padding:3px 10px;border-radius:var(--r-pill);}
+.journey-flow{display:flex;align-items:stretch;gap:4px;margin-top:12px;flex-wrap:wrap;}
+.jnode{flex:1 1 0;min-width:72px;background:var(--stage);border:1px solid var(--line);border-radius:10px;padding:9px 6px;text-align:center;}
+.jnode .jt{font-size:12px;font-weight:600;color:var(--ink);}
+.jnode .js{font-size:10.5px;color:var(--ink-3);margin-top:3px;line-height:1.45;}
+.jarr{align-self:center;color:var(--ink-3);font-size:13px;flex:none;padding:0 1px;}
+.journey-note{font-size:12px;color:var(--ink-3);margin-top:10px;line-height:1.6;border-top:1px dashed var(--line);padding-top:9px;}
 
 /* 键盘焦点统一可见 */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
@@ -820,6 +831,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 @media (max-width:560px){
   .wrap{padding:0 14px;}
   .nav-in{padding:0 12px;}
+  .hero-grid{grid-template-columns:1fr;gap:22px;}
   .hero{padding:38px 0 30px;}
   .hero h1{font-size:var(--fs-xl);}
   .hero .stats{grid-template-columns:repeat(2,auto);gap:14px 20px;}
@@ -842,7 +854,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="nav-in">
     <a class="nav-logo" href="#top" aria-label="回到顶部">
       <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#3b5bdb"/><path d="M6 8l4 4-4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-      前后端模拟台
+      看得见的前后端
     </a>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="切换亮暗主题" title="切换主题（Design Token 演示）">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
@@ -858,7 +870,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="side-brand">
     <a class="nav-logo" href="#top" aria-label="回到顶部">
       <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#3b5bdb"/><path d="M6 8l4 4-4 4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 16h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
-      前后端模拟台
+      看得见的前后端
     </a>
   </div>
   <div class="side-in">
@@ -889,9 +901,30 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 <!-- ===== Hero ===== -->
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="kicker"><span class="dot"></span>不是背词表：组件真能点，技术真能讲清</div>
-    <h1>前后端模拟台<br><span class="accent">组件看得见 · 技术讲得清</span></h1>
-    <p class="lead">这一页把前后端平起平坐地讲：前端把常用 UI 组件真的写出来——弹窗能开、抽屉能滑、表格能删、列表能拖拽；后端把 HTTP、框架、数据库、API、认证安全、部署上线、可靠性一次讲明白。每个名词都配「人话解释 + vibe coding 例句 + <b>怎么验收</b>」——既说清楚要什么，也告诉你拿到 AI 的产出后检查哪一点。每章末尾有「本章要点」帮你回忆，抽象概念可展开「慢讲」和「深挖」。<b>边界说明：前端区的交互都是真的；后端区的请求、报文和状态码由前端模拟生成，本页不发起任何后端接口请求。</b></p>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="kicker"><span class="dot"></span>不是背词表：组件真能点，技术真能讲清</div>
+        <h1>看得见的前后端<br><span class="accent">组件真能点 · 技术讲得清</span></h1>
+        <p class="lead"><b>一句话看懂这页：前端 = 看得见的组件（页面长什么样、怎么操作）；后端 = 看不见的旅程（点一下按钮，请求在网络上走了一圈）——这页把看不见的那一半，也做成看得见的。</b><br><br><b>边界说明：</b>前端区的交互都是真的；后端区的请求、报文和状态码由前端模拟生成，本页不发起任何后端接口请求。</p>
+      </div>
+      <div class="hero-right">
+        <div class="journey">
+          <div class="journey-tag">一次请求的旅程 · 看不见的那半程</div>
+          <div class="journey-flow">
+            <div class="jnode"><div class="jt">你点按钮</div><div class="js">提交表单</div></div>
+            <div class="jarr">→</div>
+            <div class="jnode"><div class="jt">前端组件</div><div class="js">校验 · 拼请求</div></div>
+            <div class="jarr">→</div>
+            <div class="jnode"><div class="jt">HTTP 请求</div><div class="js">数据 + 凭证</div></div>
+            <div class="jarr">→</div>
+            <div class="jnode"><div class="jt">后端接口</div><div class="js">校验 · 处理</div></div>
+            <div class="jarr">→</div>
+            <div class="jnode"><div class="jt">数据库</div><div class="js">读写数据</div></div>
+          </div>
+          <div class="journey-note">响应原路返回（JSON + 状态码）—— 后端区每张卡都是这条链路上的一环，先玩「联调预演」走一遍全程。每个名词都配「人话解释 + vibe coding 例句 + 怎么验收」。</div>
+        </div>
+      </div>
+    </div>
     <div class="stats">
       <div class="stat"><b id="stFe">–</b><span>前端组件 · 真实可交互</span></div>
       <div class="stat"><b id="stFeGrp">–</b><span>前端大区 · 组件/行为/工程</span></div>
@@ -914,7 +947,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="group-head">
       <div class="tag">01 · 布局 Layout</div>
       <h2>页面骨架与容器</h2>
-      <p>布局组件决定「东西放在哪」。点一下左侧 Sider 的折叠按钮，看看收起时的表现。</p>
+      <p>布局组件决定「东西放在哪」。点一下左侧 Sider 的折叠按钮，看看收起时的表现。<b>第一次来：按顺序把下面六个区点一遍——每个组件都能玩，最后看「组件协作」怎么把它们拼成一个完整页面。</b></p>
     </div>
     <div class="demos">
 
@@ -2154,40 +2187,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">联调预演 = 先看一次请求的完整旅程：下面每个 demo（校验、鉴权、入库、限流）都是这条链路上的一环。真实项目里，前端发的每个请求都走这条链路；哪一步 4xx/5xx，顺着链路排查而不是瞎猜。这里的报文由前端生成，真实项目要看浏览器 Network 面板里的那一份。</span><br><span class="eg">"把表单提交串成完整链路：校验 → 请求 → 错误分支 → loading → 结果页"</span></div>
       </div>
 
-      <div class="demo full" id="pyd">
-        <div class="demo-head"><span class="d-name">FastAPI + Pydantic 数据校验</span><span class="d-en">/ 类型安全的入口</span></div>
-        <div class="demo-stage center">
-          <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:12px;color:var(--ink-3);flex:none;">请求体 JSON</span>
-              <button class="btn btn-outline btn-sm" type="button" id="pydBadBtn">换成错误版本</button>
-            </div>
-            <textarea class="pyd-input" id="pydInput" rows="4" spellcheck="false" aria-label="请求体 JSON"></textarea>
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-primary" type="button" id="pydBtn">发送校验</button>
-              <span class="api-status" id="pydStatus" style="display:none;">—</span>
-            </div>
-            <div class="api-res" id="pydRes" style="min-height:52px;">点「发送校验」看 FastAPI 怎么拦数据</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">FastAPI 在入口就用 Pydantic 把请求体校验一遍：字段类型、必填、范围不合格直接返回 422 错误列表。你代码里拿到的永远是正确的数据，不用自己写一堆 if 判空。</span><br><span class="eg">"后端用 FastAPI，请求体建一个 Pydantic 模型做校验，类型和范围错了返回 422"</span></div>
-      </div>
-
-      <div class="demo" id="async">
-        <div class="demo-head"><span class="d-name">同步 vs 异步</span><span class="d-en">/ FastAPI 为什么快</span></div>
-        <div class="demo-stage center">
-          <div class="sa-demo">
-            <div class="sa-ctrl">
-              <button class="btn btn-outline btn-sm" type="button" id="saSyncBtn">同步串行</button>
-              <button class="btn btn-outline btn-sm" type="button" id="saAsyncBtn">异步并发</button>
-              <span class="sa-time" id="saTime">点按钮跑一遍</span>
-            </div>
-            <div class="sa-tracks" id="saTracks"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">同步：三个请求排队等，总耗时 ≈ 2.1s；异步：三个请求同时发出、一起等，总耗时 ≈ 0.75s。请求卡在网络/数据库时不占 CPU，async 就是把「等」这件事并发掉。</span><br><span class="eg">"FastAPI 接口用 async def，同时调高德 API 和天气接口，别串行等"</span></div>
-      </div>
-
       <div class="demo full" id="http">
         <div class="demo-head"><span class="d-name">HTTP 请求解剖</span><span class="d-en">/ 一次请求长什么样</span></div>
         <div class="demo-stage center">
@@ -2323,6 +2322,39 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">CORS 是<b>浏览器</b>的同源策略，不是服务器的报错：请求照样发出去，服务器也可能返回 <code>200</code>，但浏览器不给 JS 读响应——所以「Network 里 200，前端却报 CORS 错」是真的。带了自定义头（如 <code>Authorization</code>）会先自动发一次 <code>OPTIONS</code> 预检，预检没过，真实请求根本不会发出。</span><br><span class="eg">"后端加 CORS 中间件：允许来源 https://trip.demo、允许 GET/POST、允许 Authorization 头，并处理 OPTIONS 预检"</span></div>
       </div>
 
+      <div class="demo full" id="pyd">
+        <div class="demo-head"><span class="d-name">FastAPI + Pydantic 数据校验</span><span class="d-en">/ 类型安全的入口</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:12px;color:var(--ink-3);flex:none;">请求体 JSON</span>
+              <button class="btn btn-outline btn-sm" type="button" id="pydBadBtn">换成错误版本</button>
+            </div>
+            <textarea class="pyd-input" id="pydInput" rows="4" spellcheck="false" aria-label="请求体 JSON"></textarea>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-primary" type="button" id="pydBtn">发送校验</button>
+              <span class="api-status" id="pydStatus" style="display:none;">—</span>
+            </div>
+            <div class="api-res" id="pydRes" style="min-height:52px;">点「发送校验」看 FastAPI 怎么拦数据</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">FastAPI 在入口就用 Pydantic 把请求体校验一遍：字段类型、必填、范围不合格直接返回 422 错误列表。你代码里拿到的永远是正确的数据，不用自己写一堆 if 判空。</span><br><span class="eg">"后端用 FastAPI，请求体建一个 Pydantic 模型做校验，类型和范围错了返回 422"</span></div>
+      </div>
+
+      <div class="demo" id="async">
+        <div class="demo-head"><span class="d-name">同步 vs 异步</span><span class="d-en">/ FastAPI 为什么快</span></div>
+        <div class="demo-stage center">
+          <div class="sa-demo">
+            <div class="sa-ctrl">
+              <button class="btn btn-outline btn-sm" type="button" id="saSyncBtn">同步串行</button>
+              <button class="btn btn-outline btn-sm" type="button" id="saAsyncBtn">异步并发</button>
+              <span class="sa-time" id="saTime">点按钮跑一遍</span>
+            </div>
+            <div class="sa-tracks" id="saTracks"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">同步：三个请求排队等，总耗时 ≈ 2.1s；异步：三个请求同时发出、一起等，总耗时 ≈ 0.75s。请求卡在网络/数据库时不占 CPU，async 就是把「等」这件事并发掉。</span><br><span class="eg">"FastAPI 接口用 async def，同时调高德 API 和天气接口，别串行等"</span></div>
+      </div>
 
       <div class="demo" id="sqlite">
         <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
@@ -2455,6 +2487,27 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25（关键词匹配算法）抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
       </div>
 
+      <div class="demo full" id="security">
+        <div class="demo-head"><span class="d-name">安全实践</span><span class="d-en">/ 生产环境必防的 3 个坑</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
+            <div class="sec-tabs" id="secTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div>
+                <div style="font-size:11px;color:#ef4444;margin-bottom:4px;font-family:var(--mono);">// 有漏洞的写法</div>
+                <div id="secBad" style="background:#1f0f14;color:#fca5a5;border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px;min-height:200px;max-height:280px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.7;"></div>
+              </div>
+              <div>
+                <div style="font-size:11px;color:#10b981;margin-bottom:4px;font-family:var(--mono);">// 正确的写法</div>
+                <div id="secGood" style="background:#0f1f14;color:#86efac;border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px;min-height:200px;max-height:280px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.7;"></div>
+              </div>
+            </div>
+            <div id="secExplain" style="border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px;line-height:1.7;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">生产环境安全不是"加个登录"就完了——<b>SQL 注入、XSS、密钥泄露</b>是最常见的三类。左边是攻击者怎么利用，右边是怎么防。原则：<b>永远不信任用户输入，永远不用硬编码密钥</b>。</span><br><span class="eg">"后端用参数化查询防注入，前端输出转义防 XSS，密钥放环境变量"</span></div>
+      </div>
+
       <div class="demo full" id="cicd">
         <div class="demo-head"><span class="d-name">CI/CD 持续集成部署</span><span class="d-en">/ 从写代码到部署的完整流程</span></div>
         <div class="demo-stage center">
@@ -2513,26 +2566,6 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">线上故障别慌——先看监控确认影响面，再看日志找报错，然后复现或定位代码。<b>排查顺序：监控 → 日志 → 代码 → 回滚</b>。先止血（回滚/扩容），再查根因。监控看的是 P99 这类分位延迟，不是平均延迟——平均延迟会被大量快请求拉低，掩盖慢请求。</span><br><span class="eg">"线上变慢先看 P99 监控，再 grep 错误日志，最后定位代码"</span></div>
       </div>
 
-      <div class="demo full" id="security">
-        <div class="demo-head"><span class="d-name">安全实践</span><span class="d-en">/ 生产环境必防的 3 个坑</span></div>
-        <div class="demo-stage center">
-          <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
-            <div class="sec-tabs" id="secTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div>
-                <div style="font-size:11px;color:#ef4444;margin-bottom:4px;font-family:var(--mono);">// 有漏洞的写法</div>
-                <div id="secBad" style="background:#1f0f14;color:#fca5a5;border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px;min-height:200px;max-height:280px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.7;"></div>
-              </div>
-              <div>
-                <div style="font-size:11px;color:#10b981;margin-bottom:4px;font-family:var(--mono);">// 正确的写法</div>
-                <div id="secGood" style="background:#0f1f14;color:#86efac;border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px;min-height:200px;max-height:280px;white-space:pre-wrap;font-family:var(--mono);overflow-y:auto;line-height:1.7;"></div>
-              </div>
-            </div>
-            <div id="secExplain" style="border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px;line-height:1.7;"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">生产环境安全不是"加个登录"就完了——<b>SQL 注入、XSS、密钥泄露</b>是最常见的三类。左边是攻击者怎么利用，右边是怎么防。原则：<b>永远不信任用户输入，永远不用硬编码密钥</b>。</span><br><span class="eg">"后端用参数化查询防注入，前端输出转义防 XSS，密钥放环境变量"</span></div>
-      </div>
       <div class="demo full" id="techPanorama">
         <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
         <div class="demo-stage">
@@ -2562,7 +2595,7 @@ Accept: application/json</div>
 <!-- ===== 页脚 ===== -->
 <footer>
   <div class="wrap">
-    <p><b>前后端模拟台</b> · 前端真实可交互组件与行为 + 前端工程能力卡 + 后端七类技术卡（demo 为前端模拟）· 每个都配 vibe coding 例句</p>
+    <p><b>看得见的前后端</b> · 前端真实可交互组件与行为 + 前端工程能力卡 + 后端七类技术卡（demo 为前端模拟）· 每个都配 vibe coding 例句</p>
     <p style="margin-top:4px;">心法：组件名 + 技术名词说准确，AI 就不用猜。前端对着组件区念，后端对着技术栈区念，描述出来的就是你要的系统。</p>
   </div>
 </footer>
@@ -3465,7 +3498,7 @@ document.querySelectorAll('#dragList .drag-item').forEach(function(item){
 });
 
 var anchorBtns = document.querySelectorAll('#anchorList .al');
-var anchorSections = ['layout','nav','form','feedback','display','behavior','backend','cicd','debug','security'];
+var anchorSections = ['layout','nav','form','feedback','display','behavior','backend','security','cicd','debug'];
 function setAnchorOn(id, pushHash){
   anchorBtns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-target') === id); });
   // 更新 URL hash（记忆定位）
@@ -3490,7 +3523,8 @@ window.addEventListener('scroll', function(){
     var sec = document.getElementById(id);
     if(sec && sec.offsetTop <= y) cur = id;
   });
-  setAnchorOn(cur);
+  /* 只更新高亮，不写 URL hash：滚动时改写会和左侧目录的 #锚点 互相覆盖 */
+  setAnchorOn(cur, false);
 }, { passive: true });
 // 页面加载时从 URL hash 恢复位置
 (function(){
