@@ -520,7 +520,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:4px;}
 .tech-card{border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);padding:14px;cursor:pointer;transition:border-color .18s;position:relative;min-width:0;}
 .tech-card .tc-name{font-size:var(--fs-base);font-weight:var(--fw-bold);line-height:1.3;}
-.adv-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-left:5px;vertical-align:middle;}
 .tech-card .tc-tag{font-family:var(--mono);font-size:var(--fs-3xs);color:var(--ink-3);margin-top:2px;}
 .tech-card .tc-use{font-size:var(--fs-2xs);color:var(--ink-2);margin-top:6px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .tech-card .tc-more{display:none;font-size:var(--fs-2xs);color:var(--ink-2);line-height:var(--lh-base);}
@@ -532,6 +531,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .tech-card .tc-eg{font-size:var(--fs-3xs);color:var(--green-ink);background:var(--green-soft);border-radius:var(--r-xs);padding:3px 8px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:inherit;}
 .tech-card .tc-try{flex:none;font-size:var(--fs-3xs);color:var(--brand);background:var(--brand-soft);border:1px solid var(--brand);border-radius:var(--r-xs);padding:4px 10px;cursor:pointer;font-family:inherit;font-weight:var(--fw-semibold);}
 .tech-card .tc-try:hover{background:var(--brand);color:var(--on-brand);}
+.tech-card.idx{padding:10px 12px;border-style:dashed;}
+.tech-card.idx .tc-name{font-size:var(--fs-2xs);}
+.tech-card.idx .tc-foot{margin-top:6px;padding-top:0;border-top:none;}
+.tech-card.idx .tc-idx-go{font-size:var(--fs-3xs);color:var(--ink-3);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.adv-badge{display:inline-block;margin-left:6px;font-family:var(--mono);font-size:var(--fs-3xs);font-weight:var(--fw-bold);color:var(--brand);background:var(--brand-soft);border:1px solid var(--brand);border-radius:var(--r-pill);padding:0 6px;vertical-align:2px;}
+.demo-hint{font-size:12px;color:var(--ink-3);margin-top:8px;}
+.asb-mi{padding:9px 14px;cursor:pointer;color:var(--ink-2);border-left:3px solid transparent;}
+.asb-mi.on{background:var(--brand-soft);color:var(--brand);border-left-color:var(--brand);font-weight:600;}
+.asb-modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;}
+.asb-modal.show{display:flex;}
+.asb-mask{position:absolute;inset:0;background:var(--overlay);}
+.asb-dialog{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;width:360px;max-width:90vw;box-shadow:var(--shadow-modal);}
+.asb-d-title{font-size:14px;font-weight:600;margin-bottom:12px;}
 .pyd-input{width:100%;font-family:var(--mono);font-size:var(--fs-2xs);line-height:var(--lh-base);border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;outline:none;background:var(--card);color:var(--ink);resize:vertical;min-height:84px;transition:border .15s,box-shadow .15s;}
 .pyd-input:focus{border-color:var(--brand);box-shadow:var(--ring);}
 
@@ -590,6 +602,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .tg-head .tg-tag{font-family:var(--mono);font-size:var(--fs-3xs);font-weight:var(--fw-bold);color:var(--brand);letter-spacing:.03em;}
 .tg-head .tg-name{font-size:var(--fs-sm);font-weight:var(--fw-bold);}
 .tg-head .tg-desc{font-size:var(--fs-2xs);color:var(--ink-3);}
+/* 分组总纲：把这一组的词串成一条线 */
+.tg-lead{width:100%;font-size:var(--fs-2xs);color:var(--ink-2);background:var(--stage);border-left:3px solid var(--brand);border-radius:0 var(--r-xs) var(--r-xs) 0;padding:7px 12px;margin:-4px 0 10px;line-height:var(--lh-base);}
 
 .http-demo{width:100%;display:flex;flex-direction:column;gap:12px;}
 .http-box{border:1px solid #1f2b3d;border-radius:var(--r-md);overflow:hidden;background:var(--surface-dark);font-family:var(--mono);font-size:var(--fs-2xs);line-height:1.9;width:100%;}
@@ -747,6 +761,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 .deep-dive-btn[aria-expanded="true"]{background:var(--brand-soft);border-color:var(--brand);color:var(--brand);}
 .deep-dive-body{display:none;margin-top:10px;font-size:var(--fs-2xs);color:var(--ink-2);line-height:var(--lh-base);}
 .deep-dive-body.show{display:block;}
+/* 接口拆解：概念先行 + 路径分段可点 */
+.api-intro{width:100%;font-size:var(--fs-2xs);color:var(--ink-2);line-height:var(--lh-base);background:var(--stage);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;}
+.api-intro b{color:var(--brand);font-weight:var(--fw-bold);}
+.api-hint{font-size:var(--fs-2xs);color:var(--ink-3);}
+.api-map{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.api-seg{font-family:var(--mono);font-size:var(--fs-2xs);color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);padding:3px 10px;cursor:pointer;transition:all .15s;}
+.api-seg:hover{border-color:var(--brand);color:var(--brand);}
+.api-seg.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand);}
+
 /* 本章要点：章节末尾的回忆锚点 */
 .tk-box{margin-top:22px;padding:14px 16px;border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:var(--r-md);background:var(--stage);grid-column:1/-1;}
 .tk-h{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:var(--ink);margin-bottom:6px;}
@@ -980,6 +1003,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
               <div class="tabpane" style="display:none;">这里是「设置」面板：偏好选项都归在这里。</div>
             </div>
           </div>
+          <div class="demo-hint">↑ 可点：试试切换标签</div>
         </div>
         <div class="demo-exp"><span class="plain">同一区域切换内容，互不干扰。点上面的标签试试。</span><br><span class="eg">"详情页用 Tabs：基本信息 / 历史记录 / 设置"</span></div>
       </div>
@@ -1027,6 +1051,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
             </div>
             <div style="margin-top:12px;font-size:12.5px;color:var(--ink-2);" id="stepMsg">当前步骤：确认订单（点步骤可跳转）</div>
           </div>
+          <div class="demo-hint">↑ 可点：点步骤直接跳转</div>
         </div>
         <div class="demo-exp"><span class="plain">把多步流程拆成进度条：已完成（绿）/ 当前（蓝）/ 未开始（灰）。点步骤试试。</span><br><span class="eg">"下单流程用 Steps 显示当前第几步"</span></div>
       </div>
@@ -1044,6 +1069,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
             </div>
             <div style="margin-top:10px;font-size:12.5px;color:var(--ink-2);" id="pageMsg">当前第 1 页 · 共 3 页 · 每页 10 条</div>
           </div>
+          <div class="demo-hint">↑ 可点：翻页看页码和状态变化</div>
         </div>
         <div class="demo-exp"><span class="plain">数据太多时分页展示，表格和列表的标配。</span><br><span class="eg">"Table 底部加 Pagination，每页 10 条"</span></div>
       </div>
@@ -1608,7 +1634,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
           <div style="width:100%;">
             <div class="stat-row" id="statRow">
               <div class="stat-card"><div class="s-l">累计用户</div><div class="s-v"><span class="s-num" data-target="12840">0</span></div><div class="s-d"><span class="up">↑ 12.4%</span> 较上周</div></div>
-              <div class="stat-card"><div class="s-l">收录景点 POI</div><div class="s-v"><span class="s-num" data-target="3268">0</span></div><div class="s-d"><span class="up">↑ 8.1%</span> 较上周</div></div>
+              <div class="stat-card"><div class="s-l">收录景点 POI（兴趣点）</div><div class="s-v"><span class="s-num" data-target="3268">0</span></div><div class="s-d"><span class="up">↑ 8.1%</span> 较上周</div></div>
               <div class="stat-card"><div class="s-l">覆盖城市</div><div class="s-v"><span class="s-num" data-target="186">0</span><small>个</small></div><div class="s-d"><span class="up">↑ 15.6%</span> 较上周</div></div>
               <div class="stat-card"><div class="s-l">累计生成行程</div><div class="s-v"><span class="s-num" data-target="98650">0</span></div><div class="s-d"><span class="down">↓ 2.3%</span> 较上周</div></div>
             </div>
@@ -1809,8 +1835,176 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-stage">
           <div id="feEngGrid" class="tech-grid" style="width:100%;"></div>
         </div>
-        <div class="demo-exp"><span class="plain">上面六区是「看得见的组件」；一个完整前端工程还会用到这些：路由、状态管理、请求缓存、渲染选型、构建工具、包管理、环境配置、代码规范、错误监控、性能优化、Mock 联调、权限、部署、设计系统、测试。点卡片展开看「在哪用 + 怎么跟 AI 说」。</span><br><span class="eg">"前端工程化：路由 + 状态管理 + 请求层封装 + 构建部署"</span></div>
+        <div class="demo-exp"><span class="plain">上面六区是「看得见的组件」；<b>这一区不是组件，是工程名词——先认识就行，用到哪个再深看</b>。一个完整前端工程还会用到这些：路由、状态管理、请求缓存、渲染选型、构建工具、包管理、环境配置、代码规范、错误监控、性能优化、Mock 联调、权限、部署、设计系统、测试。点卡片展开看「在哪用 + 怎么跟 AI 说」。</span><br><span class="eg">"前端工程化：路由 + 状态管理 + 请求层封装 + 构建部署"</span></div>
       </div>
+
+      <div class="demo full" id="feAssemble">
+        <div class="demo-head"><span class="d-name">组件协作：拼一个行程管理页</span><span class="d-en">/ Layout + Menu + Table + Modal + Toast + 分页</span></div>
+        <div class="demo-stage">
+          <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;">
+            <div style="display:flex;min-height:250px;">
+              <div style="width:140px;flex:none;background:var(--card);border-right:1px solid var(--line);padding:10px 0;font-size:13px;">
+                <div class="asb-mi on" data-tab="0" onclick="asbTab(0)">行程总览</div>
+                <div class="asb-mi" data-tab="1" onclick="asbTab(1)">待确认行程</div>
+                <div class="asb-mi" data-tab="2" onclick="asbTab(2)">历史行程</div>
+              </div>
+              <div style="flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0;">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                  <div style="font-size:14px;font-weight:600;" id="asbTitle">行程总览</div>
+                  <button class="btn btn-primary btn-sm" type="button" onclick="asbAdd()">＋ 新增行程</button>
+                </div>
+                <div style="border:1px solid var(--line);border-radius:8px;overflow:auto;background:var(--card);">
+                  <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:380px;">
+                    <thead><tr style="background:var(--stage);text-align:left;color:var(--ink-3);">
+                      <th style="padding:8px 10px;">城市</th><th style="padding:8px 10px;">天数</th><th style="padding:8px 10px;">预算</th><th style="padding:8px 10px;">状态</th><th style="padding:8px 10px;width:80px;">操作</th>
+                    </tr></thead>
+                    <tbody id="asbRows"></tbody>
+                  </table>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--ink-3);flex-wrap:wrap;gap:8px;">
+                  <span id="asbMeta"></span>
+                  <div style="display:flex;gap:6px;" id="asbPager"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-hint">↑ 全链路可玩：菜单切换、新增弹窗、删除确认、翻页——都是上面各区见过的组件</div>
+        </div>
+        <div class="demo-exp"><span class="plain"><b>这就是「从零拼一个页面」的最小闭环：</b>Layout 定骨架 → Menu 管切换 → Table 列数据 → Modal 收输入 → Pagination 翻页 → Toast 给反馈。六个组件各干一件事，拼起来就是产品；真实项目里每个页面都是这样一层层搭出来的。</span><br><span class="eg">"做一个行程管理页：左侧 Menu 切换，表格带分页，新增弹 Modal 表单，提交后 Toast 提示"</span></div>
+      </div>
+
+<script>
+/* 组件协作演示：拼一个行程管理页（自包含，弹窗挂 body） */
+(function(){
+  var DATA = [
+    { city:'杭州', days:3, budget:4000, status:'已确认' },
+    { city:'苏州', days:2, budget:2500, status:'待确认' },
+    { city:'成都', days:4, budget:6000, status:'已确认' },
+    { city:'厦门', days:3, budget:3500, status:'草稿' },
+    { city:'西安', days:3, budget:4200, status:'已确认' },
+    { city:'大理', days:5, budget:7000, status:'待确认' },
+    { city:'青岛', days:2, budget:2200, status:'已确认' },
+    { city:'桂林', days:4, budget:3800, status:'草稿' },
+    { city:'长沙', days:2, budget:2000, status:'已确认' },
+    { city:'三亚', days:5, budget:8000, status:'待确认' }
+  ];
+  var PER = 4, page = 1, tab = 0, deleting = -1;
+  var STATUS_TAG = { '已确认':'tag-green', '待确认':'', '草稿':'' };
+  var rows, meta, pager, title, modal, mTitle, mForm, mCfm, cityIn, daysIn, budgetIn;
+
+  function list(){
+    var arr = DATA;
+    if(tab === 1) arr = DATA.filter(function(r){ return r.status === '待确认'; });
+    if(tab === 2) arr = DATA.filter(function(r){ return r.status !== '待确认'; });
+    return arr;
+  }
+  function render(){
+    if(!rows) return;
+    var arr = list();
+    var total = Math.max(1, Math.ceil(arr.length / PER));
+    if(page > total) page = total;
+    var slice = arr.slice((page-1)*PER, page*PER);
+    rows.innerHTML = slice.map(function(r, i){
+      var di = DATA.indexOf(r);
+      return '<tr><td style="padding:8px 10px;">' + r.city + '</td>' +
+        '<td style="padding:8px 10px;font-family:var(--mono);">' + r.days + ' 天</td>' +
+        '<td style="padding:8px 10px;font-family:var(--mono);">¥' + r.budget + '</td>' +
+        '<td style="padding:8px 10px;"><span class="tag ' + (STATUS_TAG[r.status]||'') + '">' + r.status + '</span></td>' +
+        '<td style="padding:8px 10px;"><button class="btn btn-link" type="button" onclick="asbDel(' + di + ')">删除</button></td></tr>';
+    }).join('');
+    var pg = '';
+    for(var p=1; p<=total; p++){ pg += '<button type="button" class="pg' + (p===page?' cur':'') + '" onclick="asbPage(' + p + ')">' + p + '</button>'; }
+    pager.innerHTML = pg;
+    meta.textContent = '第 ' + page + ' 页 · 共 ' + total + ' 页 · 每页 ' + PER + ' 条';
+  }
+  window.asbTab = function(t){
+    tab = t; page = 1;
+    var names = ['行程总览','待确认行程','历史行程'];
+    title.textContent = names[t];
+    document.querySelectorAll('#feAssemble .asb-mi').forEach(function(mi, i){ mi.classList.toggle('on', i === t); });
+    render();
+  };
+  window.asbPage = function(p){ page = p; render(); };
+  window.asbAdd = function(){
+    deleting = -1;
+    mTitle.textContent = '新增行程';
+    mForm.style.display = 'block'; mCfm.style.display = 'none';
+    cityIn.value = '重庆'; daysIn.value = '3'; budgetIn.value = '3000';
+    show(true);
+    cityIn.focus();
+  };
+  window.asbDel = function(i){
+    deleting = i;
+    mTitle.textContent = '删除确认';
+    mForm.style.display = 'none'; mCfm.style.display = 'block';
+    document.getElementById('asbDelName').textContent = DATA[i].city;
+    show(true);
+  };
+  window.asbClose = function(){ show(false); };
+  window.asbSubmit = function(){
+    var city = cityIn.value.trim();
+    var days = parseInt(daysIn.value, 10);
+    var budget = parseInt(budgetIn.value, 10);
+    if(!city || !(days > 0) || !(budget > 0)){
+      labToast('请填写城市、天数和预算', 'err');
+      return;
+    }
+    DATA.unshift({ city:city, days:days, budget:budget, status:'待确认' });
+    show(false);
+    render();
+    labToast('已新增「' + city + '」行程', 'ok');
+  };
+  window.asbConfirm = function(){
+    if(deleting < 0) return;
+    var name = DATA[deleting].city;
+    DATA.splice(deleting, 1);
+    deleting = -1;
+    show(false);
+    render();
+    labToast('已删除「' + name + '」', 'ok');
+  };
+  window.asbOK = function(){
+    if(mForm.style.display === 'none') asbConfirm();
+    else asbSubmit();
+  };
+  function show(open){
+    modal.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function init(){
+    rows = document.getElementById('asbRows');
+    meta = document.getElementById('asbMeta');
+    pager = document.getElementById('asbPager');
+    title = document.getElementById('asbTitle');
+    modal = document.createElement('div');
+    modal.className = 'asb-modal';
+    modal.innerHTML = '<div class="asb-mask" onclick="asbClose()"></div>' +
+      '<div class="asb-dialog" role="dialog" aria-modal="true">' +
+      '<div class="asb-d-title" id="asbMTitle"></div>' +
+      '<div id="asbMForm">' +
+      '<div style="margin-bottom:10px;"><label class="label" for="asbCityIn">城市</label><input class="input" id="asbCityIn" type="text" style="width:100%;"></div>' +
+      '<div style="display:flex;gap:10px;">' +
+      '<div style="flex:1;"><label class="label" for="asbDaysIn">天数</label><input class="input" id="asbDaysIn" type="text" inputmode="numeric" style="width:100%;"></div>' +
+      '<div style="flex:1;"><label class="label" for="asbBudgetIn">预算</label><input class="input" id="asbBudgetIn" type="text" inputmode="numeric" style="width:100%;"></div>' +
+      '</div></div>' +
+      '<div id="asbMCfm" style="display:none;color:var(--ink-2);font-size:13px;line-height:1.7;">确定删除「<b id="asbDelName"></b>」这条行程？删除后不可恢复。</div>' +
+      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">' +
+      '<button class="btn btn-outline btn-sm" type="button" onclick="asbClose()">取消</button>' +
+      '<button class="btn btn-primary btn-sm" type="button" onclick="asbOK()">保存</button></div></div>';
+    document.body.appendChild(modal);
+    mTitle = document.getElementById('asbMTitle');
+    mForm = document.getElementById('asbMForm');
+    mCfm = document.getElementById('asbMCfm');
+    cityIn = document.getElementById('asbCityIn');
+    daysIn = document.getElementById('asbDaysIn');
+    budgetIn = document.getElementById('asbBudgetIn');
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.classList.contains('show')) show(false); });
+    render();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 
     </div>
   </div>
@@ -1822,9 +2016,128 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="group-head">
       <div class="tag">07 · 后端技术栈 Backend</div>
       <h2>后端技术栈</h2>
-      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到接口通信、框架、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。<b>本区所有 demo 均为前端模拟</b>：动画和报文在浏览器里生成，不发起任何真实请求，看的是流程而不是网络。</p>
+      <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到接口通信、框架、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」；上面演示讲过的术语，这里只留一行索引、点它跳回演示。<b>先记两个最常撞见的：API（接口）就是前端调后端的那扇门；SQL 是跟数据库要数据时写的一句话。</b> <b>本区所有 demo 均为前端模拟</b>：动画和报文在浏览器里生成，不发起任何真实请求，看的是流程而不是网络。第一次来，先玩「前后端联调预演」把一次请求从头到尾走一遍，再按「初学者路线图」挑任务查卡。</p>
     </div>
+
+    <div class="roadmap" id="roadmap">
+      <div class="rm-head"><span class="rm-title">初学者路线图</span><span class="rm-sub">每个任务包由几张卡组成，点标签直接跳到对应卡片</span></div>
+      <div class="rm-steps">
+        <div class="rm-step">
+          <div class="rm-no">1</div>
+          <div class="rm-body">
+            <div class="rm-name">做一个返回 JSON 的接口</div>
+            <div class="rm-goal">从收到请求到返回数据，跑通第一条链路</div>
+            <div class="rm-cards">
+              <button type="button" class="rm-chip" data-card="RESTful">RESTful</button>
+              <button type="button" class="rm-chip" data-card="OpenAPI">OpenAPI</button>
+              <button type="button" class="rm-chip" data-card="FastAPI">FastAPI</button>
+              <button type="button" class="rm-chip" data-card="错误处理">错误处理</button>
+            </div>
+          </div>
+        </div>
+        <div class="rm-step">
+          <div class="rm-no">2</div>
+          <div class="rm-body">
+            <div class="rm-name">数据存起来</div>
+            <div class="rm-goal">连上数据库，能增删改查，列表能分页</div>
+            <div class="rm-cards">
+              <button type="button" class="rm-chip" data-card="SQLite">SQLite</button>
+              <button type="button" class="rm-chip" data-card="ORM 对象映射">ORM</button>
+              <button type="button" class="rm-chip" data-card="迁移 Migration">迁移</button>
+              <button type="button" class="rm-chip" data-card="索引 Index">索引</button>
+              <button type="button" class="rm-chip" data-card="分页 Pagination">分页</button>
+            </div>
+          </div>
+        </div>
+        <div class="rm-step">
+          <div class="rm-no">3</div>
+          <div class="rm-body">
+            <div class="rm-name">让人登录</div>
+            <div class="rm-goal">注册登录，接口能鉴权，别人越权不了</div>
+            <div class="rm-cards">
+              <button type="button" class="rm-chip" data-card="JWT">JWT</button>
+              <button type="button" class="rm-chip" data-card="密码哈希">密码哈希</button>
+              <button type="button" class="rm-chip" data-card="中间件 Middleware">中间件</button>
+              <button type="button" class="rm-chip" data-card="CORS">CORS</button>
+            </div>
+          </div>
+        </div>
+        <div class="rm-step">
+          <div class="rm-no">4</div>
+          <div class="rm-body">
+            <div class="rm-name">上传文件</div>
+            <div class="rm-goal">前端选文件，后端接住存 OSS，返回 URL</div>
+            <div class="rm-cards">
+              <button type="button" class="rm-chip" data-card="文件上传">文件上传</button>
+              <button type="button" class="rm-chip" data-card="对象存储 OSS/S3">OSS</button>
+              <button type="button" class="rm-chip" data-card="环境变量">环境变量</button>
+            </div>
+          </div>
+        </div>
+        <div class="rm-step">
+          <div class="rm-no">5</div>
+          <div class="rm-body">
+            <div class="rm-name">做 AI 对话</div>
+            <div class="rm-goal">AI 回复逐字蹦，重活丢后台不卡界面</div>
+            <div class="rm-cards">
+              <button type="button" class="rm-chip" data-card="SSE">SSE</button>
+              <button type="button" class="rm-chip" data-card="Celery">Celery</button>
+              <button type="button" class="rm-chip" data-card="Redis">Redis</button>
+              <button type="button" class="rm-chip" data-card="环境变量">环境变量</button>
+            </div>
+          </div>
+        </div>
+        <div class="rm-step">
+          <div class="rm-no">6</div>
+          <div class="rm-body">
+            <div class="rm-name">上线</div>
+            <div class="rm-goal">把服务跑在公网上，别人能访问</div>
+            <div class="rm-cards">
+              <button type="button" class="rm-chip" data-card="Docker">Docker</button>
+              <button type="button" class="rm-chip" data-card="Nginx">Nginx</button>
+              <button type="button" class="rm-chip" data-card="HTTPS">HTTPS</button>
+              <button type="button" class="rm-chip" data-card="日志 Logging">日志</button>
+              <button type="button" class="rm-chip" data-card="CI/CD">CI/CD</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="demos">
+
+      <div class="demo full" id="loopback">
+        <div class="demo-head"><span class="d-name">前后端联调预演</span><span class="d-en">/ 一次请求的完整旅程（报文前端生成）</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+              <div>
+                <label class="label" for="lbCity">城市</label>
+                <input class="input" id="lbCity" type="text" value="杭州" style="width:120px;">
+              </div>
+              <div>
+                <label class="label" for="lbDays">天数</label>
+                <input class="input" id="lbDays" type="text" value="3" inputmode="numeric" style="width:80px;">
+              </div>
+              <div>
+                <label class="label" for="lbBudget">预算</label>
+                <input class="input" id="lbBudget" type="text" value="4000" inputmode="numeric" style="width:100px;">
+              </div>
+              <button class="btn btn-primary" type="button" id="lbBtn">生成行程（模拟）</button>
+            </div>
+            <div class="steps" id="lbSteps" style="width:100%;">
+              <div class="step" data-step="0"><span class="dot">1</span><span class="st-label">表单收集</span></div>
+              <div class="step" data-step="1"><span class="dot">2</span><span class="st-label">POST 请求</span></div>
+              <div class="step" data-step="2"><span class="dot">3</span><span class="st-label">Pydantic 校验</span></div>
+              <div class="step" data-step="3"><span class="dot">4</span><span class="st-label">JWT 鉴权</span></div>
+              <div class="step" data-step="4"><span class="dot">5</span><span class="st-label">入库 SQLite</span></div>
+              <div class="step" data-step="5"><span class="dot">6</span><span class="st-label">返回结果</span></div>
+            </div>
+            <div class="api-res" id="lbRes" style="min-height:56px;">点「生成行程」看一次完整链路预演：前端表单 → 请求 → 校验 → 鉴权 → 入库 → 响应，每一步的报文都展示在这里。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">联调预演 = 先看一次请求的完整旅程：下面每个 demo（校验、鉴权、入库、限流）都是这条链路上的一环。真实项目里，前端发的每个请求都走这条链路；哪一步 4xx/5xx，顺着链路排查而不是瞎猜。这里的报文由前端生成，真实项目要看浏览器 Network 面板里的那一份。</span><br><span class="eg">"把表单提交串成完整链路：校验 → 请求 → 错误分支 → loading → 结果页"</span></div>
+      </div>
 
       <div class="demo full" id="pyd">
         <div class="demo-head"><span class="d-name">FastAPI + Pydantic 数据校验</span><span class="d-en">/ 类型安全的入口</span></div>
@@ -1864,6 +2177,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-head"><span class="d-name">HTTP 请求解剖</span><span class="d-en">/ 一次请求长什么样</span></div>
         <div class="demo-stage center">
           <div class="http-demo">
+            <div class="api-intro">
+              <b>一句话看懂接口：</b>接口是你和后端约好的暗号，由三件事拼成——<b>路径</b>说「找什么」，<b>方法</b>说「做什么」，<b>参数</b>说「怎么筛」。<br>
+              <b>参数该放哪？</b>指明「哪一个」放路径（<span style="font-family:var(--mono);">/plan/PL-8842</span>）；筛选排序放查询串（<span style="font-family:var(--mono);">?city=hangzhou</span>）；要提交的数据放请求体。
+            </div>
             <div class="http-ctrls" id="httpMethodRow">
               <span style="font-size:12px;color:var(--ink-3);">换个方法，看请求怎么变：</span>
               <button class="btn btn-outline btn-sm" type="button" data-method="GET">GET</button>
@@ -1871,6 +2188,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
               <button class="btn btn-outline btn-sm" type="button" data-method="PUT">PUT</button>
               <button class="btn btn-outline btn-sm" type="button" data-method="DELETE">DELETE</button>
             </div>
+            <div class="api-map" id="apiPathMap"></div>
             <div class="http-box" id="httpBox">
               <div class="h-line reqline" data-part="0">POST /api/plan/generate HTTP/1.1</div>
               <div class="h-line headers" data-part="1">Host: api.zhilv.com
@@ -1919,7 +2237,7 @@ Accept: application/json</div>
             <div class="api-row rest-row" data-rest="2" style="cursor:pointer;align-items:flex-start;">
               <span class="api-method get">GET</span>
               <div style="flex:1;min-width:0;">
-                <div style="font-family:var(--mono);font-size:12.5px;word-break:break-all;">/api/poi/search?q=西湖&amp;tag=长辈友好</div>
+                <div style="font-family:var(--mono);font-size:12.5px;word-break:break-all;">/api/pois?q=西湖&amp;tag=长辈友好</div>
                 <div style="font-size:11.5px;color:var(--ink-3);margin-top:2px;">搜索过滤 → 条件放查询串</div>
               </div>
             </div>
@@ -2018,8 +2336,9 @@ Accept: application/json</div>
             <div class="tx-btns">
               <button class="btn btn-primary btn-sm" type="button" id="txOk">正常转账（都成功）</button>
               <button class="btn btn-outline btn-sm" type="button" id="txFail">B 加钱失败（回滚）</button>
+              <button class="btn btn-outline btn-sm" type="button" id="txReset">重置余额</button>
             </div>
-            <div class="tx-status" id="txStatus">A 扣 30 成功、B 加 30 也成功 → 提交，两边都变。</div>
+            <div class="tx-status" id="txStatus">点上面两个按钮对比：一个两边一起变，一个中途失败、整笔取消。</div>
           </div>
         </div>
         <div class="demo-exp"><span class="plain">正常：A 扣钱、B 加钱都成功，一起提交。失败：A 扣了但 B 加不了，事务回滚——A 自动加回来，两边都没变。这就是原子性。</span><br><span class="eg">"转账和扣库存放同一个事务，任何一步失败全部回滚"</span></div>
@@ -2070,6 +2389,11 @@ Accept: application/json</div>
               <button class="btn btn-primary" type="button" id="jwtBtn">登录</button>
             </div>
             <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
+            <div class="jwt-form" style="margin-top:2px;">
+              <button class="btn btn-outline btn-sm" type="button" id="jwtDecode">看三截里到底是什么</button>
+              <button class="btn btn-outline btn-sm" type="button" id="jwtTamper">篡改 payload 再验一次</button>
+            </div>
+            <div class="jwt-token" id="jwtCheck" style="display:none;white-space:pre-wrap;"></div>
           </div>
         </div>
         <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
@@ -2084,40 +2408,7 @@ Accept: application/json</div>
             <div class="rl-status" id="rlStatus">剩余额度 10 / 10（每秒恢复）</div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS，防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
-      </div>
-
-      <div class="demo full" id="loopback">
-        <div class="demo-head"><span class="d-name">前后端联调预演</span><span class="d-en">/ 一次请求的完整旅程（报文前端生成）</span></div>
-        <div class="demo-stage">
-          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
-            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
-              <div>
-                <label class="label" for="lbCity">城市</label>
-                <input class="input" id="lbCity" type="text" value="杭州" style="width:120px;">
-              </div>
-              <div>
-                <label class="label" for="lbDays">天数</label>
-                <input class="input" id="lbDays" type="text" value="3" inputmode="numeric" style="width:80px;">
-              </div>
-              <div>
-                <label class="label" for="lbBudget">预算</label>
-                <input class="input" id="lbBudget" type="text" value="4000" inputmode="numeric" style="width:100px;">
-              </div>
-              <button class="btn btn-primary" type="button" id="lbBtn">生成行程（模拟）</button>
-            </div>
-            <div class="steps" id="lbSteps" style="width:100%;">
-              <div class="step" data-step="0"><span class="dot">1</span><span class="st-label">表单收集</span></div>
-              <div class="step" data-step="1"><span class="dot">2</span><span class="st-label">POST 请求</span></div>
-              <div class="step" data-step="2"><span class="dot">3</span><span class="st-label">Pydantic 校验</span></div>
-              <div class="step" data-step="3"><span class="dot">4</span><span class="st-label">JWT 鉴权</span></div>
-              <div class="step" data-step="4"><span class="dot">5</span><span class="st-label">入库 SQLite</span></div>
-              <div class="step" data-step="5"><span class="dot">6</span><span class="st-label">返回结果</span></div>
-            </div>
-            <div class="api-res" id="lbRes" style="min-height:56px;">点「生成行程」看一次完整链路预演：前端表单 → 请求 → 校验 → 鉴权 → 入库 → 响应，每一步的报文都展示在这里。</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">联调预演 = 把前面的组件和后端概念串成一条线。真实项目里，前端发的每个请求都走这条链路；哪一步 4xx/5xx，顺着链路排查而不是瞎猜。这里的报文由前端生成，真实项目要看浏览器 Network 面板里的那一份。</span><br><span class="eg">"把表单提交串成完整链路：校验 → 请求 → 错误分支 → loading → 结果页"</span></div>
+        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS（每秒请求数），防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
       </div>
 
       <div class="demo full" id="rag">
@@ -2146,7 +2437,7 @@ Accept: application/json</div>
             </div>
           </div>
         </div>
-        <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25 抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
+        <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25（关键词匹配算法）抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
       </div>
 
       <div class="demo full" id="cicd">
@@ -2230,90 +2521,6 @@ Accept: application/json</div>
       <div class="demo full" id="techPanorama">
         <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
         <div class="demo-stage">
-          <div class="roadmap" id="roadmap">
-            <div class="rm-head"><span class="rm-title">初学者路线图</span><span class="rm-sub">每个任务包由几张卡组成，点标签直接跳到对应卡片</span></div>
-            <div class="rm-steps">
-              <div class="rm-step">
-                <div class="rm-no">1</div>
-                <div class="rm-body">
-                  <div class="rm-name">做一个返回 JSON 的接口</div>
-                  <div class="rm-goal">从收到请求到返回数据，跑通第一条链路</div>
-                  <div class="rm-cards">
-                    <button type="button" class="rm-chip" data-card="RESTful">RESTful</button>
-                    <button type="button" class="rm-chip" data-card="OpenAPI">OpenAPI</button>
-                    <button type="button" class="rm-chip" data-card="FastAPI">FastAPI</button>
-                    <button type="button" class="rm-chip" data-card="错误处理">错误处理</button>
-                  </div>
-                </div>
-              </div>
-              <div class="rm-step">
-                <div class="rm-no">2</div>
-                <div class="rm-body">
-                  <div class="rm-name">数据存起来</div>
-                  <div class="rm-goal">连上数据库，能增删改查，列表能分页</div>
-                  <div class="rm-cards">
-                    <button type="button" class="rm-chip" data-card="SQLite">SQLite</button>
-                    <button type="button" class="rm-chip" data-card="ORM 对象映射">ORM</button>
-                    <button type="button" class="rm-chip" data-card="迁移 Migration">迁移</button>
-                    <button type="button" class="rm-chip" data-card="索引 Index">索引</button>
-                    <button type="button" class="rm-chip" data-card="分页 Pagination">分页</button>
-                  </div>
-                </div>
-              </div>
-              <div class="rm-step">
-                <div class="rm-no">3</div>
-                <div class="rm-body">
-                  <div class="rm-name">让人登录</div>
-                  <div class="rm-goal">注册登录，接口能鉴权，别人越权不了</div>
-                  <div class="rm-cards">
-                    <button type="button" class="rm-chip" data-card="JWT">JWT</button>
-                    <button type="button" class="rm-chip" data-card="密码哈希">密码哈希</button>
-                    <button type="button" class="rm-chip" data-card="中间件 Middleware">中间件</button>
-                    <button type="button" class="rm-chip" data-card="CORS">CORS</button>
-                  </div>
-                </div>
-              </div>
-              <div class="rm-step">
-                <div class="rm-no">4</div>
-                <div class="rm-body">
-                  <div class="rm-name">上传文件</div>
-                  <div class="rm-goal">前端选文件，后端接住存 OSS，返回 URL</div>
-                  <div class="rm-cards">
-                    <button type="button" class="rm-chip" data-card="文件上传">文件上传</button>
-                    <button type="button" class="rm-chip" data-card="对象存储 OSS/S3">OSS</button>
-                    <button type="button" class="rm-chip" data-card="环境变量">环境变量</button>
-                  </div>
-                </div>
-              </div>
-              <div class="rm-step">
-                <div class="rm-no">5</div>
-                <div class="rm-body">
-                  <div class="rm-name">做 AI 对话</div>
-                  <div class="rm-goal">AI 回复逐字蹦，重活丢后台不卡界面</div>
-                  <div class="rm-cards">
-                    <button type="button" class="rm-chip" data-card="SSE">SSE</button>
-                    <button type="button" class="rm-chip" data-card="Celery">Celery</button>
-                    <button type="button" class="rm-chip" data-card="Redis">Redis</button>
-                    <button type="button" class="rm-chip" data-card="环境变量">环境变量</button>
-                  </div>
-                </div>
-              </div>
-              <div class="rm-step">
-                <div class="rm-no">6</div>
-                <div class="rm-body">
-                  <div class="rm-name">上线</div>
-                  <div class="rm-goal">把服务跑在公网上，别人能访问</div>
-                  <div class="rm-cards">
-                    <button type="button" class="rm-chip" data-card="Docker">Docker</button>
-                    <button type="button" class="rm-chip" data-card="Nginx">Nginx</button>
-                    <button type="button" class="rm-chip" data-card="HTTPS">HTTPS</button>
-                    <button type="button" class="rm-chip" data-card="日志 Logging">日志</button>
-                    <button type="button" class="rm-chip" data-card="CI/CD">CI/CD</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="tech-toolbar" id="techToolbar">
             <input class="tech-search" id="techSearch" type="search" placeholder="搜索技术卡：如 缓存 / 鉴权 / 部署" aria-label="搜索技术卡">
             <div class="tech-chips" id="techChips">
@@ -2330,7 +2537,7 @@ Accept: application/json</div>
           <div id="techGroups"></div>
           <div class="tech-empty" id="techEmpty" hidden>没有匹配的技术卡，换个关键词试试</div>
         </div>
-        <div class="demo-exp"><span class="plain">把 Web 后端的技术按七类铺开：接口通信、框架选型、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」，全展开就是一份完整词汇表。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选谁、数据放哪、登录怎么做、安全怎么防、怎么上线扛住、后台任务怎么跑"</span></div>
+        <div class="demo-exp"><span class="plain">把 Web 后端的技术按七类铺开：接口通信、框架选型、数据存储、认证授权、安全防护、部署运维、异步任务。上面演示讲过的术语，这里只留一行索引、点它跳回演示；其余每张卡点开是「在哪用 + 怎么跟 AI 说」。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选谁、数据放哪、登录怎么做、安全怎么防、怎么上线扛住、后台任务怎么跑"</span></div>
       </div>
 
     </div>
@@ -3452,13 +3659,13 @@ var restApis = [
     res: 'HTTP/1.1 200 OK · 17ms\nContent-Type: application/json\n\n{\n  "city": "杭州",\n  "weather": "多云 24°C",\n  "topPois": ["西湖", "灵隐寺", "千岛湖"]\n}'
   },
   {
-    why: 'POST = 创建/提交。行程不是现成资源、要现算，所以把 days/budget 这些参数放请求体 JSON，由服务器生成后返回 planId。用 POST 而不是 GET，因为参数多、且每次结果可能不同。',
+    why: 'POST = 创建/提交。行程不是现成资源、要现算，所以把 days/budget 这些参数放请求体 JSON，由服务器生成后返回 planId。用 POST 而不是 GET，因为参数多、且每次结果可能不同。<b>注意路径里的 generate：</b>这叫「动作型接口」，实践中很常见；严格按 REST 会写成 POST /api/plans。两种都能用，知道区别就行。',
     req: 'POST /api/plan/generate HTTP/1.1\nHost: api.trip.demo\nAuthorization: Bearer <token>\nContent-Type: application/json\n\n{\n  "city": "杭州",\n  "days": 3,\n  "budget": 4000\n}',
     res: 'HTTP/1.1 200 OK · 412ms\nContent-Type: application/json\n\n{\n  "planId": "PL-8842",\n  "days": [\n    { "day": 1, "title": "西湖环线", "pois": ["断桥", "苏堤"] }\n  ],\n  "costEstimate": 3260\n}'
   },
   {
     why: '同样是 GET，但这次是「搜索」：资源还是名词 poi，?后面的 q、tag 是筛选条件。查询参数不创建新资源，所以用 GET；URL 里带 query 也方便收藏、分享、浏览器缓存。',
-    req: 'GET /api/poi/search?q=%E8%A5%BF%E6%B9%96&tag=%E9%95%BF%E8%BE%88%E5%8F%8B%E5%A5%BD HTTP/1.1\nHost: api.trip.demo',
+    req: 'GET /api/pois?q=%E8%A5%BF%E6%B9%96&tag=%E9%95%BF%E8%BE%88%E5%8F%8B%E5%A5%BD HTTP/1.1\nHost: api.trip.demo',
     res: 'HTTP/1.1 200 OK · 23ms\nContent-Type: application/json\n\n{\n  "results": [\n    { "name": "西湖风景名胜区", "distance": "1.2km", "tags": ["长辈友好","免费"] },\n    { "name": "苏堤春晓", "distance": "1.8km", "tags": ["步行轻松"] }\n  ]\n}'
   }
 ];
@@ -3644,6 +3851,7 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
       return btoa(unescape(encodeURIComponent(str))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
     }catch(e){ return ''; }
   }
+  var lastParts = null;
   jwtBtn.addEventListener('click', function(){
     var user = jwtUser.value.trim() || 'zhilv_user';
     var now = Math.floor(Date.now() / 1000);
@@ -3674,6 +3882,48 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
     tip.textContent = '三截 = header(算法).payload(身份+过期).signature(防伪章)';
     jwtToken.appendChild(tip);
     labToast('登录成功，JWT 已签发（演示）', 'ok');
+    lastParts = { header: header, payload: payload, user: user };
+  });
+  /* ⑤ 看见它发生：拆开三截看里面 / 篡改 payload 试试 */
+  var jwtDecode = document.getElementById('jwtDecode');
+  var jwtTamper = document.getElementById('jwtTamper');
+  var jwtCheck = document.getElementById('jwtCheck');
+  function fromB64url(str){
+    try{
+      return decodeURIComponent(escape(atob(str.replace(/-/g, '+').replace(/_/g, '/'))));
+    }catch(e){ return '(解不开)'; }
+  }
+  function writeCheck(lines){
+    if(!jwtCheck) return;
+    jwtCheck.style.display = 'block';
+    jwtCheck.textContent = lines.join('\n');
+  }
+  if(jwtDecode) jwtDecode.addEventListener('click', function(){
+    if(!lastParts){ writeCheck(['先点上面的「登录」，拿到 token 再拆。']); return; }
+    writeCheck([
+      '第 1 截 header 原文：' + fromB64url(lastParts.header),
+      '   ↑ 只说明用什么算法签的（alg: HS256）',
+      '第 2 截 payload 原文：' + fromB64url(lastParts.payload),
+      '   ↑ 你是谁、什么角色、什么时候过期',
+      '第 3 截 signature：服务器用自己的密钥算出来的一段',
+      '   ↑ 只拿来验对错，不告诉任何人密钥是什么',
+      '',
+      '关键：payload 只是 Base64 编码，不是加密 —— 谁都能解开看。',
+      '所以密码、身份证这类东西不能放进去。'
+    ]);
+  });
+  if(jwtTamper) jwtTamper.addEventListener('click', function(){
+    if(!lastParts){ writeCheck(['先点上面的「登录」，拿到 token 再试。']); return; }
+    writeCheck([
+      '把 payload 里的 role 从 user 改成 admin，再发给服务器：',
+      '',
+      '  payload   →  { "sub": "' + lastParts.user + '", "role": "admin", ... }',
+      '  signature →  还是原来那一串（客户端算不出新的）',
+      '  服务器    →  用自己的密钥重算签名，和收到的对不上',
+      '  结果      →  401 Unauthorized，请求被拒',
+      '',
+      '结论：payload 看得见、但改不了 —— 真正保护你的是「改了就验不过」，不是「看不懂」。'
+    ]);
   });
 }
 
@@ -3735,18 +3985,23 @@ if(jwtUser && jwtPass && jwtBtn && jwtToken){
     aEl.textContent = '¥' + a;
     bEl.textContent = '¥' + b;
   }
+  var rl = document.getElementById('txReset');
   ok.addEventListener('click', function(){
     a -= 30; b += 30; show();
-    st.textContent = 'A 扣 30 成功、B 加 30 也成功 → 提交，两边都变。';
+    st.textContent = '① A 扣 30 ✓ → ② B 加 30 ✓ → 一起提交，两边都变。';
   });
   fail.addEventListener('click', function(){
     var oldA = a, oldB = b;
     a -= 30; show();
-    st.textContent = 'A 扣了 30，但 B 加钱失败 → 回滚！';
+    st.textContent = '① A 扣 30 ✓（余额先变成 ¥' + a + '）→ ② B 加钱 ✗ 出错 → 触发回滚…';
     setTimeout(function(){
       a = oldA; b = oldB; show();
-      st.textContent = '回滚完成：A 自动加回来，两边都没变（原子性）。';
+      st.textContent = '回滚完成：A 的钱自动加回来 → 两边都和转账前一模一样（这就是原子性）。';
     }, 900);
+  });
+  if(rl) rl.addEventListener('click', function(){
+    a = 100; b = 50; show();
+    st.textContent = '已重置：A ¥100、B ¥50，可以再跑一遍。';
   });
 })();
 
@@ -3984,7 +4239,7 @@ if(secTabs){
 /* HTTP 请求解剖 */
 var httpParts = [
   { t: '请求行', d: '第一行是「需求单」：开头的方法说明要做什么（GET 读、POST 建、PUT 改、DELETE 删），中间是路径，末尾是协议版本。读它就知道客户端要做什么。' },
-  { t: '请求头', d: '附加信息键值对：Host 告诉服务器去哪个域名，Authorization 带登录凭证，Content-Type 声明请求体是 JSON，Accept 声明「我要 JSON 格式」。' },
+  { t: '请求头', d: '附加信息键值对：Host 告诉服务器去哪个域名，Authorization 带登录凭证，Content-Type 声明请求体是 JSON（一种键值对的数据格式），Accept 声明「我要 JSON 格式」。' },
   { t: '请求体', d: '要传给服务器的数据本体（GET 通常没有）。这里是行程生成的参数 JSON，POST/PUT 才有。' }
 ];
 var httpBox = document.getElementById('httpBox');
@@ -4003,20 +4258,74 @@ if(httpBox && httpExpl){
   httpCtrls.forEach(function(b){
     b.addEventListener('click', function(){ setHttpPart(parseInt(b.getAttribute('data-part'), 10)); });
   });
-  /* 换方法：请求行、请求体、语义说明一起变 */
+  /* 换方法：请求行、请求体、路径拆解、语义说明一起变（路径由分段拼出，单一来源） */
   var httpMethods = {
-    GET: { path: '/api/poi/search?city=hangzhou', body: '（本次没有请求体 —— 查询条件都在上面的路径里）', note: 'GET 是「读」：条件放查询串，不带请求体。幂等——查十次和查一次结果一样。' },
-    POST: { path: '/api/plan/generate', body: '{ "days": 3, "budget": 4000, "travelers": 2 }', note: 'POST 是「新建」：参数放请求体，服务端生成一条新记录。重复提交要配幂等键。' },
-    PUT: { path: '/api/plan/1024', body: '{ "days": 5, "budget": 6000, "travelers": 2 }', note: 'PUT 是「整体替换」：路径里写明改哪个资源，请求体给完整的新值。' },
-    DELETE: { path: '/api/plan/1024', body: '（本次没有请求体 —— 删谁由上面的路径决定）', note: 'DELETE 是「删除」：路径指定删哪个资源，通常不带请求体。危险操作要二次确认。' }
+    GET: {
+      body: '（本次没有请求体 —— 查询条件都在上面的路径里）',
+      note: 'GET 是「读」：条件放查询串，不带请求体。幂等——查十次和查一次结果一样。',
+      segs: [
+        ['/api', '接口前缀：所有后端接口都挂在这个门牌下'],
+        ['/pois', '资源：poi 是 POI（Point of Interest）的缩写，就是「景点」'],
+        ['?city=hangzhou', '筛选条件：只要杭州的。筛选不改数据，所以放查询串、用 GET']
+      ]
+    },
+    POST: {
+      body: '{ "city": "杭州", "days": 3, "budget": 4000 }',
+      note: 'POST 是「新建」：要提交的数据放请求体，服务端生成一条新记录并返回它的编号。',
+      segs: [
+        ['/api', '接口前缀'],
+        ['/plan', '资源：行程'],
+        ['/generate', '动作：生成一份新行程。这叫「动作型接口」，实践中很常见；严格 REST 会写成 POST /api/plans']
+      ]
+    },
+    PUT: {
+      body: '{ "days": 5, "budget": 6000, "travelers": 2 }',
+      note: 'PUT 是「整体替换」：路径里指明改哪一条，请求体给完整的新值。',
+      segs: [
+        ['/api', '接口前缀'],
+        ['/plan', '资源：行程'],
+        ['/PL-8842', '资源编号：就是 POST 生成时返回的 planId，指「这一条」行程']
+      ]
+    },
+    DELETE: {
+      body: '（本次没有请求体 —— 删哪一条由上面的路径决定）',
+      note: 'DELETE 是「删除」：路径指定删哪一条，通常不带请求体。危险操作要二次确认。',
+      segs: [
+        ['/api', '接口前缀'],
+        ['/plan', '资源：行程'],
+        ['/PL-8842', '资源编号：和 PUT 是同一个资源，只是动作不同——这就是 REST 的核心']
+      ]
+    }
   };
+  var apiPathMap = document.getElementById('apiPathMap');
   var httpMethodBtns = document.querySelectorAll('#httpMethodRow [data-method]');
+  function renderPathMap(conf){
+    if(!apiPathMap) return;
+    apiPathMap.innerHTML = '';
+    var hint = document.createElement('span');
+    hint.className = 'api-hint';
+    hint.textContent = '点路径的任意一段，看它是什么：';
+    apiPathMap.appendChild(hint);
+    conf.segs.forEach(function(seg){
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'api-seg';
+      chip.textContent = seg[0];
+      chip.addEventListener('click', function(){
+        apiPathMap.querySelectorAll('.api-seg').forEach(function(c){ c.classList.remove('on'); });
+        chip.classList.add('on');
+        httpExpl.innerHTML = '<b style="color:var(--brand);">' + seg[0] + '</b> —— ' + seg[1];
+      });
+      apiPathMap.appendChild(chip);
+    });
+  }
   function setHttpMethod(name){
     var conf = httpMethods[name];
     if(!conf) return;
+    var path = conf.segs.map(function(seg){ return seg[0]; }).join('');
     var reqLine = httpBox.querySelector('.h-line.reqline');
     var bodyLine = httpBox.querySelector('.h-line.body');
-    if(reqLine) reqLine.textContent = name + ' ' + conf.path + ' HTTP/1.1';
+    if(reqLine) reqLine.textContent = name + ' ' + path + ' HTTP/1.1';
     if(bodyLine) bodyLine.textContent = conf.body;
     httpMethodBtns.forEach(function(b){
       var on = b.getAttribute('data-method') === name;
@@ -4024,7 +4333,8 @@ if(httpBox && httpExpl){
       b.style.borderColor = on ? 'var(--brand)' : 'var(--line)';
       b.style.color = on ? 'var(--brand)' : 'var(--ink-2)';
     });
-    httpExpl.innerHTML = '<b style="color:var(--brand);">' + name + ' ' + conf.path + '</b> —— ' + conf.note;
+    renderPathMap(conf);
+    httpExpl.innerHTML = '<b style="color:var(--brand);">' + name + ' ' + path + '</b> —— ' + conf.note;
   }
   httpMethodBtns.forEach(function(b){
     b.addEventListener('click', function(){ setHttpMethod(b.getAttribute('data-method')); });
@@ -4052,16 +4362,16 @@ if(httpSc && scEx){
 
 /* 后端技术栈全景（六组卡片） */
 var techGroups = [
-  { tag: '01', name: '接口与通信', desc: '前端怎么跟后端说话', items: [
-    {demo:'rest', name:'RESTful', tag:'URL 写名词，方法表动作', use:'GET /cities 查城市、POST /plans 建行程，URL 只写资源名。', more:'<b>在哪用：</b>毕设全套接口：GET 查攻略、POST 生成行程。<b>对比：</b>REST 接口固定、简单直接；GraphQL 前端自选字段但后端更复杂。', eg:'"接口按 RESTful 设计，路径写资源名"' },
-    {name:'OpenAPI', tag:'接口文档标准', use:'一份 YAML 生成文档 + SDK。', more:'<b>在哪用：</b>FastAPI 的 /docs 就是它；前端照着文档联调，不用口头问。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' },
+  { tag: '01', name: '接口与通信', desc: '前端怎么跟后端说话', lead: '串成一条线：前端发请求 → 后端定规矩（REST）→ 约好字段格式（OpenAPI）→ 出错怎么回 → 需不需要实时推。', items: [
+    {idx:true, demo:'rest', name:'RESTful', tag:'URL 写名词，方法表动作', use:'GET /cities 查城市、POST /plans 建行程，URL 只写资源名。', more:'<b>在哪用：</b>毕设全套接口：GET 查攻略、POST 生成行程。<b>对比：</b>REST 接口固定、简单直接；GraphQL 前端自选字段但后端更复杂。', eg:'"接口按 RESTful 设计，路径写资源名"' },
+    {name:'OpenAPI', tag:'接口文档标准', use:'一份配置文件（YAML）生成文档 + 调用工具包（SDK）。', more:'<b>在哪用：</b>FastAPI 的 /docs 就是它；前端照着文档联调，不用口头问。', eg:'"接口写好 OpenAPI 文档，前端照着对接"' },
     {demo:'loopback', name:'错误处理', tag:'接口报错返回什么', use:'统一错误格式，别裸抛异常。', more:'<b>在哪用：</b>业务错误返回 {code, message} + 对应 HTTP 状态码（400 参数错、401 未登录、403 没权限、404 找不到、500 服务器炸了）；别把 Python traceback 直接返给前端。', eg:'"接口错误统一返回 {code, message}，别直接抛异常"' },
     {name:'WebSocket', tag:'实时双向长连接', use:'服务器和浏览器互相发消息。', adv:true, more:'<b>在哪用：</b>聊天、协同编辑、实时通知、行程变更推送。<b>对比：</b>要双向就 WebSocket；只服务器推用 SSE。', eg:'"用 WebSocket 做实时消息推送"' },
     {name:'SSE', tag:'服务器单向推送', use:'服务器→浏览器单向推，AI 回复逐字蹦用它。', adv:true, more:'<b>在哪用：</b>AI 回复逐字蹦、通知气泡、实时比分。<b>对比：</b>SSE 只能服务器推、够简单；要双向聊天就上 WebSocket。', eg:'"用 SSE 单向推送消息，不用 WebSocket"' },
-    {name:'进阶通信协议', tag:'GraphQL / gRPC', use:'GraphQL 前端自选字段，gRPC 服务间二进制快。', adv:true, more:'<b>在哪用：</b>GraphQL 适合前端字段差异大的场景；gRPC 只在服务间调用（浏览器用不了）。初学先不用。', eg:'"前端字段差异大用 GraphQL，服务间调用用 gRPC"' }
+    {name:'进阶通信协议', tag:'一个让前端挑字段，一个让服务间跑更快', use:'GraphQL（前端自己挑要哪些字段的查询语言）；gRPC（服务之间二进制高速调用，浏览器里用不了）。初学先不用。', adv:true, more:'<b>在哪用：</b>GraphQL 适合前端字段差异大的场景；gRPC 只在服务间调用（浏览器用不了）。初学先不用。', eg:'"前端字段差异大用 GraphQL，服务间调用用 gRPC"' }
   ]},
-  { tag: '02', name: '框架与语言', desc: '选一个框架 + 代码怎么组织', items: [
-    {demo:'pyd', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>在哪用：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
+  { tag: '02', name: '框架与语言', desc: '选一个框架 + 代码怎么组织', lead: '串成一条线：挑个框架 → 请求进来先过中间件 → 按层写代码 → 参数和业务各管一段。', items: [
+    {idx:true, demo:'pyd', name:'FastAPI', tag:'Python 异步框架', use:'类型校验 + 自动文档 + 高性能。', more:'<b>在哪用：</b>毕设主框架，所有接口从它出，访问 /docs 就有 Swagger 文档。', eg:'"后端用 FastAPI，接口都带 Pydantic 模型"' },
     {name:'Flask', tag:'Python 轻量框架', use:'简单灵活，一个文件能起服务。', more:'<b>在哪用：</b>小工具、API 原型、个人项目首选，想加什么自己拼。', eg:'"用 Flask 写个轻量 API，别引入太多东西"' },
     {name:'Django', tag:'Python 全家桶', use:'Admin、ORM、鉴权开箱即用。', adv:true, more:'<b>在哪用：</b>内容型网站、管理后台，自带后台界面省一半工作量。', eg:'"用 Django 全家桶，后台管理界面白送"' },
     {name:'Spring Boot', tag:'Java 企业标配', use:'Java 后端事实标准，金融/电商/大厂用它。', adv:true, more:'<b>在哪用：</b>企业级系统；和 FastAPI 比：FastAPI 开发快、Python 简洁，Spring Boot 生态重、适合大型团队。', eg:'"后端用 Spring Boot + Maven，按模块分包"' },
@@ -4073,43 +4383,43 @@ var techGroups = [
     {name:'MVC 分层', tag:'代码组织方式', use:'路由 / 业务 / 数据各司其职。', more:'<b>在哪用：</b>路由层接请求、Service 层写逻辑、Model 层管数据；别把数据库查询写在路由里。', eg:'"按 MVC 分层：路由、Service、Model 分开写"' },
     {name:'单体 vs 微服务', tag:'架构选型', use:'小项目先单体，大了再拆。', more:'<b>在哪用：</b>毕设就是单体（一个 FastAPI 应用）；上百万用户、多团队协作才值得微服务。', eg:'"先做单体架构上线，别一上来就微服务"' }
   ]},
-  { tag: '03', name: '数据与存储', desc: '数据放哪、怎么查得快', items: [
-    {demo:'sqlite', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>在哪用：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
-    {demo:'sqlite', name:'MySQL / PostgreSQL', tag:'最常用关系库', use:'互联网公司存业务数据的标配。', more:'<b>在哪用：</b>用户、订单、内容等业务数据首选。<b>区别：</b>MySQL 最主流、生态最成熟；PG 功能更强（JSON/地理/全文搜索）。初学用 MySQL 就够。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
+  { tag: '03', name: '数据与存储', desc: '数据放哪、怎么查得快', lead: '串成一条线：数据放哪个库 → 怎么查得快（索引）→ 怎么不出乱子（事务）→ 怎么扛住读（缓存）→ 文件往哪放。', items: [
+    {idx:true, demo:'sqlite', name:'SQLite', tag:'嵌入式关系库', use:'单文件零配置，开发期神器。', more:'<b>在哪用：</b>毕设开发期数据全存这；上线换 MySQL 业务代码不用动。', eg:'"开发期数据库用 SQLite，表按模型自动建"' },
+    {idx:true, demo:'sqlite', name:'MySQL / PostgreSQL', tag:'最常用关系库', use:'互联网公司存业务数据的标配。', more:'<b>在哪用：</b>用户、订单、内容等业务数据首选。<b>区别：</b>MySQL 最主流、生态最成熟；PG 功能更强（JSON/地理/全文搜索）。初学用 MySQL 就够。', eg:'"业务数据存 MySQL，建表时写清字段和索引"' },
     {name:'NoSQL / MongoDB', tag:'文档型数据库', use:'字段随意、天然 JSON。', adv:true, more:'<b>在哪用：</b>日志、评论、配置等结构灵活的数据；初学用不到，知道有这东西。', eg:'"结构灵活的数据用 MongoDB，文档模式"' },
-    {demo:'redis', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>在哪用：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
+    {idx:true, demo:'redis', name:'Redis', tag:'内存缓存数据库', use:'数据放内存，读写快到飞起。', more:'<b>在哪用：</b>验证码、热点数据、排行榜、登录态缓存；毕设可以拿它缓存攻略详情，并设个过期时间（TTL）到点自动失效。', eg:'"热点数据加 Redis 缓存，TTL 设 10 分钟"' },
     {name:'Elasticsearch', tag:'全文搜索引擎', use:'海量文本的模糊搜索秒出。', adv:true, more:'<b>在哪用：</b>站内搜索、日志检索；MySQL 的 LIKE 查不动大数据量时换它。', eg:'"搜索功能用 Elasticsearch，分词 + 高亮"' },
-    {demo:'index', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>在哪用：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
-    {demo:'txn', name:'事务 ACID', tag:'原子性 / 一致性', use:'要么全成功，要么全回滚。', more:'<b>在哪用：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
+    {idx:true, demo:'index', name:'索引 Index', tag:'查询加速', use:'像书的目录，空间换时间。', more:'<b>在哪用：</b>查景点按城市过滤慢？给 city 字段加索引，秒级变毫秒级。', eg:'"给常用查询条件加索引，避免全表扫描"' },
+    {idx:true, demo:'txn', name:'事务 ACID', tag:'要么全成，要么全没', use:'转账：扣钱和加钱必须一起成功。这四个性质的缩写就是 ACID。', more:'<b>在哪用：</b>下单扣库存必须同生共死，不能扣了钱库存没减。', eg:'"下单和扣库存放同一个事务里"' },
     {name:'ORM 对象映射', tag:'不写裸 SQL', use:'用编程语言对象操作表。', more:'<b>在哪用：</b>SQLAlchemy / Prisma 都是 ORM：定义 User/Itinerary 三个类，增删改查都是对象方法。', eg:'"用 ORM 建表和查询，别写裸 SQL 字符串"' },
     {name:'迁移 Migration', tag:'表结构版本化', use:'改表结构像 git 一样可回溯。', more:'<b>在哪用：</b>加字段、改类型都走迁移文件，团队升级不会互相踩。', eg:'"模型改了跑数据库迁移，别手改表结构"' },
     {name:'对象存储 OSS/S3', tag:'文件放云上', use:'图片视频等大文件托管。', more:'<b>在哪用：</b>用户头像、攻略配图存 OSS，数据库只存 URL，服务器不用扛大文件。', eg:'"图片上传到 OSS，数据库只存 URL"' },
-    {name:'文件上传', tag:'multipart/form-data', use:'前端上传文件，后端接住存起来。', more:'<b>在哪用：</b>限制大小（10MB）、校验类型、存到 OSS 或本地；别把文件内容直接存数据库。', eg:'"文件上传接口限制大小和类型，存 OSS 返回 URL"' },
-    {demo:'bePagination', name:'分页 Pagination', tag:'列表接口怎么翻页', use:'列表太长不能一次全返。', more:'<b>在哪用：</b>offset/limit 最简单（第几页、每页几条）；数据深时用游标分页；前端 Table 分页组件直接对接。', eg:'"列表接口加分页参数 page/page_size，返回总数和数据"' },
+    {name:'文件上传', tag:'表单里夹带文件', use:'前端选好文件发给后端，后端接住存起来（传文件的格式叫 multipart/form-data）。', more:'<b>在哪用：</b>限制大小（10MB）、校验类型、存到 OSS 或本地；别把文件内容直接存数据库。', eg:'"文件上传接口限制大小和类型，存 OSS 返回 URL"' },
+    {idx:true, demo:'bePagination', name:'分页 Pagination', tag:'列表接口怎么翻页', use:'列表太长不能一次全返。', more:'<b>在哪用：</b>offset/limit 最简单（第几页、每页几条）；数据深时用游标分页；前端 Table 分页组件直接对接。', eg:'"列表接口加分页参数 page/page_size，返回总数和数据"' },
     {name:'缓存一致性', tag:'缓存和库怎么同步', use:'先删缓存还是先更库？', adv:true, more:'<b>在哪用：</b>更新数据时先删缓存再更库（别更完库忘删缓存）；删缓存失败要重试；热点数据加短 TTL 兜底。', eg:'"更新数据先删缓存再写库，缓存设短 TTL"' },
     {name:'连接池', tag:'复用数据库连接', use:'避免每次请求都重新握手。', adv:true, more:'<b>在哪用：</b>高并发下每个请求 new 连接会打爆数据库；框架默认都配好了，知道有这回事。', eg:'"数据库用连接池，别每次请求新建连接"' }
   ]},
-  { tag: '04', name: '认证授权', desc: '你是谁、能干什么', items: [
-    {demo:'jwt', name:'JWT', tag:'无状态令牌', use:'三截签名，验章不查库。', more:'<b>在哪用：</b>毕设登录返回 JWT，请求带 Authorization 头。<b>注意：</b>localStorage 怕 XSS，HttpOnly Cookie 更安全；要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
+  { tag: '04', name: '认证授权', desc: '你是谁、能干什么', lead: '串成一条线：注册时存密码哈希 → 登录发凭证 → 之后每次带上 → 服务器验一下 → 再查这条数据归不归你。', items: [
+    {idx:true, demo:'jwt', name:'JWT', tag:'一张带签名的入场券', use:'登录后发你一张，之后每次带上，服务器验下签名就放行——不用翻档案核实你，这叫无状态。', more:'<b>在哪用：</b>毕设登录返回 JWT，请求带 Authorization 头。<b>注意：</b>localStorage 怕 XSS，HttpOnly Cookie 更安全；要设计过期刷新与登出撤销。', eg:'"登录返回 JWT，前端存起来每次带上"' },
     {name:'Session & Cookie', tag:'服务端会话', use:'服务器记状态，发 cookie 给浏览器。', more:'<b>在哪用：</b>传统 Web 应用登录；服务端存 session，可强制下线。', eg:'"登录用 Session + Cookie，服务端管理会话"' },
     {name:'OAuth2 / OIDC', tag:'第三方授权登录', use:'「用微信登录」的底层协议。', adv:true, more:'<b>在哪用：</b>微信/GitHub 一键登录。OAuth2 管授权，OIDC 管认证（发 id_token）。', eg:'"接入 OAuth2 微信登录，用户免注册"' },
     {name:'RBAC', tag:'角色权限模型', use:'用户 → 角色 → 权限。', more:'<b>在哪用：</b>管理员能删数据、普通用户只能看；给角色挂权限，别给每个用户单独配。', eg:'"权限用 RBAC：用户绑角色，角色挂权限"' },
-    {name:'密码哈希', tag:'不存明文密码', use:'bcrypt / argon2 加盐哈希。', more:'<b>在哪用：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
-    {name:'令牌刷新与撤销', tag:'Refresh Token', use:'短命访问令牌 + 长命刷新令牌。', adv:true, more:'<b>在哪用：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出时把 refresh 拉黑。', eg:'"JWT 配 refresh token，登出能撤销"' },
+    {name:'密码哈希', tag:'不存明文密码', use:'bcrypt 这类算法加盐哈希——存进库的是乱码，解不回原密码。', more:'<b>在哪用：</b>所有登录系统必须做；数据库被拖库，密码也不能被还原。', eg:'"密码存 bcrypt 哈希，绝不存明文"' },
+    {name:'令牌刷新与撤销', tag:'短票 + 长票', use:'访问令牌短命、刷新令牌（Refresh Token）长命；登出时把它拉黑，就等于撤销了。', adv:true, more:'<b>在哪用：</b>Access Token 15 分钟过期，Refresh Token 换新的；登出时把 refresh 拉黑。', eg:'"JWT 配 refresh token，登出能撤销"' },
     {name:'对象级授权', tag:'防越权（IDOR）', use:'查「能不能动这条数据」。', adv:true, more:'<b>在哪用：</b>/api/plan/42 谁登录都能看就是漏洞——必须校验这条行程属于当前用户。', eg:'"接口按 user_id 过滤数据，防止水平越权"' }
   ]},
-  { tag: '05', name: '安全防护', desc: '怎么不被打', items: [
-    {name:'攻击防护', tag:'SQL 注入 / XSS / CSRF', use:'校验入参 + 转义输出 + CSRF Token。', more:'<b>在哪用：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' },
-    {demo:'cors', name:'CORS', tag:'跨域资源共享', use:'浏览器对不同域的安检规则。', more:'<b>在哪用：</b>前端 localhost:5173 调后端 8000 就是跨域，后端要显式允许来源；别图省事 allow_origins=["*"] 配 credentials。', eg:'"后端配 CORS，允许前端域名，带 credentials"' }
+  { tag: '05', name: '安全防护', desc: '怎么不被打', lead: '串成一条线：不相信任何输入 → 查询用参数化 → 输出做转义 → 跨域按白名单放行。', items: [
+    {name:'攻击防护', tag:'三类最常见攻击', use:'校验入参、转义输出、防伪造请求（CSRF Token）。', more:'<b>在哪用：</b>用 ORM 参数化防注入、前端渲染转义防 XSS、写操作用 Token 防跨站请求。', eg:'"接口做防注入、XSS 转义，写操作加 CSRF 防护"' },
+    {idx:true, demo:'cors', name:'CORS', tag:'跨域资源共享', use:'浏览器对不同域的安检规则。', more:'<b>在哪用：</b>前端 localhost:5173 调后端 8000 就是跨域，后端要显式允许来源；别图省事 allow_origins=["*"] 配 credentials。', eg:'"后端配 CORS，允许前端域名，带 credentials"' }
   ]},
-  { tag: '06', name: '部署与运维', desc: '怎么上线、上线后怎么活得久', items: [
+  { tag: '06', name: '部署与运维', desc: '怎么上线、上线后怎么活得久', lead: '串成一条线：代码打包成镜像 → 自动构建测试 → 上线 → 出问题能看见、能回滚。', items: [
     {name:'Nginx', tag:'反向代理', use:'统一入口 + 静态托管。', more:'<b>在哪用：</b>前端静态文件丢 Nginx，/api 反代到后端 8000，一个域名全搞定。', eg:'"Nginx 托管前端静态文件，/api 转发到后端"' },
     {name:'Docker', tag:'容器化打包', use:'环境打包成镜像，处处一致。', more:'<b>在哪用：</b>后端写 Dockerfile，云服务器 docker compose up 一键起。', eg:'"写 Dockerfile 打包，docker-compose 一键部署"' },
     {name:'HTTPS', tag:'加密通道', use:'让地址栏变锁，数据不被窃听。', more:'<b>在哪用：</b>买域名后配免费证书（Let\'s Encrypt），全站 HTTPS；登录和支付必须。', eg:'"域名解析到服务器，全站配 HTTPS 证书"' },
     {name:'环境变量', tag:'配置与密钥管理', use:'密钥和配置不进代码仓库。', more:'<b>在哪用：</b>API Key、数据库密码放 .env，代码里只读环境变量；换环境不用改代码；别提交到 git。', eg:'"密钥放环境变量，别写死在代码里"' },
     {name:'CI/CD', tag:'自动构建测试部署', use:'推代码 → 自动构建 → 自动上线。', more:'<b>在哪用：</b>GitHub Actions；改完代码 push 就自动部署，不用手动 SSH。', eg:'"配 CI/CD，push 到 main 自动构建部署"' },
     {name:'日志 Logging', tag:'排障第一现场', use:'请求进来干了啥，留下记录。', more:'<b>在哪用：</b>结构化日志记 时间/级别/trace_id/用户/耗时；别 print 一堆字符串，出事查不到。', eg:'"日志用结构化格式，带上 trace_id"' },
-    {name:'测试', tag:'单元 / 集成 / E2E', use:'改坏了能立刻知道。', more:'<b>在哪用：</b>pytest 写单元测试测业务逻辑；TestClient 测接口；跑进 CI 每次 push 自动跑。', eg:'"核心接口写 pytest，跑进 CI 每次自动测"' },
+    {name:'测试', tag:'单个函数 / 拼起来 / 整条走一遍', use:'三层测下来，改坏了能立刻知道（最后那层叫 E2E，端到端）。', more:'<b>在哪用：</b>pytest 写单元测试测业务逻辑；TestClient 测接口；跑进 CI 每次 push 自动跑。', eg:'"核心接口写 pytest，跑进 CI 每次自动测"' },
     {name:'CDN', tag:'静态资源全球加速', use:'静态资源挂 CDN，首屏快。', more:'<b>在哪用：</b>图片、JS、CSS 挂 CDN，用户从最近的节点拿。', eg:'"静态资源挂 CDN 加速"' },
     {name:'K8s', tag:'容器编排', use:'自动扩容、故障自愈。', adv:true, more:'<b>在哪用：</b>服务多了、流量会涨才需要；一个 Docker 搞不定的规模才上。', eg:'"服务多了用 K8s 编排，自动扩容"' },
     {name:'指标 Metrics', tag:'系统体检表', use:'QPS、延迟、错误率一眼看清。', adv:true, more:'<b>在哪用：</b>Prometheus + Grafana：p95 延迟、错误率；毕设也能接个简易统计。', eg:'"接口暴露延迟和错误率指标"' },
@@ -4122,7 +4432,7 @@ var techGroups = [
     {name:'备份与恢复', tag:'数据丢了才最痛', use:'定期备份 + 演练恢复。', adv:true, more:'<b>在哪用：</b>数据库每日备份 + 异地存放；定期演练「真恢复一次」。', eg:'"数据库每天备份，恢复流程演练过"' },
     {name:'灰度与回滚', tag:'上线不出大事', use:'新版本先放小流量。', adv:true, more:'<b>在哪用：</b>先发 5% 用户，指标正常再全量；出问题一条命令回滚。', eg:'"上线走灰度发布，保留一键回滚能力"' }
   ]},
-  { tag: '07', name: '异步任务', desc: '重活丢后台慢慢跑', items: [
+  { tag: '07', name: '异步任务', desc: '重活丢后台慢慢跑', lead: '串成一条线：慢活丢队列异步跑 → 定时任务按点跑 → 高峰削峰不堵主流程。', items: [
     {demo:'async', name:'Celery', tag:'Python 异步任务', use:'重活丢后台队列跑。', adv:true, more:'<b>在哪用：</b>导出行程 PDF、发邮件、定时抓攻略，用户点了不干等。', eg:'"导出 PDF 走 Celery 异步任务，完成再通知"' },
     {name:'定时任务', tag:'每天凌晨跑', use:'定时执行清理、备份、抓取。', adv:true, more:'<b>在哪用：</b>「每天凌晨清理过期数据」「每周生成报表」；Celery Beat 或系统 crontab 都能做。', eg:'"定时清理过期数据用 Celery Beat 或 crontab"' },
     {name:'RabbitMQ', tag:'经典消息队列', use:'灵活路由、可靠投递。', adv:true, more:'<b>在哪用：</b>任务分发、系统解耦，A 发消息 B 消费。', eg:'"用 RabbitMQ 做任务队列，解耦两个服务"' },
@@ -4155,6 +4465,14 @@ var feEngGroups = [
     {name:'部署与 CDN', tag:'代码推上去就上线', use:'你写完的代码在你电脑上，怎么让全世界访问？', more:'<b>解决什么：</b>自己电脑不能当服务器，需要个地方托管。<br><b>Vercel/Netlify：</b>连 GitHub，push 到 main 自动部署，零配置。<br><b>CDN：</b>静态资源全球节点加速，文件名带 hash 改了自动更新缓存。<br><b>SPA 注意：</b>要配 fallback 路由，不然用户刷新 /city/hangzhou 就 404。', eg:'"Vercel 连 GitHub 自动部署，推 main 就上线"' }
   ]}
 ];
+function flashDemo(did){
+  var target = document.getElementById(did);
+  if(!target) return;
+  target.scrollIntoView({behavior:'smooth', block:'center'});
+  target.style.outline = '2px solid var(--brand)';
+  target.style.outlineOffset = '2px';
+  setTimeout(function(){ target.style.outline = ''; }, 1800);
+}
 function renderTechCards(groups, container){
   var catMap = { '01':'api','02':'frame','03':'data','04':'auth','05':'sec','06':'ops','07':'async' };
   groups.forEach(function(g){
@@ -4164,27 +4482,45 @@ function renderTechCards(groups, container){
     wrap.setAttribute('data-tag', g.tag);
     if(catMap[g.tag]) wrap.id = 'tg-' + catMap[g.tag];
     wrap.innerHTML = '<div class="tg-head"><span class="tg-tag">' + g.tag + '</span><span class="tg-name">' + g.name + '</span><span class="tg-desc">' + (g.desc || '') + '</span></div>' +
+      (g.lead ? '<div class="tg-lead">' + g.lead + '</div>' : '') +
       '<div class="tech-grid"></div>';
     var grid = wrap.querySelector('.tech-grid');
     g.items.forEach(function(t){
       var card = document.createElement('div');
-      card.className = 'tech-card';
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('aria-expanded', 'false');
-      card.innerHTML = '<div class="tc-name">' + t.name + (t.adv ? '<span class="adv-dot" title="进阶"></span>' : '') + '</div>' +
-        '<div class="tc-tag">' + t.tag + '</div>' +
-        '<div class="tc-use">' + t.use + '</div>' +
-        '<div class="tc-more">' + t.more + '</div>' +
-        '<div class="tc-foot"><span class="tc-eg">"prompt: ' + t.eg + '"</span>' + (t.demo ? '<button type="button" class="tc-try" data-demo="' + t.demo + '">试一下 →</button>' : '') + '</div>';
-      var toggle = function(){
-        var open = card.classList.toggle('open');
-        card.setAttribute('aria-expanded', open ? 'true' : 'false');
-      };
-      card.addEventListener('click', toggle);
-      card.addEventListener('keydown', function(e){
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
-      });
+      var badge = t.adv ? '<span class="adv-badge" title="要知道什么时候该用、用错会出问题">进阶</span>' : '';
+      if(t.idx){
+        card.className = 'tech-card idx';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.innerHTML = '<div class="tc-name">' + t.name + badge + '</div>' +
+          '<div class="tc-tag">' + t.tag + '</div>' +
+          '<div class="tc-foot"><span class="tc-idx-go">上面演示已讲过，这一行就是索引</span><button type="button" class="tc-try" data-demo="' + t.demo + '">见上方演示 ↑</button></div>';
+        card.addEventListener('click', function(e){
+          if(e.target.closest('.tc-try')) return;
+          flashDemo(t.demo);
+        });
+        card.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flashDemo(t.demo); }
+        });
+      } else {
+        card.className = 'tech-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-expanded', 'false');
+        card.innerHTML = '<div class="tc-name">' + t.name + badge + '</div>' +
+          '<div class="tc-tag">' + t.tag + '</div>' +
+          '<div class="tc-use">' + t.use + '</div>' +
+          '<div class="tc-more">' + t.more + '</div>' +
+          '<div class="tc-foot"><span class="tc-eg">"prompt: ' + t.eg + '"</span>' + (t.demo ? '<button type="button" class="tc-try" data-demo="' + t.demo + '">试一下 →</button>' : '') + '</div>';
+        var toggle = function(){
+          var open = card.classList.toggle('open');
+          card.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+        });
+      }
       grid.appendChild(card);
     });
     container.appendChild(wrap);
@@ -4197,14 +4533,7 @@ techGroupsEl.addEventListener('click', function(e){
   var btn = e.target.closest('.tc-try');
   if(!btn) return;
   e.stopPropagation();
-  var did = btn.getAttribute('data-demo');
-  var target = document.getElementById(did);
-  if(target){
-    target.scrollIntoView({behavior:'smooth', block:'center'});
-    target.style.outline = '2px solid var(--brand)';
-    target.style.outlineOffset = '2px';
-    setTimeout(function(){ target.style.outline = ''; }, 1800);
-  }
+  flashDemo(btn.getAttribute('data-demo'));
 });
 document.querySelectorAll('.rm-chip').forEach(function(chip){
   chip.addEventListener('click', function(){
@@ -4606,6 +4935,7 @@ var LEARN_DEMOS = {
   'Anchor + Scrollspy': { lv: 'adv', v: '点目录要平滑滚到对应章节、滚动时高亮自动跟随；地址栏 hash 要同步，刷新后位置不丢' },
   '暗色模式 / Design Token': { lv: 'adv', v: '点切换，整站背景文字按钮要一起变暗且文字仍看得清；刷新后要保持上次选择，别闪回亮色' },
   '前端工程能力地图': { lv: 'adv', v: '四组分类要齐全（搭项目、写业务、保质量、上线优化）；每张卡点开要能看到在哪用和怎么跟 AI 说' },
+  '组件协作：拼一个行程管理页': { lv: 'basic', v: '菜单要能切换三类行程且表格跟着变；新增弹窗提交后表格要出现新行并 Toast；删除要先确认、确认后行消失；翻页页码高亮和底部文案同步' },
   'FastAPI + Pydantic 数据校验': { lv: 'adv', v: '换成错误版本再发送要返回 422 并逐字段列出错误位置；类型和范围都对时才放行' },
   '同步 vs 异步': { lv: 'adv', v: '点同步串行总耗时约 2.1s、点异步并发约 0.75s；异步三条轨道要同时开跑而不是挨个走' },
   'HTTP 请求解剖': { lv: 'adv', v: '点请求行、头、体要分别高亮并解释；状态码分类别搞错，404 是客户端问题、5xx 才是服务端' },
@@ -4626,6 +4956,10 @@ var LEARN_DEMOS = {
   '后端技术栈全景': { lv: 'adv', v: '七类卡片要分类齐全、点开有在哪用和怎么跟 AI 说；路线图上的标签点了要能跳到对应卡片' }
 };
 var LEARN_DEPTH = {
+  '组件协作：拼一个行程管理页': {
+    slow: '把这一页点一遍就等于拼完一个页面：左上角菜单切三类行程，表格跟着换内容；右上角「新增行程」弹出居中 Modal，填好城市、天数和预算点保存，表格顶部多出一行、右上角飘出 Toast；点任何一行的删除，先弹确认框，确认后才删。六类组件（Layout、Menu、Table、Modal、Pagination、Toast）各干一件事，拼起来就是产品。',
+    deep: '这个演示里的数据在前端内存里，刷新就还原——真实项目要换成后端接口。三个工程点值得记住：删除在「待确认」这类过滤视图下要按数据真实索引删，别按展示行号删（这里用 DATA.indexOf 取真索引）；Modal 打开时要锁住 body 滚动、关闭要还原，遮罩和 ESC 都要能关；分页要和过滤一起算，切了菜单先回到第 1 页。'
+  },
   '同步 vs 异步': {
     slow: '页面上三个任务各要七百毫秒左右。同步是发一个请求就站在这儿等它回来，回来再发第二个，总耗时约 2.1 秒；异步是三个请求一起发出去，各自在路上跑，总耗时约 0.75 秒。关键点：等的时候 CPU 什么都没干，说明「等待」不消耗算力，所以才能同时等好几个。',
     deep: '异步不会让单次请求变快，只是把「等」的时间叠起来。能并发的只有 I/O（网络、数据库、文件），CPU 密集任务放进 async 只会堵住事件循环。实战三条：async 接口里别直接调同步阻塞库，换异步客户端或丢进线程池；并发外呼要设超时和上限，否则对方挂了会拖垮自己；每个任务单独兜异常，别一个失败拖垮整批。'
@@ -4656,7 +4990,7 @@ var LEARN_DEPTH = {
   },
   '索引 Index': {
     slow: '没有索引的表像一本没有目录的书：要找「城市等于杭州」的记录，只能从头一页页翻，10 万行就翻 10 万次，页面里显示大约 120 毫秒。加了索引就像书有了目录，能直接翻到那一条，只要 0.3 毫秒左右。代价是索引自己占空间，而且每次写入都要顺手更新目录，所以不是越多越好。',
-    deep: '给 WHERE、JOIN、ORDER BY 里高频出现的字段加索引，不是给所有字段加；写入频繁的表索引越多越慢；区分度低的字段（状态、性别）单加意义不大；用 EXPLAIN 看是否真的走了索引，而不是看加没加。两个易失效场景：对字段做函数或类型转换、模糊查询前置百分号。深翻页 OFFSET 很大照样慢，要换游标分页。'
+    deep: '给 WHERE、JOIN、ORDER BY 里高频出现的字段加索引，不是给所有字段加；写入频繁的表索引越多越慢；区分度低的字段（状态、性别）单加意义不大；用 EXPLAIN（数据库给的执行计划）看是否真的走了索引，而不是看加没加。两个易失效场景：对字段做函数或类型转换、模糊查询前置百分号。深翻页 OFFSET 很大照样慢，要换游标分页。'
   },
   'Redis 缓存': {
     slow: '第一次点「查询杭州攻略」，缓存里什么都没有，只能去数据库查，等了 240 毫秒；第二次点，数据已经在内存里，2 毫秒就拿到，差一百倍。所以套路是：先问缓存有没有，没有才查库，并顺手把结果写回缓存留给下次用；同时给它设一个过期时间，不然数据改了缓存还是旧的。',
