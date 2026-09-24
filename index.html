@@ -13,7 +13,7 @@
   --card:#ffffff;
   --ink:#1c2530;
   --ink-2:#47536b;
-  --ink-3:#6b7789;
+  --ink-3:#586579;
   /* 描边 */
   --line:#e3e7ee;
   --line-2:#f1f3f8;
@@ -174,7 +174,9 @@ button{font-family:var(--sans);cursor:pointer;}
 .side-mod:hover{background:var(--stage);color:var(--ink);}
 .side-mod.on{background:var(--brand-soft);color:var(--brand);border-left-color:var(--brand);font-weight:var(--fw-semibold);}
 .side-mod .sm-no{flex:none;font-family:var(--mono);font-size:var(--fs-3xs);font-weight:var(--fw-bold);color:var(--ink-3);min-width:26px;}
+.side-mod .sm-step{flex:none;font-family:var(--mono);font-size:10px;font-weight:var(--fw-semibold);color:var(--ink-3);min-width:34px;}
 .side-mod.on .sm-no{color:var(--brand);}
+.side-mod.on .sm-step{color:var(--brand);}
 .side-mod .sm-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .side-mod,.mod-card{text-decoration:none;}
 .side-mod.wip .sm-name{color:var(--ink-3);}
@@ -192,6 +194,7 @@ button{font-family:var(--sans);cursor:pointer;}
 .mc-desc{font-size:var(--fs-2xs);color:var(--ink-2);line-height:var(--lh-base);}
 .mc-st{font-size:var(--fs-3xs);font-family:var(--mono);color:var(--ink-3);border:1px solid var(--line);border-radius:var(--r-pill);padding:1px 8px;}
 .mc-st.ready{color:var(--green-ink);border-color:var(--green-ink);background:var(--green-soft);}
+.mc-st.wip{color:var(--amber);border-color:var(--amber);background:var(--stage);}
 /* 模块地图默认只显就绪卡，规划中卡收起 */
 #modGrid:not(.show-wip) .mod-card.wip{display:none;}
 .mod-wip-toggle{grid-column:1/-1;justify-self:start;margin-top:2px;border:1px dashed var(--line-strong);background:var(--stage);color:var(--ink-2);border-radius:var(--r-pill);padding:7px 16px;font-size:var(--fs-2xs);font-family:inherit;cursor:pointer;transition:all .15s;}
@@ -1182,8 +1185,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       </div>
     <div class="stats">
       <div class="stat"><b id="stModTotal">–</b><span>知识模块 · 另有主线项目</span></div>
-      <div class="stat"><b id="stModReady">–</b><span>已有课程或入门内容</span></div>
-      <div class="stat"><b id="stModWip">–</b><span>仍在扩充的模块</span></div>
+      <div class="stat"><b id="stModReady">–</b><span>已有完整课程</span></div>
+      <div class="stat"><b id="stModWip">–</b><span>扩充中的模块</span></div>
       <div class="stat"><b id="stDemos">–</b><span>可操作的概念演示</span></div>
     </div>
     <p class="stats-note" id="statsNote">演示数量按页面实际内容计算。后端、Python 和网络流程包含浏览器内模拟。</p>
@@ -2113,6 +2116,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         <div class="demo-exp"><span class="plain">请求、订阅和定时器属于副作用；开始时注册，离开组件时清理，避免重复监听和旧请求污染新页面。</span><br><span class="eg">"组件卸载时清理定时器和订阅，避免重复触发"</span></div>
       </div>
     </div>
+    <div class="course-surface"><h3>M3 的判断框架：先看数据流，再选框架</h3><div class="course-columns"><div><b>核心模型</b><ul><li>父组件持有共享状态，子组件通过 props 接收数据。</li><li>子组件通过事件通知父组件，避免偷偷修改外部数据。</li><li>副作用集中在明确的边界，开始时注册，结束时清理。</li></ul></div><div><b>常见取舍</b><ul><li>小页面可用原生 DOM，先解决问题再引入框架。</li><li>组件边界按职责划分，不按文件大小机械拆分。</li><li>全局状态只在跨页面共享时引入，避免过早复杂化。</li></ul></div></div><details class="course-disclosure"><summary>排错：页面显示旧数据时按顺序检查</summary><p>先确认父组件状态是否更新，再确认 props 是否传到目标组件，接着检查列表 key 是否稳定，最后看副作用是否把旧响应写回。把每一步的实际值和时间顺序交给 AI，让它先定位数据流断点。</p></details><p class="course-note">给 AI 的边界：先让它画组件树和数据流，再允许它拆文件；验收时同时检查新增、空列表、失败和组件卸载。</p></div>
   </div>
 </section>
 </div>
@@ -2628,6 +2632,7 @@ const add = () =&gt; setN(n + 1);</div>
         <div class="demo-exp"><span class="plain">事件默认从目标元素向父元素冒泡。事件委托利用它管理列表；需要隔离行为时才阻止冒泡，不要到处 stopPropagation。</span><br><span class="eg">"列表只在容器绑定一次点击，再根据 event.target 判断哪一行"</span></div>
       </div>
     </div>
+    <div class="course-surface"><h3>M9 的判断框架：先定位层，再修改代码</h3><div class="course-columns"><div><b>请求失败四问</b><ol><li>域名是否解析到正确地址？</li><li>端口和 TLS 连接是否建立？</li><li>服务是否返回了预期状态码和字段？</li><li>浏览器是否允许脚本读取响应？</li></ol></div><div><b>浏览器行为取舍</b><ul><li>改变颜色通常只重绘，改变尺寸可能触发重排。</li><li>事件委托减少监听器数量，但要正确判断 event.target。</li><li>不要用关闭浏览器安全策略代替 CORS 配置验证。</li></ul></div></div><details class="course-disclosure"><summary>排错记录模板</summary><p>记录页面来源、请求方法和 URL、预检是否发生、状态码、关键响应头、Console 原文和最近改动。让 AI 先回答“失败停在哪一层”，再给最小修复和回归步骤。</p></details><p class="course-note">网络知识的价值不是背协议名，而是把“页面坏了”拆成可验证的假设，减少无证据的反复修改。</p></div>
   </div>
 </section>
 </div>
@@ -2659,6 +2664,7 @@ const add = () =&gt; setN(n + 1);</div>
         <div class="demo-exp"><span class="plain">项目依赖要有边界。全局安装“刚好能跑”会让 AI 生成的代码在另一台机器上失效。</span><br><span class="eg">"先创建虚拟环境，再安装 requirements.txt 里的固定依赖"</span></div>
       </div>
     </div>
+    <div class="course-surface"><h3>M5 的判断框架：注解是地图，运行时才是边界</h3><div class="course-columns"><div><b>读代码的顺序</b><ol><li>先看路由装饰器：请求从哪里进入。</li><li>再看参数模型：输入怎样被解析和拒绝。</li><li>最后看业务函数和依赖：数据在哪里读写、异常如何返回。</li></ol></div><div><b>排错分层</b><ul><li>导入失败：检查虚拟环境、包版本和当前目录。</li><li>422：检查请求字段、类型和范围约束。</li><li>超时：区分外部 I/O 等待和 CPU 计算，不要盲目加 timeout。</li></ul></div></div><details class="course-disclosure"><summary>小练习：把一段后端代码讲给初学者</summary><p>先用一句话说入口、输入、处理、输出，再标出哪部分由框架执行、哪部分由业务代码执行。让 AI 逐行解释后，用一个合法输入和一个非法输入验证解释是否正确。</p></details><p class="course-note">关键心智：类型提示帮助沟通，Pydantic 等运行时校验保护边界；异步适合等待，不会自动让所有代码变快。</p></div>
   </div>
 </section>
 </div>
@@ -3095,7 +3101,7 @@ Accept: application/json</div>
 </section>
 </div>
 
-<div class="read-chapter" id="m11" data-reading-module="m11">
+<div class="read-chapter" id="m10" data-reading-module="m10">
 <section class="group" id="toolStart">
   <div class="wrap">
     <div class="group-head"><div class="tag">M10 · 工具链与 Git 起步</div><h2>打开项目，看到结果，保存一次改动</h2><p>准备运行项目时，先确认文件位置、改动怎样生效，以及出错去哪看。</p></div>
@@ -3110,11 +3116,30 @@ git add index.html
 git diff --cached
 git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显示将被提交的修改。确认内容后再提交；若提示作者身份未配置，先按提示在当前仓库配置姓名和邮箱。</p></details>
     <p><b>验收：</b>你能找到改动文件、解释修改前后差别，并在刷新后看到结果。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">开始 M1 页面基础 →</a><a class="btn btn-outline" href="#aiWorkbench">先看如何与 AI 协作</a></div></div>
+    <div class="demos">
+      <div class="demo" id="toolChecklist">
+        <div class="demo-head"><span class="d-name">启动前检查清单</span><span class="d-en">/ 先确认环境，再让 AI 改代码</span></div>
+        <div class="demo-stage col">
+          <div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-tool-check="location">目录</button><button class="btn btn-sm btn-outline" type="button" data-tool-check="runtime">运行时</button><button class="btn btn-sm btn-outline" type="button" data-tool-check="deps">依赖</button><button class="btn btn-sm btn-outline" type="button" data-tool-check="evidence">证据</button></div>
+          <div class="module-output" id="toolChecklistOut">先点一项，查看它应该留下的证据。</div>
+        </div>
+        <div class="demo-exp"><span class="plain">“跑不起来”不是一个问题。先把目录、运行时、依赖和错误原文分开，AI 才能判断是路径、版本还是代码问题。</span><br><span class="eg">“我在 examples/trip-manager，Python 3.12，执行命令和完整报错如下；请先判断问题层级，不要直接重写项目。”</span></div>
+      </div>
+      <div class="demo" id="toolDiff">
+        <div class="demo-head"><span class="d-name">提交前看差异</span><span class="d-en">/ status → diff → 验证 → commit</span></div>
+        <div class="demo-stage col">
+          <div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-tool-diff="clean">只改了目标文件</button><button class="btn btn-sm btn-outline" type="button" data-tool-diff="wide">AI 改了很多文件</button><button class="btn btn-sm btn-outline" type="button" data-tool-diff="secret">发现环境文件</button></div>
+          <pre class="module-code" id="toolDiffOut">点击一种情况，看下一步该做什么。</pre>
+        </div>
+        <div class="demo-exp"><span class="plain">Git 不只是保存版本，也是审查 AI 产出的证据。看到无关格式化、锁文件或密钥时，先停下来缩小范围。</span><br><span class="eg">“请只根据这份 git diff 解释变更，不要修改；列出无关文件和需要补充的验证。”</span></div>
+      </div>
+    </div>
+    <div class="course-surface"><h3>把工具问题交给 AI 的边界</h3><div class="course-columns"><div><b>可以交给 AI</b><ul><li>解释命令和报错含义</li><li>根据目录生成启动步骤</li><li>比较差异并列出风险</li></ul></div><div><b>必须自己确认</b><ul><li>当前目录和真实文件</li><li>依赖版本与敏感信息</li><li>命令执行后的输出和差异</li></ul></div></div><p class="course-note">判断标准：AI 可以帮你读证据、写候选方案；执行范围、提交内容和最终验收由你决定。</p></div>
   </div>
 </section>
 </div>
 
-<div class="read-chapter" id="m10" data-reading-module="m10">
+<div class="read-chapter" id="m11" data-reading-module="m11">
 <section class="group" id="m11operations">
   <div class="wrap">
     <div class="group-head"><div class="tag">M11 · 部署与运维</div><h2>把服务交付，并能定位故障</h2><p>通过发布流水线和故障排查演示，理解测试、健康检查、日志与恢复步骤。</p></div>
@@ -3183,7 +3208,11 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
 
 <div class="read-chapter" id="m13" data-reading-module="m13">
 <section class="group" id="projectTrack">
-  <div class="wrap"><div class="group-head"><div class="tag">主线实践 · 当前页面内完成</div><h2>一份行程管理应用，边学边做</h2><p>项目教学已经并入当前页面：先看阶段目标，再进入本地运行项目验证。这样学习、AI 协作和项目步骤保持在同一条路线里。</p></div><div class="course-surface"><h3>每一步留下可检查的产物</h3><ol id="courseProjectSteps"></ol><p>每个阶段：先解释技术选择，再用对应模块的 AI 任务卡推进实现，保存代码差异与验收结果。真实代码位于 <code>examples/trip-manager/</code>，只在需要运行时启动本地服务。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">从静态页面开始</a><a class="btn btn-outline" href="#aiWorkbench">整理本阶段的任务</a><a class="btn btn-outline" href="#toolStart">查看运行方式</a></div></div></div>
+  <div class="wrap"><div class="group-head"><div class="tag">主线实践 · 当前页面内完成</div><h2>一份行程管理应用，边学边做</h2><p>项目教学已经并入当前页面：先看阶段目标，再进入本地运行项目验证。这样学习、AI 协作和项目步骤保持在同一条路线里。</p></div><div class="course-surface"><h3>每一步留下可检查的产物</h3><ol id="courseProjectSteps"></ol><p>每个阶段：先解释技术选择，再用对应模块的 AI 任务卡推进实现，保存代码差异与验收结果。真实代码位于 <code>examples/trip-manager/</code>，只在需要运行时启动本地服务。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">从静态页面开始</a><a class="btn btn-outline" href="#aiWorkbench">整理本阶段的任务</a><a class="btn btn-outline" href="#toolStart">查看运行方式</a></div></div><div class="course-surface"><h3>真实项目的运行闭环</h3><div class="course-columns"><div><b>你会实际操作</b><ol><li>创建 Python 虚拟环境并安装 requirements.txt。</li><li>启动 FastAPI，打开真实前端页面。</li><li>观察 GET、POST、DELETE 请求和 SQLite 数据变化。</li><li>运行 pytest，故意提交非法输入，查看 422。</li></ol></div><div><b>每一步交付什么</b><ul><li>需求说明：用户、字段、成功和失败路径。</li><li>代码差异：只包含当前阶段的文件。</li><li>验证记录：命令、结果、截图或响应样例。</li><li>复盘说明：哪里让 AI 帮忙，哪里由自己判断。</li></ul></div></div><details class="course-disclosure"><summary>从零启动的最短路径</summary><pre class="ai-task-prompt">cd examples/trip-manager
+python -m venv .venv
+.\\.venv\\Scripts\\Activate.ps1
+pip install -r requirements.txt
+python -m uvicorn backend.app.main:app --reload</pre><p>浏览器打开 http://127.0.0.1:8000；先点“检查服务”，再新增一条行程，最后运行 pytest。遇到错误先记录当前目录、命令、完整输出和最近改动。</p></details><p class="course-note">这个项目不是把所有技术一次堆上去，而是每次只增加一个可验证的能力：页面 → 交互 → 接口 → 数据 → 权限 → 测试 → 交付。</p></div></div>
 </section>
 </div>
 
@@ -6252,9 +6281,9 @@ var MODULES = [
   { id:'home', no:'◎', name:'总览 · 模块地图', layer:'', status:'ready',
     desc:'12 个知识模块 + 主线项目的学习地图，从这里进入任意一条路线',
     learningRoutes:{
-      zero:{start:'toolStart', modules:['m1','m2','m3','m4','m9','m5','m6','m7','m8','m11','m10','m13','m12']},
-      backend:{start:'toolStart', modules:['m9','m5','m6','m7','m8','m11','m10','m13','m12']},
-      adv:{start:'fePanorama', modules:['m4','m6','m7','m8','m10','m13','m12']}
+      zero:{start:'toolStart', modules:['m1','m2','m3','m4','m9','m5','m6','m7','m8','m10','m11','m13','m12']},
+      backend:{start:'toolStart', modules:['m9','m5','m6','m7','m8','m10','m11','m13','m12']},
+      adv:{start:'fePanorama', modules:['m4','m6','m7','m8','m11','m13','m12']}
     },
     anchors:[], blocks:['#top','#modOverview','#roadmap'] },
 
@@ -6366,7 +6395,7 @@ var MODULES = [
           '事件冒泡：点一个按钮，事件往上跑过了谁'],
     anchors:['m9network'], blocks:['#m9network'] },
 
-  { id:'m11', no:'M10', name:'工具链与 Git', layer:'工具与运行', status:'partial',
+  { id:'m10', no:'M10', name:'工具链与 Git', layer:'工具与运行', status:'partial',
     desc:'命令行 / 包管理器 / 编辑器 / Git——先会启动和回滚，再学完整工作流',
     coaching:{prerequisites:[], goal:'工具链把源代码变成可运行结果，Git 记录有边界的改动。第一天先会打开、运行、检查和保存。',
       question:'AI 改了五个文件，你准备提交之前，应该先看哪份证据？',
@@ -6379,9 +6408,9 @@ var MODULES = [
           'Git：add / commit / branch / merge 四步看懂'],
     anchors:['toolStart'], blocks:['#toolStart'] },
 
-  { id:'m10', no:'M11', name:'部署与运维', layer:'工具与运行', status:'ready',
+  { id:'m11', no:'M11', name:'部署与运维', layer:'工具与运行', status:'ready',
     desc:'环境 / 进程 / 日志 / 健康检查，再到容器 / 代理 / CI/CD',
-    coaching:{prerequisites:['m6','m7','m8','m11'], goal:'部署让应用在目标环境持续运行，健康检查、日志与回滚帮助确认服务状态和恢复故障。',
+    coaching:{prerequisites:['m6','m7','m8','m10'], goal:'部署让应用在目标环境持续运行，健康检查、日志与回滚帮助确认服务状态和恢复故障。',
       question:'进程已经启动，但健康检查失败，可以宣布上线成功吗？',
       reasoning:'还不行。检查监听地址、端口、依赖连接及配置，再验证健康检查和关键业务链路。',
       task:'为练习项目整理环境变量示例、启动方式、健康检查和回滚步骤。先说明依赖与验证条件，再生成必要配置。',
@@ -6411,7 +6440,7 @@ MODULES.forEach(function(m){
     if(sel.charAt(0) === '#') MOD_BLOCK_OWNER[sel.slice(1)] = m.id;
   });
 });
-var MODULE_LEARN_ORDER = ['home','m1','m2','m3','m4','m9','m5','m6','m7','m8','m11','m10','m13','m12'];
+var MODULE_LEARN_ORDER = ['home','m1','m2','m3','m4','m9','m5','m6','m7','m8','m10','m11','m13','m12'];
 var modCurrentId = 'home';
 function modLearnList(){
   return MODULE_LEARN_ORDER.map(function(id){ return MOD_BY_ID[id]; }).filter(Boolean);
@@ -6521,13 +6550,15 @@ function modMarkActive(modId){
   });
 }
 function modStatusTag(m){
-  var label = m.kind === 'project' ? '实践' : (m.summary ? '总结' : (m.status === 'ready' ? '可看' : '起步'));
-  return '<span class="mc-st ready">' + label + '</span>';
+  var label = m.kind === 'project' ? '实践' : (m.summary ? '总结' : (m.status === 'ready' ? '可看' : '扩充中'));
+  var statusClass = m.status === 'ready' ? 'ready' : 'wip';
+  return '<span class="mc-st ' + statusClass + '">' + label + '</span>';
 }
 function modRenderSideMods(){
   var box = document.getElementById('sideMods');
-  box.innerHTML = '<div class="side-mods-h">章节目录 · 点击定位</div>' + modLearnList().map(function(m){
-    return '<a class="side-mod" href="#' + (m.id === 'home' ? 'top' : m.id) + '" data-mod="' + m.id + '"><span class="sm-no">' + m.no + '</span><span class="sm-name">' + m.name + '</span>' + modStatusTag(m) + '</a>';
+  box.innerHTML = '<div class="side-mods-h">阅读顺序 · 编号用于查找</div>' + modLearnList().map(function(m, index){
+    var stepLabel = m.id === 'home' ? '入口' : ('第' + String(index).padStart(2, '0') + '步');
+    return '<a class="side-mod" href="#' + (m.id === 'home' ? 'top' : m.id) + '" data-mod="' + m.id + '"><span class="sm-step">' + stepLabel + '</span><span class="sm-no">' + m.no + '</span><span class="sm-name">' + m.name + '</span>' + modStatusTag(m) + '</a>';
   }).join('');
 }
 function modRenderOverview(){
@@ -6585,7 +6616,7 @@ function renderHeroStats(){
   var demos = document.querySelectorAll('section.group .demo:not(#fePanorama):not(#techPanorama)').length;
   var stats = {
     stModTotal:chapters.length,
-    stModReady:chapters.filter(function(m){ return m.status !== 'wip'; }).length,
+    stModReady:chapters.filter(function(m){ return m.status === 'ready'; }).length,
     stModWip:chapters.filter(function(m){ return m.status !== 'ready'; }).length,
     stDemos:demos
   };
@@ -6593,7 +6624,7 @@ function renderHeroStats(){
     var el = document.getElementById(id);
     if(el) el.textContent = stats[id];
   });
-  document.getElementById('statsNote').textContent = '共 ' + demos + ' 个演示，不含两个技术卡索引区。后端、Python 和网络流程含浏览器内的概念模拟；真实项目代码位于 examples/trip-manager/。';
+  document.getElementById('statsNote').textContent = '完整课程 ' + stats.stModReady + ' 个，扩充中 ' + stats.stModWip + ' 个；共 ' + demos + ' 个演示，不含两个技术卡索引区。后端、Python 和网络流程含浏览器内的概念模拟；真实项目代码位于 examples/trip-manager/。';
 }
 function modInitReadingNavigation(){
   var ticking = false;
@@ -6733,7 +6764,7 @@ modBoot();
     orderedModules.forEach(function(mod){
       var item = document.createElement('li');
       var link = document.createElement('a');
-      link.href = '#' + (mod.id === 'm11' ? 'toolStart' : (mod.id === 'm13' ? 'projectTrack' : (mod.id === 'm12' ? 'aiWorkbench' : (mod.anchors[0] || mod.id))));
+      link.href = '#' + (mod.id === 'm10' ? 'toolStart' : (mod.id === 'm13' ? 'projectTrack' : (mod.id === 'm12' ? 'aiWorkbench' : (mod.anchors[0] || mod.id))));
       link.textContent = mod.no + ' · ' + mod.name;
       var detail = document.createElement('small');
       detail.textContent = mod.summary ? '完成技术线和主线项目后，集中整理可复用的 AI 协作工作流。' : (mod.coaching ? (mod.coaching.milestone + '。AI 协作贯穿本步。') : mod.desc);
@@ -6829,6 +6860,33 @@ modBoot();
   renderProjectSteps();
   initAiTaskBuilder();
   initAiSummaryExercises();
+})();
+
+/* ========== M10 工具链交互示例 ========== */
+(function(){
+  var toolCheckText = {
+    location:'目录证据：运行 pwd / Get-Location，并确认能看到 examples/trip-manager；路径不对时先 cd，不要修改代码。',
+    runtime:'运行时证据：记录 python --version、node --version 或浏览器版本，和项目 README 要求对照。',
+    deps:'依赖证据：查看 requirements.txt / package.json 与已安装版本，先判断缺包还是版本不兼容。',
+    evidence:'错误证据：复制完整命令、完整输出、触发动作和最近改动；删除口令、令牌和私人数据后再交给 AI。'
+  };
+  document.querySelectorAll('[data-tool-check]').forEach(function(button){
+    button.addEventListener('click', function(){
+      var output = document.getElementById('toolChecklistOut');
+      if(output) output.textContent = toolCheckText[button.getAttribute('data-tool-check')];
+    });
+  });
+  var toolDiffText = {
+    clean:'git status\n修改：frontend/index.html\n\ngit diff -- frontend/index.html\n下一步：打开差异，运行页面和测试，只暂存这个文件。',
+    wide:'git status\n修改：frontend/index.html、styles.css、README.md、无关格式化文件\n\n下一步：先让 AI 按任务解释每个文件，撤回无关变更，再分批验证。',
+    secret:'.env.example 之外出现 .env\n\n下一步：停止提交，确认密钥是否已暴露，加入 .gitignore；必要时立即轮换真实凭证。'
+  };
+  document.querySelectorAll('[data-tool-diff]').forEach(function(button){
+    button.addEventListener('click', function(){
+      var output = document.getElementById('toolDiffOut');
+      if(output) output.textContent = toolDiffText[button.getAttribute('data-tool-diff')];
+    });
+  });
 })();
 
 /* ========== M2 / M3 / M5 / M9 交互 demo ========== */

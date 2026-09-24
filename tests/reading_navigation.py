@@ -37,11 +37,17 @@ def inspect_learning_page():
         page.wait_for_timeout(500)
         assert page.locator(".home-choice").count() == 2
         order = page.locator("[data-reading-module]").evaluate_all("nodes => nodes.map(n => n.id)")
-        assert order == ["m1", "m2", "m3", "m4", "m9", "m5", "m6", "m7", "m8", "m11", "m10", "m13", "m12"], order
+        assert order == ["m1", "m2", "m3", "m4", "m9", "m5", "m6", "m7", "m8", "m10", "m11", "m13", "m12"], order
         assert page.locator(".chapter-practice").count() == 11
         assert page.locator("#learningReference").get_attribute("open") is None
         baseline = page.locator(".demo").count()
-        assert baseline >= 70
+        assert baseline >= 72
+        assert page.locator("#stModReady").text_content() == "10"
+        assert page.locator("#stModWip").text_content() == "2"
+        page.locator('[data-tool-check="evidence"]').click()
+        assert "完整命令" in page.locator("#toolChecklistOut").text_content()
+        page.locator('[data-tool-diff="secret"]').click()
+        assert "停止提交" in page.locator("#toolDiffOut").text_content()
         page.screenshot(path=str(shots / "reading-home-desktop.png"))
         page.locator('.home-choice[href="#m1"]').click()
         page.wait_for_timeout(150)
