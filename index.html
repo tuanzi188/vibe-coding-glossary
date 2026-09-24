@@ -1007,6 +1007,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 
 /* ===== 学习路线与贯穿式协作：样式只作用于课程区域 ===== */
 .course-surface{min-width:0;margin:20px 0;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);font-size:15px;line-height:1.8;overflow-wrap:anywhere;}
+.home-chooser{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 18px;}
+.home-choice{display:flex;flex-direction:column;gap:7px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);color:var(--ink);text-decoration:none;transition:border-color .15s,background .15s,transform .15s;}
+.home-choice:hover{border-color:var(--brand);background:var(--brand-soft);transform:translateY(-1px);}
+.home-choice strong{font-size:16px;}
+.home-choice span{font-size:13px;color:var(--ink-2);line-height:1.65;}
+.home-choice .choice-no{font:11px var(--mono);color:var(--brand);}
+.home-detail[hidden]{display:none!important;}
+.course-secondary{display:none;}
+.course-secondary.course-secondary-open{display:block;}
 .course-surface h3{font-size:18px;color:var(--ink);margin-bottom:8px;}
 .course-surface p{color:var(--ink-2);margin:6px 0 12px;}
 .course-surface a{color:var(--brand);}
@@ -1071,6 +1080,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 .ai-evidence-lines{margin:12px 0;padding:10px 12px;border-radius:var(--r-sm);background:var(--surface-dark);color:var(--code-ink);font:12px/1.8 var(--mono);white-space:pre-wrap;}
 @media(max-width:900px){.ai-summary-grid{grid-template-columns:1fr;}.ai-summary-grid .course-surface{height:auto;}}
 @media(max-width:900px){.course-sequence{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:900px){.home-chooser{grid-template-columns:1fr;}}
 @media(max-width:560px){.course-columns,.course-sequence{grid-template-columns:minmax(0,1fr);}.course-surface{padding:16px;}.course-coach h2{font-size:21px;}}
 @media(max-width:640px){.module-grid{grid-template-columns:1fr;}.module-flow-arrow{display:none;}.module-reflow-box{grid-template-columns:1fr;}}
 
@@ -1228,13 +1238,18 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
       <h2>12 个知识模块 + 主线项目</h2>
       <p>先认识技术，再用自己的判断引导 AI。知识地图按领域查阅，推荐路线按前置知识推进；主线项目从第一个页面开始，随着学习逐步增加能力。</p>
     </div>
-    <div class="course-surface" id="learningSequence">
+    <div class="home-chooser" aria-label="选择学习方式">
+      <a class="home-choice" href="#starter"><span class="choice-no">01 · 第一次使用</span><strong>从这里开始</strong><span>用六个小结果认识页面、请求、AI 任务和验收。</span></a>
+      <a class="home-choice" href="#learningSequence"><span class="choice-no">02 · 建立技术地图</span><strong>按知识学习</strong><span>按推荐顺序进入页面、JavaScript、后端、数据和部署。</span></a>
+      <a class="home-choice" href="#projectTrack"><span class="choice-no">03 · 做出真实产出</span><strong>跟着主线项目做</strong><span>边学边做行程管理应用，把知识串成一次交付。</span></a>
+    </div>
+    <div class="course-surface home-detail" id="learningSequence" hidden>
       <h3>推荐顺序：每一步都有小产出</h3>
       <p>先完成 <a href="#toolStart">工具链最小起步</a>，再沿下方路线学习。模块编号用于查找，序号表示推荐学习次序；标注“待补”的课程目前只有导学和协作练习。</p>
       <ol class="course-sequence" id="courseSequenceList"></ol>
       <div class="course-actions"><a class="btn btn-outline" href="#aiWorkbench">每一步：用 AI 协作方法</a><a class="btn btn-outline" href="#projectTrack">每一步：推进主线项目</a></div>
     </div>
-    <div class="starter" id="starter">
+    <div class="starter home-detail" id="starter" hidden>
       <div class="starter-head">
         <div>
           <div class="starter-kicker">起步路线 · 约 30 分钟</div>
@@ -1282,7 +1297,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     <div class="mod-grid" id="modGrid"></div>
     <p class="mod-roadmap"><b>如何选入口：</b>第一次学按上面的推荐顺序走；遇到具体问题按知识卡查。AI 协作中心随时可用，主线项目从 M1 开始积累成果。</p>
     <div class="course-actions"><a class="btn btn-outline" href="#projectTrack">主线项目路线与阶段产出 →</a></div>
-    <div class="roadmap" id="roadmap">
+    <div class="roadmap home-detail" id="roadmap" hidden>
       <div class="rm-head"><span class="rm-title">初学者路线图</span><span class="rm-sub">每个任务包由几张卡组成，点标签直接跳到对应卡片</span></div>
       <div class="rm-steps">
         <div class="rm-step">
@@ -1376,7 +1391,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 <div id="courseCoachHosts"></div>
 
 <!-- ===== 随时可用的工具起步、协作中心与项目轨道 ===== -->
-<section class="group" id="toolStart">
+<section class="group course-secondary" id="toolStart">
   <div class="wrap">
     <div class="group-head"><div class="tag">M10 · 第一天只做这几件事</div><h2>打开项目，看到结果，保存一次改动</h2><p>完整工具链在后面学。现在先知道文件在哪里、改动怎样生效、出错去哪看。</p></div>
     <div class="course-surface"><ol>
@@ -1392,7 +1407,7 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
     <p><b>验收：</b>你能找到改动文件、解释修改前后差别，并在刷新后看到结果。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">开始 M1 页面基础 →</a><a class="btn btn-outline" href="#aiWorkbench">先看如何与 AI 协作</a></div></div>
   </div>
 </section>
-<section class="group" id="aiWorkbench">
+<section class="group course-secondary" id="aiWorkbench">
   <div class="wrap">
       <div class="group-head"><div class="tag">M12 · AI 协作总结章 · 随时可查</div><h2>把一路用过的 AI 方法整理成体系</h2><p>AI 协作在每个模块和项目步骤中都已经练习过；学完整条技术线后，再用这一章把任务拆解、上下文、约束、审查、验收和排障归纳成自己的工作方法。</p></div>
     <div class="course-surface"><h3>每一步都用这套方法</h3><ol><li>用自己的话解释问题属于哪一层，先写一个判断。</li><li>给 AI 相关文件、当前行为与预期结果，要求先阅读再修改。</li><li>一次只推进一个功能，说明允许修改的范围。</li><li>检查代码差异，运行成功与失败场景，再决定是否接受。</li><li>失败时带上复现步骤、报错与最近改动，继续缩小问题范围。</li></ol></div>
@@ -1449,7 +1464,7 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
     <div class="course-surface"><h3>出错时，把问题补充完整</h3><p>“页面坏了”缺少定位信息。说明：触发操作、预期结果、实际结果、错误原文、相关请求和最近改动。分享前去掉口令、令牌与私人数据。</p><details class="course-disclosure"><summary>例子：接口成功，列表却是空白</summary><p>先比较接口响应里的字段与页面取值。例如响应是 items，页面却读取 data.list。把响应样例和读取代码一同交给 AI，要求先验证字段对应，再做最小修复；最后重测成功、空列表和请求失败三条路径。</p></details><div class="course-actions"><a href="#learningSequence">回推荐路线</a><a href="#projectTrack">把方法用在主线项目里</a></div></div>
   </div>
 </section>
-<section class="group" id="projectTrack">
+<section class="group course-secondary" id="projectTrack">
   <div class="wrap"><div class="group-head"><div class="tag">主线实践 · 当前页面内完成</div><h2>一份行程管理应用，边学边做</h2><p>项目教学已经并入当前页面：先看阶段目标，再进入本地运行项目验证。这样学习、AI 协作和项目步骤保持在同一条路线里。</p></div><div class="course-surface"><h3>每一步留下可检查的产物</h3><ol id="courseProjectSteps"></ol><p>每个阶段：先解释技术选择，再用对应模块的 AI 任务卡推进实现，保存代码差异与验收结果。真实代码位于 <code>examples/trip-manager/</code>，只在需要运行时启动本地服务。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">从静态页面开始</a><a class="btn btn-outline" href="#aiWorkbench">整理本阶段的任务</a><a class="btn btn-outline" href="#toolStart">查看运行方式</a></div></div></div>
 </section>
 
@@ -6426,6 +6441,24 @@ function modLearnList(){
   return MODULE_LEARN_ORDER.map(function(id){ return MOD_BY_ID[id]; }).filter(Boolean);
 }
 var MOD_ALWAYS_VISIBLE = ['#toolStart','#aiWorkbench','#projectTrack'];
+var HOME_DETAIL_IDS = ['learningSequence','starter','roadmap','toolStart','aiWorkbench','projectTrack'];
+
+function modRevealHomeDetail(anchorId){
+  var target = document.getElementById(anchorId);
+  if(!target || HOME_DETAIL_IDS.indexOf(anchorId) === -1) return false;
+  target.removeAttribute('hidden');
+  target.classList.add('course-secondary-open');
+  return true;
+}
+
+function modHideHomeDetails(){
+  HOME_DETAIL_IDS.forEach(function(anchorId){
+    var target = document.getElementById(anchorId);
+    if(!target) return;
+    target.classList.remove('course-secondary-open');
+    if(target.classList.contains('home-detail')) target.setAttribute('hidden', 'hidden');
+  });
+}
 
 /* 注册表是静态的，注册块元素清单收集一次即可 */
 var modBlockEls = (function(){
@@ -6610,6 +6643,7 @@ function modWriteHash(id, push){
 function modActivate(modId, opts){
   opts = opts || {};
   var mod = modGet(modId);
+  if(mod.id !== 'home') modHideHomeDetails();
   modCurrentId = mod.id;
   modApplyVisibility(mod.id);
   modFilterSideToc(mod.id);
@@ -6633,6 +6667,10 @@ function modEnsureFor(anchorId){
 function modHandleHash(){
   var h = location.hash.slice(1);
   if(!h) return;
+  if(modRevealHomeDetail(h)){
+    modScrollTo(h, 'auto');
+    return;
+  }
   if(document.getElementById(h) && MOD_ALWAYS_VISIBLE.some(function(sel){ return sel === '#' + h; })){
     modScrollTo(h, 'auto');
     return;
@@ -6678,7 +6716,11 @@ function modBoot(){
   var h = location.hash.slice(1);
   var handled = false;
   if(h){
-    if(MOD_BY_ID[h]){
+    if(modRevealHomeDetail(h)){
+      modActivate('home', { noHash: true, noScroll: true, instant: true });
+      modScrollTo(h, 'auto');
+      handled = true;
+    } else if(MOD_BY_ID[h]){
       modActivate(h, { noHash: true, instant: true });
       handled = true;
     } else {
