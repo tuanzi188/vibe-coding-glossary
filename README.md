@@ -30,7 +30,7 @@
 index.html                    学习库入口（知识地图 + demo + AI 协作练习）
 docs/全栈学习库优化设计.md     产品定位、模块顺序和验收标准
 assets/                       少量静态资源
-project.html                  主线项目教学页（跟做 / 挑战 / 阶段验收）
+project.html                  兼容入口，自动回到 index.html 的项目区
 examples/trip-manager/        第一阶段可运行全栈示例（FastAPI + SQLite + 原生前端）
 ```
 

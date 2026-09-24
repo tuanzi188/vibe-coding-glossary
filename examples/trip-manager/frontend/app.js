@@ -8,6 +8,8 @@ const paginationElement = document.getElementById("pagination");
 const filterElement = document.getElementById("statusFilter");
 const formElement = document.getElementById("tripForm");
 const formMessageElement = document.getElementById("formMessage");
+const healthButtonElement = document.getElementById("healthButton");
+const healthStatusElement = document.getElementById("healthStatus");
 const statusLabels = { draft: "草稿", planned: "已规划", done: "已完成" };
 
 function setListState(message, isError = false) {
@@ -102,4 +104,15 @@ function escapeHtml(value) {
 filterElement.addEventListener("change", () => { state.status = filterElement.value; state.page = 1; loadTrips(); });
 document.getElementById("reloadButton").addEventListener("click", loadTrips);
 formElement.addEventListener("submit", createTrip);
+healthButtonElement.addEventListener("click", async () => {
+  healthStatusElement.textContent = "检查中…";
+  try {
+    const response = await fetch("/healthz");
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const result = await response.json();
+    healthStatusElement.textContent = `服务正常：${result.status}`;
+  } catch (error) {
+    healthStatusElement.textContent = `服务检查失败：${error.message}`;
+  }
+});
 loadTrips();

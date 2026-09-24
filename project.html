@@ -2,49 +2,12 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=index.html#projectTrack">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>主线项目 · 行程管理</title>
-  <style>
-    :root{font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:#1c2530;background:#f5f6f8;line-height:1.7;--brand:#3b5bdb;--line:#e3e7ee;--card:#fff;--stage:#f8fafc;--muted:#687386;--green:#0a6b48;}
-    *{box-sizing:border-box;}body{margin:0;}a{color:var(--brand);}.shell{max-width:1080px;margin:0 auto;padding:36px 20px 64px;}.header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:22px;}.eyebrow{margin:0;color:var(--brand);font-size:13px;font-weight:700;}.header h1{margin:4px 0;font-size:34px;line-height:1.3;}.lead{margin:0;color:var(--muted);}.back{color:var(--brand);text-decoration:none;border:1px solid var(--line);border-radius:8px;background:var(--card);padding:8px 12px;font-size:14px;white-space:nowrap;}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:18px;align-items:start;}.toc,.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;}.toc{position:sticky;top:18px;}.toc h2,.panel h2{font-size:18px;margin:0 0 12px;}.toc a{display:block;text-decoration:none;padding:8px 9px;border-radius:7px;font-size:14px;}.toc a:hover{background:#eef1fd;}.step-list{display:grid;gap:12px;}.step{border:1px solid var(--line);border-radius:9px;background:var(--card);padding:16px;}.step-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}.step h3{margin:0;font-size:17px;}.tag{font:11px ui-monospace,monospace;color:var(--brand);background:#eef1fd;border-radius:999px;padding:2px 8px;}.step p{margin:7px 0;color:#47536b;font-size:14px;}.step ul{margin:8px 0 0;padding-left:20px;color:#47536b;font-size:14px;}.step li+li{margin-top:3px;}.deliverable{margin-top:10px;padding:10px 12px;border-left:3px solid var(--brand);background:var(--stage);font-size:13px;color:#47536b;}.mode{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}.mode button{border:1px solid var(--line);background:var(--card);color:#47536b;border-radius:7px;padding:8px 12px;cursor:pointer;}.mode button.active{background:var(--brand);border-color:var(--brand);color:#fff;}.mode-panel[hidden]{display:none;}.checklist{display:grid;gap:7px;margin:10px 0 0;padding:0;list-style:none;}.checklist label{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:#47536b;}.checklist input{margin-top:5px;accent-color:var(--brand);}.code{padding:12px;border-radius:8px;background:#0f172a;color:#dbe4f0;font:12px/1.8 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow:auto;}.note{font-size:13px;color:var(--muted);}.status{min-height:24px;color:var(--green);font-size:14px;}
-    @media(max-width:760px){.shell{padding:24px 14px 48px;}.header{display:block;}.back{display:inline-block;margin-top:12px;}.layout{grid-template-columns:1fr;}.toc{position:static;}.header h1{font-size:28px;}}
-  </style>
+  <title>返回全栈学习库项目区</title>
 </head>
 <body>
-  <main class="shell">
-    <header class="header"><div><p class="eyebrow">主线项目 · 行程管理</p><h1>从一个页面，到一次真实交付</h1><p class="lead">每一步都先理解技术，再让 AI 分步协作，最后用运行结果、测试和差异完成验收。</p></div><a class="back" href="index.html">回学习库</a></header>
-    <div class="layout">
-      <nav class="toc" aria-label="项目步骤"><h2>项目步骤</h2><a href="#step1">01 需求与页面</a><a href="#step2">02 前端交互</a><a href="#step3">03 请求与接口</a><a href="#step4">04 数据与校验</a><a href="#step5">05 登录与权限</a><a href="#step6">06 测试与日志</a><a href="#step7">07 部署与复盘</a></nav>
-      <section class="panel">
-        <div class="mode"><button class="active" type="button" data-mode="follow">跟做模式</button><button type="button" data-mode="challenge">挑战模式</button></div>
-        <div class="mode-panel" data-panel="follow"><p class="note">跟做模式给出文件位置、操作顺序和验收结果，适合第一次完成项目。当前第一阶段已经可以运行：进入 <code>examples/trip-manager</code> 后启动 FastAPI。</p><div class="code">python -m venv .venv
-.\\.venv\\Scripts\\Activate.ps1
-pip install -r requirements.txt
-python -m uvicorn backend.app.main:app --reload</div></div>
-        <div class="mode-panel" data-panel="challenge" hidden><p class="note">挑战模式只保留目标、约束和验收标准。先自己写方案，再和参考实现比较，记录差异与取舍。</p><div class="deliverable">挑战：在不修改接口返回字段的前提下，为行程列表增加“按状态筛选”和分页。提交任务拆解、代码差异、测试结果和一个故障复盘。</div></div>
-        <div class="step-list">
-          <article class="step" id="step1"><div class="step-head"><h3>01 · 需求与页面</h3><span class="tag">M1</span></div><p>把“我想做一个行程管理”改写成页面目标、数据字段和验收标准。</p><ul><li>用户能看到行程列表和状态；</li><li>用户能新增一条行程；</li><li>空数据、错误和重复操作都有反馈。</li></ul><div class="deliverable">产出：需求说明、页面草图、第一条 Git 提交。</div></article>
-          <article class="step" id="step2"><div class="step-head"><h3>02 · 前端交互</h3><span class="tag">M2 → M4</span></div><p>用原生 JavaScript 管理表单、筛选、分页和状态，让页面先在浏览器里可用。</p><div class="deliverable">产出：`frontend/index.html`、`frontend/app.js`、成功 / 空数据 / 错误状态。</div></article>
-          <article class="step" id="step3"><div class="step-head"><h3>03 · 请求与接口</h3><span class="tag">M5 → M6 → M9</span></div><p>把浏览器动作接到真实 FastAPI 接口，先约定请求体、响应体和状态码。</p><div class="deliverable">产出：`GET /api/trips`、`POST /api/trips`、`DELETE /api/trips/{id}`、`GET /healthz`。</div></article>
-          <article class="step" id="step4"><div class="step-head"><h3>04 · 数据与校验</h3><span class="tag">M7</span></div><p>用 SQLite 保存行程，使用 Pydantic 校验输入，用分页和状态筛选控制数据范围。</p><div class="deliverable">产出：数据库表、初始化数据、非法输入的 422 响应、接口回归测试。</div></article>
-          <article class="step" id="step5"><div class="step-head"><h3>05 · 登录与权限</h3><span class="tag">M8</span></div><p>下一阶段加入用户、Session 和数据归属。前端隐藏按钮不算权限，后端必须再次检查记录属于谁。</p><div class="deliverable">产出：注册、登录、退出、用户只能读写自己的行程。</div></article>
-          <article class="step" id="step6"><div class="step-head"><h3>06 · 测试与日志</h3><span class="tag">M10 → M11</span></div><p>把主路径、边界条件和故障证据固定下来，让 AI 的修改可以回归验证。</p><div class="deliverable">产出：pytest、结构化日志、健康检查、故障复盘。</div></article>
-          <article class="step" id="step7"><div class="step-head"><h3>07 · 部署与复盘</h3><span class="tag">M11 → M12</span></div><p>用 Docker 和环境变量启动，在新环境跑通后再总结这一轮 AI 协作方法。</p><div class="deliverable">产出：Docker Compose、README、部署差异、回滚步骤和 M12 复盘。</div></article>
-        </div>
-        <p class="status" id="projectModeStatus" role="status">当前：跟做模式</p>
-      </section>
-    </div>
-  </main>
-  <script>
-    const modeButtons = document.querySelectorAll('[data-mode]');
-    const modePanels = document.querySelectorAll('[data-panel]');
-    const modeStatus = document.getElementById('projectModeStatus');
-    modeButtons.forEach((button) => button.addEventListener('click', () => {
-      const mode = button.dataset.mode;
-      modeButtons.forEach((item) => item.classList.toggle('active', item === button));
-      modePanels.forEach((panel) => { panel.hidden = panel.dataset.panel !== mode; });
-      modeStatus.textContent = mode === 'follow' ? '当前：跟做模式' : '当前：挑战模式';
-    }));
-  </script>
+  <p>正在返回学习库的主线项目区……</p>
+  <p><a href="index.html#projectTrack">点击返回主线项目区</a></p>
 </body>
 </html>

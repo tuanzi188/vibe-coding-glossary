@@ -10,7 +10,7 @@
   <main class="page-shell">
     <header class="page-header">
       <div><p class="eyebrow">主线项目 · 第一阶段</p><h1>我的行程</h1><p class="lead">这是一个真实请求、真实 SQLite 数据和真实表单校验组成的最小全栈功能。</p></div>
-      <a class="health-link" href="/healthz" target="_blank" rel="noreferrer">检查服务</a>
+      <button class="health-link" id="healthButton" type="button">检查服务</button><span class="health-status" id="healthStatus" role="status"></span>
     </header>
     <section class="toolbar" aria-label="行程筛选">
       <label>状态<select id="statusFilter"><option value="">全部</option><option value="planned">已规划</option><option value="draft">草稿</option><option value="done">已完成</option></select></label>
