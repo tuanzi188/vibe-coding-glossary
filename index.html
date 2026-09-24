@@ -165,11 +165,7 @@ button{font-family:var(--sans);cursor:pointer;}
 .side-group.be .side-link.on{color:var(--brand);background:var(--brand-deep-soft);border-left-color:var(--brand-deep);}
 .side-group.be .side-link.on i{color:var(--brand);}
 
-/* ===== 模块切换（全栈学习库导航骨架）=====
-   可见性规则：开场把所有「注册块」标记 .mod-off，再放出当前模块的块及其祖先。
-   这里用 !important 只负责「隐藏」，不覆盖元素自身的 display
-   （组件块各有 flex / grid，用 display:block 覆盖会破坏它们）。 */
-.mod-off{display:none !important;}
+/* ===== 章节目录：正文连续展示，目录用于锚点定位 ===== */
 /* 侧栏一级：模块目录 */
 .side-mods{border-bottom:1px solid var(--line-2);padding-bottom:10px;margin-bottom:8px;}
 .side-mods-h,.side-toc-h{font-size:var(--fs-3xs);color:var(--ink-3);font-weight:var(--fw-semibold);padding:8px 12px 4px;letter-spacing:.04em;}
@@ -180,6 +176,7 @@ button{font-family:var(--sans);cursor:pointer;}
 .side-mod .sm-no{flex:none;font-family:var(--mono);font-size:var(--fs-3xs);font-weight:var(--fw-bold);color:var(--ink-3);min-width:26px;}
 .side-mod.on .sm-no{color:var(--brand);}
 .side-mod .sm-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.side-mod,.mod-card{text-decoration:none;}
 .side-mod.wip .sm-name{color:var(--ink-3);}
 /* 侧栏二级：本模块目录（复用原有 .side-link，按模块过滤显示） */
 /* 总览页：模块卡片网格 */
@@ -1007,15 +1004,27 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 
 /* ===== 学习路线与贯穿式协作：样式只作用于课程区域 ===== */
 .course-surface{min-width:0;margin:20px 0;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);font-size:15px;line-height:1.8;overflow-wrap:anywhere;}
-.home-chooser{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 18px;}
+.home-chooser{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0 18px;}
 .home-choice{display:flex;flex-direction:column;gap:7px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);color:var(--ink);text-decoration:none;transition:border-color .15s,background .15s,transform .15s;}
 .home-choice:hover{border-color:var(--brand);background:var(--brand-soft);transform:translateY(-1px);}
 .home-choice strong{font-size:16px;}
+.home-chooser strong{font-family:var(--sans);}
+.home-choice:focus-visible{outline:2px solid var(--brand);outline-offset:3px;}
+#modOverview{padding-top:0;}
 .home-choice span{font-size:13px;color:var(--ink-2);line-height:1.65;}
 .home-choice .choice-no{font:11px var(--mono);color:var(--brand);}
-.home-detail[hidden]{display:none!important;}
-.course-secondary{display:none;}
-.course-secondary.course-secondary-open{display:block;}
+.course-reference{margin:18px 0;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);}
+.course-reference>summary{padding:14px 16px;color:var(--ink-2);font-weight:600;cursor:pointer;}
+.course-reference>.course-surface,.course-reference>.starter,.course-reference>.roadmap{margin:0;border-radius:0;border:0;padding:16px;}
+.course-reference .mod-grid{padding:0 16px 16px;}
+.chapter-practice{margin-top:24px;padding:16px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);color:var(--ink-2);font-size:14px;line-height:1.8;}
+.chapter-practice>summary{font-weight:600;color:var(--brand);cursor:pointer;min-height:32px;}
+.chapter-practice h3{font-size:16px;margin:14px 0 6px;}
+.chapter-practice ul{padding-left:20px;}
+.chapter-practice .ai-task-prompt{font-size:13px;}
+.chapter-practice .course-note{margin-top:12px;}
+.read-chapter{scroll-margin-top:76px;}
+.chapter-intro{margin-bottom:20px;}
 .course-surface h3{font-size:18px;color:var(--ink);margin-bottom:8px;}
 .course-surface p{color:var(--ink-2);margin:6px 0 12px;}
 .course-surface a{color:var(--brand);}
@@ -1152,39 +1161,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
   <div class="side-in">
     <!-- 一级目录：12 个知识模块 + 主线项目（由模块注册表渲染，单一数据源） -->
     <div class="side-mods" id="sideMods"></div>
-    <!-- 学习路径：常驻侧栏（原来在 hero 内，模块切换后 hero 被隐藏，按钮就够不着了） -->
-    <div class="side-routes" id="routeRow">
-      <span class="route-lead">学习路径（再点一次取消）</span>
-      <button class="route-btn" type="button" data-route="zero">零基础从头</button>
-      <button class="route-btn" type="button" data-route="backend">只补后端</button>
-      <button class="route-btn" type="button" data-route="adv">只挑进阶</button>
-      <div class="route-hint">知识目录标出推荐顺序。AI 协作与项目实践在每一步同步进行。</div>
-    </div>
-    <div class="side-toc-h" id="sideTocH">本模块目录</div>
-    <div class="side-group fe">
-      <div class="side-title"><span class="st-dot"></span>语言地基<b>1</b></div>
-      <a class="side-link" href="#m1basics">HTML/CSS 地基<i>盒模型·选择器·布局·语义化</i></a>
-    </div>
-    <div class="side-group fe">
-      <div class="side-title"><span class="st-dot"></span>前端组件<b>7</b></div>
-      <a class="side-link" href="#layout">布局<i>页面怎么排</i></a>
-      <a class="side-link" href="#nav">导航<i>怎么跳转</i></a>
-      <a class="side-link" href="#form">录入<i>表单怎么填</i></a>
-      <a class="side-link" href="#feedback">反馈<i>弹窗提示</i></a>
-      <a class="side-link" href="#display">展示<i>列表表格</i></a>
-      <a class="side-link" href="#behavior">行为<i>拖拽滚动</i></a>
-      <a class="side-link" href="#fePanorama">前端工程<i>组件之外的事</i></a>
-    </div>
-    <div class="side-group be">
-      <div class="side-title"><span class="st-dot"></span>后端技术栈<b>7</b></div>
-      <a class="side-link" href="#http">接口通信<i>前后端怎么对话</i></a>
-      <a class="side-link" href="#pyd">框架<i>后端用什么写</i></a>
-      <a class="side-link" href="#sqlite">数据存储<i>数据放哪</i></a>
-      <a class="side-link" href="#jwt">认证授权<i>登录权限</i></a>
-      <a class="side-link" href="#security">安全实践<i>防攻击</i></a>
-      <a class="side-link" href="#cicd">CI/CD<i>自动上线</i></a>
-      <a class="side-link" href="#debug">故障排查<i>出问题怎么查</i></a>
-    </div>
+    <!-- 当前章的小节随阅读位置更新，正文不做显隐切换。 -->
+    <div class="side-toc-h" id="sideTocH">本章小节</div>
+    <div id="readingToc"></div>
   </div>
 </aside>
 <div class="side-mask" id="sideMask"></div>
@@ -1192,64 +1171,37 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 <!-- ===== Hero ===== -->
 <header class="hero" id="top">
   <div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-left">
+    <div class="hero-left">
         <div class="kicker"><span class="dot"></span>全栈学习库 · 12 个知识模块 + 主线项目</div>
-        <h1>看得见的前后端<br><span class="accent">能点 · 讲得清为什么 · 拿去验收 AI</span></h1>
-        <p class="lead"><b>一句话看懂这库：它用 12 个知识模块建立全栈技术地图，再用一个主线项目把页面、网络、后端、数据、安全和部署串起来。AI 协作贯穿每个模块——先学技术、自己判断，再让 AI 分步实现并验收。</b><br><br><b>边界说明：</b>前端区的交互都是真的；后端区的请求、报文和状态码由前端模拟生成，本库不发起任何后端接口请求。</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#starter">第一次来，从这里开始 →</a>
-          <span class="hero-action-note">先建立技术地图，再练习让 AI 做小任务</span>
+        <h1>看得见的前后端<br><span class="accent">理解技术，驾驭 AI</span></h1>
+        <p class="lead">先认识技术、形成自己的判断，再用 AI 完成任务和验证结果。课程从头到尾都可以向下阅读，左侧目录只负责定位。</p>
+        <div class="home-chooser" aria-label="选择学习方式">
+          <a class="home-choice" href="#m1"><span class="choice-no">01 · 建立技术地图</span><strong>按顺序学习技术</strong><span>从页面基础开始，逐章阅读和操作 demo。</span></a>
+          <a class="home-choice" href="#projectTrack"><span class="choice-no">02 · 做出真实产出</span><strong>跟着主线项目做</strong><span>按阶段完成行程管理，需要时回看对应知识。</span></a>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="journey">
-          <div class="journey-tag">一次请求的旅程 · 看不见的那半程</div>
-          <div class="journey-flow">
-            <div class="jnode"><div class="jt">你点按钮</div><div class="js">提交表单</div></div>
-            <div class="jarr">→</div>
-            <div class="jnode"><div class="jt">前端组件</div><div class="js">校验 · 拼请求</div></div>
-            <div class="jarr">→</div>
-            <div class="jnode"><div class="jt">HTTP 请求</div><div class="js">数据 + 凭证</div></div>
-            <div class="jarr">→</div>
-            <div class="jnode"><div class="jt">后端接口</div><div class="js">校验 · 处理</div></div>
-            <div class="jarr">→</div>
-            <div class="jnode"><div class="jt">数据库</div><div class="js">读写数据</div></div>
-          </div>
-          <div class="journey-note">响应原路返回（JSON + 状态码）—— 后端区每张卡都是这条链路上的一环，先玩「联调预演」走一遍全程。每个名词都配「人话解释 + vibe coding 例句 + 怎么验收」。</div>
-        </div>
-      </div>
-    </div>
     <div class="stats">
       <div class="stat"><b id="stModTotal">–</b><span>知识模块 · 另有主线项目</span></div>
       <div class="stat"><b id="stModReady">–</b><span>已有课程或入门内容</span></div>
-      <div class="stat"><b id="stModWip">–</b><span>完整课程待补充</span></div>
-      <div class="stat"><b id="stDemos">–</b><span>真实可交互 demo</span></div>
+      <div class="stat"><b id="stModWip">–</b><span>仍在扩充的模块</span></div>
+      <div class="stat"><b id="stDemos">–</b><span>可操作的概念演示</span></div>
     </div>
-    <p class="stats-note" id="statsNote">数字口径会按页面当前 demo 数量计算；不含「前端工程能力地图」「后端技术栈全景」两个卡索引页；前端 demo 交互全真，后端请求与报文由前端模拟。</p>
+    <p class="stats-note" id="statsNote">演示数量按页面实际内容计算。后端、Python 和网络流程包含浏览器内模拟。</p>
   </div>
 </header>
 
 <!-- ===== 总览：模块地图（全栈学习库入口） ===== -->
 <section class="group" id="modOverview">
   <div class="wrap">
-    <div class="group-head">
-      <div class="tag">全栈学习库 · 模块地图</div>
-      <h2>12 个知识模块 + 主线项目</h2>
-      <p>先认识技术，再用自己的判断引导 AI。知识地图按领域查阅，推荐路线按前置知识推进；主线项目从第一个页面开始，随着学习逐步增加能力。</p>
-    </div>
-    <div class="home-chooser" aria-label="选择学习方式">
-      <a class="home-choice" href="#starter"><span class="choice-no">01 · 第一次使用</span><strong>从这里开始</strong><span>用六个小结果认识页面、请求、AI 任务和验收。</span></a>
-      <a class="home-choice" href="#learningSequence"><span class="choice-no">02 · 建立技术地图</span><strong>按知识学习</strong><span>按推荐顺序进入页面、JavaScript、后端、数据和部署。</span></a>
-      <a class="home-choice" href="#projectTrack"><span class="choice-no">03 · 做出真实产出</span><strong>跟着主线项目做</strong><span>边学边做行程管理应用，把知识串成一次交付。</span></a>
-    </div>
-    <div class="course-surface home-detail" id="learningSequence" hidden>
+    <details class="course-reference" id="learningReference">
+      <summary>学习参考：完整顺序、知识地图与任务索引</summary>
+    <div class="course-surface" id="learningSequence">
       <h3>推荐顺序：每一步都有小产出</h3>
-      <p>先完成 <a href="#toolStart">工具链最小起步</a>，再沿下方路线学习。模块编号用于查找，序号表示推荐学习次序；标注“待补”的课程目前只有导学和协作练习。</p>
+      <p>正文已经按下方顺序排列。模块编号用于查找，序号表示阅读次序。第一次学习可直接从 M1 开始；要运行真实项目时再查看工具与环境说明。</p>
       <ol class="course-sequence" id="courseSequenceList"></ol>
       <div class="course-actions"><a class="btn btn-outline" href="#aiWorkbench">每一步：用 AI 协作方法</a><a class="btn btn-outline" href="#projectTrack">每一步：推进主线项目</a></div>
     </div>
-    <div class="starter home-detail" id="starter" hidden>
+    <div class="starter" id="starter">
       <div class="starter-head">
         <div>
           <div class="starter-kicker">起步路线 · 约 30 分钟</div>
@@ -1294,11 +1246,19 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         </article>
       </div>
     </div>
+    <div class="side-routes" id="routeRow">
+      <span class="route-lead">学习路径（再点一次取消）</span>
+      <button class="route-btn" type="button" data-route="zero">零基础从头</button>
+      <button class="route-btn" type="button" data-route="backend">只补后端</button>
+      <button class="route-btn" type="button" data-route="adv">只挑进阶</button>
+      <div class="route-hint">知识目录标出推荐顺序。AI 协作与项目实践在每一步同步进行。</div>
+    </div>
     <div class="mod-grid" id="modGrid"></div>
+    <div class="course-surface"><h3>一次请求的旅程</h3><p>点击按钮 → 前端收集输入 → HTTP 请求 → 后端校验与处理 → 数据库读写 → 响应返回 → 前端更新画面。</p><p>学习每项技术时，先确认它在这条链路上的位置；再判断应该交给 AI 什么任务、用什么结果验收。</p></div>
     <p class="mod-roadmap"><b>如何选入口：</b>第一次学按上面的推荐顺序走；遇到具体问题按知识卡查。AI 协作中心随时可用，主线项目从 M1 开始积累成果。</p>
     <div class="course-actions"><a class="btn btn-outline" href="#projectTrack">主线项目路线与阶段产出 →</a></div>
-    <div class="roadmap home-detail" id="roadmap" hidden>
-      <div class="rm-head"><span class="rm-title">初学者路线图</span><span class="rm-sub">每个任务包由几张卡组成，点标签直接跳到对应卡片</span></div>
+    <div class="roadmap" id="roadmap">
+      <div class="rm-head"><span class="rm-title">按任务查技术</span><span class="rm-sub">遇到具体任务时查阅；点标签定位对应技术卡</span></div>
       <div class="rm-steps">
         <div class="rm-step">
           <div class="rm-no">1</div>
@@ -1381,94 +1341,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
         </div>
       </div>
     </div>
+    </details>
   </div>
 </section>
 
-<!-- ===== 待建模块占位（内容未就绪时显示规划说明，不留空白页） ===== -->
-<section class="group" id="modPlaceholder">
-  <div class="wrap"><div id="modPhBody"></div></div>
-</section>
-<div id="courseCoachHosts"></div>
-
-<!-- ===== 随时可用的工具起步、协作中心与项目轨道 ===== -->
-<section class="group course-secondary" id="toolStart">
-  <div class="wrap">
-    <div class="group-head"><div class="tag">M10 · 第一天只做这几件事</div><h2>打开项目，看到结果，保存一次改动</h2><p>完整工具链在后面学。现在先知道文件在哪里、改动怎样生效、出错去哪看。</p></div>
-    <div class="course-surface"><ol>
-      <li><b>打开：</b>在文件夹中找到 index.html，用浏览器打开；用编辑器打开同一个文件。这个学习库无需安装依赖。</li>
-      <li><b>做一个小改动：</b>复制一份页面到练习文件夹，修改一个标题，保存后刷新浏览器，确认只改了目标位置。</li>
-      <li><b>看证据：</b>打开浏览器开发者工具，Console（控制台）看脚本报错，Network（网络面板）看请求；本库后端演示由浏览器模拟，不会产生真实接口请求。</li>
-      <li><b>留下版本：</b>只在自己的练习文件夹里初始化 Git（版本记录工具），用下方命令检查差异并提交指定文件。</li>
-    </ol><details class="course-disclosure"><summary>第一次 Git 提交：逐条执行并观察</summary><pre class="ai-task-prompt">git init
-git status
-git add index.html
-git diff --cached
-git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显示将被提交的修改。确认内容后再提交；若提示作者身份未配置，先按提示在当前仓库配置姓名和邮箱。</p></details>
-    <p><b>验收：</b>你能找到改动文件、解释修改前后差别，并在刷新后看到结果。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">开始 M1 页面基础 →</a><a class="btn btn-outline" href="#aiWorkbench">先看如何与 AI 协作</a></div></div>
-  </div>
-</section>
-<section class="group course-secondary" id="aiWorkbench">
-  <div class="wrap">
-      <div class="group-head"><div class="tag">M12 · AI 协作总结章 · 随时可查</div><h2>把一路用过的 AI 方法整理成体系</h2><p>AI 协作在每个模块和项目步骤中都已经练习过；学完整条技术线后，再用这一章把任务拆解、上下文、约束、审查、验收和排障归纳成自己的工作方法。</p></div>
-    <div class="course-surface"><h3>每一步都用这套方法</h3><ol><li>用自己的话解释问题属于哪一层，先写一个判断。</li><li>给 AI 相关文件、当前行为与预期结果，要求先阅读再修改。</li><li>一次只推进一个功能，说明允许修改的范围。</li><li>检查代码差异，运行成功与失败场景，再决定是否接受。</li><li>失败时带上复现步骤、报错与最近改动，继续缩小问题范围。</li></ol></div>
-    <div class="ai-summary-grid">
-      <article class="course-surface">
-        <h3>练习一：先拆任务</h3>
-        <p>需求：“给行程列表加筛选、分页和导出”。第一轮应该交给 AI 什么任务？</p>
-        <div class="ai-choice-list" id="aiDecomposeChoices">
-          <button class="ai-choice" type="button" data-ai-decompose="wide">直接让 AI 一次完成三个功能，并顺手重构列表。</button>
-          <button class="ai-choice" type="button" data-ai-decompose="split">先让 AI 阅读列表和接口，拆出三个独立任务，说明依赖与每步验收。</button>
-          <button class="ai-choice" type="button" data-ai-decompose="code">先让 AI 生成分页代码，其他需求等报错后再说。</button>
-        </div>
-        <div class="ai-exercise-result" id="aiDecomposeResult">先选一个，再查看判断。</div>
-      </article>
-      <article class="course-surface">
-        <h3>练习二：验收 AI 输出</h3>
-        <p>一次筛选功能改动后，至少要检查哪些证据？勾选你认为必要的项目。</p>
-        <div class="ai-check-list" id="aiVerifyChecklist">
-          <label class="ai-check-item"><input type="checkbox" data-ai-verify="behavior">全部、已完成、空结果都能切换并显示正确。</label>
-          <label class="ai-check-item"><input type="checkbox" data-ai-verify="diff">差异只涉及筛选相关文件，没有无关大范围重写。</label>
-          <label class="ai-check-item"><input type="checkbox" data-ai-verify="error">接口失败和非法筛选值有明确反馈。</label>
-          <label class="ai-check-item"><input type="checkbox" data-ai-verify="looks">代码看起来很整齐，所以不需要运行验证。</label>
-        </div>
-        <button class="btn btn-outline" type="button" id="aiVerifySubmit">检查我的清单</button>
-        <div class="ai-exercise-result" id="aiVerifyResult">完成选择后提交，看看漏掉了哪些验收。</div>
-      </article>
-      <article class="course-surface">
-        <h3>练习三：给出故障证据</h3>
-        <p>现象：点击保存后页面一直转圈。哪一组信息最适合先交给 AI？</p>
-        <div class="ai-choice-list" id="aiEvidenceChoices">
-          <button class="ai-choice" type="button" data-ai-evidence="vague">“保存坏了，帮我修一下。”</button>
-          <button class="ai-choice" type="button" data-ai-evidence="evidence">复现步骤、Network 状态码与响应、Console 原文、最近改动和预期结果。</button>
-          <button class="ai-choice" type="button" data-ai-evidence="guess">“应该是后端超时，先把所有 timeout 改成 60 秒。”</button>
-        </div>
-        <div class="ai-evidence-lines">点击保存
-→ 预期：保存成功并停止 loading
-→ 实际：请求返回 422，页面没有显示字段错误
-→ 最近改动：把字段 city 改成了 destination</div>
-        <div class="ai-exercise-result" id="aiEvidenceResult">先选一组说法。</div>
-      </article>
-    </div>
-    <form class="course-surface" id="courseAiForm">
-      <h3>整理一次小任务</h3>
-      <div class="course-columns">
-        <label class="course-field">目标：用户会看到什么？<textarea class="course-input" name="goal" required placeholder="例如：行程列表增加按状态筛选"></textarea></label>
-        <label class="course-field">上下文：文件、已有行为、相关数据<textarea class="course-input" name="context" required placeholder="例如：index.html 已有列表；字段为 id、title、status"></textarea></label>
-        <label class="course-field">我的判断与修改边界<textarea class="course-input" name="judgement" required placeholder="例如：这是前端显示筛选；只改列表，保留原排序"></textarea></label>
-        <label class="course-field">验收证据：怎样证明改对了？<textarea class="course-input" name="checks" required placeholder="例如：全部与已完成来回切换；空结果有提示；原排序正常"></textarea></label>
-      </div>
-      <button class="btn btn-primary" type="submit">生成任务说明</button>
-      <p class="course-feedback" id="courseAiFeedback" role="status"></p>
-      <div id="courseAiResult" hidden><label class="course-field">给 AI 的任务说明<textarea class="course-input" id="courseAiOutput" readonly></textarea></label><button class="btn btn-outline" type="button" data-course-copy="courseAiOutput">复制任务说明</button></div>
-    </form>
-    <div class="course-surface"><h3>出错时，把问题补充完整</h3><p>“页面坏了”缺少定位信息。说明：触发操作、预期结果、实际结果、错误原文、相关请求和最近改动。分享前去掉口令、令牌与私人数据。</p><details class="course-disclosure"><summary>例子：接口成功，列表却是空白</summary><p>先比较接口响应里的字段与页面取值。例如响应是 items，页面却读取 data.list。把响应样例和读取代码一同交给 AI，要求先验证字段对应，再做最小修复；最后重测成功、空列表和请求失败三条路径。</p></details><div class="course-actions"><a href="#learningSequence">回推荐路线</a><a href="#projectTrack">把方法用在主线项目里</a></div></div>
-  </div>
-</section>
-<section class="group course-secondary" id="projectTrack">
-  <div class="wrap"><div class="group-head"><div class="tag">主线实践 · 当前页面内完成</div><h2>一份行程管理应用，边学边做</h2><p>项目教学已经并入当前页面：先看阶段目标，再进入本地运行项目验证。这样学习、AI 协作和项目步骤保持在同一条路线里。</p></div><div class="course-surface"><h3>每一步留下可检查的产物</h3><ol id="courseProjectSteps"></ol><p>每个阶段：先解释技术选择，再用对应模块的 AI 任务卡推进实现，保存代码差异与验收结果。真实代码位于 <code>examples/trip-manager/</code>，只在需要运行时启动本地服务。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">从静态页面开始</a><a class="btn btn-outline" href="#aiWorkbench">整理本阶段的任务</a><a class="btn btn-outline" href="#toolStart">查看运行方式</a></div></div></div>
-</section>
-
-<!-- ===== M1 语言地基：HTML / CSS ===== -->
+<div class="read-chapter" id="m1" data-reading-module="m1">
 <section class="group" id="m1basics">
   <div class="wrap">
     <div class="group-head">
@@ -1585,85 +1462,6 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
   </div>
 </section>
 
-<!-- ===== M2 JavaScript 与浏览器交互 ===== -->
-<section class="group" id="m2language">
-  <div class="wrap">
-    <div class="group-head"><div class="tag">M2 · JavaScript 与浏览器交互</div><h2>让页面根据数据和事件真正动起来</h2><p>先看变量、调用、数组和异步如何影响结果，再学会让 AI 修改交互代码时保留状态边界和事件行为。</p></div>
-    <div class="demos">
-      <div class="demo" id="m2Scope">
-        <div class="demo-head"><span class="d-name">变量与作用域 Scope</span><span class="d-en">/ var · let · const</span></div>
-        <div class="demo-stage col">
-          <div class="module-controls"><button class="btn btn-sm btn-outline on" type="button" data-m2-scope="var">var</button><button class="btn btn-sm btn-outline" type="button" data-m2-scope="let">let</button><button class="btn btn-sm btn-outline" type="button" data-m2-scope="const">const</button></div>
-          <div class="module-output" id="m2ScopeOut">先选一个关键字，看它能不能越过花括号以及能不能重新赋值。</div>
-        </div>
-        <div class="demo-exp"><span class="plain"><code>var</code> 看函数边界，<code>let</code> / <code>const</code> 看块边界；<code>const</code> 是绑定不能换人，不代表对象内容不能改。</span><br><span class="eg">"默认用 const，只有需要重新赋值时才用 let，避免意外覆盖"</span></div>
-      </div>
-      <div class="demo" id="m2This">
-        <div class="demo-head"><span class="d-name">函数与 this</span><span class="d-en">/ 看调用方式，不看定义位置</span></div>
-        <div class="demo-stage col">
-          <div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-m2-this="method">obj.say()</button><button class="btn btn-sm btn-outline" type="button" data-m2-this="detach">const f = obj.say</button><button class="btn btn-sm btn-outline" type="button" data-m2-this="timeout">setTimeout(obj.say)</button><button class="btn btn-sm btn-outline" type="button" data-m2-this="arrow">setTimeout(() =&gt; obj.say())</button></div>
-          <div class="module-output" id="m2ThisOut">点一种调用方式，观察 this 指向谁。</div>
-        </div>
-        <div class="demo-exp"><span class="plain">对象方法被拆出来或直接交给定时器时，隐含的 <code>this</code> 可能丢失；箭头函数通过闭包保留外层对象。</span><br><span class="eg">"把对象方法交给 setTimeout 前，先确认 this 是否需要绑定"</span></div>
-      </div>
-      <div class="demo" id="m2Array">
-        <div class="demo-head"><span class="d-name">数组三件套</span><span class="d-en">/ map · filter · reduce</span></div>
-        <div class="demo-stage col">
-          <div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-m2-array="map">map：每项换一项</button><button class="btn btn-sm btn-outline" type="button" data-m2-array="filter">filter：挑合格的</button><button class="btn btn-sm btn-outline" type="button" data-m2-array="reduce">reduce：压成一个值</button></div>
-          <div class="module-output" id="m2ArrayOut">原始行程：杭州 · 3 天、苏州 · 2 天、南京 · 4 天</div>
-        </div>
-        <div class="demo-exp"><span class="plain">map 保持数量，filter 可能变少，reduce 变成一个统计结果；三个方法都返回新结果，不直接改原数组。</span><br><span class="eg">"列表展示用 map，条件筛选用 filter，总价统计用 reduce"</span></div>
-      </div>
-      <div class="demo" id="m2Async">
-        <div class="demo-head"><span class="d-name">异步与事件循环</span><span class="d-en">/ 同步 → 微任务 → 宏任务</span></div>
-        <div class="demo-stage col">
-          <div class="module-controls"><button class="btn btn-primary btn-sm" type="button" id="m2AsyncRun">运行一次</button><span class="module-badge" id="m2AsyncStatus">等待运行</span></div>
-          <ul class="module-list" id="m2AsyncLanes"><li data-m2-lane="sync"><span>同步代码：先完成当前工作</span><span class="module-badge">等待</span></li><li data-m2-lane="micro"><span>微任务：Promise 回调</span><span class="module-badge">等待</span></li><li data-m2-lane="macro"><span>宏任务：setTimeout 回调</span><span class="module-badge">等待</span></li></ul>
-          <div class="module-output" id="m2AsyncOut">输出顺序会显示在这里。</div>
-        </div>
-        <div class="demo-exp"><span class="plain">JavaScript 同一时刻只执行一段代码；慢活先排队，当前代码结束后按队列回来。异步不是让单个请求变快，而是避免等待时堵住其他工作。</span><br><span class="eg">"网络和数据库用 async 等待，CPU 重活别塞进事件循环"</span></div>
-      </div>
-      <div class="demo full" id="m2Types">
-        <div class="demo-head"><span class="d-name">类型与模块</span><span class="d-en">/ 提前拦错 + 单向依赖</span></div>
-        <div class="demo-stage col">
-          <div class="module-grid"><div class="module-card"><h4>类型检查</h4><p>同一个 getPrice 函数，传入数字和字符串时会怎样？</p><div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-m2-type="ok">传入正确类型</button><button class="btn btn-sm btn-outline" type="button" data-m2-type="bad">传入错误类型</button></div><div class="module-output" id="m2TypeOut">等待调用。</div></div><div class="module-card"><h4>模块依赖</h4><p>模块 A → B → C 是单向依赖；让 C 反向 import A 会形成环。</p><button class="btn btn-sm btn-outline" type="button" id="m2CycleBtn">模拟反向依赖</button><div class="module-output" id="m2CycleOut">当前依赖：A → B → C，结构清楚。</div></div></div>
-        </div>
-        <div class="demo-exp"><span class="plain">类型让错误更早出现，模块让依赖方向更容易检查；错误发现得越早，返工成本越低。</span><br><span class="eg">"先给函数补参数类型，再让 AI 检查是否出现循环依赖"</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== M3 组件化前端 ===== -->
-<section class="group" id="m3framework">
-  <div class="wrap">
-    <div class="group-head"><div class="tag">M3 · 组件化前端</div><h2>从“改页面”变成“管理组件和数据流”</h2><p>React、Vue 和原生写法不同，但共同问题是：数据放在哪里、组件如何通信、状态改变后谁需要更新。</p></div>
-    <div class="demos">
-      <div class="demo" id="m3Props">
-        <div class="demo-head"><span class="d-name">Props：父组件传给子组件</span><span class="d-en">/ 输入是显式的</span></div>
-        <div class="demo-stage col"><label class="label" for="m3PropsInput">父组件传入标题</label><input class="input" id="m3PropsInput" value="杭州三日行程"><div class="module-card"><h4>子组件 TripCard</h4><p id="m3PropsChild">标题还没有传入。</p></div></div>
-        <div class="demo-exp"><span class="plain">子组件不需要猜数据来自哪里，父组件通过属性明确传入；需要修改时先检查数据流方向。</span><br><span class="eg">"把 title 和 status 作为 props 传给 TripCard，子组件只负责展示"</span></div>
-      </div>
-      <div class="demo" id="m3State">
-        <div class="demo-head"><span class="d-name">State：数据变了，视图跟着变</span><span class="d-en">/ 声明式更新</span></div>
-        <div class="demo-stage col"><div class="module-controls"><button class="btn btn-primary btn-sm" type="button" id="m3StateAdd">新增一天</button><button class="btn btn-outline btn-sm" type="button" id="m3StateReset">重置</button></div><div class="module-output" id="m3StateOut">当前行程：3 天</div></div>
-        <div class="demo-exp"><span class="plain">声明式框架关注“当前状态应该显示什么”；状态更新后，框架负责同步需要变化的部分。</span><br><span class="eg">"把行程天数放进 state，按钮只负责触发更新，不手动改多个 DOM"</span></div>
-      </div>
-      <div class="demo" id="m3Render">
-        <div class="demo-head"><span class="d-name">列表与条件渲染</span><span class="d-en">/ key · filter · empty</span></div>
-        <div class="demo-stage col"><div class="module-controls"><button class="btn btn-sm btn-outline on" type="button" data-m3-filter="all">全部</button><button class="btn btn-sm btn-outline" type="button" data-m3-filter="ready">已完成</button><button class="btn btn-sm btn-outline" type="button" data-m3-filter="empty">空结果</button></div><ul class="module-list" id="m3RenderList"></ul></div>
-        <div class="demo-exp"><span class="plain">列表需要稳定的 key 帮助框架识别每一项；空数组要有空状态，不能让用户看到一片空白。</span><br><span class="eg">"列表用稳定 id 做 key，过滤后没有数据时显示 Empty"</span></div>
-      </div>
-      <div class="demo" id="m3Effect">
-        <div class="demo-head"><span class="d-name">副作用与生命周期</span><span class="d-en">/ 请求、定时器、清理</span></div>
-        <div class="demo-stage col"><button class="btn btn-primary btn-sm" type="button" id="m3EffectRun">运行一次请求效果</button><ul class="module-list" id="m3EffectLog"><li>等待运行 <span class="module-badge">—</span></li></ul></div>
-        <div class="demo-exp"><span class="plain">请求、订阅和定时器属于副作用；开始时注册，离开组件时清理，避免重复监听和旧请求污染新页面。</span><br><span class="eg">"组件卸载时清理定时器和订阅，避免重复触发"</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 01 布局 ===== -->
 <section class="group" id="layout">
   <div class="wrap">
     <div class="group-head">
@@ -1726,7 +1524,6 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
   </div>
 </section>
 
-<!-- ===== 02 导航 ===== -->
 <section class="group" id="nav">
   <div class="wrap">
     <div class="group-head">
@@ -1823,7 +1620,6 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
   </div>
 </section>
 
-<!-- ===== 03 数据录入 ===== -->
 <section class="group" id="form">
   <div class="wrap">
     <div class="group-head">
@@ -1941,7 +1737,6 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
   </div>
 </section>
 
-<!-- ===== 04 反馈 ===== -->
 <section class="group" id="feedback">
   <div class="wrap">
     <div class="group-head">
@@ -2045,7 +1840,6 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
   </div>
 </section>
 
-<!-- ===== 05 展示 ===== -->
 <section class="group" id="display">
   <div class="wrap">
     <div class="group-head">
@@ -2241,8 +2035,89 @@ git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显�
     </div>
   </div>
 </section>
+</div>
 
-<!-- ===== 06 行为与全局 ===== -->
+<div class="read-chapter" id="m2" data-reading-module="m2">
+<section class="group" id="m2language">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M2 · JavaScript 与浏览器交互</div><h2>让页面根据数据和事件真正动起来</h2><p>先看变量、调用、数组和异步如何影响结果，再学会让 AI 修改交互代码时保留状态边界和事件行为。</p></div>
+    <div class="demos">
+      <div class="demo" id="m2Scope">
+        <div class="demo-head"><span class="d-name">变量与作用域 Scope</span><span class="d-en">/ var · let · const</span></div>
+        <div class="demo-stage col">
+          <div class="module-controls"><button class="btn btn-sm btn-outline on" type="button" data-m2-scope="var">var</button><button class="btn btn-sm btn-outline" type="button" data-m2-scope="let">let</button><button class="btn btn-sm btn-outline" type="button" data-m2-scope="const">const</button></div>
+          <div class="module-output" id="m2ScopeOut">先选一个关键字，看它能不能越过花括号以及能不能重新赋值。</div>
+        </div>
+        <div class="demo-exp"><span class="plain"><code>var</code> 看函数边界，<code>let</code> / <code>const</code> 看块边界；<code>const</code> 是绑定不能换人，不代表对象内容不能改。</span><br><span class="eg">"默认用 const，只有需要重新赋值时才用 let，避免意外覆盖"</span></div>
+      </div>
+      <div class="demo" id="m2This">
+        <div class="demo-head"><span class="d-name">函数与 this</span><span class="d-en">/ 看调用方式，不看定义位置</span></div>
+        <div class="demo-stage col">
+          <div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-m2-this="method">obj.say()</button><button class="btn btn-sm btn-outline" type="button" data-m2-this="detach">const f = obj.say</button><button class="btn btn-sm btn-outline" type="button" data-m2-this="timeout">setTimeout(obj.say)</button><button class="btn btn-sm btn-outline" type="button" data-m2-this="arrow">setTimeout(() =&gt; obj.say())</button></div>
+          <div class="module-output" id="m2ThisOut">点一种调用方式，观察 this 指向谁。</div>
+        </div>
+        <div class="demo-exp"><span class="plain">对象方法被拆出来或直接交给定时器时，隐含的 <code>this</code> 可能丢失；箭头函数通过闭包保留外层对象。</span><br><span class="eg">"把对象方法交给 setTimeout 前，先确认 this 是否需要绑定"</span></div>
+      </div>
+      <div class="demo" id="m2Array">
+        <div class="demo-head"><span class="d-name">数组三件套</span><span class="d-en">/ map · filter · reduce</span></div>
+        <div class="demo-stage col">
+          <div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-m2-array="map">map：每项换一项</button><button class="btn btn-sm btn-outline" type="button" data-m2-array="filter">filter：挑合格的</button><button class="btn btn-sm btn-outline" type="button" data-m2-array="reduce">reduce：压成一个值</button></div>
+          <div class="module-output" id="m2ArrayOut">原始行程：杭州 · 3 天、苏州 · 2 天、南京 · 4 天</div>
+        </div>
+        <div class="demo-exp"><span class="plain">map 保持数量，filter 可能变少，reduce 变成一个统计结果；三个方法都返回新结果，不直接改原数组。</span><br><span class="eg">"列表展示用 map，条件筛选用 filter，总价统计用 reduce"</span></div>
+      </div>
+      <div class="demo" id="m2Async">
+        <div class="demo-head"><span class="d-name">异步与事件循环</span><span class="d-en">/ 同步 → 微任务 → 宏任务</span></div>
+        <div class="demo-stage col">
+          <div class="module-controls"><button class="btn btn-primary btn-sm" type="button" id="m2AsyncRun">运行一次</button><span class="module-badge" id="m2AsyncStatus">等待运行</span></div>
+          <ul class="module-list" id="m2AsyncLanes"><li data-m2-lane="sync"><span>同步代码：先完成当前工作</span><span class="module-badge">等待</span></li><li data-m2-lane="micro"><span>微任务：Promise 回调</span><span class="module-badge">等待</span></li><li data-m2-lane="macro"><span>宏任务：setTimeout 回调</span><span class="module-badge">等待</span></li></ul>
+          <div class="module-output" id="m2AsyncOut">输出顺序会显示在这里。</div>
+        </div>
+        <div class="demo-exp"><span class="plain">JavaScript 同一时刻只执行一段代码；慢活先排队，当前代码结束后按队列回来。异步不是让单个请求变快，而是避免等待时堵住其他工作。</span><br><span class="eg">"网络和数据库用 async 等待，CPU 重活别塞进事件循环"</span></div>
+      </div>
+      <div class="demo full" id="m2Types">
+        <div class="demo-head"><span class="d-name">类型与模块</span><span class="d-en">/ 提前拦错 + 单向依赖</span></div>
+        <div class="demo-stage col">
+          <div class="module-grid"><div class="module-card"><h4>类型检查</h4><p>同一个 getPrice 函数，传入数字和字符串时会怎样？</p><div class="module-controls"><button class="btn btn-sm btn-outline" type="button" data-m2-type="ok">传入正确类型</button><button class="btn btn-sm btn-outline" type="button" data-m2-type="bad">传入错误类型</button></div><div class="module-output" id="m2TypeOut">等待调用。</div></div><div class="module-card"><h4>模块依赖</h4><p>模块 A → B → C 是单向依赖；让 C 反向 import A 会形成环。</p><button class="btn btn-sm btn-outline" type="button" id="m2CycleBtn">模拟反向依赖</button><div class="module-output" id="m2CycleOut">当前依赖：A → B → C，结构清楚。</div></div></div>
+        </div>
+        <div class="demo-exp"><span class="plain">类型让错误更早出现，模块让依赖方向更容易检查；错误发现得越早，返工成本越低。</span><br><span class="eg">"先给函数补参数类型，再让 AI 检查是否出现循环依赖"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="read-chapter" id="m3" data-reading-module="m3">
+<section class="group" id="m3framework">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M3 · 组件化前端</div><h2>从“改页面”变成“管理组件和数据流”</h2><p>React、Vue 和原生写法不同，但共同问题是：数据放在哪里、组件如何通信、状态改变后谁需要更新。</p></div>
+    <div class="demos">
+      <div class="demo" id="m3Props">
+        <div class="demo-head"><span class="d-name">Props：父组件传给子组件</span><span class="d-en">/ 输入是显式的</span></div>
+        <div class="demo-stage col"><label class="label" for="m3PropsInput">父组件传入标题</label><input class="input" id="m3PropsInput" value="杭州三日行程"><div class="module-card"><h4>子组件 TripCard</h4><p id="m3PropsChild">标题还没有传入。</p></div></div>
+        <div class="demo-exp"><span class="plain">子组件不需要猜数据来自哪里，父组件通过属性明确传入；需要修改时先检查数据流方向。</span><br><span class="eg">"把 title 和 status 作为 props 传给 TripCard，子组件只负责展示"</span></div>
+      </div>
+      <div class="demo" id="m3State">
+        <div class="demo-head"><span class="d-name">State：数据变了，视图跟着变</span><span class="d-en">/ 声明式更新</span></div>
+        <div class="demo-stage col"><div class="module-controls"><button class="btn btn-primary btn-sm" type="button" id="m3StateAdd">新增一天</button><button class="btn btn-outline btn-sm" type="button" id="m3StateReset">重置</button></div><div class="module-output" id="m3StateOut">当前行程：3 天</div></div>
+        <div class="demo-exp"><span class="plain">声明式框架关注“当前状态应该显示什么”；状态更新后，框架负责同步需要变化的部分。</span><br><span class="eg">"把行程天数放进 state，按钮只负责触发更新，不手动改多个 DOM"</span></div>
+      </div>
+      <div class="demo" id="m3Render">
+        <div class="demo-head"><span class="d-name">列表与条件渲染</span><span class="d-en">/ key · filter · empty</span></div>
+        <div class="demo-stage col"><div class="module-controls"><button class="btn btn-sm btn-outline on" type="button" data-m3-filter="all">全部</button><button class="btn btn-sm btn-outline" type="button" data-m3-filter="ready">已完成</button><button class="btn btn-sm btn-outline" type="button" data-m3-filter="empty">空结果</button></div><ul class="module-list" id="m3RenderList"></ul></div>
+        <div class="demo-exp"><span class="plain">列表需要稳定的 key 帮助框架识别每一项；空数组要有空状态，不能让用户看到一片空白。</span><br><span class="eg">"列表用稳定 id 做 key，过滤后没有数据时显示 Empty"</span></div>
+      </div>
+      <div class="demo" id="m3Effect">
+        <div class="demo-head"><span class="d-name">副作用与生命周期</span><span class="d-en">/ 请求、定时器、清理</span></div>
+        <div class="demo-stage col"><button class="btn btn-primary btn-sm" type="button" id="m3EffectRun">运行一次请求效果</button><ul class="module-list" id="m3EffectLog"><li>等待运行 <span class="module-badge">—</span></li></ul></div>
+        <div class="demo-exp"><span class="plain">请求、订阅和定时器属于副作用；开始时注册，离开组件时清理，避免重复监听和旧请求污染新页面。</span><br><span class="eg">"组件卸载时清理定时器和订阅，避免重复触发"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="read-chapter" id="m4" data-reading-module="m4">
 <section class="group" id="behavior">
   <div class="wrap">
     <div class="group-head">
@@ -2725,8 +2600,39 @@ const add = () =&gt; setN(n + 1);</div>
     </div>
   </div>
 </section>
+</div>
 
-<!-- ===== M5 Python 后端代码基础 ===== -->
+<div class="read-chapter" id="m9" data-reading-module="m9">
+<section class="group" id="m9network">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M9 · 网络与浏览器</div><h2>知道请求在哪一层出问题</h2><p>网络不是一条黑箱通道。把域名、连接、加密、请求、响应和浏览器渲染拆开，AI 才能根据证据定位问题，而不是盲目改代码。</p></div>
+    <div class="demos">
+      <div class="demo full" id="m9Pipeline">
+        <div class="demo-head"><span class="d-name">一次请求的网络旅程</span><span class="d-en">/ DNS → TCP → TLS → HTTP → 响应</span></div>
+        <div class="demo-stage col"><div class="module-flow" id="m9Flow"><button class="module-flow-step on" type="button" data-m9-flow="dns">DNS 找地址</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="tcp">TCP 建连接</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="tls">TLS 加密</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="http">HTTP 请求</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="response">响应返回</button></div><div class="module-output" id="m9FlowOut">DNS：把 api.trip.demo 换成服务器 IP。出错时先看域名、地址和环境配置。</div></div>
+        <div class="demo-exp"><span class="plain">调试时先定位请求停在哪一段：地址解析、连接、证书、服务处理，还是浏览器读取响应；不要看到页面报错就直接改组件。</span><br><span class="eg">"先给 AI Network 状态、请求地址、响应头和 Console 原文，再让它判断层级"</span></div>
+      </div>
+      <div class="demo" id="m9Render">
+        <div class="demo-head"><span class="d-name">浏览器渲染流程</span><span class="d-en">/ HTML → CSS → 布局 → 绘制</span></div>
+        <div class="demo-stage col"><button class="btn btn-primary btn-sm" type="button" id="m9RenderRun">演示渲染流程</button><ul class="module-list" id="m9RenderList"><li data-m9-render="parse">解析 HTML / CSS <span class="module-badge">等待</span></li><li data-m9-render="tree">生成 DOM / CSSOM <span class="module-badge">等待</span></li><li data-m9-render="layout">计算布局 <span class="module-badge">等待</span></li><li data-m9-render="paint">绘制像素 <span class="module-badge">等待</span></li></ul><div class="module-output" id="m9RenderOut">修改页面后，浏览器会按这条链路重新得到画面。</div></div>
+        <div class="demo-exp"><span class="plain">HTML 和 CSS 先被解析成结构，再计算每个元素的位置，最后绘制像素。改变颜色通常只需要重绘，改变尺寸可能触发布局。</span><br><span class="eg">"先判断是重排还是重绘，再让 AI 优化页面性能"</span></div>
+      </div>
+      <div class="demo" id="m9Reflow">
+        <div class="demo-head"><span class="d-name">重排与重绘</span><span class="d-en">/ 改尺寸 vs 改颜色</span></div>
+        <div class="demo-stage col"><div class="module-controls"><button class="btn btn-sm btn-outline" type="button" id="m9ReflowLayout">改变布局</button><button class="btn btn-sm btn-outline" type="button" id="m9ReflowPaint">改变颜色</button></div><div class="module-reflow-box" id="m9ReflowBox"><span>卡片 A</span><span>卡片 B</span><span>卡片 C</span></div><div class="module-output" id="m9ReflowOut">先选择一种改变，看浏览器需要重新计算什么。</div></div>
+        <div class="demo-exp"><span class="plain">改变宽度和列数要重新计算位置，改变颜色通常只需重新绘制。性能优化要从实际变化和测量结果出发。</span><br><span class="eg">"先测量页面瓶颈，再让 AI 给出减少重排的改动"</span></div>
+      </div>
+      <div class="demo" id="m9Bubble">
+        <div class="demo-head"><span class="d-name">事件冒泡</span><span class="d-en">/ 点里面，外面也能收到</span></div>
+        <div class="demo-stage col"><div class="module-bubble" id="m9BubbleOuter"><div class="outer">外层容器：点击这里或内部都会收到事件<div class="inner" id="m9BubbleInner">内层按钮：点击我，选择是否 stopPropagation</div></div></div><div class="module-controls"><button class="btn btn-sm btn-outline" type="button" id="m9BubbleStop">切换：阻止冒泡</button><button class="btn btn-sm btn-outline" type="button" id="m9BubbleClear">清空日志</button></div><div class="module-output" id="m9BubbleOut">点击内层区域，观察事件从内向外传播。</div></div>
+        <div class="demo-exp"><span class="plain">事件默认从目标元素向父元素冒泡。事件委托利用它管理列表；需要隔离行为时才阻止冒泡，不要到处 stopPropagation。</span><br><span class="eg">"列表只在容器绑定一次点击，再根据 event.target 判断哪一行"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="read-chapter" id="m5" data-reading-module="m5">
 <section class="group" id="m5python">
   <div class="wrap">
     <div class="group-head"><div class="tag">M5 · Python 后端代码基础</div><h2>先读懂 AI 写的后端，再让它继续改</h2><p>这一层不追求完整 Python 语法，而是训练阅读后端入口最常见的类型注解、装饰器、异步函数和依赖环境。</p></div>
@@ -2755,37 +2661,9 @@ const add = () =&gt; setN(n + 1);</div>
     </div>
   </div>
 </section>
+</div>
 
-<!-- ===== M9 网络与浏览器 ===== -->
-<section class="group" id="m9network">
-  <div class="wrap">
-    <div class="group-head"><div class="tag">M9 · 网络与浏览器</div><h2>知道请求在哪一层出问题</h2><p>网络不是一条黑箱通道。把域名、连接、加密、请求、响应和浏览器渲染拆开，AI 才能根据证据定位问题，而不是盲目改代码。</p></div>
-    <div class="demos">
-      <div class="demo full" id="m9Pipeline">
-        <div class="demo-head"><span class="d-name">一次请求的网络旅程</span><span class="d-en">/ DNS → TCP → TLS → HTTP → 响应</span></div>
-        <div class="demo-stage col"><div class="module-flow" id="m9Flow"><button class="module-flow-step on" type="button" data-m9-flow="dns">DNS 找地址</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="tcp">TCP 建连接</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="tls">TLS 加密</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="http">HTTP 请求</button><span class="module-flow-arrow">→</span><button class="module-flow-step" type="button" data-m9-flow="response">响应返回</button></div><div class="module-output" id="m9FlowOut">DNS：把 api.trip.demo 换成服务器 IP。出错时先看域名、地址和环境配置。</div></div>
-        <div class="demo-exp"><span class="plain">调试时先定位请求停在哪一段：地址解析、连接、证书、服务处理，还是浏览器读取响应；不要看到页面报错就直接改组件。</span><br><span class="eg">"先给 AI Network 状态、请求地址、响应头和 Console 原文，再让它判断层级"</span></div>
-      </div>
-      <div class="demo" id="m9Render">
-        <div class="demo-head"><span class="d-name">浏览器渲染流程</span><span class="d-en">/ HTML → CSS → 布局 → 绘制</span></div>
-        <div class="demo-stage col"><button class="btn btn-primary btn-sm" type="button" id="m9RenderRun">演示渲染流程</button><ul class="module-list" id="m9RenderList"><li data-m9-render="parse">解析 HTML / CSS <span class="module-badge">等待</span></li><li data-m9-render="tree">生成 DOM / CSSOM <span class="module-badge">等待</span></li><li data-m9-render="layout">计算布局 <span class="module-badge">等待</span></li><li data-m9-render="paint">绘制像素 <span class="module-badge">等待</span></li></ul><div class="module-output" id="m9RenderOut">修改页面后，浏览器会按这条链路重新得到画面。</div></div>
-        <div class="demo-exp"><span class="plain">HTML 和 CSS 先被解析成结构，再计算每个元素的位置，最后绘制像素。改变颜色通常只需要重绘，改变尺寸可能触发布局。</span><br><span class="eg">"先判断是重排还是重绘，再让 AI 优化页面性能"</span></div>
-      </div>
-      <div class="demo" id="m9Reflow">
-        <div class="demo-head"><span class="d-name">重排与重绘</span><span class="d-en">/ 改尺寸 vs 改颜色</span></div>
-        <div class="demo-stage col"><div class="module-controls"><button class="btn btn-sm btn-outline" type="button" id="m9ReflowLayout">改变布局</button><button class="btn btn-sm btn-outline" type="button" id="m9ReflowPaint">改变颜色</button></div><div class="module-reflow-box" id="m9ReflowBox"><span>卡片 A</span><span>卡片 B</span><span>卡片 C</span></div><div class="module-output" id="m9ReflowOut">先选择一种改变，看浏览器需要重新计算什么。</div></div>
-        <div class="demo-exp"><span class="plain">改变宽度和列数要重新计算位置，改变颜色通常只需重新绘制。性能优化要从实际变化和测量结果出发。</span><br><span class="eg">"先测量页面瓶颈，再让 AI 给出减少重排的改动"</span></div>
-      </div>
-      <div class="demo" id="m9Bubble">
-        <div class="demo-head"><span class="d-name">事件冒泡</span><span class="d-en">/ 点里面，外面也能收到</span></div>
-        <div class="demo-stage col"><div class="module-bubble" id="m9BubbleOuter"><div class="outer">外层容器：点击这里或内部都会收到事件<div class="inner" id="m9BubbleInner">内层按钮：点击我，选择是否 stopPropagation</div></div></div><div class="module-controls"><button class="btn btn-sm btn-outline" type="button" id="m9BubbleStop">切换：阻止冒泡</button><button class="btn btn-sm btn-outline" type="button" id="m9BubbleClear">清空日志</button></div><div class="module-output" id="m9BubbleOut">点击内层区域，观察事件从内向外传播。</div></div>
-        <div class="demo-exp"><span class="plain">事件默认从目标元素向父元素冒泡。事件委托利用它管理列表；需要隔离行为时才阻止冒泡，不要到处 stopPropagation。</span><br><span class="eg">"列表只在容器绑定一次点击，再根据 event.target 判断哪一行"</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 07 后端技术栈 ===== -->
+<div class="read-chapter" id="m6" data-reading-module="m6">
 <section class="group" id="backend">
   <div class="wrap">
     <div class="group-head">
@@ -2905,64 +2783,9 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">REST 的规矩：URL 只写名词（资源），动作交给 GET/POST/PUT/DELETE，结果用状态码表达（200 成功 / 404 找不到 / 500 服务器炸了）。点上面三行对比：同样是 GET，一个用路径参数定位资源，一个用查询串做搜索。</span><br><span class="eg">"帮我设计 RESTful API：行程生成走 POST /api/plan/generate，城市攻略走 GET /api/city/{city}/guide"</span></div>
       </div>
 
-      <div class="demo full" id="bePagination">
-        <div class="demo-head"><span class="d-name">分页 Pagination</span><span class="d-en">/ 前端那个分页器到了后端变成什么</span></div>
-        <div class="demo-stage">
-          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
-            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
-              <div style="width:130px;">
-                <label class="label" for="pgTotal">总条数 total</label>
-                <input class="input" type="number" id="pgTotal" value="137" min="0" max="9999">
-              </div>
-              <div style="width:120px;">
-                <label class="label" for="pgSize">每页 size</label>
-                <input class="input" type="number" id="pgSize" value="10" min="1" max="500">
-              </div>
-              <div style="flex:1;min-width:240px;">
-                <label class="label" for="pgPage">当前页 page</label>
-                <div class="slider-row">
-                  <input type="range" id="pgPage" min="1" max="14" value="1" aria-label="当前页">
-                  <span class="slider-val" id="pgPageVal">1</span>
-                </div>
-              </div>
-            </div>
-            <div class="mono" id="pgSql" style="background:#0f1729;color:#c8e1ff;border-radius:var(--r-sm);padding:10px 12px;font-size:12.5px;overflow-x:auto;"></div>
-            <div class="api-res" id="pgRes" style="min-height:170px;white-space:pre;overflow-x:auto;"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">前端只发两个数字：<code>page</code> 和 <code>size</code>。后端把它翻译成 <code>LIMIT ? OFFSET ?</code>——offset = (page-1) * size。响应里除了本页 <code>items</code>，还要回 <code>total / page_count / has_next</code>，否则前端分页器画不出页码。注意两条保护：size 要在后端夹住上限（前端能改成 999999），page 越界返回空数组而不是报错。</span><br><span class="eg">"列表接口支持分页，参数 page 和 size，size 最大 50，返回 items、total、page_count、has_next"</span></div>
-      </div>
 
-      <div class="demo full" id="cors">
-        <div class="demo-head"><span class="d-name">CORS 跨域</span><span class="d-en">/ 浏览器拦的，不是服务器报的错</span></div>
-        <div class="demo-stage">
-          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
-            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
-              <div style="width:210px;">
-                <label class="label" for="csOrigin">页面所在源</label>
-                <select class="input" id="csOrigin">
-                  <option value="same">https://api.trip.demo（与接口同源）</option>
-                  <option value="cross" selected>https://trip.demo（跨源）</option>
-                </select>
-              </div>
-              <div style="width:230px;">
-                <label class="label" for="csReq">前端发的请求</label>
-                <select class="input" id="csReq">
-                  <option value="simple" selected>GET /cities（简单请求）</option>
-                  <option value="preflight">GET /plans + Authorization 头（触发预检）</option>
-                </select>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:6px;padding-bottom:4px;">
-                <label style="font-size:13px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="csAllowOrigin" checked> 后端带 <code>Access-Control-Allow-Origin</code></label>
-                <label style="font-size:13px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="csAllowHeaders" checked> 预检响应带 <code>Allow-Headers: Authorization</code></label>
-              </div>
-              <button class="btn btn-primary btn-sm" type="button" id="csSend">发送请求</button>
-            </div>
-            <div class="api-res" id="csLog" style="min-height:150px;white-space:pre-wrap;"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">CORS 是<b>浏览器</b>的同源策略，不是服务器的报错：请求照样发出去，服务器也可能返回 <code>200</code>，但浏览器不给 JS 读响应——所以「Network 里 200，前端却报 CORS 错」是真的。带了自定义头（如 <code>Authorization</code>）会先自动发一次 <code>OPTIONS</code> 预检，预检没过，真实请求根本不会发出。</span><br><span class="eg">"后端加 CORS 中间件：允许来源 https://trip.demo、允许 GET/POST、允许 Authorization 头，并处理 OPTIONS 预检"</span></div>
-      </div>
+
+
 
       <div class="demo full" id="pyd">
         <div class="demo-head"><span class="d-name">FastAPI + Pydantic 数据校验</span><span class="d-en">/ 类型安全的入口</span></div>
@@ -2998,107 +2821,17 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">同步：三个请求排队等，总耗时 ≈ 2.1s；异步：三个请求同时发出、一起等，总耗时 ≈ 0.75s。请求卡在网络/数据库时不占 CPU，async 就是把「等」这件事并发掉。</span><br><span class="eg">"FastAPI 接口用 async def，同时调高德 API 和天气接口，别串行等"</span></div>
       </div>
 
-      <div class="demo" id="sqlite">
-        <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
-        <div class="demo-stage center">
-          <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
-            <div class="db-tabs" id="dbTabs">
-              <button class="db-tab on" type="button" data-table="users">users</button>
-              <button class="db-tab" type="button" data-table="itineraries">itineraries</button>
-              <button class="db-tab" type="button" data-table="pois">pois</button>
-            </div>
-            <div class="db-fields" id="dbFields"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
-      </div>
 
-      <div class="demo" id="txn">
-        <div class="demo-head"><span class="d-name">事务 ACID</span><span class="d-en">/ 要么都成，要么都不成</span></div>
-        <div class="demo-stage center">
-          <div class="tx-demo">
-            <div class="tx-accounts">
-              <div class="tx-acc"><span>A 的余额</span><b id="txA">¥100</b></div>
-              <div class="tx-arrow">→ 转 30 →</div>
-              <div class="tx-acc"><span>B 的余额</span><b id="txB">¥50</b></div>
-            </div>
-            <div class="tx-btns">
-              <button class="btn btn-primary btn-sm" type="button" id="txOk">正常转账（都成功）</button>
-              <button class="btn btn-outline btn-sm" type="button" id="txFail">B 加钱失败（回滚）</button>
-              <button class="btn btn-outline btn-sm" type="button" id="txReset">重置余额</button>
-            </div>
-            <div class="tx-status" id="txStatus">点上面两个按钮对比：一个两边一起变，一个中途失败、整笔取消。</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">正常：A 扣钱、B 加钱都成功，一起提交。失败：A 扣了但 B 加不了，事务回滚——A 自动加回来，两边都没变。<b>ACID 就是这四条性质的首字母：原子性（要么全成要么全没）、一致性（转账前后两人总金额不变）、隔离性（并发转账互不干扰）、持久性（提交后断电也不丢）。</b></span><br><span class="eg">"转账和扣库存放同一个事务，任何一步失败全部回滚"</span></div>
-      </div>
 
-      <div class="demo" id="index">
-        <div class="demo-head"><span class="d-name">索引 Index</span><span class="d-en">/ 全表扫 vs 走索引</span></div>
-        <div class="demo-stage center">
-          <div class="ix-demo">
-            <div class="ix-btns">
-              <button class="btn btn-outline btn-sm" type="button" data-ixrows="10000">1 万行</button>
-              <button class="btn btn-outline btn-sm" type="button" data-ixrows="100000">10 万行</button>
-              <button class="btn btn-outline btn-sm" type="button" data-ixrows="1000000">100 万行</button>
-            </div>
-            <div class="ix-btns">
-              <button class="btn btn-outline btn-sm" type="button" id="ixFull">全表扫描（无索引）</button>
-              <button class="btn btn-outline btn-sm" type="button" id="ixIdx">走索引</button>
-            </div>
-            <div class="ix-status" id="ixStatus">先选数据量，再点按钮对比</div>
-            <div id="ixDetail" style="font-family:var(--mono);font-size:var(--fs-2xs);color:var(--ink-3);min-height:18px;"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">表里 10 万行：没索引就一行行扫，扫 10 万行花 120ms；有索引直接定位到那 1 行，0.3ms。索引就是书的目录，空间换时间。</span><br><span class="eg">"WHERE 常用字段加索引，避免 SELECT 走全表扫描"</span></div>
-      </div>
 
-      <div class="demo" id="redis">
-        <div class="demo-head"><span class="d-name">Redis 缓存</span><span class="d-en">/ 命中 vs 未命中</span></div>
-        <div class="demo-stage center">
-          <div class="rd-demo">
-            <div class="rd-row">
-              <button class="btn btn-primary btn-sm" type="button" id="rdQuery">查询「杭州攻略」</button>
-              <button class="btn btn-outline btn-sm" type="button" id="rdClear">清空缓存</button>
-            </div>
-            <div class="rd-status" id="rdStatus">点查询看第一次和第二次的区别</div>
-            <div class="rd-meta" id="rdMeta"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">第一次：缓存没有，去数据库查，240ms；第二次：直接从内存拿，2ms。差 100 倍。所以热点数据先问缓存，没有再查库并写回缓存。</span><br><span class="eg">"热点数据加 Redis 缓存，TTL 10 分钟，未命中再查数据库并写回"</span></div>
-      </div>
 
-      <div class="demo" id="jwt">
-        <div class="demo-head"><span class="d-name">JWT 登录态</span><span class="d-en">/ 无状态认证</span></div>
-        <div class="demo-stage center">
-          <div class="jwt-demo">
-            <div class="jwt-form">
-              <input class="input" id="jwtUser" type="text" value="zhilv_user" placeholder="用户名" aria-label="用户名">
-              <input class="input" id="jwtPass" type="password" placeholder="密码" value="123456" aria-label="密码">
-              <button class="btn btn-primary" type="button" id="jwtBtn">登录</button>
-            </div>
-            <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
-            <div class="jwt-form" style="margin-top:2px;">
-              <button class="btn btn-outline btn-sm" type="button" id="jwtDecode">看三截里到底是什么</button>
-              <button class="btn btn-outline btn-sm" type="button" id="jwtTamper">篡改 payload 再验一次</button>
-            </div>
-            <div class="jwt-token" id="jwtCheck" style="display:none;white-space:pre-wrap;"></div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
-      </div>
 
-      <div class="demo" id="ratelimit">
-        <div class="demo-head"><span class="d-name">限流 Rate Limit</span><span class="d-en">/ 点太快会被拒</span></div>
-        <div class="demo-stage center">
-          <div class="rl-demo">
-            <button class="btn btn-primary btn-sm" type="button" id="rlBtn">发送请求</button>
-            <div class="rl-bar"><div class="rl-fill" id="rlFill"></div></div>
-            <div class="rl-status" id="rlStatus">剩余额度 10 / 10（每秒恢复 1 次）</div>
-          </div>
-        </div>
-        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS（每秒请求数），防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
-      </div>
+
+
+
+
+
+
 
       <div class="demo full" id="rag">
         <div class="demo-head"><span class="d-name">RAG 检索增强生成</span><span class="d-en">/ 毕设的核心</span></div>
@@ -3129,7 +2862,215 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">RAG = 先检索知识库、再把命中的内容拼进 Prompt 喂给大模型，让答案有依据、少胡说。毕设里用 BM25（关键词匹配算法）抓关键词、向量检索抓语义、重排把两路结果合并排序。</span><br><span class="eg">"实现 RAG：BM25 + 向量检索双路召回，重排后拼接上下文再调大模型生成"</span></div>
       </div>
 
-      <div class="demo full" id="security">
+
+
+
+
+
+
+      <div class="demo full" id="techPanorama">
+        <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
+        <div class="demo-stage">
+          <div class="tech-toolbar" id="techToolbar">
+            <input class="tech-search" id="techSearch" type="search" placeholder="搜索技术卡：如 缓存 / 鉴权 / 部署" aria-label="搜索技术卡">
+            <div class="tech-chips" id="techChips">
+              <button class="tchip" type="button" data-cat="api">接口</button>
+              <button class="tchip" type="button" data-cat="frame">框架</button>
+              <button class="tchip" type="button" data-cat="data">数据</button>
+              <button class="tchip" type="button" data-cat="auth">认证</button>
+              <button class="tchip" type="button" data-cat="sec">安全</button>
+              <button class="tchip" type="button" data-cat="ops">部署运维</button>
+              <button class="tchip" type="button" data-cat="async">异步</button>
+              <button class="tchip on" type="button" data-cat="all">全部</button>
+            </div>
+          </div>
+          <div id="techGroups"></div>
+          <div class="tech-empty" id="techEmpty" hidden>没有匹配的技术卡，换个关键词试试</div>
+        </div>
+        <div class="demo-exp"><span class="plain">把 Web 后端的技术按七类铺开：接口通信、框架选型、数据存储、认证授权、安全防护、部署运维、异步任务。上面演示讲过的术语，这里只留一行索引、点它跳回演示；其余每张卡点开是「在哪用 + 怎么跟 AI 说」。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选谁、数据放哪、登录怎么做、安全怎么防、怎么上线扛住、后台任务怎么跑"</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="read-chapter" id="m7" data-reading-module="m7">
+<section class="group" id="m7storage">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M7 · 数据与存储</div><h2>数据怎样存得对、查得快</h2><p>依次探索表结构、事务、索引、缓存和分页。先判断数据要求，再让 AI 选择方案。</p></div>
+    <div class="demos">
+<div class="demo" id="sqlite">
+        <div class="demo-head"><span class="d-name">SQLite 数据库</span><span class="d-en">/ 表就是 Excel 页签</span></div>
+        <div class="demo-stage center">
+          <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
+            <div class="db-tabs" id="dbTabs">
+              <button class="db-tab on" type="button" data-table="users">users</button>
+              <button class="db-tab" type="button" data-table="itineraries">itineraries</button>
+              <button class="db-tab" type="button" data-table="pois">pois</button>
+            </div>
+            <div class="db-fields" id="dbFields"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
+      </div>
+
+<div class="demo" id="txn">
+        <div class="demo-head"><span class="d-name">事务 ACID</span><span class="d-en">/ 要么都成，要么都不成</span></div>
+        <div class="demo-stage center">
+          <div class="tx-demo">
+            <div class="tx-accounts">
+              <div class="tx-acc"><span>A 的余额</span><b id="txA">¥100</b></div>
+              <div class="tx-arrow">→ 转 30 →</div>
+              <div class="tx-acc"><span>B 的余额</span><b id="txB">¥50</b></div>
+            </div>
+            <div class="tx-btns">
+              <button class="btn btn-primary btn-sm" type="button" id="txOk">正常转账（都成功）</button>
+              <button class="btn btn-outline btn-sm" type="button" id="txFail">B 加钱失败（回滚）</button>
+              <button class="btn btn-outline btn-sm" type="button" id="txReset">重置余额</button>
+            </div>
+            <div class="tx-status" id="txStatus">点上面两个按钮对比：一个两边一起变，一个中途失败、整笔取消。</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">正常：A 扣钱、B 加钱都成功，一起提交。失败：A 扣了但 B 加不了，事务回滚——A 自动加回来，两边都没变。<b>ACID 就是这四条性质的首字母：原子性（要么全成要么全没）、一致性（转账前后两人总金额不变）、隔离性（并发转账互不干扰）、持久性（提交后断电也不丢）。</b></span><br><span class="eg">"转账和扣库存放同一个事务，任何一步失败全部回滚"</span></div>
+      </div>
+
+<div class="demo" id="index">
+        <div class="demo-head"><span class="d-name">索引 Index</span><span class="d-en">/ 全表扫 vs 走索引</span></div>
+        <div class="demo-stage center">
+          <div class="ix-demo">
+            <div class="ix-btns">
+              <button class="btn btn-outline btn-sm" type="button" data-ixrows="10000">1 万行</button>
+              <button class="btn btn-outline btn-sm" type="button" data-ixrows="100000">10 万行</button>
+              <button class="btn btn-outline btn-sm" type="button" data-ixrows="1000000">100 万行</button>
+            </div>
+            <div class="ix-btns">
+              <button class="btn btn-outline btn-sm" type="button" id="ixFull">全表扫描（无索引）</button>
+              <button class="btn btn-outline btn-sm" type="button" id="ixIdx">走索引</button>
+            </div>
+            <div class="ix-status" id="ixStatus">先选数据量，再点按钮对比</div>
+            <div id="ixDetail" style="font-family:var(--mono);font-size:var(--fs-2xs);color:var(--ink-3);min-height:18px;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">表里 10 万行：没索引就一行行扫，扫 10 万行花 120ms；有索引直接定位到那 1 行，0.3ms。索引就是书的目录，空间换时间。</span><br><span class="eg">"WHERE 常用字段加索引，避免 SELECT 走全表扫描"</span></div>
+      </div>
+
+<div class="demo" id="redis">
+        <div class="demo-head"><span class="d-name">Redis 缓存</span><span class="d-en">/ 命中 vs 未命中</span></div>
+        <div class="demo-stage center">
+          <div class="rd-demo">
+            <div class="rd-row">
+              <button class="btn btn-primary btn-sm" type="button" id="rdQuery">查询「杭州攻略」</button>
+              <button class="btn btn-outline btn-sm" type="button" id="rdClear">清空缓存</button>
+            </div>
+            <div class="rd-status" id="rdStatus">点查询看第一次和第二次的区别</div>
+            <div class="rd-meta" id="rdMeta"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">第一次：缓存没有，去数据库查，240ms；第二次：直接从内存拿，2ms。差 100 倍。所以热点数据先问缓存，没有再查库并写回缓存。</span><br><span class="eg">"热点数据加 Redis 缓存，TTL 10 分钟，未命中再查数据库并写回"</span></div>
+      </div>
+
+<div class="demo full" id="bePagination">
+        <div class="demo-head"><span class="d-name">分页 Pagination</span><span class="d-en">/ 前端那个分页器到了后端变成什么</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
+              <div style="width:130px;">
+                <label class="label" for="pgTotal">总条数 total</label>
+                <input class="input" type="number" id="pgTotal" value="137" min="0" max="9999">
+              </div>
+              <div style="width:120px;">
+                <label class="label" for="pgSize">每页 size</label>
+                <input class="input" type="number" id="pgSize" value="10" min="1" max="500">
+              </div>
+              <div style="flex:1;min-width:240px;">
+                <label class="label" for="pgPage">当前页 page</label>
+                <div class="slider-row">
+                  <input type="range" id="pgPage" min="1" max="14" value="1" aria-label="当前页">
+                  <span class="slider-val" id="pgPageVal">1</span>
+                </div>
+              </div>
+            </div>
+            <div class="mono" id="pgSql" style="background:#0f1729;color:#c8e1ff;border-radius:var(--r-sm);padding:10px 12px;font-size:12.5px;overflow-x:auto;"></div>
+            <div class="api-res" id="pgRes" style="min-height:170px;white-space:pre;overflow-x:auto;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">前端只发两个数字：<code>page</code> 和 <code>size</code>。后端把它翻译成 <code>LIMIT ? OFFSET ?</code>——offset = (page-1) * size。响应里除了本页 <code>items</code>，还要回 <code>total / page_count / has_next</code>，否则前端分页器画不出页码。注意两条保护：size 要在后端夹住上限（前端能改成 999999），page 越界返回空数组而不是报错。</span><br><span class="eg">"列表接口支持分页，参数 page 和 size，size 最大 50，返回 items、total、page_count、has_next"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="read-chapter" id="m8" data-reading-module="m8">
+<section class="group" id="m8security">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M8 · 身份与权限</div><h2>确认身份，再检查访问边界</h2><p>认识登录凭证、接口限流、跨域和安全实践，检查每个请求是否有权访问目标数据。</p></div>
+    <div class="demos">
+<div class="demo" id="jwt">
+        <div class="demo-head"><span class="d-name">JWT 登录态</span><span class="d-en">/ 无状态认证</span></div>
+        <div class="demo-stage center">
+          <div class="jwt-demo">
+            <div class="jwt-form">
+              <input class="input" id="jwtUser" type="text" value="zhilv_user" placeholder="用户名" aria-label="用户名">
+              <input class="input" id="jwtPass" type="password" placeholder="密码" value="123456" aria-label="密码">
+              <button class="btn btn-primary" type="button" id="jwtBtn">登录</button>
+            </div>
+            <div class="jwt-token" id="jwtToken">登录成功后，这里会出现「盖章的通行证」——一段分成三截的 token。</div>
+            <div class="jwt-form" style="margin-top:2px;">
+              <button class="btn btn-outline btn-sm" type="button" id="jwtDecode">看三截里到底是什么</button>
+              <button class="btn btn-outline btn-sm" type="button" id="jwtTamper">篡改 payload 再验一次</button>
+            </div>
+            <div class="jwt-token" id="jwtCheck" style="display:none;white-space:pre-wrap;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">登录成功发一个 JWT（三截：header.payload.signature），之后每次请求带上它，服务器验「章」不查数据库——所以叫无状态。注意：localStorage 存 token 遇到 XSS 会被偷，安全要求高的场景改用 HttpOnly Cookie + CSRF 防护；token 还要考虑过期刷新与撤销。</span><br><span class="eg">"登录接口返回 JWT，前端存起来，之后请求头带 Authorization: Bearer &lt;token&gt;"</span></div>
+      </div>
+
+<div class="demo" id="ratelimit">
+        <div class="demo-head"><span class="d-name">限流 Rate Limit</span><span class="d-en">/ 点太快会被拒</span></div>
+        <div class="demo-stage center">
+          <div class="rl-demo">
+            <button class="btn btn-primary btn-sm" type="button" id="rlBtn">发送请求</button>
+            <div class="rl-bar"><div class="rl-fill" id="rlFill"></div></div>
+            <div class="rl-status" id="rlStatus">剩余额度 10 / 10（每秒恢复 1 次）</div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">连续点：前 10 次正常，超过就返回 429 Too Many Requests。后端用计数器或令牌桶控制 QPS（每秒请求数），防止一个人把服务打挂。</span><br><span class="eg">"接口加限流，每个用户每秒最多 10 次，超过返回 429"</span></div>
+      </div>
+
+<div class="demo full" id="cors">
+        <div class="demo-head"><span class="d-name">CORS 跨域</span><span class="d-en">/ 浏览器拦的，不是服务器报的错</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
+              <div style="width:210px;">
+                <label class="label" for="csOrigin">页面所在源</label>
+                <select class="input" id="csOrigin">
+                  <option value="same">https://api.trip.demo（与接口同源）</option>
+                  <option value="cross" selected>https://trip.demo（跨源）</option>
+                </select>
+              </div>
+              <div style="width:230px;">
+                <label class="label" for="csReq">前端发的请求</label>
+                <select class="input" id="csReq">
+                  <option value="simple" selected>GET /cities（简单请求）</option>
+                  <option value="preflight">GET /plans + Authorization 头（触发预检）</option>
+                </select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;padding-bottom:4px;">
+                <label style="font-size:13px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="csAllowOrigin" checked> 后端带 <code>Access-Control-Allow-Origin</code></label>
+                <label style="font-size:13px;display:flex;gap:6px;align-items:center;"><input type="checkbox" id="csAllowHeaders" checked> 预检响应带 <code>Allow-Headers: Authorization</code></label>
+              </div>
+              <button class="btn btn-primary btn-sm" type="button" id="csSend">发送请求</button>
+            </div>
+            <div class="api-res" id="csLog" style="min-height:150px;white-space:pre-wrap;"></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">CORS 是<b>浏览器</b>的同源策略，不是服务器的报错：请求照样发出去，服务器也可能返回 <code>200</code>，但浏览器不给 JS 读响应——所以「Network 里 200，前端却报 CORS 错」是真的。带了自定义头（如 <code>Authorization</code>）会先自动发一次 <code>OPTIONS</code> 预检，预检没过，真实请求根本不会发出。</span><br><span class="eg">"后端加 CORS 中间件：允许来源 https://trip.demo、允许 GET/POST、允许 Authorization 头，并处理 OPTIONS 预检"</span></div>
+      </div>
+
+<div class="demo full" id="security">
         <div class="demo-head"><span class="d-name">安全实践</span><span class="d-en">/ 生产环境必防的 3 个坑</span></div>
         <div class="demo-stage center">
           <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
@@ -3149,8 +3090,36 @@ Accept: application/json</div>
         </div>
         <div class="demo-exp"><span class="plain">生产环境安全不是"加个登录"就完了——<b>SQL 注入、XSS、密钥泄露</b>是最常见的三类。左边是攻击者怎么利用，右边是怎么防。原则：<b>永远不信任用户输入，永远不用硬编码密钥</b>。</span><br><span class="eg">"后端用参数化查询防注入，前端输出转义防 XSS，密钥放环境变量"</span></div>
       </div>
+    </div>
+  </div>
+</section>
+</div>
 
-      <div class="demo full" id="cicd">
+<div class="read-chapter" id="m11" data-reading-module="m11">
+<section class="group" id="toolStart">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M10 · 工具链与 Git 起步</div><h2>打开项目，看到结果，保存一次改动</h2><p>准备运行项目时，先确认文件位置、改动怎样生效，以及出错去哪看。</p></div>
+    <div class="course-surface"><ol>
+      <li><b>打开：</b>在文件夹中找到 index.html，用浏览器打开；用编辑器打开同一个文件。这个学习库无需安装依赖。</li>
+      <li><b>做一个小改动：</b>复制一份页面到练习文件夹，修改一个标题，保存后刷新浏览器，确认只改了目标位置。</li>
+      <li><b>看证据：</b>打开浏览器开发者工具，Console（控制台）看脚本报错，Network（网络面板）看请求；本库后端演示由浏览器模拟，不会产生真实接口请求。</li>
+      <li><b>留下版本：</b>只在自己的练习文件夹里初始化 Git（版本记录工具），用下方命令检查差异并提交指定文件。</li>
+    </ol><details class="course-disclosure"><summary>第一次 Git 提交：逐条执行并观察</summary><pre class="ai-task-prompt">git init
+git status
+git add index.html
+git diff --cached
+git commit -m "完成第一个页面标题修改"</pre><p>git diff --cached 显示将被提交的修改。确认内容后再提交；若提示作者身份未配置，先按提示在当前仓库配置姓名和邮箱。</p></details>
+    <p><b>验收：</b>你能找到改动文件、解释修改前后差别，并在刷新后看到结果。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">开始 M1 页面基础 →</a><a class="btn btn-outline" href="#aiWorkbench">先看如何与 AI 协作</a></div></div>
+  </div>
+</section>
+</div>
+
+<div class="read-chapter" id="m10" data-reading-module="m10">
+<section class="group" id="m11operations">
+  <div class="wrap">
+    <div class="group-head"><div class="tag">M11 · 部署与运维</div><h2>把服务交付，并能定位故障</h2><p>通过发布流水线和故障排查演示，理解测试、健康检查、日志与恢复步骤。</p></div>
+    <div class="demos">
+<div class="demo full" id="cicd">
         <div class="demo-head"><span class="d-name">CI/CD 持续集成部署</span><span class="d-en">/ 从写代码到部署的完整流程</span></div>
         <div class="demo-stage center">
           <div class="ci-demo" style="width:100%;display:flex;flex-direction:column;gap:12px;">
@@ -3182,7 +3151,7 @@ Accept: application/json</div>
         <div class="demo-exp"><span class="plain">这是<b>从你写代码到用户用上</b>的完整流程：分支开发 → 提 PR Review → CI 自动检查 → 合并 → CD 自动部署。不是只讲 CI/CD，而是讲整个工程化链路怎么跑通。</span><br><span class="eg">"从写代码到上线：开分支 → 提 PR → Review → CI 跑测试 → 合并 → 自动部署"</span></div>
       </div>
 
-      <div class="demo full" id="debug">
+<div class="demo full" id="debug">
         <div class="demo-head"><span class="d-name">故障排查思维</span><span class="d-en">/ 线上出问题了怎么定位</span></div>
         <div class="demo-stage center">
           <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
@@ -3207,32 +3176,76 @@ Accept: application/json</div>
         </div>
         <div class="demo-exp"><span class="plain">线上故障别慌——先看监控确认影响面，再看日志找报错，然后复现或定位代码。<b>排查顺序：监控 → 日志 → 代码 → 回滚</b>。先止血（回滚/扩容），再查根因。监控看的是 P99 这类分位延迟，不是平均延迟——平均延迟会被大量快请求拉低，掩盖慢请求。</span><br><span class="eg">"线上变慢先看 P99 监控，再 grep 错误日志，最后定位代码"</span></div>
       </div>
-
-      <div class="demo full" id="techPanorama">
-        <div class="demo-head"><span class="d-name">后端技术栈全景</span><span class="d-en">/ 七类 · 点卡展开</span></div>
-        <div class="demo-stage">
-          <div class="tech-toolbar" id="techToolbar">
-            <input class="tech-search" id="techSearch" type="search" placeholder="搜索技术卡：如 缓存 / 鉴权 / 部署" aria-label="搜索技术卡">
-            <div class="tech-chips" id="techChips">
-              <button class="tchip" type="button" data-cat="api">接口</button>
-              <button class="tchip" type="button" data-cat="frame">框架</button>
-              <button class="tchip" type="button" data-cat="data">数据</button>
-              <button class="tchip" type="button" data-cat="auth">认证</button>
-              <button class="tchip" type="button" data-cat="sec">安全</button>
-              <button class="tchip" type="button" data-cat="ops">部署运维</button>
-              <button class="tchip" type="button" data-cat="async">异步</button>
-              <button class="tchip on" type="button" data-cat="all">全部</button>
-            </div>
-          </div>
-          <div id="techGroups"></div>
-          <div class="tech-empty" id="techEmpty" hidden>没有匹配的技术卡，换个关键词试试</div>
-        </div>
-        <div class="demo-exp"><span class="plain">把 Web 后端的技术按七类铺开：接口通信、框架选型、数据存储、认证授权、安全防护、部署运维、异步任务。上面演示讲过的术语，这里只留一行索引、点它跳回演示；其余每张卡点开是「在哪用 + 怎么跟 AI 说」。</span><br><span class="eg">"按这七类给我讲后端技术栈：接口怎么定、框架选谁、数据放哪、登录怎么做、安全怎么防、怎么上线扛住、后台任务怎么跑"</span></div>
-      </div>
-
     </div>
   </div>
 </section>
+</div>
+
+<div class="read-chapter" id="m13" data-reading-module="m13">
+<section class="group" id="projectTrack">
+  <div class="wrap"><div class="group-head"><div class="tag">主线实践 · 当前页面内完成</div><h2>一份行程管理应用，边学边做</h2><p>项目教学已经并入当前页面：先看阶段目标，再进入本地运行项目验证。这样学习、AI 协作和项目步骤保持在同一条路线里。</p></div><div class="course-surface"><h3>每一步留下可检查的产物</h3><ol id="courseProjectSteps"></ol><p>每个阶段：先解释技术选择，再用对应模块的 AI 任务卡推进实现，保存代码差异与验收结果。真实代码位于 <code>examples/trip-manager/</code>，只在需要运行时启动本地服务。</p><div class="course-actions"><a class="btn btn-primary" href="#m1">从静态页面开始</a><a class="btn btn-outline" href="#aiWorkbench">整理本阶段的任务</a><a class="btn btn-outline" href="#toolStart">查看运行方式</a></div></div></div>
+</section>
+</div>
+
+<div class="read-chapter" id="m12" data-reading-module="m12">
+<section class="group" id="aiWorkbench">
+  <div class="wrap">
+      <div class="group-head"><div class="tag">M12 · AI 协作总结章 · 随时可查</div><h2>把一路用过的 AI 方法整理成体系</h2><p>AI 协作在每个模块和项目步骤中都已经练习过；学完整条技术线后，再用这一章把任务拆解、上下文、约束、审查、验收和排障归纳成自己的工作方法。</p></div>
+    <div class="course-surface"><h3>每一步都用这套方法</h3><ol><li>用自己的话解释问题属于哪一层，先写一个判断。</li><li>给 AI 相关文件、当前行为与预期结果，要求先阅读再修改。</li><li>一次只推进一个功能，说明允许修改的范围。</li><li>检查代码差异，运行成功与失败场景，再决定是否接受。</li><li>失败时带上复现步骤、报错与最近改动，继续缩小问题范围。</li></ol></div>
+    <div class="ai-summary-grid">
+      <article class="course-surface">
+        <h3>练习一：先拆任务</h3>
+        <p>需求：“给行程列表加筛选、分页和导出”。第一轮应该交给 AI 什么任务？</p>
+        <div class="ai-choice-list" id="aiDecomposeChoices">
+          <button class="ai-choice" type="button" data-ai-decompose="wide">直接让 AI 一次完成三个功能，并顺手重构列表。</button>
+          <button class="ai-choice" type="button" data-ai-decompose="split">先让 AI 阅读列表和接口，拆出三个独立任务，说明依赖与每步验收。</button>
+          <button class="ai-choice" type="button" data-ai-decompose="code">先让 AI 生成分页代码，其他需求等报错后再说。</button>
+        </div>
+        <div class="ai-exercise-result" id="aiDecomposeResult">先选一个，再查看判断。</div>
+      </article>
+      <article class="course-surface">
+        <h3>练习二：验收 AI 输出</h3>
+        <p>一次筛选功能改动后，至少要检查哪些证据？勾选你认为必要的项目。</p>
+        <div class="ai-check-list" id="aiVerifyChecklist">
+          <label class="ai-check-item"><input type="checkbox" data-ai-verify="behavior">全部、已完成、空结果都能切换并显示正确。</label>
+          <label class="ai-check-item"><input type="checkbox" data-ai-verify="diff">差异只涉及筛选相关文件，没有无关大范围重写。</label>
+          <label class="ai-check-item"><input type="checkbox" data-ai-verify="error">接口失败和非法筛选值有明确反馈。</label>
+          <label class="ai-check-item"><input type="checkbox" data-ai-verify="looks">代码看起来很整齐，所以不需要运行验证。</label>
+        </div>
+        <button class="btn btn-outline" type="button" id="aiVerifySubmit">检查我的清单</button>
+        <div class="ai-exercise-result" id="aiVerifyResult">完成选择后提交，看看漏掉了哪些验收。</div>
+      </article>
+      <article class="course-surface">
+        <h3>练习三：给出故障证据</h3>
+        <p>现象：点击保存后页面一直转圈。哪一组信息最适合先交给 AI？</p>
+        <div class="ai-choice-list" id="aiEvidenceChoices">
+          <button class="ai-choice" type="button" data-ai-evidence="vague">“保存坏了，帮我修一下。”</button>
+          <button class="ai-choice" type="button" data-ai-evidence="evidence">复现步骤、Network 状态码与响应、Console 原文、最近改动和预期结果。</button>
+          <button class="ai-choice" type="button" data-ai-evidence="guess">“应该是后端超时，先把所有 timeout 改成 60 秒。”</button>
+        </div>
+        <div class="ai-evidence-lines">点击保存
+→ 预期：保存成功并停止 loading
+→ 实际：请求返回 422，页面没有显示字段错误
+→ 最近改动：把字段 city 改成了 destination</div>
+        <div class="ai-exercise-result" id="aiEvidenceResult">先选一组说法。</div>
+      </article>
+    </div>
+    <form class="course-surface" id="courseAiForm">
+      <h3>整理一次小任务</h3>
+      <div class="course-columns">
+        <label class="course-field">目标：用户会看到什么？<textarea class="course-input" name="goal" required placeholder="例如：行程列表增加按状态筛选"></textarea></label>
+        <label class="course-field">上下文：文件、已有行为、相关数据<textarea class="course-input" name="context" required placeholder="例如：index.html 已有列表；字段为 id、title、status"></textarea></label>
+        <label class="course-field">我的判断与修改边界<textarea class="course-input" name="judgement" required placeholder="例如：这是前端显示筛选；只改列表，保留原排序"></textarea></label>
+        <label class="course-field">验收证据：怎样证明改对了？<textarea class="course-input" name="checks" required placeholder="例如：全部与已完成来回切换；空结果有提示；原排序正常"></textarea></label>
+      </div>
+      <button class="btn btn-primary" type="submit">生成任务说明</button>
+      <p class="course-feedback" id="courseAiFeedback" role="status"></p>
+      <div id="courseAiResult" hidden><label class="course-field">给 AI 的任务说明<textarea class="course-input" id="courseAiOutput" readonly></textarea></label><button class="btn btn-outline" type="button" data-course-copy="courseAiOutput">复制任务说明</button></div>
+    </form>
+    <div class="course-surface"><h3>出错时，把问题补充完整</h3><p>“页面坏了”缺少定位信息。说明：触发操作、预期结果、实际结果、错误原文、相关请求和最近改动。分享前去掉口令、令牌与私人数据。</p><details class="course-disclosure"><summary>例子：接口成功，列表却是空白</summary><p>先比较接口响应里的字段与页面取值。例如响应是 items，页面却读取 data.list。把响应样例和读取代码一同交给 AI，要求先验证字段对应，再做最小修复；最后重测成功、空列表和请求失败三条路径。</p></details><div class="course-actions"><a href="#learningSequence">回推荐路线</a><a href="#projectTrack">把方法用在主线项目里</a></div></div>
+  </div>
+</section>
+</div>
 
 <!-- ===== 页脚 ===== -->
 <footer>
@@ -4236,34 +4249,7 @@ document.addEventListener('keydown', function(e){
 if(sidebar) sidebar.querySelectorAll('.side-link').forEach(function(a){
   a.addEventListener('click', function(){ if(window.innerWidth < 1100) closeSidebar(); });
 });
-/* ===== 滚动高亮（scrollspy）：当前章节对应的目录项点亮 ===== */
-(function(){
-  var links = sidebar ? Array.prototype.slice.call(sidebar.querySelectorAll('.side-link')) : [];
-  if(!links.length) return;
-  var targets = links.map(function(l){ return document.getElementById(l.getAttribute('href').slice(1)); });
-  var ticking = false;
-  function syncSpy(){
-    ticking = false;
-    var line = window.scrollY + 120;
-    var best = -1, bestTop = -Infinity;
-    for(var i = 0; i < targets.length; i++){
-      /* 跳过不属于当前模块的目录项：它们的模块被隐藏，位置量不准会抢走高亮 */
-      if(links[i].classList.contains('mod-off')) continue;
-      var t = targets[i];
-      if(!t) continue;
-      var top = t.getBoundingClientRect().top + window.scrollY;
-      if(top <= line && top > bestTop){ bestTop = top; best = i; }
-    }
-    if(best < 0) best = 0;
-    links.forEach(function(l, i){ l.classList.toggle('on', i === best && !l.classList.contains('mod-off')); });
-  }
-  window.addEventListener('scroll', function(){
-    if(!ticking){ ticking = true; requestAnimationFrame(syncSpy); }
-  }, { passive: true });
-  /* 模块切换后可见目录项变了，切换引擎会再调一次这里重算高亮 */
-  window.modSyncSpy = syncSpy;
-  syncSpy();
-})();
+/* 章节滚动高亮统一由后面的连续阅读目录处理。 */
 (function(){
   var saved = 'light';
   try { saved = localStorage.getItem('vc-theme') || 'light'; } catch(err){}
@@ -5594,7 +5580,7 @@ var LEARN_POINTS = [
     '同步串行三个请求约 2.1s，异步并发约 0.75s，差别在把「等」并发掉。',
     '等网络/数据库时 CPU 空闲，所以 async 能同时等多个外部接口。'
   ] },
-  { anchor: 'http', target: '#cors', mode: 'after', title: '接口通信', points: [
+  { anchor: 'http', target: '#rest', mode: 'after', title: '接口通信', points: [
     '请求三部分：请求行（方法+路径）、请求头（认证+格式）、请求体。',
     'GET 条件放查询串、通常无请求体；提交生成用 POST 把参数放请求体。',
     '状态码 4xx 是自己的问题、5xx 是服务器的问题，422 是校验没过。'
@@ -6257,16 +6243,7 @@ window.addEventListener('load', function(){ setTimeout(statAnimate, 400); setTim
 </script>
 
 <script>
-/* ==========================================================================
-   模块切换引擎 —— 全栈学习库的导航骨架
-   --------------------------------------------------------------------------
-   单一数据源 MODULES，驱动四件事：
-     ① 侧栏一级目录（模块列表）    ② 总览页的模块卡片
-     ③ 内容可见性（块粒度）        ④ hash 路由（含旧锚点深链兼容）
-   可见性做法：开场把所有「注册块」标记 .mod-off，再放出当前模块的块及其祖先。
-   注册块要写到「最细的那一级」——一段里混了多个模块时（如 #behavior、#backend），
-   必须写到 demo 粒度，否则放行某个 demo 会连带放出同容器里不属于本模块的兄弟。
-   ========================================================================== */
+/* 连续阅读目录：正文始终可见，章节编号与旧锚点用于定位。 */
 
 /* 吸顶细栏高度：锚点定位要减掉，避免标题被挡住 */
 var MOD_SCROLL_OFFSET = 66;
@@ -6364,7 +6341,7 @@ var MODULES = [
       task:'为练习项目设计用户与行程关系，说明主键、外键和约束，再给迁移方案及测试数据；先解释对已有数据的影响。',
       checks:['同名行程可独立修改','失败写入不留下半条业务数据'], evidence:'提供表结构、相关查询、脱敏数据和事务边界。', milestone:'可保存和查询的行程数据', demo:'sqlite'},
     anchors:['sqlite'],
-    blocks:['#sqlite','#txn','#index','#redis','#bePagination'] },
+    blocks:['#m7storage','#sqlite','#txn','#index','#redis','#bePagination'] },
 
   { id:'m8', no:'M8', name:'身份与权限', layer:'安全', status:'ready',
     desc:'你是谁、凭什么：JWT / 会话 / 跨域 / 限流 / 越权',
@@ -6374,7 +6351,7 @@ var MODULES = [
       task:'检查练习项目的行程接口是否按当前用户校验归属，比较现有会话方案的退出与过期处理，再做最小修复。',
       checks:['未登录、过期、访问他人行程均被正确拒绝','自己的合法操作仍正常'], evidence:'提供脱敏的用户角色、记录归属与状态码，去掉真实令牌。', milestone:'具备用户隔离与权限校验的应用', demo:'jwt'},
     anchors:['jwt','security'],
-    blocks:['#jwt','#ratelimit','#cors','#security'] },
+    blocks:['#m8security','#jwt','#ratelimit','#cors','#security'] },
 
   { id:'m9', no:'M9', name:'网络与浏览器', layer:'网络', status:'ready',
     desc:'DNS→TCP→TLS→HTTP、渲染流程、事件冒泡',
@@ -6409,7 +6386,7 @@ var MODULES = [
       reasoning:'还不行。检查监听地址、端口、依赖连接及配置，再验证健康检查和关键业务链路。',
       task:'为练习项目整理环境变量示例、启动方式、健康检查和回滚步骤。先说明依赖与验证条件，再生成必要配置。',
       checks:['新环境可按说明运行，密钥不写入前端','健康检查与核心流程通过，回滚步骤明确'], evidence:'提供脱敏配置、启动日志、健康检查及最近部署变更。', milestone:'可运行、可验证、可回滚的交付说明', demo:'cicd'},
-    anchors:['cicd','debug'], blocks:['#cicd','#debug'] },
+    anchors:['cicd','debug'], blocks:['#m11operations','#cicd','#debug'] },
 
   { id:'m12', no:'M12', name:'AI 协作与工程判断', layer:'全程参考', status:'partial', crossCutting:true, summary:true,
     desc:'平时贯穿练习，最后集中总结：任务拆解、上下文、验收与故障修复',
@@ -6425,7 +6402,7 @@ var MODULES = [
     anchors:['projectTrack'], blocks:['#projectTrack'] }
 ];
 
-/* 注册表反查表：块 → 模块、侧栏锚点 → 模块 */
+/* 所有章节始终可见；模块编号和旧锚点只作为定位标识。 */
 var MOD_BY_ID = {}, MOD_BLOCK_OWNER = {}, MOD_ANCHOR_OWNER = {};
 MODULES.forEach(function(m){
   MOD_BY_ID[m.id] = m;
@@ -6434,310 +6411,237 @@ MODULES.forEach(function(m){
     if(sel.charAt(0) === '#') MOD_BLOCK_OWNER[sel.slice(1)] = m.id;
   });
 });
-
-/* 模块注册顺序服务于知识地图；这条顺序服务于初学者的前置依赖。 */
-var MODULE_LEARN_ORDER = ['home','m1','m2','m3','m4','m9','m5','m6','m7','m8','m11','m10','m12','m13'];
+var MODULE_LEARN_ORDER = ['home','m1','m2','m3','m4','m9','m5','m6','m7','m8','m11','m10','m13','m12'];
+var modCurrentId = 'home';
 function modLearnList(){
   return MODULE_LEARN_ORDER.map(function(id){ return MOD_BY_ID[id]; }).filter(Boolean);
 }
-var MOD_ALWAYS_VISIBLE = ['#toolStart','#aiWorkbench','#projectTrack'];
-var HOME_DETAIL_IDS = ['learningSequence','starter','roadmap','toolStart','aiWorkbench','projectTrack'];
-
-function modRevealHomeDetail(anchorId){
-  var target = document.getElementById(anchorId);
-  if(!target || HOME_DETAIL_IDS.indexOf(anchorId) === -1) return false;
-  target.removeAttribute('hidden');
-  target.classList.add('course-secondary-open');
-  return true;
-}
-
-function modHideHomeDetails(){
-  HOME_DETAIL_IDS.forEach(function(anchorId){
-    var target = document.getElementById(anchorId);
-    if(!target) return;
-    target.classList.remove('course-secondary-open');
-    if(target.classList.contains('home-detail')) target.setAttribute('hidden', 'hidden');
-  });
-}
-
-/* 注册表是静态的，注册块元素清单收集一次即可 */
-var modBlockEls = (function(){
-  var out = [];
-  MODULES.forEach(function(m){
-    m.blocks.forEach(function(sel){
-      Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){ out.push(el); });
-    });
-  });
-  return out;
-})();
-
-var modCurrentId = 'home';
-
 function modGet(id){ return MOD_BY_ID[id] || MOD_BY_ID.home; }
-
-/* 锚点属于哪个模块：先查侧栏锚点，再查注册块；都没登记就向上找最近的注册块
-   （例如 #feCssVars 没单独登记，向上走到 #behavior 就得到 M4） */
 function modOwnerOf(anchorId){
-  if(MOD_ANCHOR_OWNER[anchorId]) return MOD_ANCHOR_OWNER[anchorId];
-  if(MOD_BLOCK_OWNER[anchorId]) return MOD_BLOCK_OWNER[anchorId];
-  var el = document.getElementById(anchorId);
-  while(el && el !== document.body){
-    if(el.id && MOD_BLOCK_OWNER[el.id]) return MOD_BLOCK_OWNER[el.id];
-    el = el.parentElement;
-  }
-  return null;
+  if(MOD_BY_ID[anchorId]) return anchorId;
+  var ownerElement = document.getElementById(anchorId);
+  var chapterElement = ownerElement && ownerElement.closest('[data-reading-module]');
+  if(chapterElement) return chapterElement.getAttribute('data-reading-module');
+  return MOD_ANCHOR_OWNER[anchorId] || MOD_BLOCK_OWNER[anchorId] || null;
 }
 
-function modSetOff(el, off){ if(el) el.classList.toggle('mod-off', !!off); }
-
-/* 应用可见性：先全隐，再放出当前模块的块与它们的祖先 */
-function modApplyVisibility(modId){
-  modBlockEls.forEach(function(el){ el.classList.add('mod-off'); });
-  MOD_ALWAYS_VISIBLE.forEach(function(sel){
-    Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){ el.classList.remove('mod-off'); });
+/* 章节边界已写在 HTML 中；启动时只添加一次章末协作练习。 */
+function modBuildReadingChapters(){
+  modLearnList().filter(function(m){ return m.id !== 'home'; }).forEach(function(m){
+    var chapter = document.getElementById(m.id);
+    if(!chapter) return;
+    var chapterLabel = chapter.querySelector('.group-head .tag');
+    if(chapterLabel) chapterLabel.textContent = m.no + ' · ' + m.name;
+    if(m.coaching) modRenderCoach(m, chapter);
   });
-  var mod = modGet(modId);
-  mod.blocks.forEach(function(sel){
-    Array.prototype.forEach.call(document.querySelectorAll(sel), function(el){
-      el.classList.remove('mod-off');
-      /* 祖先放行：注册块可能嵌在别的模块的块里（如 #feEco 在 #behavior 内） */
-      var p = el.parentElement;
-      while(p && p !== document.body){ p.classList.remove('mod-off'); p = p.parentElement; }
-    });
-  });
-  var ph = document.getElementById('modPlaceholder');
-  if(!ph) return;
-  var isWip = mod.status === 'wip';
-  modSetOff(ph, !isWip);
-  if(isWip) modRenderPlaceholder(mod);
-  if(mod.id !== 'home' && !mod.crossCutting && mod.kind !== 'project') modRenderCoach(mod);
-  else {
-    var coachHost = document.getElementById('courseCoachHosts');
-    if(coachHost){ coachHost.innerHTML = ''; modSetOff(coachHost, true); }
+}
+
+/* 每章练习固定放在章末；导航不会更换或清空学习内容。 */
+function modRenderCoach(mod, chapter){
+  var lesson = mod.coaching;
+  var wrap = document.createElement('div');
+  wrap.className = 'wrap';
+  var practice = document.createElement('details');
+  practice.className = 'chapter-practice';
+  practice.id = 'practice-' + mod.id;
+  var summary = document.createElement('summary');
+  summary.textContent = mod.no + ' · 学完试一试：用你的判断引导 AI';
+  practice.appendChild(summary);
+  function practiceParagraph(text){
+    var paragraph = document.createElement('p');
+    paragraph.textContent = text;
+    practice.appendChild(paragraph);
   }
+  function practiceHeading(text){
+    var heading = document.createElement('h3');
+    heading.textContent = text;
+    practice.appendChild(heading);
+  }
+  practiceHeading('先做自己的判断');
+  practiceParagraph(lesson.question);
+  var answer = document.createElement('details');
+  answer.className = 'course-disclosure';
+  var answerLabel = document.createElement('summary');
+  answerLabel.textContent = '看参考思路';
+  var answerBody = document.createElement('p');
+  answerBody.textContent = lesson.reasoning;
+  answer.append(answerLabel, answerBody);
+  practice.appendChild(answer);
+  practiceHeading('给 AI 的小任务');
+  var prompt = document.createElement('pre');
+  prompt.className = 'ai-task-prompt';
+  prompt.textContent = lesson.task + '\n\n验收：' + lesson.checks.join('；');
+  practice.appendChild(prompt);
+  practiceHeading('检查结果');
+  var checkList = document.createElement('ul');
+  lesson.checks.forEach(function(check){
+    var item = document.createElement('li');
+    item.textContent = check;
+    checkList.appendChild(item);
+  });
+  practice.appendChild(checkList);
+  practiceParagraph('出错时提供证据：' + lesson.evidence);
+  practiceParagraph('项目产出：' + lesson.milestone);
+  wrap.appendChild(practice);
+  chapter.appendChild(wrap);
 }
 
-/* 待建模块不留空白页：把规划范围摊开 */
-function modRenderPlaceholder(mod){
-  var box = document.getElementById('modPhBody');
-  if(!box) return;
-  var li = mod.plan.map(function(t){ return '<li>' + t + '</li>'; }).join('');
-  box.innerHTML = '<div class="mod-ph"><h3>' + mod.no + ' · ' + mod.name + '｜规划中</h3>' +
-    '<p class="ph-lead">这个模块的内容还没开始写。先把它要做的事列在这里方便对齐范围——' + mod.desc + '。</p>' +
-    (li ? '<ul class="ph-plan">' + li + '</ul>' : '') + '</div>';
-}
-
-/* 模块的协作练习：已就绪模块显示在内容前，规划中模块显示在占位说明后。 */
-function modRenderCoach(mod){
-  var host = document.getElementById('courseCoachHosts');
-  if(!host) return;
-  var conf = mod.coaching;
-  if(!conf){ host.innerHTML = ''; modSetOff(host, true); return; }
-  var checks = conf.checks.map(function(item){ return '<li>' + item + '</li>'; }).join('');
-  host.innerHTML = '<section class="course-coach" id="moduleCoach"><div class="wrap"><div class="group-head"><div class="tag">' + mod.no + ' · AI 协作练习</div><h2>' + mod.name + '：先判断，再让 AI 实现</h2><p>' + conf.goal + '</p></div><div class="course-surface"><div class="course-pill">前置：' + (conf.prerequisites.length ? conf.prerequisites.map(function(id){ return MOD_BY_ID[id] ? MOD_BY_ID[id].no : id; }).join('、') : '无') + '</div><h3>先想再看</h3><p>' + conf.question + '</p><details class="course-disclosure"><summary>展开参考判断</summary><p>' + conf.reasoning + '</p></details><h3>给 AI 的任务</h3><div class="ai-task-prompt">' + conf.task + '\n\n约束：先说明修改计划；只改与本任务相关的范围；保留已有行为。\n验收：' + conf.checks.join('；') + '</div><h3>验收清单</h3><ul>' + checks + '</ul><p class="course-note">需要提供的证据：' + conf.evidence + '</p><div class="course-actions"><a class="btn btn-outline" href="#aiWorkbench">打开 AI 协作中心</a>' + (conf.demo ? '<a class="btn btn-primary" href="#' + conf.demo + '">先看对应 demo</a>' : '') + '</div></div></div></section>';
-  modSetOff(host, false);
-}
-
-/* 侧栏二级目录：只留当前模块的锚点；整组都空时连组标题一起收起 */
 function modFilterSideToc(modId){
-  var sidebar = document.getElementById('sidebar');
-  if(!sidebar) return;
-  var anyLink = false;
-  Array.prototype.forEach.call(sidebar.querySelectorAll('.side-link'), function(a){
-    var show = modOwnerOf(a.getAttribute('href').slice(1)) === modId;
-    a.classList.toggle('mod-off', !show);
-    if(show) anyLink = true;
-  });
-  Array.prototype.forEach.call(sidebar.querySelectorAll('.side-group'), function(g){
-    g.classList.toggle('mod-off', g.querySelectorAll('.side-link:not(.mod-off)').length === 0);
-  });
-  modSetOff(document.getElementById('sideTocH'), !anyLink);
+  var container = document.getElementById('readingToc');
+  if(!container) return;
+  container.replaceChildren();
+  var current = modGet(modId);
+  if(current.id !== 'home'){
+    var chapter = document.getElementById(current.id);
+    var sections = chapter ? chapter.querySelectorAll('section.group[id]') : [];
+    sections.forEach(function(section){
+      var sectionTitle = section.querySelector('.group-head h2');
+      var link = document.createElement('a');
+      link.className = 'side-link';
+      link.href = '#' + section.id;
+      link.textContent = sectionTitle ? sectionTitle.textContent : section.id;
+      container.appendChild(link);
+    });
+    if(current.coaching){
+      var practiceLink = document.createElement('a');
+      practiceLink.className = 'side-link';
+      practiceLink.href = '#practice-' + current.id;
+      practiceLink.textContent = '本章 AI 协作练习';
+      container.appendChild(practiceLink);
+    }
+  }
+  document.getElementById('sideTocH').hidden = !container.childElementCount;
 }
-
 function modMarkActive(modId){
-  Array.prototype.forEach.call(document.querySelectorAll('.side-mod'), function(b){
-    b.classList.toggle('on', b.getAttribute('data-mod') === modId);
-  });
-  Array.prototype.forEach.call(document.querySelectorAll('.mod-card'), function(c){
-    c.classList.toggle('on', c.getAttribute('data-mod') === modId);
+  document.querySelectorAll('.side-mod, .mod-card').forEach(function(link){
+    var selected = link.getAttribute('data-mod') === modId;
+    link.classList.toggle('on', selected);
+    if(selected) link.setAttribute('aria-current','location');
+    else link.removeAttribute('aria-current');
   });
 }
-
 function modStatusTag(m){
-  var label = m.kind === 'project' ? '实践' : (m.crossCutting ? '贯穿' : (m.status === 'ready' ? '可看' : (m.status === 'partial' ? '起步' : '待建')));
-  return '<span class="mc-st' + (m.status !== 'wip' ? ' ready' : '') + '">' + label + '</span>';
+  var label = m.kind === 'project' ? '实践' : (m.summary ? '总结' : (m.status === 'ready' ? '可看' : '起步'));
+  return '<span class="mc-st ready">' + label + '</span>';
 }
-
 function modRenderSideMods(){
   var box = document.getElementById('sideMods');
-  if(!box) return;
-  var html = '<div class="side-mods-h">模块（点进任意一个）</div>';
-  var layer = '';
-  modLearnList().forEach(function(m){
-    if(m.layer && m.layer !== layer){
-      layer = m.layer;
-      html += '<div class="side-layer">' + layer + '</div>';
-    }
-    html += '<button type="button" class="side-mod' + (m.status === 'wip' ? ' wip' : '') +
-      '" data-mod="' + m.id + '"><span class="sm-no">' + m.no + '</span>' +
-      '<span class="sm-name">' + m.name + '</span>' + modStatusTag(m) + '</button>';
-  });
-  box.innerHTML = html;
-  box.addEventListener('click', function(e){
-    var btn = e.target.closest('.side-mod');
-    if(btn) modActivate(btn.getAttribute('data-mod'), { push: true });
-  });
+  box.innerHTML = '<div class="side-mods-h">章节目录 · 点击定位</div>' + modLearnList().map(function(m){
+    return '<a class="side-mod" href="#' + (m.id === 'home' ? 'top' : m.id) + '" data-mod="' + m.id + '"><span class="sm-no">' + m.no + '</span><span class="sm-name">' + m.name + '</span>' + modStatusTag(m) + '</a>';
+  }).join('');
 }
-
 function modRenderOverview(){
   var box = document.getElementById('modGrid');
-  if(!box) return;
-  function cardHtml(m){
-    return '<button type="button" class="mod-card' + (m.status === 'wip' ? ' wip' : '') +
-      '" data-mod="' + m.id + '"><span class="mc-top"><span class="mc-no">' + m.no + '</span>' +
-      modStatusTag(m) + '<span class="mc-layer">' + m.layer + '</span></span>' +
-      '<span class="mc-name">' + m.name + '</span>' +
-      '<span class="mc-desc">' + m.desc + '</span></button>';
-  }
-  var mods = modLearnList().filter(function(m){ return m.id !== 'home'; });
-  var ready = mods.filter(function(m){ return m.status !== 'wip'; });
-  var wip = mods.filter(function(m){ return m.status === 'wip'; });
-  var html = ready.map(cardHtml).join('');
-  if(wip.length){
-    html += '<button type="button" class="mod-wip-toggle" id="modWipToggle" aria-expanded="false">' +
-      '展开 ' + wip.length + ' 个规划中模块 ↓</button>';
-    html += wip.map(cardHtml).join('');
-  }
-  box.innerHTML = html;
-  box.addEventListener('click', function(e){
-    var tgl = e.target.closest('.mod-wip-toggle');
-    if(tgl){
-      var open = box.classList.toggle('show-wip');
-      tgl.setAttribute('aria-expanded', open ? 'true' : 'false');
-      tgl.textContent = open ? '收起规划中模块 ↑' : ('展开 ' + wip.length + ' 个规划中模块 ↓');
-      return;
-    }
-    var card = e.target.closest('.mod-card');
-    if(card) modActivate(card.getAttribute('data-mod'), { push: true });
-  });
+  box.innerHTML = modLearnList().filter(function(m){ return m.id !== 'home'; }).map(function(m){
+    return '<a class="mod-card" href="#' + m.id + '" data-mod="' + m.id + '"><span class="mc-top"><span class="mc-no">' + m.no + '</span>' + modStatusTag(m) + '</span><span class="mc-name">' + m.name + '</span><span class="mc-desc">' + m.desc + '</span></a>';
+  }).join('');
 }
 
+/* 折叠的辅助说明按锚点展开，正文课程始终连续可读。 */
+function modOpenAnchorDetails(target){
+  var parent = target;
+  while(parent && parent !== document.body){
+    if(parent.tagName === 'DETAILS') parent.open = true;
+    parent = parent.parentElement;
+  }
+}
 function modScrollTo(anchorId, behavior){
-  var el = document.getElementById(anchorId);
-  if(!el) return false;
+  var target = document.getElementById(anchorId === 'home' ? 'top' : anchorId);
+  if(!target) return false;
+  modOpenAnchorDetails(target);
   window.scrollTo({
-    top: el.getBoundingClientRect().top + window.scrollY - MOD_SCROLL_OFFSET,
-    behavior: behavior || 'smooth'
+    top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - MOD_SCROLL_OFFSET),
+    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : (behavior || 'smooth')
   });
   return true;
 }
-
 function modWriteHash(id, push){
   if(location.hash.slice(1) === id) return;
   if(push) history.pushState(null, '', '#' + id);
   else history.replaceState(null, '', '#' + id);
 }
-
-/* 切换模块
-   opts.noScroll 不滚到顶（调用方要自己定位）/ noHash 不写 hash / push 留下后退记录 / instant 立即滚 */
 function modActivate(modId, opts){
-  opts = opts || {};
-  var mod = modGet(modId);
-  if(mod.id !== 'home') modHideHomeDetails();
-  modCurrentId = mod.id;
-  modApplyVisibility(mod.id);
-  modFilterSideToc(mod.id);
-  modMarkActive(mod.id);
-  if(!opts.noScroll) window.scrollTo({ top: 0, behavior: opts.instant ? 'auto' : 'smooth' });
-  if(!opts.noHash) modWriteHash(mod.id, opts.push);
-  /* 目录可见项变了，重算一次滚动高亮 */
-  if(window.modSyncSpy) window.modSyncSpy();
+  var options = opts || {};
+  var selected = modGet(modId);
+  modCurrentId = selected.id;
+  modFilterSideToc(selected.id);
+  modMarkActive(selected.id);
+  if(!options.noScroll) modScrollTo(selected.id, options.instant ? 'auto' : 'smooth');
+  if(!options.noHash) modWriteHash(selected.id, options.push);
 }
-
-/* 供已有功能复用（目录跳转 / flashDemo / 技术卡搜索）：
-   目标不在当前模块就先切过去，元素才变成可测量 */
 function modEnsureFor(anchorId){
-  var own = modOwnerOf(anchorId);
-  if(!own || own === modCurrentId) return false;
-  modActivate(own, { noScroll: true, noHash: true });
+  var owner = modOwnerOf(anchorId);
+  if(!owner || owner === modCurrentId) return false;
+  modActivate(owner, {noScroll:true, noHash:true});
   return true;
 }
-
-/* hash 路由：#m2 进模块；#layout 这类旧锚点深链自动切到所属模块并定位 */
 function modHandleHash(){
-  var h = location.hash.slice(1);
-  if(!h) return;
-  if(modRevealHomeDetail(h)){
-    modScrollTo(h, 'auto');
-    return;
-  }
-  if(document.getElementById(h) && MOD_ALWAYS_VISIBLE.some(function(sel){ return sel === '#' + h; })){
-    modScrollTo(h, 'auto');
-    return;
-  }
-  if(MOD_BY_ID[h]){
-    if(h !== modCurrentId) modActivate(h, { noHash: true, instant: true });
-    return;
-  }
-  var own = modOwnerOf(h);
-  if(!own) return;
-  if(own !== modCurrentId) modActivate(own, { noHash: true, noScroll: true, instant: true });
-  modScrollTo(h, 'auto');
+  var hash = location.hash.slice(1) || 'top';
+  modEnsureFor(hash);
+  modScrollTo(hash, 'auto');
 }
-
-/* ========== hero 统计：从模块注册表与 DOM 自算，避免手写数字漂移 ========== */
 function renderHeroStats(){
-  var mods = MODULES.filter(function(m){ return m.id !== 'home' && m.kind !== 'project'; });
-  var frontDemos = document.querySelectorAll('section.group:not(#backend):not(#modOverview):not(#modPlaceholder) .demo:not(#fePanorama)').length;
-  var backDemos = document.querySelectorAll('#backend .demo:not(#techPanorama)').length;
-  var vals = {
-    stModTotal: mods.length,
-    stModReady: mods.filter(function(m){ return m.status !== 'wip'; }).length,
-    stModWip: mods.filter(function(m){ return m.status === 'wip'; }).length,
-    stDemos: frontDemos + backDemos
+  var chapters = MODULES.filter(function(m){ return m.id !== 'home' && m.kind !== 'project'; });
+  var demos = document.querySelectorAll('section.group .demo:not(#fePanorama):not(#techPanorama)').length;
+  var stats = {
+    stModTotal:chapters.length,
+    stModReady:chapters.filter(function(m){ return m.status !== 'wip'; }).length,
+    stModWip:chapters.filter(function(m){ return m.status !== 'ready'; }).length,
+    stDemos:demos
   };
-  Object.keys(vals).forEach(function(id){
+  Object.keys(stats).forEach(function(id){
     var el = document.getElementById(id);
-    if(el) el.textContent = vals[id];
+    if(el) el.textContent = stats[id];
   });
-  var statsNote = document.getElementById('statsNote');
-  if(statsNote) statsNote.textContent = '数字口径：' + (frontDemos + backDemos) + ' = 前端 ' + frontDemos + ' + 后端 ' + backDemos + '，不含「前端工程能力地图」「后端技术栈全景」两个卡索引页；前端 demo 交互全真，后端请求与报文由前端模拟。';
+  document.getElementById('statsNote').textContent = '共 ' + demos + ' 个演示，不含两个技术卡索引区。后端、Python 和网络流程含浏览器内的概念模拟；真实项目代码位于 examples/trip-manager/。';
 }
-
+function modInitReadingNavigation(){
+  var ticking = false;
+  function updateReadingPosition(){
+    ticking = false;
+    var active = 'home';
+    document.querySelectorAll('[data-reading-module]').forEach(function(chapter){
+      if(chapter.getBoundingClientRect().top <= MOD_SCROLL_OFFSET + 90) active = chapter.getAttribute('data-reading-module');
+    });
+    if(active !== modCurrentId){
+      modCurrentId = active;
+      modMarkActive(active);
+      modFilterSideToc(active);
+    }
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(updateReadingPosition); }
+  },{passive:true});
+  document.addEventListener('click',function(event){
+    var link = event.target.closest('a[href^="#"]');
+    if(!link || event.defaultPrevented || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    var anchor = link.getAttribute('href').slice(1);
+    if(!document.getElementById(anchor)) return;
+    event.preventDefault();
+    modEnsureFor(anchor);
+    modWriteHash(anchor,true);
+    modScrollTo(anchor);
+    if(link.closest('#sidebar') && window.innerWidth < 1100){
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sideMask').classList.remove('show');
+      document.getElementById('navBurger').setAttribute('aria-expanded','false');
+    }
+  });
+  window.addEventListener('resize',updateReadingPosition);
+  window.addEventListener('hashchange',modHandleHash);
+  window.addEventListener('popstate',modHandleHash);
+}
 function modBoot(){
+  modBuildReadingChapters();
   modRenderSideMods();
   modRenderOverview();
   renderHeroStats();
-  /* 侧栏旧锚点组的计数动态化，避免硬编码「7」随内容增减失真 */
-  Array.prototype.forEach.call(document.querySelectorAll('.side-group'), function(g){
-    var b = g.querySelector('.side-title b');
-    if(b) b.textContent = g.querySelectorAll('.side-link').length;
-  });
-  var h = location.hash.slice(1);
-  var handled = false;
-  if(h){
-    if(modRevealHomeDetail(h)){
-      modActivate('home', { noHash: true, noScroll: true, instant: true });
-      modScrollTo(h, 'auto');
-      handled = true;
-    } else if(MOD_BY_ID[h]){
-      modActivate(h, { noHash: true, instant: true });
-      handled = true;
-    } else {
-      var own = modOwnerOf(h);
-      if(own){
-        modActivate(own, { noHash: true, noScroll: true, instant: true });
-        modScrollTo(h, 'auto');
-        handled = true;
-      }
-    }
-  }
-  if(!handled) modActivate('home', { noHash: true, instant: true });
+  modFilterSideToc('home');
+  modMarkActive('home');
+  modInitReadingNavigation();
+  window.addEventListener('load',function(){ requestAnimationFrame(modHandleHash); },{once:true});
 }
-
 modBoot();
-window.addEventListener('hashchange', modHandleHash);
-window.addEventListener('popstate', modHandleHash);
 </script>
 <script>
 /* ========== 初学者起步路线与三层学习面板 ========== */
