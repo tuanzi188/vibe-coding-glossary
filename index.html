@@ -1006,9 +1006,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 }
 
 /* ===== 学习路线与贯穿式协作：样式只作用于课程区域 ===== */
-.course-shortcuts{display:grid;gap:4px;padding:8px 2px 12px;border-bottom:1px solid var(--line);}
-.course-shortcuts a{padding:9px 10px;color:var(--brand);font-size:13px;text-decoration:none;border-radius:var(--r-sm);}
-.course-shortcuts a:hover{background:var(--brand-soft);}
 .course-surface{min-width:0;margin:20px 0;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);font-size:15px;line-height:1.8;overflow-wrap:anywhere;}
 .course-surface h3{font-size:18px;color:var(--ink);margin-bottom:8px;}
 .course-surface p{color:var(--ink-2);margin:6px 0 12px;}
@@ -1143,12 +1140,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
     </a>
   </div>
   <div class="side-in">
-    <nav class="course-shortcuts" aria-label="贯穿学习入口">
-      <a href="#toolStart">起步 · 打开、运行、保存</a>
-      <a href="#learningSequence">推荐学习顺序</a>
-      <a href="#aiWorkbench">AI 协作中心 · 随时查</a>
-      <a href="#projectTrack">主线项目 · 边学边做</a>
-    </nav>
     <!-- 一级目录：12 个知识模块 + 主线项目（由模块注册表渲染，单一数据源） -->
     <div class="side-mods" id="sideMods"></div>
     <!-- 学习路径：常驻侧栏（原来在 hero 内，模块切换后 hero 被隐藏，按钮就够不着了） -->
