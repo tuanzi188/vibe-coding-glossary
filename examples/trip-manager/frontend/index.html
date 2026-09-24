@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>行程管理 · 主线项目</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <div><p class="eyebrow">主线项目 · 第一阶段</p><h1>我的行程</h1><p class="lead">这是一个真实请求、真实 SQLite 数据和真实表单校验组成的最小全栈功能。</p></div>
+      <a class="health-link" href="/healthz" target="_blank" rel="noreferrer">检查服务</a>
+    </header>
+    <section class="toolbar" aria-label="行程筛选">
+      <label>状态<select id="statusFilter"><option value="">全部</option><option value="planned">已规划</option><option value="draft">草稿</option><option value="done">已完成</option></select></label>
+      <button class="button secondary" id="reloadButton" type="button">重新加载</button><span class="toolbar-status" id="listStatus" role="status"></span>
+    </section>
+    <section class="content-grid">
+      <section class="panel"><div class="panel-heading"><h2>行程列表</h2><span id="pageMeta"></span></div><div id="listState" class="list-state">正在加载行程…</div><div id="tripList" class="trip-list"></div><div class="pagination" id="pagination"></div></section>
+      <section class="panel"><h2>新增行程</h2><form id="tripForm" class="trip-form"><label>标题<input name="title" required maxlength="80" placeholder="例如：杭州周末行"></label><label>目的地<input name="destination" required maxlength="40" placeholder="例如：杭州"></label><div class="form-row"><label>天数<input name="days" type="number" min="1" max="30" value="3" required></label><label>预算<input name="budget" type="number" min="0" step="0.01" value="2000" required></label></div><label>状态<select name="status"><option value="draft">草稿</option><option value="planned">已规划</option><option value="done">已完成</option></select></label><button class="button primary" type="submit">保存行程</button><p id="formMessage" class="form-message" role="alert"></p></form></section>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
