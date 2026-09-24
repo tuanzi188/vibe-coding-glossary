@@ -649,6 +649,27 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .api-status.s200{background:var(--green-soft);color:var(--green-ink);}
 .api-status.s422{background:#fff1f1;color:#e03131;}
 
+/* ===== M7 表设计建模 demo（.sd-* 前缀，schema design） ===== */
+.sd-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;}
+.sd-step{border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink-2);padding:6px 12px;font-size:var(--fs-2xs);cursor:pointer;transition:all .15s;}
+.sd-step:hover{border-color:var(--brand);color:var(--brand);}
+.sd-step.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand);}
+.sd-step .sd-no{font-family:var(--mono);font-size:var(--fs-3xs);font-weight:var(--fw-bold);margin-right:5px;opacity:.8;}
+.sd-panel{width:100%;background:var(--stage);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;}
+.sd-panel h4{margin:0 0 8px;font-size:var(--fs-xs);color:var(--ink);}
+.sd-panel p{margin:0 0 8px;font-size:var(--fs-2xs);color:var(--ink-2);line-height:var(--lh-base);}
+.sd-choices{display:flex;gap:6px;flex-wrap:wrap;}
+.sd-opt{border:1px solid var(--line);border-radius:var(--r-xs);background:var(--card);color:var(--ink-2);padding:5px 11px;font-size:var(--fs-2xs);cursor:pointer;transition:all .15s;text-align:left;}
+.sd-opt:hover{border-color:var(--brand);}
+.sd-opt.good{border-color:var(--green);background:var(--green-soft);color:var(--green-ink);}
+.sd-opt.bad{border-color:var(--red);background:transparent;}
+.sd-out{width:100%;margin-top:10px;background:var(--stage);border:1px dashed var(--line-strong);border-radius:var(--r-sm);padding:10px 12px;font-size:var(--fs-2xs);color:var(--ink-2);line-height:var(--lh-base);min-height:44px;}
+.sd-out .ok{color:var(--green-ink);}
+.sd-out .bad{color:var(--red);}
+.sd-schema{font-family:var(--mono);font-size:var(--fs-2xs);line-height:1.9;background:var(--surface-dark);border-radius:var(--r-sm);padding:10px 14px;color:#c8e1ff;white-space:pre;overflow-x:auto;}
+.sd-schema .fk{color:#f0b429;}
+.sd-done{color:var(--green-ink);font-weight:var(--fw-semibold);}
+
 .rag-demo{width:100%;display:flex;flex-direction:column;gap:14px;}
 .rag-query{display:flex;gap:8px;}
 .rag-query .input{flex:1;}
@@ -1087,6 +1108,22 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 .ai-check-item{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--ink-2);line-height:1.6;cursor:pointer;}
 .ai-check-item input{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--brand);}
 .ai-exercise-result{min-height:48px;margin-top:10px;padding:9px 10px;border-radius:var(--r-sm);background:var(--stage);color:var(--ink-2);font-size:13px;line-height:1.7;}
+/* M12 提示词模式库（.pm-* 前缀，prompt mode） */
+.pm-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.pm-tab{border:1px solid var(--line);border-radius:var(--r-pill);background:var(--card);color:var(--ink-2);padding:5px 13px;font-size:13px;cursor:pointer;transition:all .15s;}
+.pm-tab:hover{border-color:var(--brand);color:var(--brand);}
+.pm-tab.on{background:var(--brand);border-color:var(--brand);color:var(--on-brand);}
+.pm-body{margin-top:12px;}
+.pm-when{font-size:13px;color:var(--ink-2);margin:0 0 8px;line-height:1.7;}
+.pm-when b{color:var(--brand);}
+/* M12 AI 翻车现场（.ac-* 前缀，ai crash） */
+.ac-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start;}
+.ac-grid .course-surface{margin:0;}
+.ac-code{margin:10px 0;padding:10px 12px;border-radius:var(--r-sm);background:var(--surface-dark);color:#c8e1ff;font:12px var(--mono);line-height:1.8;overflow-x:auto;white-space:pre;}
+.ac-code .bad-line{background:rgba(224,49,49,.18);display:inline-block;width:100%;color:#ff9d9d;}
+.ac-code .fix-line{background:rgba(12,166,120,.16);display:inline-block;width:100%;color:#7fd8b4;}
+.ac-actions{display:flex;gap:8px;flex-wrap:wrap;}
+@media(max-width:900px){.ac-grid{grid-template-columns:1fr;}}
 .ai-exercise-result.ok{background:var(--green-soft);color:var(--green-ink);}
 .ai-exercise-result.warn{background:#fff8e6;color:var(--amber);}
 .ai-evidence-lines{margin:12px 0;padding:10px 12px;border-radius:var(--r-sm);background:var(--surface-dark);color:var(--code-ink);font:12px/1.8 var(--mono);white-space:pre-wrap;}
@@ -2044,6 +2081,47 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink-3);f
 <section class="group" id="m2language">
   <div class="wrap">
     <div class="group-head"><div class="tag">M2 · JavaScript 与浏览器交互</div><h2>让页面根据数据和事件真正动起来</h2><p>先看变量、调用、数组和异步如何影响结果，再学会让 AI 修改交互代码时保留状态边界和事件行为。</p></div>
+    <div class="learn-layers" id="m2LearningLayers">
+      <div class="learn-layers-head">
+        <span class="learn-layers-title">按你的节奏学</span>
+        <span class="learn-layers-hint">第一次来先看第一层，做过一次再打开后两层</span>
+      </div>
+      <div class="learn-layer-tabs" role="tablist" aria-label="M2 学习层级">
+        <button class="learn-layer-tab on" type="button" role="tab" aria-selected="true" data-learn-layer="quick">快速看懂</button>
+        <button class="learn-layer-tab" type="button" role="tab" aria-selected="false" data-learn-layer="practice">动手理解</button>
+        <button class="learn-layer-tab" type="button" role="tab" aria-selected="false" data-learn-layer="deep">工程深挖</button>
+      </div>
+      <div class="learn-layer-panel" data-learn-panel="quick">
+        <ul>
+          <li><b>JS 只做三件事：</b>听事件（点了一下）、处理数据（筛一下列表）、更新页面（改一下显示）——下面五个 demo 各演示一件。</li>
+          <li>看 this 和异步两个 demo 时，先自己猜输出顺序，再点按钮验证。猜错的地方就是你要学的。</li>
+        </ul>
+      </div>
+      <div class="learn-layer-panel" data-learn-panel="practice" hidden>
+        <ul>
+          <li>五个 demo 全部亲手点一遍；每个先预测结果再验证，重点留意「猜错」的两处。</li>
+        </ul>
+        <div class="decision-box">
+          <div class="decision-box-title">先想再看：点击「新增」却出现两条行程，先查什么？</div>
+          <button class="decision-option" type="button" data-m2-choice="dup">数据重复了，去查数组</button>
+          <button class="decision-option" type="button" data-m2-choice="bind">事件被绑了两次，去查绑定代码</button>
+          <button class="decision-option" type="button" data-m2-choice="render">渲染函数写错了</button>
+          <div class="decision-result" id="m2DecisionResult">先选一个，再看解释。</div>
+        </div>
+      </div>
+      <div class="learn-layer-panel" data-learn-panel="deep" hidden>
+        <div class="ai-task-card">
+          <h4>AI 任务卡：让 AI 给列表加筛选</h4>
+          <p>练习项目的行程列表要按状态筛选。把上下文、边界、验收一次说全，再让 AI 动手。</p>
+          <div class="ai-task-prompt">练习项目行程列表在 frontend/app.js 的 renderList()，数据字段 id、title、status（draft/ready）。
+任务：加「全部 / 草稿 / 已规划」三态筛选。
+约束：不改新增和删除逻辑；不改原数组排序；筛选状态保存在模块内，不加全局变量。
+先输出：你打算改哪几个函数、数据流怎么走，我确认后再动手。
+验收：三态切换正确；空结果有提示；连点筛选按钮不叠加事件；切回「全部」后数据完整。</div>
+          <div class="ai-task-check"><span>上下文：文件与数据流</span><span>约束：不改增删</span><span>验收：三态 + 空态 + 不叠加</span></div>
+        </div>
+      </div>
+    </div>
     <div class="demos">
       <div class="demo" id="m2Scope">
         <div class="demo-head"><span class="d-name">变量与作用域 Scope</span><span class="d-en">/ var · let · const</span></div>
@@ -2673,9 +2751,50 @@ const add = () =&gt; setN(n + 1);</div>
 <section class="group" id="backend">
   <div class="wrap">
     <div class="group-head">
-      <div class="tag">07 · 后端技术栈 Backend</div>
+      <div class="tag">M6 · HTTP 与后端工程</div>
       <h2>后端技术栈</h2>
       <p>前端组件区的另一半：Web 后端的一整套名词——从一次 HTTP 请求怎么走，到接口通信、框架、数据存储、认证授权、安全防护、部署运维、异步任务。每张卡点开是「在哪用 + 怎么跟 AI 说」；上面演示讲过的术语，这里只留一行索引、点它跳回演示。<b>先记两个最常撞见的：API（接口）就是前端调后端的那扇门；SQL 是跟数据库要数据时写的一句话。</b> <b>本区所有 demo 均为前端模拟</b>：动画和报文在浏览器里生成，不发起任何真实请求，看的是流程而不是网络。第一次来，先玩「前后端联调预演」把一次请求从头到尾走一遍，再按「初学者路线图」挑任务查卡。</p>
+    </div>
+    <div class="learn-layers" id="m6LearningLayers">
+      <div class="learn-layers-head">
+        <span class="learn-layers-title">按你的节奏学</span>
+        <span class="learn-layers-hint">第一次来先看第一层，做过一次再打开后两层</span>
+      </div>
+      <div class="learn-layer-tabs" role="tablist" aria-label="M6 学习层级">
+        <button class="learn-layer-tab on" type="button" role="tab" aria-selected="true" data-learn-layer="quick">快速看懂</button>
+        <button class="learn-layer-tab" type="button" role="tab" aria-selected="false" data-learn-layer="practice">动手理解</button>
+        <button class="learn-layer-tab" type="button" role="tab" aria-selected="false" data-learn-layer="deep">工程深挖</button>
+      </div>
+      <div class="learn-layer-panel" data-learn-panel="quick">
+        <ul>
+          <li>一次后端请求的固定剧本：<b>收请求 → 验参数 → 查数据 → 回 JSON</b>。下面每个 demo 都是剧本里的一环。</li>
+          <li>先玩「前后端联调预演」看全程，再各挑两个 demo 细看。报文看不懂没关系，先认出「请求」和「响应」长什么样。</li>
+        </ul>
+      </div>
+      <div class="learn-layer-panel" data-learn-panel="practice" hidden>
+        <ul>
+          <li>把「联调预演」的六步点亮一遍，故意输一个非法城市看 422 长什么样——<b>失败路径比成功路径更值得看</b>。</li>
+        </ul>
+        <div class="decision-box">
+          <div class="decision-box-title">先想再看：接口返回 500，第一反应是什么？</div>
+          <button class="decision-option" type="button" data-m6-choice="front">前端代码写错了，改前端</button>
+          <button class="decision-option" type="button" data-m6-choice="log">先看后端日志里的报错堆栈</button>
+          <button class="decision-option" type="button" data-m6-choice="retry">多试几次，可能是网络抖动</button>
+          <div class="decision-result" id="m6DecisionResult">先选一个，再看解释。</div>
+        </div>
+      </div>
+      <div class="learn-layer-panel" data-learn-panel="deep" hidden>
+        <div class="ai-task-card">
+          <h4>AI 任务卡：给接口补错误处理</h4>
+          <p>练习项目的创建行程接口现在非法输入直接 500。让 AI 补齐错误处理，但边界要说死。</p>
+          <div class="ai-task-prompt">练习项目 backend/app/main.py 的 POST /api/trips：city 为空或 days &lt;= 0 时返回 500 Internal Server Error。
+任务：改成返回 422，响应体 {"detail": [{"field": "...", "message": "..."}]}，与 FastAPI/Pydantic 的错误格式一致。
+约束：不改接口路径和成功时的返回结构；不动数据库模型；只加参数校验和错误响应。
+先输出：你打算在哪一层拦截（Pydantic 还是路由内），为什么。
+验收：合法输入行为不变；空 city 和 days=0 分别返回 422 且 message 可读；pytest 新增这两个用例并通过。</div>
+          <div class="ai-task-check"><span>上下文：报错现状</span><span>约束：不动模型</span><span>验收：422 + pytest</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="demos">
@@ -2919,6 +3038,27 @@ Accept: application/json</div>
           </div>
         </div>
         <div class="demo-exp"><span class="plain">关系型数据库把数据存成一张张表，行 = 一条记录，列 = 字段。ORM（SQLAlchemy）让你用 Python 对象操作表，不用手写 SQL 字符串。</span><br><span class="eg">"用 SQLite + SQLAlchemy 建三张表：用户、行程、景点，外键关联 user_id"</span></div>
+      </div>
+
+<div class="demo full" id="schemaDesign">
+        <div class="demo-head"><span class="d-name">表怎么设计 Schema Design</span><span class="d-en">/ 三步：找实体 → 定关系 → 挑字段</span></div>
+        <div class="demo-stage">
+          <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
+            <div class="sd-flow" id="sdFlow">
+              <button class="sd-step on" type="button" data-sd-step="0"><span class="sd-no">①</span>找实体：什么该存成一张表</button>
+              <button class="sd-step" type="button" data-sd-step="1"><span class="sd-no">②</span>定关系：表和表怎么连</button>
+              <button class="sd-step" type="button" data-sd-step="2"><span class="sd-no">③</span>挑字段：类型和约束</button>
+            </div>
+            <div class="sd-panel" id="sdPanel">
+              <h4 id="sdPanelH"></h4>
+              <p id="sdPanelP"></p>
+              <div class="sd-choices" id="sdChoices"></div>
+            </div>
+            <div class="sd-out" id="sdOut">按 ①②③ 顺序做选择——每一步都先自己判断，再点选项看对不对。</div>
+            <div class="sd-schema" id="sdSchema" hidden></div>
+          </div>
+        </div>
+        <div class="demo-exp"><span class="plain">设计表不是上来就写 CREATE TABLE：先分清「什么是一个东西」（实体），再定「东西之间怎么关联」（关系 + 外键），最后才挑字段和约束。<b>做完这三步，把下面的建表语句交给 AI 让它检查，比直接让 AI「帮我设计表」靠谱得多——因为判断是你自己做的。</b></span><br><span class="eg">"按这份表结构建三张表，先检查外键和约束是否合理，再生成 SQLAlchemy 模型"</span></div>
       </div>
 
 <div class="demo" id="txn">
@@ -3221,6 +3361,59 @@ python -m uvicorn backend.app.main:app --reload</pre><p>浏览器打开 http://1
   <div class="wrap">
       <div class="group-head"><div class="tag">M12 · AI 协作总结章 · 随时可查</div><h2>把一路用过的 AI 方法整理成体系</h2><p>AI 协作在每个模块和项目步骤中都已经练习过；学完整条技术线后，再用这一章把任务拆解、上下文、约束、审查、验收和排障归纳成自己的工作方法。</p></div>
     <div class="course-surface"><h3>每一步都用这套方法</h3><ol><li>用自己的话解释问题属于哪一层，先写一个判断。</li><li>给 AI 相关文件、当前行为与预期结果，要求先阅读再修改。</li><li>一次只推进一个功能，说明允许修改的范围。</li><li>检查代码差异，运行成功与失败场景，再决定是否接受。</li><li>失败时带上复现步骤、报错与最近改动，继续缩小问题范围。</li></ol></div>
+    <div class="course-surface" id="pmLibrary">
+      <h3>提示词模式库：五类任务，五套句式</h3>
+      <p class="course-note" style="margin-top:0;">同一个需求换个问法，AI 产出天差地别。每套模板都自带三件套：<b>上下文（我在哪）+ 约束（不许动什么）+ 验收（怎样算对）</b>。选一类任务，模板直接抄走改填空。</p>
+      <div class="pm-tabs" id="pmTabs">
+        <button class="pm-tab on" type="button" data-pm="new">新建功能</button>
+        <button class="pm-tab" type="button" data-pm="bug">修 Bug</button>
+        <button class="pm-tab" type="button" data-pm="style">改样式</button>
+        <button class="pm-tab" type="button" data-pm="review">审查代码</button>
+        <button class="pm-tab" type="button" data-pm="refactor">重构</button>
+      </div>
+      <div class="pm-body">
+        <p class="pm-when" id="pmWhen"></p>
+        <pre class="ai-task-prompt" id="pmPrompt"></pre>
+      </div>
+    </div>
+    <div class="course-surface" id="aiCrashScene">
+      <h3>AI 翻车现场：三类高频错误，点行看证据</h3>
+      <p class="course-note" style="margin-top:0;">AI 写的代码大多数时候能跑，翻车集中在少数几类。学会认这三类，八成的问题在运行前就能看出来。</p>
+      <div class="ac-grid">
+        <article class="course-surface">
+          <h4>翻车一：空值引用（null）</h4>
+          <p>AI 假设「元素一定存在」，可 demo 里这个 id 根本没写。</p>
+          <pre class="ac-code" data-ac="null">const btn = document.getElementById('saveBtn');
+<span class="bad-line">btn.addEventListener('click', save);</span>
+// 页面里没有 id="saveBtn" →
+// TypeError: Cannot read properties of null</pre>
+          <div class="ac-actions"><button class="btn btn-sm btn-outline" type="button" data-ac-fix="null">看修法</button></div>
+          <div class="ai-exercise-result" data-ac-out="null">先想：你会怎么改？再看修法。</div>
+        </article>
+        <article class="course-surface">
+          <h4>翻车二：定时器 / 监听叠加</h4>
+          <p>每次点击都新建一个定时器，旧的没清——点三次，功能跑三遍。</p>
+          <pre class="ac-code" data-ac="timer">btn.addEventListener('click', function(){
+  <span class="bad-line">setInterval(function(){ refresh(); }, 3000);</span>
+});
+// 点 3 次 → 3 个 interval 同时跑
+// 列表每 3 秒刷新 3 次，越点越卡</pre>
+          <div class="ac-actions"><button class="btn btn-sm btn-outline" type="button" data-ac-fix="timer">看修法</button></div>
+          <div class="ai-exercise-result" data-ac-out="timer">先想：问题出在哪一行？</div>
+        </article>
+        <article class="course-surface">
+          <h4>翻车三：硬编码魔法值</h4>
+          <p>接口地址和密钥直接写死在代码里，还提交到了 git。</p>
+          <pre class="ac-code" data-ac="magic">const res = await fetch(
+  <span class="bad-line">'http://192.168.1.5:8000/api/list?key=sk-abc123'</span>
+);
+// 换环境就挂；密钥进 git = 已泄露
+// 正确做法：地址和 key 走环境变量</pre>
+          <div class="ac-actions"><button class="btn btn-sm btn-outline" type="button" data-ac-fix="magic">看修法</button></div>
+          <div class="ai-exercise-result" data-ac-out="magic">先想：为什么「能跑」也不该提交？</div>
+        </article>
+      </div>
+    </div>
     <div class="ai-summary-grid">
       <article class="course-surface">
         <h3>练习一：先拆任务</h3>
@@ -4517,6 +4710,93 @@ if(dbTabs && dbFields){
     renderDbTable(tab.getAttribute('data-table'));
   });
 }
+
+/* ========== 表怎么设计：三步建模（先想再看 → 点选验证） ========== */
+(function(){
+  var flow = document.getElementById('sdFlow');
+  if(!flow) return;
+  var panelH = document.getElementById('sdPanelH');
+  var panelP = document.getElementById('sdPanelP');
+  var choices = document.getElementById('sdChoices');
+  var out = document.getElementById('sdOut');
+  var schemaBox = document.getElementById('sdSchema');
+  /* 每步一个问题；good 为正确项，反馈里讲清为什么错的是错的 */
+  var STEPS = [
+    { h: '① 找实体：需求里「一个东西」是什么？',
+      p: '产品说：「用户注册后可以创建多条行程，每条行程里有几个想去的景点，要能记录谁在什么时候改过它。」哪几个该存成表？',
+      opts: [
+        { t: '用户、行程、景点、修改记录', good: true, why: '对。四个都是「需要独立查询和统计的东西」：按用户查行程、按行程查景点、审计要看修改历史——各自都要一张表。' },
+        { t: '只建一张大表，所有信息塞一行', good: false, why: '塞一行意味着一个用户只有一条行程、一条行程只有一个景点，而且改一次就覆盖上次记录——把「多」的关系写死了。' },
+        { t: '用户和行程建表，景点写进行程的一个文本字段', good: false, why: '景点没法单独查（「西湖适合带孩子吗」查不了）、没法复用。凡是「要按它搜索 / 统计 / 单独展示」的，就该是独立实体。' }
+      ] },
+    { h: '② 定关系：表和表之间怎么连？',
+      p: '一个用户能建多条行程，一条行程只属于一个用户；一条行程包含多个景点，一个景点也能出现在多条行程里。关系该怎么定？',
+      opts: [
+        { t: 'users 1—N itineraries；行程和景点是多对多，要第三张关联表', good: true, why: '对。1—N 用外键；多对多靠第三张表（如 itinerary_pois）存两边的 id。这是关系库表达「多对多」的标准解法。' },
+        { t: '每张表都互相存对方全部 id 列表（逗号分隔）', good: false, why: '逗号列表没法用外键约束，删一条数据另一边就成了脏引用；也没法高效反向查。多对多请用关联表。' },
+        { t: '把用户信息复制一份存进行程表', good: false, why: '用户改了昵称要改几千行行程，漏改一处数据就不一致。只在行程表放一个 user_id 外键指向 users.id。' }
+      ] },
+    { h: '③ 挑字段：哪些字段和约束必须有？',
+      p: '建行程接口要求：必须知道是谁建的、创建时间要能排序、登录名不能重复。字段层面怎么落？',
+      opts: [
+        { t: 'user_id 外键 + created_at 默认当前时间 + username 加 UNIQUE', good: true, why: '对。归属靠外键、排序靠时间戳、唯一靠 UNIQUE 约束——约束建在数据库层，AI 写的代码漏了校验，数据库也会兜底。' },
+        { t: '字段都建成 TEXT，灵活一点', good: false, why: '天数存成 "三天" 和 3 会让排序和统计全乱；类型约束（INTEGER / REAL / DATETIME）是数据库帮你拦错的第一道闸。' },
+        { t: 'id 不用建，查的时候按行号找', good: false, why: '行号会随删除变化，没法做稳定引用。每张表都要有自增主键 id，外键全部指向它。' }
+      ] }
+  ];
+  var picked = STEPS.map(function(){ return false; });
+  var SCHEMA =
+    'users              itineraries              pois\n' +
+    'id    INTEGER PK   id     INTEGER PK        id    INTEGER PK\n' +
+    'username TEXT UNIQ ' +
+    'user_id INTEGER <span class="fk">FK→users.id</span>   name  TEXT\n' +
+    'password_hash TEXT   city   TEXT             city  TEXT\n' +
+    'created_at DATETIME days  INTEGER           lat_lng TEXT\n' +
+    '                     budget REAL            tags  TEXT\n' +
+    '                     status TEXT\n' +
+    '                     created_at DATETIME DEFAULT NOW\n\n' +
+    'itinerary_pois（行程 × 景点 关联表）\n' +
+    'itinerary_id <span class="fk">FK→itineraries.id</span>  poi_id <span class="fk">FK→pois.id</span>';
+  function renderStep(i){
+    var step = STEPS[i];
+    panelH.textContent = step.h;
+    panelP.textContent = step.p;
+    choices.innerHTML = step.opts.map(function(o, k){
+      return '<button type="button" class="sd-opt" data-sd-opt="' + k + '">' + o.t + '</button>';
+    }).join('');
+  }
+  function doneSummary(lastWhy, lastGood){
+    var allOk = picked.every(Boolean);
+    if(!allOk) return; /* 未全对时保留单题反馈，不打断 */
+    out.innerHTML = '<span class="ok sd-done">三步全对。</span> 下面是三步推导出的表结构——对照上面的「SQLite 数据库」demo 看，字段一一对应：' +
+      (lastWhy ? '<br><span class="' + (lastGood ? 'ok' : 'bad') + '">' + lastWhy + '</span>' : '');
+    schemaBox.innerHTML = SCHEMA;
+    schemaBox.hidden = false;
+  }
+  flow.addEventListener('click', function(e){
+    var stepBtn = e.target.closest('.sd-step');
+    if(!stepBtn) return;
+    var i = parseInt(stepBtn.getAttribute('data-sd-step'), 10);
+    flow.querySelectorAll('.sd-step').forEach(function(b, k){ b.classList.toggle('on', k === i); });
+    renderStep(i);
+    if(picked[i]) out.textContent = '这一步你已经选对了，可以直接继续下一步。';
+  });
+  choices.addEventListener('click', function(e){
+    var opt = e.target.closest('.sd-opt');
+    if(!opt) return;
+    var stepIdx = parseInt(flow.querySelector('.sd-step.on').getAttribute('data-sd-step'), 10);
+    var i = parseInt(opt.getAttribute('data-sd-opt'), 10);
+    var info = STEPS[stepIdx].opts[i];
+    choices.querySelectorAll('.sd-opt').forEach(function(b, k){
+      b.classList.toggle('good', k === i && info.good);
+      b.classList.toggle('bad', k === i && !info.good);
+    });
+    if(info.good) picked[stepIdx] = true;
+    out.innerHTML = (info.good ? '<span class="ok">✔ </span>' : '<span class="bad">✘ </span>') + info.why;
+    doneSummary();
+  });
+  renderStep(0);
+})();
 
 /* 同步 vs 异步 */
 var saTasks = [
@@ -6856,10 +7136,71 @@ modBoot();
       });
     });
   }
+  function initPromptLibrary(){
+    var tabs = document.getElementById('pmTabs');
+    if(!tabs) return;
+    var whenEl = document.getElementById('pmWhen');
+    var promptEl = document.getElementById('pmPrompt');
+    var MODES = {
+      new: {
+        when: '<b>什么时候用：</b>要加一个新功能。关键是先让 AI 读现状、报计划，不直接写代码——它读完给的计划，就是你要的判断依据。',
+        prompt: '在 index.html 的行程列表（.demo#feAssemble）加「按状态筛选」。\n现有字段：id、title、status（draft / ready）。\n约束：只改列表渲染和筛选按钮，不改新增/删除逻辑，不引入依赖。\n先输出：你的修改计划（改哪些函数、顺序如何），我确认后再写代码。\n验收：全部/草稿/已规划 三态切换正确；空结果有提示；原排序不变。'
+      },
+      bug: {
+        when: '<b>什么时候用：</b>出了报错或行为不对。关键是给全证据链（复现步骤 → 报错原文 → 最近改动），并禁止 AI 大范围重写。',
+        prompt: 'Bug 现象：点「保存」后按钮一直转圈。\n复现：填完表单点保存，100% 复现。\n证据：Network 显示 POST /api/plan 返回 422，响应体 {"detail":[...]}；Console 无报错；最近改动：把字段 city 改名为 destination。\n约束：先解释 422 与哪个字段有关，给出最小修复；不要重写整个请求层。\n验收：保存成功且 loading 停止；非法输入能看到字段级错误提示。'
+      },
+      style: {
+        when: '<b>什么时候用：</b>只动外观不改行为。关键是把「不许变的行为」逐条列出来——样式改动最容易顺手碰坏交互。',
+        prompt: '把 .starter-grid 卡片区改成：桌面三列、≤560px 一列。\n约束：只改这一个组件相关的 CSS；不改 HTML 结构、不改任何按钮的点击行为；不新增依赖。\n先说明用 Flex 还是 Grid、为什么。\n验收：两种宽度下文字不溢出、按钮仍可点击；其他区域外观零变化。'
+      },
+      review: {
+        when: '<b>什么时候用：</b>AI 给了一大段改动，你接不接受之前先让它自己讲一遍。注意：是「解释」，不是「再改」。',
+        prompt: '这是本次改动的 git diff（贴在下方）。\n任务：逐文件解释改了什么、为什么；列出：①与需求无关的改动 ②可能破坏的现有行为 ③缺少的验证步骤。\n约束：只解释和评估，不要修改任何代码。\n验收：我能据此判断每个文件该接受、该撤回，还是需要补验证。\n\n（粘贴 git diff 输出）'
+      },
+      refactor: {
+        when: '<b>什么时候用：</b>代码能跑但很乱。关键是「行为锁定」——重构前后行为必须完全一致，靠测试兜底。',
+        prompt: '把 backend/app/main.py 里重复出现的校验逻辑抽成一个公共函数。\n约束：接口路径、参数、返回格式、状态码全部不变；不新增依赖；分两步：先给出抽取计划，我确认后再改。\n验收：pytest 全绿；手工测一遍新增（合法 + 非法输入）行为与重构前一致。'
+      }
+    };
+    function setMode(key){
+      var mode = MODES[key];
+      if(!mode) return;
+      tabs.querySelectorAll('.pm-tab').forEach(function(t){ t.classList.toggle('on', t.getAttribute('data-pm') === key); });
+      whenEl.innerHTML = mode.when;
+      promptEl.textContent = mode.prompt;
+    }
+    tabs.addEventListener('click', function(e){
+      var tab = e.target.closest('.pm-tab');
+      if(tab) setMode(tab.getAttribute('data-pm'));
+    });
+    setMode('new');
+  }
+  function initAiCrashScene(){
+    var scene = document.getElementById('aiCrashScene');
+    if(!scene) return;
+    var FIX = {
+      null: '修法：先判空再绑定——const btn = document.getElementById("saveBtn"); if (btn) btn.addEventListener(...)。更根本的做法：问 AI「为什么这个 id 不存在」——多半是它猜了一个页面里没有的元素名。验收：清空元素名再运行，应得到明确提示而不是 TypeError。',
+      timer: '修法：定时器存到变量，二次点击先 clearInterval；或者干脆移到事件外只建一次。验收标准你自己定：连点 5 次后，Network 面板里每 3 秒应该只有 1 次刷新请求，而不是 5 次。',
+      magic: '修法：地址和密钥移进环境变量（前端用 import.meta.env，后端用 os.environ），.env 加进 .gitignore。记住这条铁律：密钥只要提交过一次就视为已泄露，删代码没用，必须立刻轮换 key。'
+    };
+    scene.addEventListener('click', function(e){
+      var btn = e.target.closest('[data-ac-fix]');
+      if(!btn) return;
+      var key = btn.getAttribute('data-ac-fix');
+      var out = scene.querySelector('[data-ac-out="' + key + '"]');
+      if(out){
+        out.className = 'ai-exercise-result ok';
+        out.textContent = FIX[key];
+      }
+    });
+  }
   renderCourseSequence();
   renderProjectSteps();
   initAiTaskBuilder();
   initAiSummaryExercises();
+  initPromptLibrary();
+  initAiCrashScene();
 })();
 
 /* ========== M10 工具链交互示例 ========== */
@@ -6966,6 +7307,30 @@ modBoot();
   if(m2CycleBtn) m2CycleBtn.addEventListener('click', function(){
     var output = document.getElementById('m2CycleOut');
     if(output) output.textContent = '告警：C 反向 import A，依赖变成 A → B → C → A，拆出共同模块或反转依赖。';
+  });
+  /* M2 先想再看：新增出现两条行程，先查什么（正解：事件重复绑定） */
+  var m2DecisionResult = document.getElementById('m2DecisionResult');
+  var m2DecisionText = {
+    dup:'数组重复确实会显示两条，但「点一次新增两条」更常见的原因在事件层——先取证再下结论。',
+    bind:'对。每次初始化都 addEventListener 而没防重复，点一次就触发两次新增。取证方法：在处理函数里 console.count 一下，看一次点击打了几次。',
+    render:'渲染函数写错通常表现为「显示错」而不是「数据多」。两条行程说明数据层已经双份了，先查为什么存了两次。'
+  };
+  document.querySelectorAll('[data-m2-choice]').forEach(function(option){
+    option.addEventListener('click', function(){
+      if(m2DecisionResult) m2DecisionResult.textContent = m2DecisionText[option.getAttribute('data-m2-choice')] || '先观察现象，再选排查顺序。';
+    });
+  });
+  /* M6 先想再看：接口 500 第一反应（正解：先看后端日志） */
+  var m6DecisionResult = document.getElementById('m6DecisionResult');
+  var m6DecisionText = {
+    front:'500 是服务端错误状态码，先别动前端。前端只有在 4xx 时才需要先自查传参。',
+    log:'对。500 = 服务端内部异常，后端日志里有完整堆栈和出错行号——把它连同触发请求一起交给 AI，定位最快。',
+    retry:'网络抖动通常表现为超时或 502/503，稳定的 500 几乎必然是代码异常。重试掩盖不了 bug。'
+  };
+  document.querySelectorAll('[data-m6-choice]').forEach(function(option){
+    option.addEventListener('click', function(){
+      if(m6DecisionResult) m6DecisionResult.textContent = m6DecisionText[option.getAttribute('data-m6-choice')] || '先想状态码属于哪一层，再选动作。';
+    });
   });
 
   var m3PropsInput = document.getElementById('m3PropsInput');

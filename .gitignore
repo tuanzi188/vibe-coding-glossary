@@ -6,3 +6,9 @@ _backup/
 _tmp_*
 # 日志
 *.log
+# Python 运行产物
+__pycache__/
+.pytest_cache/
+*.pyc
+# 示例项目运行数据
+examples/trip-manager/backend/data/*.db

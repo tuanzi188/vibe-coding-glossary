@@ -48,6 +48,22 @@ def inspect_learning_page():
         assert "完整命令" in page.locator("#toolChecklistOut").text_content()
         page.locator('[data-tool-diff="secret"]').click()
         assert "停止提交" in page.locator("#toolDiffOut").text_content()
+        # M7 表设计三步建模：三步全选对后展示 schema
+        page.locator('[data-sd-step="0"]').click()
+        page.locator('#sdChoices .sd-opt').first.click()
+        assert "✔" in page.locator("#sdOut").text_content()
+        page.locator('[data-sd-step="1"]').click()
+        page.locator('#sdChoices .sd-opt').first.click()
+        page.locator('[data-sd-step="2"]').click()
+        page.locator('#sdChoices .sd-opt').first.click()
+        assert "三步全对" in page.locator("#sdOut").text_content()
+        assert page.locator("#sdSchema").is_visible()
+        # M12 提示词模式库：切到「修 Bug」出现证据链模板
+        page.locator('[data-pm="bug"]').click()
+        assert "复现" in page.locator("#pmPrompt").text_content()
+        # M12 AI 翻车现场：点「看修法」出修法说明
+        page.locator('[data-ac-fix="timer"]').click()
+        assert "clearInterval" in page.locator('[data-ac-out="timer"]').text_content()
         page.screenshot(path=str(shots / "reading-home-desktop.png"))
         page.locator('.home-choice[href="#m1"]').click()
         page.wait_for_timeout(150)
